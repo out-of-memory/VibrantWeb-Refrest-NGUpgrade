@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { HttpSettings } from '../../services/http/http.settings';
-import { CacheService } from '../../services';
+import { HttpSettings } from '../../servicesFolder/http/http.settings';
+import { CacheService } from '../../servicesFolder/CacheService';
 import { FileExtension } from '../../infrastructure/pipes/pipes';
 
 @Component({
@@ -45,7 +45,7 @@ import { FileExtension } from '../../infrastructure/pipes/pipes';
             overflow:visible;
         }
     `]
-    , pipes: [FileExtension]
+   // , pipes: [FileExtension]
 })
 
 export class FileUpload {

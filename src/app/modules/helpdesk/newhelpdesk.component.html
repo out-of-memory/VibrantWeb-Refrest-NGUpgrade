@@ -1,0 +1,79 @@
+<div id="helpdesk-newticket" class="col s12 padding-zero tab-content" style="display: block;">
+    <div class="row padding-20">
+        <div class="col s12 padding-zero">
+            <div class="card white approvals-card margin-zero padding-zero">
+                <div class="padding-15-0">
+                    <div class="row margin-zero display-flex">
+                        <div class="col s12 l6">
+                            <div class="col s12 l6 row padding-25">
+                                <select placeholder="Categories" [ngModel]="helpDeskModel.categoryID" materialize="material_select" [materializeSelectOptions]="categotyCollection"
+                                    (change)="onCategorySelected($event.target.value)">
+                                                <option *ngFor="let option of categotyCollection" [value]="option.id">{{option.text}}</option>
+                                        </select>
+                                            <h6 class="active-select">Category</h6>
+                            </div>
+                            <div class="col s12 l6 row padding-25 custom-select">
+                                <select placeholder="SubCategories" [ngModel]="helpDeskModel.subCategoryID" materialize="material_select" [materializeSelectOptions]="subCategoryCollection"
+                                    (change)="onSubCategorySelected($event.target.value)">
+                                                <option *ngFor="let option of subCategoryCollection" [value]="option.id">{{option.text}}</option>
+                                        </select>
+                                            <h6 class="active-select">Sub Category</h6>
+                            </div>
+                            <ui-form #addTicketForm [controlMetas]="helpDeskHub" [model]="helpDeskModel" [formReadonly]='false' [errorOnlyOnSubmit]='formSubmitted' formCss='' controlCss=''>
+                                <ui-control-item for='requiredTill' behaviours='[{"name":"min","value":"Today"}]'></ui-control-item>
+                            </ui-form>
+                            <div class="col s12 m6 row padding-25 padding-zero">
+                                <file-upload [PlaceHolder]='"Upload Image"' [ModuleType]='"helpdesk"' [fileurl]="helpDeskModel.attachedFiles" (validateImage)="showImageModal($event)"
+                                    (Uploaded)='FileUploaded($event)'></file-upload>
+                            </div>
+                        </div>
+                        <div class="col s12 l6 comments-section">
+                            <h5 class="margin-zero p-left10">Comments</h5>
+                            <div class="comments-scrollable">
+                                <div class="row m-top10">
+                                    <div class="col s12" *ngIf="attachedFilesArray.length > 0">
+                                        <div class="user-comments right-arrow">
+                                            <div class="row margin-zero">
+                                                <div class="col s12 l6" *ngFor="let attachedFile of attachedFilesArray">
+                                                    <div class="attached-document">
+                                                        <div class="row valign-wrapper margin-zero">
+                                                            <div class="col s6">
+                                                                <div class="view-form-info">
+                                                                    <h5>{{attachedFile|filename}}</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col s6 valign right-align">
+                                                                <a (click)="removeAttachment(attachedFile)"><i class="fa fa-trash icon-btn remove" aria-hidden="true" title="Remove"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-field col s12 padding-10">
+                                <ui-form #addTicketCommentsForm [controlMetas]="helpDeskCommentHub" [model]="helpDeskCommentModel" [formReadonly]='false'
+                                    [errorOnlyOnSubmit]='formSubmitted' formCss='' controlCss=''></ui-form><span>(Maximum 900 characters)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer padding-15-0 m-bottom5 top-divider">
+                    <div class="row valign-wrapper margin-zero">
+                        <div class="col s12 right-align">
+                            <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel" href="#">Cancel</a>
+                            <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='addUpdateTickets(addTicketForm.mainForm,addTicketCommentsForm.mainForm)'>Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

@@ -11,7 +11,7 @@ import {ControlsModule} from './../../../infrastructure/ControlsModule';
     CommonModule,
     ControlsModule,
     RouterModule.forChild([
-            { path: 'approvals/expense/...', component: ExpApprovalComponent,
+            { path: 'approvals/expense', component: ExpApprovalComponent,
               children: [
                             { path: 'new', component: ExpenseApprovalComponent },
                             { path: 'history', component: ExpenseApprovalHistoryComponent }

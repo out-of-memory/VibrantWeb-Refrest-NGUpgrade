@@ -23,6 +23,7 @@ import { SideNavPanelModule } from './infrastructure/SideNavPanelModule';
 import { AttendanceModule } from './modules/attendance/attendance.module';
 import { LeaveModule } from './modules/leave/leave.module';
 import { ApprovalsModule } from './modules/approvals/approvals.module';
+import { HelpdeskModule } from './modules/helpdesk/helpdesk.module';
 
 
 
@@ -30,6 +31,7 @@ import { ApprovalsModule } from './modules/approvals/approvals.module';
 @NgModule({
   declarations: [
     AppComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ import { ApprovalsModule } from './modules/approvals/approvals.module';
     SideNavPanelModule,
     LeaveModule,
     ApprovalsModule,
+    HelpdeskModule,
     ReportsModule
     
   ],
