@@ -1,0 +1,22 @@
+<div id="table-wrapper">
+	<div id="table-scroll">
+		<table class="striped responsive-table">
+			<thead *ngIf="uiGridConfig.RequireHeader">
+				<tr role="row">
+					<th *ngFor="let column of gridColumns" (click)="uiGridConfig.SortingEnabled?sort(column.name):'' ">
+						<span>{{column.label}}</span>
+						<i *ngIf="(sortType == column.name && column.sort==1 && uiGridConfig.SortingEnabled)" class="buttonArrowDown"></i>
+						<i *ngIf="(sortType == column.name &&  column.sort==0 && uiGridConfig.SortingEnabled)" class="buttonArrowUp"></i>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let row of gridRows">
+					<td *ngFor="let column of gridColumns">{{getData(row, column.name)}}</td>
+				</tr>
+				<ng-content></ng-content>
+
+			</tbody>
+		</table>
+	</div>
+</div>

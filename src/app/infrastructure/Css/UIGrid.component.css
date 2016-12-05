@@ -1,0 +1,77 @@
+ /*table {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+}*/
+table th {
+	background:#d8dbda ;
+	border-width: 1px;
+	padding: 10px;
+  cursor:pointer;
+  width:150px;
+	border-style: solid;
+	border-color: #999999;
+}
+table td {
+	background:#eeeeee;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #999999;
+}
+
+.container{
+    border-radius: 25px;
+    background: #b5cfd2;
+    padding: 20px; 
+    margin: 5px
+}
+
+input{
+    float:right;
+}
+.buttonArrowUp{
+  background-image: url(../../app/infrastructure/Css/images/up_arrow.png);
+  background-repeat: no-repeat;
+  background-color:transparent!important;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  width:20px;
+  Height:20px;
+  float: right;
+}
+.buttonArrowDown{
+  background-image: url(../../app/infrastructure/Css/images/down_arrow.png);
+  background-repeat: no-repeat;
+  background-color:transparent!important;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  width:20px;
+  Height:20px;
+  float: right;
+}
+
+table {
+  border: solid 1px #dddddd;
+}
+select {
+  display: block;
+}
+
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:500px;
+  overflow:auto;  
+  margin-top:20px;
+}
+#table-wrapper table {
+  width:100%;
+
+}

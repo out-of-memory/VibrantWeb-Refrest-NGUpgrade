@@ -1,0 +1,280 @@
+<div class="breadcrumb-nav">
+    <div class="row margin-zero">
+        <div class="col s12">
+            <h5>Dashboard
+            </h5>
+        </div>
+    </div>
+</div>
+<div class="grid-container">
+    <div class="row p-reset margin-zero">
+        <div class="col s12">
+            <div class="dashboard-data-container">
+
+                <div class="card white emp-dashboard-data">
+                    <div class="row m-bottom0">
+                        <div class="col s12 blue-bg-section padding15 emp-wrapper right-align">
+                            <div>
+                                <h5>{{results.id}}</h5>
+                                <h5>{{results.firstName}} {{results.middleName}} {{results.lastName}}</h5>
+                            </div>
+                            <div class="emp-img">
+                                <img src="{{'/images/'+results.imagePath+''}}" alt="" class="circle responsive-img">
+                            </div>
+                        </div>
+                        <div class="col s12 right-align padding15">
+                            <h6>{{results.currentDesignation}}</h6>
+                            <h6><span class="location" *ngIf="results.seatingLocation"><i class="fa fa-map-marker"></i> {{results.seatingLocation}}, </span>{{results.olText}}</h6>
+                            <h6>{{results.organizationEmail}}</h6>
+                            <h6 *ngIf='results.residenceNumber != 0'>t : {{results.residenceNumber}}</h6>
+                            <h6>m : {{results.mobile}}</h6>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <a href="#/my/profile/professional" class="btn-flat">PROFESSIONAL</a>
+                        <a href="#/my/profile/personal" class="btn-flat">PERSONAL</a>
+                    </div>
+                </div>
+
+                <div class="card white attendance-dashboard-data">
+                    <div class="row m-bottom0">
+                        <div class="col s12">
+                            <h5>Attendance <span class="right">{{date | date:'MM/dd/yyyy'}}</span></h5>
+                        </div>
+                    </div>
+                    <a href="#/my/attendance" class="attendance-view">
+                        <div class="attendance-time">
+                            <h4>{{attendanceModel.signInTime | slice : 0:-3}} </h4>
+                            <h6 class="content-text">In Time</h6>
+                        </div>
+                        <div class="attendance-time">
+                            <h4 *ngIf="attendanceModel.signOutTime != '00:00:00'">{{attendanceModel.signOutTime | slice : 0:-3}}</h4>
+                            <h4 *ngIf="attendanceModel.signOutTime == '00:00:00'">--:--</h4>
+                            <h6 class="content-text">Out Time</h6>
+                        </div>
+                    </a>
+                    <div class="data-footer custom-btn-holder" *ngIf="results.ol == 2">
+                        <a *ngIf="!isSignIn" class="waves-effect waves-light btn sign-in" title="Sign In" (click)='PerformAutoSignIn($event, "SignIn")'><i class="left"><img src="assets/images/sign-in.png"></i><span class="hide-on-small-only">Sign In</span></a>
+                        <a *ngIf="!isSignOut && isSignIn" class="waves-effect waves-light btn sign-in" title="Sign Out" (click)='PerformAutoSignIn($event, "SignOut")'><i class="left"><img src="assets/images/signout.png"></i><span class="hide-on-small-only">Sign Out</span></a>
+                        <a class="waves-effect waves-light btn manual" title="Manual" href="#/my/attendance"><i class="left"><img src="assets/images/manual-icon.png"></i><span class="left">Manual</span></a>
+                    </div>
+                </div>
+                <div class="card white" *ngIf='approvals.length>0'>
+                    <div class="row m-bottom0">
+                        <div class="col s12">
+                            <h5>Approvals</h5>
+                        </div>
+                    </div>
+                    <div class="row dashboard-view-content">
+                        <div class="collection">
+                            <a *ngFor='let approval of approvals' href="#/approvals/{{approval.module|module:'small'}}" class="collection-item">{{approval.module|module:'cap'}}<span class="badge">{{approval.count}}</span></a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card white" *ngIf='myTeamList.length > 0'>
+                    <div class="row m-bottom0">
+                        <div class="col s12">
+                            <h5>My Team</h5>
+                        </div>
+                    </div>
+                    <div class="row dashboard-view-content">
+                        <ul class="collection my-team-section margin-zero" *ngIf='myTeamList.length > 3'>
+                            <li class="collection-item avatar" *ngFor='let l of myTeamList2Count'>
+                                <a>
+                                    <img src="/images/{{l.employeeTeamProfile.imagePath}}" alt="" class="circle">
+                                    <h5>{{l.employeeTeamProfile.id}} </h5>
+                                    <h5 class="title">{{l.employeeTeamProfile.firstName}} {{l.employeeTeamProfile.lastName}}</h5>
+                                </a>
+                                <h6><a>m : {{l.employeeTeamProfile.mobile}} </a></h6>
+                            </li>
+                        </ul>
+                        <ul class="collection my-team-section margin-zero" *ngIf='myTeamList.length <= 3'>
+                            <li class="collection-item avatar" *ngFor='let l of myTeamList'>
+                                <a>
+                                    <img src="/images/{{l.employeeTeamProfile.imagePath}}" alt="" class="circle">
+                                    <h5>{{l.employeeTeamProfile.id}} </h5>
+                                    <h5 class="title">{{l.employeeTeamProfile.firstName}} {{l.employeeTeamProfile.lastName}}</h5>
+                                </a>
+                                <h6><a>m : {{l.employeeTeamProfile.mobile}} </a></h6>
+                            </li>
+                        </ul>
+                        <label *ngIf='myTeamList.length > 3' class="read-more-trigger" (click)="ShowMoreMyTeam($event)">Show More</label>
+                        <label class="read-less-trigger" (load)="ShowLessMyTeam($event)" (click)="ShowLessMyTeam($event)" style="display:none;">Show Less</label>
+                    </div>
+                </div>
+                <div class="card white attendance-dashboard-data">
+                    <div class="row m-bottom0 leave-bg">
+                        <div class="col s6">
+                            <h5>Leave</h5>
+                        </div>
+                        <div class="col s6 right-align upcoming-holiday">
+                            <h6>Upcoming Holiday</h6>
+                            <h6>{{holidayModel.holidayDate}}</h6>
+                            <h6>{{holidayModel.description}}</h6>
+                        </div>
+                        <a href="#/my/leaves">
+                            <div class="leaves-data">
+                                <h5>{{noOfLeaves}}</h5>
+                                <h6>Available Leave</h6>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="data-footer">
+                        <a href="#/my/leaves" class="btn-flat">APPLY FOR LEAVE</a>
+                        <a class="btn-flat" (click)="openHolidayList(results.ol)">HOLIDAY LIST</a>
+                    </div>
+                </div>
+
+                <!--<div class="card white" id="helpdesk-with-records">
+                    <div class="row m-bottom0">
+                        <div class="col s12">
+                            <h5>Help Desk
+                                <a href="#" class="info-btn" id="helpdesk"><i class="right fa fa-dot-circle-o" aria-hidden="true"></i></a>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row dashboard-view-content">
+                        <div class="col s12 dashboard-view-data">
+                            <div class="left">
+                                <h5><span>#32456</span> Amol Naresh</h5>
+                                <h6 class="content-text">Can not login to the site from past 3 days</h6>
+                            </div>
+                            <a class="right"><i class="fa fa-clock-o status-pending" aria-hidden="true" title="Pending"></i></a>
+                        </div>
+                    </div>
+                    <div class="row dashboard-view-content">
+                        <div class="col s12 dashboard-view-data">
+                            <div class="left">
+                                <h5><span>#98775</span> Neha Subad</h5>
+                                <h6 class="content-text">Can not login to the site from past 3 days</h6>
+                            </div>
+                            <a class="right"><i class="fa fa-clock-o status-pending" aria-hidden="true" title="Pending"></i></a>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <a class="btn-flat">REPORT ISSUE</a>
+                        <a class="btn-flat">ALL ISSUES</a>
+                    </div>
+                </div>-->
+                <div class="card white" id="helpdesk-with-records" *ngIf="rowData.length > 0 || showHelpDeskStatusDetails">
+                    <div class="row m-bottom0">
+                        <div class="col s12">
+                            <h5>Help Desk
+                                <div class="right">
+                                    <div [hidden]="!showHelpDeskStatusDetails">
+                                        <a href="#" class="info-btn" id="helpdesk-toggle" (click)="showHelpDeskStatusToggle = !showHelpDeskStatusToggle"><i class="fa fa-circle" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                    <div id="helpdesk-user-view" *ngFor='let ticket of rowData' [hidden]="!showHelpDeskStatusToggle">
+                        <div class="row dashboard-view-content">
+                            <div class="col s12 dashboard-view-data">
+                                <div class="left">
+                                    <h5><span>{{ticket.number}}</span>{{ticket.requestedBy}}</h5>
+                                    <h6 class="content-text">{{ticket.description}}</h6>
+                                </div>
+                                <a class="right"><i class="fa fa-clock-o status-pending" aria-hidden="true" title="Pending"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="helpdesk-admin-view" [hidden]="showHelpDeskStatusToggle">
+                        <div class="row dashboard-view-content">
+                            <div class="collection m-bottom0">
+                                <a *ngFor='let ticket of pendingHelpDeskTickets' href="/#/my/helpdesk/ticketlist/{{ticket.status}}" class="collection-item">{{ticket.status|ticketstatus}}<span class="badge">{{ticket.count}}</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <a class="btn-flat" href="/#/my/helpdesk/newticket">REPORT ISSUE</a>
+                        <a class="btn-flat" href="/#/my/helpdesk/ticketlist/0">ALL ISSUES</a>
+                    </div>
+                </div>
+
+				<div class="card white card-bg helpdesk-bg" id="helpdesk-without-records" *ngIf="!showHelpDeskStatusDetails && rowData.length == 0">
+                    <div class="row m-bottom0 height-60">
+                        <div class="col s12">
+                            <h5>Help Desk</h5>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <a class="btn-flat" href="/#/my/helpdesk/newticket">REPORT ISSUE</a>
+                    </div>
+                </div>
+
+				<div class="card white" id="expense-with-records" *ngIf="submittedExpense">
+					<div class="row m-bottom0">
+						<div class="col s12">
+							<h5>Expense Request
+								<!--<a class="info-btn" id="expense"><i class="right fa fa-dot-circle-o" aria-hidden="true"></i></a>-->
+							</h5>
+						</div>
+					</div>
+					<div *ngFor="let item of submittedExpense">
+						<div class="row dashboard-view-content">
+							<div class="col s12 dashboard-view-data">
+								<div class="left">
+									<h5><span>#{{item.expenseId}}</span> {{item.reimbursementTitle}}</h5>
+									<!--<h6 class="content-text">{{item.lastcomments}}</h6>-->
+								</div>
+								<a href="#/my/expense/submitted" class="right"><i class="{{item.onStageStatus|approvalstatus}}" aria-hidden="true" title="{{item.onStageStatus|approvalstatusTitle}}"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="data-footer">
+						<a href="#/my/expense" class="btn-flat">NEW REQUEST</a>
+						<a href="#/my/expense/submitted" class="btn-flat">ALL REQUESTS</a>
+					</div>
+				</div>
+
+                <div class="card white card-bg expense-bg " id="expense-without-records" *ngIf="submittedExpense == undefined">
+                    <div class="row m-bottom0 height-60">
+                        <div class="col s12">
+                            <h5>Expense Request</h5>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <a href="#/my/expense" class="btn-flat">NEW REQUEST</a>
+                    </div>
+                </div>
+                <div class="card white card-bg travel-bg phase2" id="travel-without-records">
+                    <div class="row m-bottom0 height-60">
+                        <div class="col s12">
+                            <h5>Travel</h5>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <span class="btn-flat">Upcoming.. </span>
+                    </div>
+                </div>
+
+                <div class="card white card-bg appraisal-bg phase2">
+                    <div class="row m-bottom0 height-60">
+                        <div class="col s12">
+                            <h5>Appraisal</h5>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <span class="btn-flat">Upcoming.. </span>
+                    </div>
+                </div>
+
+                <div class="card white card-bg separation-bg phase2">
+                    <div class="row m-bottom0 height-60">
+                        <div class="col s12">
+                            <h5>Separation</h5>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <span class="btn-flat">Upcoming.. </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="holiday-modal">
+    
+</div>

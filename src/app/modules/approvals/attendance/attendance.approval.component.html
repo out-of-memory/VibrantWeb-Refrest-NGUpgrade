@@ -1,0 +1,60 @@
+<div class="breadcrumb-nav">
+    <div class="row margin-zero">
+        <div class="col s12">
+            <h5>Attendance Approval
+                <span class="right mandatory-message">
+                    US<a href="#"><img class="flag-img" src="assets/images/us-flag.png" /></a>
+                    IND<a href="attendance-india.html"><img class="flag-img" src="assets/images/india-flag.png" /></a>
+                </span>
+            </h5>
+        </div>
+    </div>
+</div>
+<div class="attendance-wrapper p-top5">
+    <div class="row m-bottom0 valign-wrapper">
+        <div class="col s6 m3 l1">
+            <div>
+                <select materialize="material_select" [materializeSelectOptions]="monthCollection" [(ngModel)]="currentMonth" (change)="onMonthSelected($event.target.value)">
+                     <option *ngFor="let option of monthCollection" [value]="option.value">{{option.label}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col s6 m3 l1">
+            <div class="input-field margin-zero">
+                <select materialize="material_select" [materializeSelectOptions]="yearCollection" [(ngModel)]="currentYear" (change)="onYearSelected($event.target.value)">
+                     <option *ngFor="let option of yearCollection" [value]="option.value">{{option.label}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="table-container padding-zero">
+        <div class="row m-bottom5">
+            <div class="col s12">
+                <div>
+                    <basic-grid [(source)]='rowData' gridPagination='bottom' gridOptions='{"colWidths":[25,25,20,30],"widthType":"%","useScroll":true}'>
+                        <basic-cell cell='' headerLabel='Employee Name'>
+                            <template let-item='row'>
+                                <span></span>
+                            </template>
+                        </basic-cell>
+                        <basic-cell cell='' headerLabel='SignIn | SignOut Time'>
+                            <template let-item='row'>
+                                <span></span>
+                            </template>
+                        </basic-cell>
+                        <basic-cell cell='' headerLabel='Date'>
+                            <template let-item='row'>
+                                <span></span>
+                            </template>
+                        </basic-cell>
+                        <basic-cell cell='' headerLabel='Narration'>
+                            <template let-item='row'>
+                                <span></span>
+                            </template>
+                        </basic-cell>
+                    </basic-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

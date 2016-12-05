@@ -1,0 +1,94 @@
+<div id="" class="col s12 tab-content padding-zero" style="display: block;">
+    <div class="row main-data-container">
+        <div class="col s12 padding-zero">
+            <div class="reimbursement-wrapper approvals-data" *ngIf="rowData.length > 0">
+                <div class="row m-bottom0 header hide-on-med-and-down">
+                    <div class="col s12 m2 offset-m3">
+                        <h5 class="title">From > To</h5>
+                    </div>
+                    <div class="col s12 m1">
+                        <h5 class="title">Leave Type</h5>
+                    </div>
+                    <div class="col s12 m1">
+                        <h5 class="title">Leaves</h5>
+                    </div>
+                    <div class="col s12 m1">
+                        <h5 class="title">Narration</h5>
+                    </div>
+                </div>
+                <div class="approvals">
+                    <basic-grid [(source)]='rowData' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false}'
+                        [isHeaderVisible]=false>
+                        <basic-cell>
+                            <template let-item='row'>
+                                <div class="approvals-wrapper">
+                                    <div class="row m-bottom0">
+                                        <div class="col s12 m10 offset-m1 l3">
+                                            <div class="row m-bottom0 employee-data">
+                                                <div class="col s12 m4 center-align">
+                                                    <div class="employee-search-img">
+                                                        <img src="images/{{item.model.imagePath}}" alt="" class="circle responsive-img">
+                                                    </div>
+                                                    <div class="employee-id">
+                                                        <h5>{{item.model.userId}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col s12 m8 search-result-align">
+                                                    <div class="employee-name">
+                                                        <h5>{{item.model.userName}}</h5>
+                                                    </div>
+                                                    <div class="employee-profile">
+                                                        <h6> {{item.model.currentDesignation}}</h6>
+                                                        <h6> {{item.model.olText}}</h6>
+                                                    </div>
+                                                    <div class="employee-contact-info">
+                                                        <h6 class="email-id">{{item.model.email}}</h6>
+                                                        <h6 *ngIf="item.model.residenceNumber != 0">t : +91 {{item.model.residenceNumber}}</h6>
+                                                        <h6>m : +91 {{item.model.mobile}}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Date</span>{{item.model.fromDate}}
+                                            <img class="arrow-right-img" src="assets/images/arrow-right.png"> {{item.model.toDate}}
+                                        </div>
+                                        <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Leave Type</span>
+                                            <span *ngIf="item.model.leaveType == 0">Comp Off</span>
+                                            <span *ngIf="item.model.leaveType == 1">Leave</span>
+                                            <span *ngIf="item.model.leaveType == 2">LWP</span>
+                                            <span *ngIf="item.model.leaveType == 3">Maternity</span>
+                                            <span *ngIf="item.model.leaveType == 4">Paternity</span>
+                                            <span *ngIf="item.model.leaveType == 5">LL</span>
+                                        </div>
+                                        <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Leaves</span>{{item.model.leaves}}</div>
+                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Narration</span><span [innerHtml]="item.model.narration"></span></div>
+                                        <div class="col s12 m6 l3 align-bottom padding-zero">
+                                            <div class="row">
+                                                <div class="col s1 m1 l1"><i class="{{item.model.status|approvalstatus}}" aria-hidden="true" title="{{item.model.status|approvalstatusTitle}}"></i></div>
+                                                <div class="col s11 m5 l4">
+                                                    <div class="comment-status">{{item.model.status|approvalstatusTitle}}</div>
+                                                </div>
+                                                <div class="col s11 m6 l7">
+                                                    <div class="comment-status" *ngIf="item.model.status == 2">{{item.model.statusComment}}</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </basic-cell>
+
+                    </basic-grid>
+                </div>
+            </div>
+            <div class="row" *ngIf="rowData.length == 0">
+                <div class="col s12 table-note">
+                    <span>No data available for this year</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

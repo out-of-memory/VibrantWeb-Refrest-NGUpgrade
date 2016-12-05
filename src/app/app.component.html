@@ -1,3 +1,36 @@
-<h1>
-  {{title}}
-</h1>
+ <div class="navbar-fixed">
+                                <nav class="dark-gray">                                     
+                                    <sidenav-panel *ngIf='isUserLoggedIn' [source]='menu' [isActive]=isNavActive></sidenav-panel>
+
+                                    <ul class="right right-nav"  >
+                                        <!--<li class="date-time-text">24 Jun 2016</li>-->
+                                        <li class="date-time-text">{{dateObj | date:'dd MMM yyyy'}}</li> 
+                                        <!--<li class="date-time-text hide-on-small-and-down">6:29:01 PM</li>
+                                        <li class="date-time-text hide-on-small-and-down">{{dateObj | date:'hh:mm:ss'}}</li>-->
+                                        <li class="hide-on-small-and-down" *ngIf='userProfile'><span>{{userProfile.lastName}}, {{userProfile.firstName}} ({{userProfile.id}})</span></li>
+                                        <li><a><i (click)='Logout()' class="fa fa-power-off" *ngIf='isUserLoggedIn'></i></a></li>
+                                        
+                                    </ul>
+                                    <sidenav-button [isActive]=isNavActive (click) = "toggle($event)"></sidenav-button>
+                                    <h5 class="header-title">
+                                    <a [routerLink]="['']">
+                                     <img src="/assets/images/logo-img.png" class="header-logo responsive-img">
+                                        VIBRANT <span>WEB 
+                                       
+                                          </span>   </a>
+                                        
+                                    </h5>  
+                                </nav>
+                            </div>          
+                            <!--<main class="attendance-main" *ngIf='isUserLoggedIn' >-->
+                                 <main class="attendance-main">
+                                <router-outlet></router-outlet>
+                            </main> 
+                            <footer class="page-footer">
+                                <div class="footer-copyright">
+                                    <div class="center-align">
+                                        © 2016 V2Solutions, Inc.
+                                    </div>
+                                </div>
+                            </footer>
+                          

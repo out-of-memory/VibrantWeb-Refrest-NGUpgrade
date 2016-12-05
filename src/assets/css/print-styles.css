@@ -1,0 +1,49 @@
+body {
+    background: #fff;
+}
+.main-wrapper {
+    padding: 0 20px;
+}
+.logo-section {
+    margin: 20px 0;
+    border: none;
+}
+.logo-section thead {
+    border: none;
+}
+.text-right {
+    text-align: right;
+}
+.top-section {
+    margin: 20px 0;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+}
+.expense-border {
+    border-top: 2px solid #8da408;
+}
+.heading {
+    font-family: 'CenturyGothic-Bold';
+    font-size: 24px;
+    color: #8da408;
+    word-wrap: break-word;
+}
+table.data-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    display: table;
+    border: 1px solid #ddd;
+}
+table.data-table tbody tr:nth-child(odd) {
+    background: rgba(232, 231, 227, 0.25)
+}
+table.data-table td,
+table.data-table th {
+    padding: 15px 10px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+    word-wrap: break-word;
+}
