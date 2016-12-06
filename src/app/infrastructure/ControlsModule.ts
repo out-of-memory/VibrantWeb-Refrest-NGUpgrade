@@ -22,7 +22,7 @@ import { UpdateMaterializeParams, RestrictValueTo } from './directives/materiali
 import { ModulePipe , TicketStatusPipe,FileExtension, FileNamePipe, ApprovalStatus,ApprovalStatusTitle,CurrencyPipe, OptionTextPipe,LocationPipe,CurrencyCommaPipe, CurrencyNamePipe} from './Pipes/Pipes';
 @NgModule({
   imports:      [ CommonModule,FormsModule,ReactiveFormsModule ,ChartsModule],
-  declarations: [ MaterializeDirective, UpdateMaterializeParams, RestrictValueTo ,Card,OptionTextPipe ,ModulePipe,TicketStatusPipe,ApprovalStatus,ApprovalStatusTitle,DoughnutChart,LineChart,LoaderComponent,UiFormControl,UiInput,UiCustomModal,UiForm,BasicCellC,BasicGrid,LocationPipe,CurrencyCommaPipe,StatusStep,CurrencyNamePipe,CurrencyPipe,FileUpload,FileExtension, FileNamePipe,],
-  exports:      [MaterializeDirective,ChartsModule, Card,CommonModule, FormsModule,ModulePipe,OptionTextPipe ,TicketStatusPipe,ApprovalStatus,ApprovalStatusTitle,DoughnutChart,LineChart,UiFormControl,UiForm,UiInput,UiCustomModal,BasicCellC,BasicGrid,LoaderComponent,LocationPipe,CurrencyCommaPipe,StatusStep,CurrencyNamePipe,CurrencyPipe,FileUpload,FileExtension, FileNamePipe,]
+  declarations: [UiInput, MaterializeDirective, UpdateMaterializeParams, RestrictValueTo ,Card,OptionTextPipe ,ModulePipe,TicketStatusPipe,ApprovalStatus,ApprovalStatusTitle,DoughnutChart,LineChart,LoaderComponent,UiFormControl,UiCustomModal,UiForm,BasicCellC,BasicGrid,LocationPipe,CurrencyCommaPipe,StatusStep,CurrencyNamePipe,CurrencyPipe,FileUpload,FileExtension, FileNamePipe,],
+  exports:      [UiInput,MaterializeDirective,ChartsModule, Card,CommonModule, FormsModule,ModulePipe,OptionTextPipe ,TicketStatusPipe,ApprovalStatus,ApprovalStatusTitle,DoughnutChart,LineChart,UiFormControl,UiForm,UiCustomModal,BasicCellC,BasicGrid,LoaderComponent,LocationPipe,CurrencyCommaPipe,StatusStep,CurrencyNamePipe,CurrencyPipe,FileUpload,FileExtension, FileNamePipe,]
 })
 export class ControlsModule { }

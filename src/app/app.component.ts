@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 
-import {UserService} from './servicesFolder/User/user.service'
+import {UserService} from './servicesFolder/User/user.service';
+import {ExpenseService} from './servicesFolder/Expense/ExpenseService';
 
 declare var $: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
+  
 })
 export class AppComponent {
     
-    constructor(private _userService:UserService){
+    constructor(private _userService:UserService, private expenseService:ExpenseService){
         
         this.Start(0);
         
@@ -32,7 +34,7 @@ export class AppComponent {
         this._userService.challengeLogin(data => {
             // console.log("User Logged IN ");
             this._userService.pullDropDowns(() => { });
-           // this.expenseService.getDropdowns();
+            this.expenseService.getDropdowns();
             this._userService.profile(data => {
 
                 dis.userProfile = data;

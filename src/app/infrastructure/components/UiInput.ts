@@ -31,14 +31,14 @@ import * as Materialize from "angular2-materialize";
                         [ngClass]='errors.errors?"invalidControl": "validControl"' 
                         [type]='meta.type' 
                         [attr.placeholder]='meta.placeholder'
-                        [(ngModel)]="value" />
+                        [(ngModel)]="value"  />
 
                 <input 
                         style='position:relative'  
                         *ngIf='!readonly && meta.type=="checkbox"'
                         [ngClass]='errors.errors?"invalidControl": "validControl"'
                         [type]='meta.type'
-                        [(ngModel)]="value" (change)="CheckboxClick($event, value)"/>
+                        [(ngModel)]="value"  (change)="CheckboxClick($event, value)"/>
 
                 <input
                         style='position:relative'
@@ -97,6 +97,7 @@ import * as Materialize from "angular2-materialize";
                     [ngClass]='errors.errors?"invalidControl": "validControl"'
                     type='text'
                     [(ngModel)]="value"
+                    
                     [attr.placeholder]='meta.placeholder'
                     materialize="pickadate" 
                     [(materializeParams)]="meta.materializedParams" 

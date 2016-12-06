@@ -1,0 +1,119 @@
+{
+    "employeeSISOViewModels": [
+        {
+            "date": "06/29/2016",
+            "signInTime": "11:12:00",
+            "signOutTime": "19:17:00",
+            "totalHoursWorked": "08:05:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/28/2016",
+            "signInTime": "12:45:00",
+            "signOutTime": "19:24:00",
+            "totalHoursWorked": "06:39:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/27/2016",
+            "signInTime": "10:56:00",
+            "signOutTime": "19:36:00",
+            "totalHoursWorked": "08:40:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/24/2016",
+            "signInTime": "10:25:00",
+            "signOutTime": "19:27:00",
+            "totalHoursWorked": "09:02:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/23/2016",
+            "signInTime": "11:47:00",
+            "signOutTime": "19:44:00",
+            "totalHoursWorked": "07:57:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/22/2016",
+            "signInTime": "11:01:00",
+            "signOutTime": "19:23:00",
+            "totalHoursWorked": "08:22:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/21/2016",
+            "signInTime": "11:02:00",
+            "signOutTime": "19:36:00",
+            "totalHoursWorked": "08:34:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/17/2016",
+            "signInTime": "11:15:00",
+            "signOutTime": "18:07:00",
+            "totalHoursWorked": "06:52:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/16/2016",
+            "signInTime": "10:49:00",
+            "signOutTime": "19:04:00",
+            "totalHoursWorked": "08:15:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/15/2016",
+            "signInTime": "10:31:00",
+            "signOutTime": "19:36:00",
+            "totalHoursWorked": "09:05:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/14/2016",
+            "signInTime": "10:29:00",
+            "signOutTime": "19:39:00",
+            "totalHoursWorked": "09:10:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/13/2016",
+            "signInTime": "10:54:00",
+            "signOutTime": "19:21:00",
+            "totalHoursWorked": "08:27:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/02/2016",
+            "signInTime": "11:17:00",
+            "signOutTime": "20:37:00",
+            "totalHoursWorked": "09:20:00",
+            "narration": null,
+            "isManual": false
+        },
+        {
+            "date": "06/01/2016",
+            "signInTime": "11:54:00",
+            "signOutTime": "18:10:00",
+            "totalHoursWorked": "06:16:00",
+            "narration": null,
+            "isManual": false
+        }
+    ],
+    "todayStatuss": {
+        "isSignIn": false
+    }
+}

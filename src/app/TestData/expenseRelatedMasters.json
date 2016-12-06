@@ -1,0 +1,88 @@
+{
+    "users": [
+        {
+            "userId": 1,
+            "name" : "User 1"
+        },
+        {
+            "userId": 2,
+            "name" : "User 2"
+        },
+        {
+            "userId": 3,
+            "name" : "User 3"
+        }
+    ],
+    "clients" : [
+        {
+            "clientId" : 1,
+            "clientName": "Client 1"
+        },
+        {
+            "clientId" : 2,
+            "clientName": "Client 2"
+        },
+        {
+            "clientId" : 3,
+            "clientName": "Client 3"
+        }
+    ],
+    "currency": [
+        {
+            "currentId": 1,
+            "currency" : "Indian Rupee - INR"
+        },
+        {
+            "currentId": 2,
+            "currency" : "US Dollar"
+        },
+        {
+            "currentId": 3,
+            "currency" : "GBP"
+        }
+    ],
+    "costCenter": [
+        {
+            "costCenterId": 1,
+            "costCenter": "BET"
+        },
+        {
+            "costCenterId": 2,
+            "costCenter": "Corporate"
+        },
+        {
+            "costCenterId": 3,
+            "costCenter": "NSE - Digital"
+        },
+        {
+            "costCenterId": 4,
+            "costCenter": "Product"
+        },
+        {
+            "costCenterId": 5,
+            "costCenter": "Sales & Marketing"
+        },
+        {
+            "costCenterId": 6,
+            "costCenter": "SE - Technology"
+        },
+        {
+            "costCenterId": 7,
+            "costCenter": "Solutions & Innovation"
+        }
+    ],
+    "expenseCategory": [
+        {
+            "expenseCategoryId" : 1,
+            "expenseCategory": "Category 1"
+        },
+        {
+            "expenseCategoryId" : 2,
+            "expenseCategory": "Category 2"
+        },
+        {
+            "expenseCategoryId" : 3,
+            "expenseCategory": "Category 3"
+        }
+    ]
+}

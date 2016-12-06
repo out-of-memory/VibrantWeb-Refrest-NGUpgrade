@@ -1,0 +1,68 @@
+[
+    {
+        "empCode" : "3856",
+        "name" : "Jon Deo",
+        "photo": "assets/images/no-picture.png",
+        "designation": "Project Head",
+        "city": "Mumbai",
+        "country": "India",
+        "email":"jondeo@v2solutions.com",
+        "phone": "91 22 4153.0200 x 000",
+        "mobile": "+91 9900000000"
+    },
+    {
+        "empCode" : "2356",
+        "name" : "Jon Snow",
+        "photo": "assets/images/no-picture.png",
+        "designation": "Project Head",
+        "city": "Mumbai",
+        "country": "India",
+        "email":"jonsnow@v2solutions.com",
+        "phone": "91 22 4153.0200 x 000",
+        "mobile": "+91 9900000000"
+    },
+    {
+        "empCode" : "1158",
+        "name" : "Jon Arryn",
+        "photo": "assets/images/no-picture.png",
+        "designation": "Project Head",
+        "city": "Mumbai",
+        "country": "India",
+        "email":"jonarryn@v2solutions.com",
+        "phone": "91 22 4153.0200 x 000",
+        "mobile": "+91 9900000000"
+    },
+    {
+        "empCode" : "1256",
+        "name" : "Joanna",
+        "photo": "assets/images/no-picture.png",
+        "designation": "Project Head",
+        "city": "Mumbai",
+        "country": "India",
+        "email":"jonna@v2solutions.com",
+        "phone": "91 22 4153.0200 x 000",
+        "mobile": "+91 9900000000"
+    },
+    {
+        "empCode" : "5368",
+        "name" : "Jonny",
+        "photo": "assets/images/no-picture.png",
+        "designation": "Project Head",
+        "city": "Mumbai",
+        "country": "India",
+        "email":"jonny@v2solutions.com",
+        "phone": "91 22 4153.0200 x 000",
+        "mobile": "+91 9900000000"
+    },
+    {
+        "empCode" : "8545",
+        "name" : "Jonatha",
+        "photo": "assets/images/no-picture.png",
+        "designation": "Project Head",
+        "city": "Mumbai",
+        "country": "India",
+        "email":"jonatha@v2solutions.com",
+        "phone": "91 22 4153.0200 x 000",
+        "mobile": "+91 9900000000"
+    }
+]

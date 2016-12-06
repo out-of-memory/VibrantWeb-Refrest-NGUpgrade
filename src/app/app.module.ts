@@ -14,6 +14,7 @@ import {HttpService} from './servicesFolder/http/http.service';
 import {UserService} from './servicesFolder/User/user.service';
 import {MenuService} from './servicesFolder/Menu/MenuService';
 import {EmployeeService} from './servicesFolder/Employee/EmployeeService';
+import {ExpenseService} from './servicesFolder/Expense/ExpenseService';
 import {MaterializeDirective} from 'angular2-materialize';
 
 import { RoutingModule }   from './modules/routing/routing-module';
@@ -24,14 +25,12 @@ import { AttendanceModule } from './modules/attendance/attendance.module';
 import { LeaveModule } from './modules/leave/leave.module';
 import { ApprovalsModule } from './modules/approvals/approvals.module';
 import { HelpdeskModule } from './modules/helpdesk/helpdesk.module';
-
-
+import { ExpenseModule } from './modules/expense/expense.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -46,11 +45,12 @@ import { HelpdeskModule } from './modules/helpdesk/helpdesk.module';
     LeaveModule,
     ApprovalsModule,
     HelpdeskModule,
+    ExpenseModule,
     ReportsModule
     
   ],
   providers: [CacheService,{provide: LocationStrategy, useClass: HashLocationStrategy},
-              HttpService,MenuService,EmployeeService,UserService],
+              HttpService,MenuService,EmployeeService,UserService,ExpenseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

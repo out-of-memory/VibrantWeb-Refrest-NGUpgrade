@@ -1,0 +1,210 @@
+<div id="savedrequest" class="col s12 tab-content">
+	<div class="row m-top20">
+		<div class="col s12">
+			<div class="reimbursement-wrapper" *ngIf="submittedExpense != undefined">
+				<div class="row m-bottom0 header hide-on-med-and-down">
+					<div class="col s12 m1">
+						<h5 class="title">Finance Form Code</h5>
+					</div>
+					<div class="col s12 m2">
+						<h5 class="title">Reimbursement Title</h5>
+					</div>
+					<div class="col s12 m2">
+						<h5 class="title">Client Reimbursement</h5>
+					</div>
+					<div class="col s12 m2">
+						<h5 class="title">Client Name</h5>
+					</div>
+					<div class="col s12 m1">
+						<h5 class="title">Expenses</h5>
+					</div>
+					<div class="col s12 m3">
+						<h5 class="title">Status</h5>
+					</div>
+				</div>
+				<ul class="collapsible">
+					<li class="">
+						<basic-grid [(source)]='submittedExpense' gridPagination='' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false }'
+							[isHeaderVisible]=false>
+							<basic-cell>
+								<template let-item='row'>
+									<div class="collapsible-header" (click)="Hide($event,item)">
+										<div class="row m-bottom0 valign-wrapper">
+											<div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Finance Form Code</span>{{item.financeFormCode}}</div>
+											<div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Reimbursement Title</span>{{item.reimbursementTitle}}</div>
+											<div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Client Reimbursment</span>{{item.isClientReimbursment}}</div>
+											<div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Client Name</span>{{item.clientName}}</div>
+											<div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Expenses</span>
+												<span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.amount|comma}}</div>
+											<div class="col s12 m6 l2">
+												<status-step [(totalStep)]='item.totalStages' [(approvedTill)]='item.onStage' [(lastApprovedStatus)]='item.onStageStatus'
+													[lastApprovedComment]="item.comments"></status-step>
+											</div>
+											<div class="col s12 m6 offset-m6 l2 expense-action-icons">
+												<a *ngIf='item.isRejected == true' href="#" class="expense-icon" id="edit-expense" [routerLink]="['Finance_Expense_New_Id',{expenseId: item.expenseId}]"><i class="fa fa-pencil edit" aria-hidden="true" title="Edit"></i></a>
+												<a style="display: none;" href="#" class="left expense-icon"><i class="fa fa-print print" aria-hidden="true" title="Print"></i></a>
+												<!--<a href="#" class="expense-icon"><i class="fa fa-trash remove" aria-hidden="true" title="Remove" (click)="RemoveExpense($event,item)"></i></a>-->
+												<a href="#" data-collapsible="accordion" class="right expense-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+												<a class="left expense-icon" (click)="PrintExpense($event,item)"><i class="fa fa-print print" aria-hidden="true" title="Print"></i></a>
+											</div>
+										</div>
+									</div>
+									<div class="collapsible-body" style="display:none;">
+										<div class="table-container padding-zero">
+											<div class="row margin-zero">
+												<div class="col s12 padding-zero">
+													<basic-grid [(source)]='item.details' gridPagination='' gridOptions='{"colWidths":[15,15,15,15,15,15],"widthType":"%","useScroll":false}'
+														[isHeaderVisible]=true *ngIf="item.details.length > 0">
+														<basic-cell cell='' headerLabel='Receipt No.'>
+															<template let-detail='row'>
+																<ui-input [(ngModel)]="detail.receiptNo" [meta]='detailHub[0]' [readonly]='true'>
+																</ui-input>
+															</template>
+														</basic-cell>
+														<basic-cell cell='' headerLabel='Receipt Date'>
+															<template let-detail='row'>
+																<ui-input [(ngModel)]="detail.expenseDate" [meta]='detailHub[1]' [readonly]='true'>
+																</ui-input>
+															</template>
+														</basic-cell>
+														<basic-cell cell='' headerLabel='Expense Category'>
+															<template let-detail='row'>
+																<ui-input [(ngModel)]="detail.expenseCategoryId" [meta]='detailHub[2]' [readonly]='true'>
+																</ui-input>
+															</template>
+														</basic-cell>
+														<basic-cell cell='' headerLabel='Expenses'>
+															<template let-detail='row'>
+																<div>
+																	<span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{detail.amount|comma}}
+																</div>
+															</template>
+														</basic-cell>
+														<basic-cell cell='' headerLabel='Comments'>
+															<template let-detail='row'>
+																<ui-input [(ngModel)]="detail.comments" [meta]='detailHub[4]' [readonly]='true'>
+																</ui-input>
+															</template>
+														</basic-cell>
+														<basic-cell cell='' headerLabel='Expense Receipt'>
+															<template let-detail='row'>
+																<span class="hover-expense-img" *ngIf='detail.attachedFile !==""'>
+                                                                        <a href="#" class="expense-icon" (click)="Eyeclicked($event)" *ngIf='detail.fileExtension=="jpeg"||detail.fileExtension=="jpg"||detail.fileExtension=="png"||detail.fileExtension=="gif"'>
+                                                                            <i class="fa fa-eye" aria-hidden="true" title="View"></i>
+                                                                            <span class="z-depth-1"><img [src]="detail.attachedFile" alt="image" class="responsive-img"></span>
+																</a>
+																<a [href]="detail.attachedFile" target="_blank" class="expense-icon" [download]="detail.attachedFile">
+																	<i class="fa fa-cloud-download" aria-hidden="true" title="Download"></i></a>
+																</span>
+															</template>
+														</basic-cell>
+													</basic-grid>
+													<div class="row m-bottom0 table-footer">
+														<div class="col s12 m4 l2 padding-zero">
+															Total Expenses: <span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.totalExpenses|comma}}
+														</div>
+														<div class="col s12 m4 l2 padding-zero">
+															Advances: <span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.advance|comma}}
+														</div>
+														<div class="col s12 m4 l2 padding-zero">
+															Amount Reimbursed: <span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.amountReimbursed|comma}}
+														</div>
+													</div>
+													<div *ngIf="item.details.length == 0" style="text-align: center;">No Details Found</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</template>
+							</basic-cell>
+						</basic-grid>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<span *ngIf="submittedExpense == undefined">No Submitted Expenses.</span>
+			</div>
+		</div>
+	</div>
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+	[isConformationModal]="isConformationModal"></loader-component>
+
+<main class="main-wrapper" *ngIf="printItem != undefined" id="demoPrint" class="modal modal-custom modal-confirm-full" style="z-index: 1003; display: none; opacity: 1; transform: scaleX(1); top: 10%; width: 65%;height:auto;">
+	<div class="logo-section">
+		<table width="100%">
+			<thead>
+				<th>
+					<h5 class="heading">Expense Reimbursement</h5>
+				</th>
+				<th class="text-right">
+					<div class="image-wrapper"><img height="34" width="173" src="assets/images/logo-print.png" alt="Logo" />
+					</div>
+				</th>
+			</thead>
+		</table>
+	</div>
+	<div class="top-section expense-border">
+		<table width="100%">
+			<tr>
+				<td><b>Employee Name:</b> {{printItem.fullname}}</td>
+				<td><b>Date Of Submission:</b> {{printItem.requestDate}}</td>
+			</tr>
+			<tr>
+				<td><b>Employee Code:</b> {{printItem.createdBy}}</td>
+				<td><b>Location:</b> {{printItem.officeLocation}}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="top-section expense-border">
+		<table width="100%">
+			<tr>
+				<td><b>Reimbursement Title:</b> {{printItem.reimbursementTitle}}</td>
+				<td><b>Client-Reimbursement:</b> {{printItem.isClientReimbursment}}</td>
+				<td><b>Client Name:</b> {{printItem.clientName}}</td>
+
+			</tr>
+			<tr>
+				<td><b>Currency:</b> {{printItem.currencyId|currencyName}}</td>
+				<td><b>Cost Center:</b> {{printItem.costCenter}}</td>
+				<td><b>Approver:</b> {{printItem.approverFullName}}</td>
+			</tr>
+			<tr>
+				<td><b>Finance Form Code:</b> {{printItem.financeFormCode}} </td>
+				<td><b>Cheque Details:</b> {{printItem.chequeDetails}}</td>
+				<td><b>Request Id:</b> {{printItem.expenseId}}</td>
+			</tr>
+		</table>
+	</div>
+	<table class="data-table">
+		<thead>
+			<tr>
+				<th data-field="receipt-no">Receipt No</th>
+				<th data-field="requested-date">Receipt Date</th>
+				<th data-field="expense-category">Expense Category</th>
+				<th data-field="amount">Amount</th>
+				<th data-field="Comments">Comments</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of printItem.details">
+				<td>{{item.receiptNo}}</td>
+				<td>{{item.expenseDate}}</td>
+				<td>{{item.expenseCategoryId}}</td>
+				<td><span aria-hidden="true" class="fa fa-inr currency-symbol"></span> {{item.amount}}</td>
+				<td>{{item.comments}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="top-section">
+		<table width="100%">
+			<tr>
+				<td><b>Total Expenses:</b> {{printItem.totalExpenses}}</td>
+				<td><b>Advances:</b> {{printItem.advance}}</td>
+				<td><b>Amount Reimbursed:</b> {{printItem.amountReimbursed}}</td>
+			</tr>
+		</table>
+	</div>
+</main>
+<div *ngIf='isDelete' class="lean-overlay" id="materialize-lean-overlay-1" style="z-index: 1002; display: block; opacity: 0.5;"
+	(click)="CancelDelete($event)"></div>

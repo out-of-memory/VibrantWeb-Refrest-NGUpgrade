@@ -1,0 +1,67 @@
+[
+    {
+        "name": "Employee",
+        "imageUrl": "assets/images/oval-1.png",
+        "css": "first",
+        "IsPageLevelSubMenu": false,
+        "subMenu": [
+            {
+                "name": "My",
+                "action": "[0,1]",
+                "IsPageLevelSubMenu": true,
+                "subMenu": [
+                    {
+                        "name": "Personal",
+                        "action": "[0,1,2,3]",
+                        "useAsDefault": true,
+                        "IsPageLevelSubMenu": false,
+                        "subMenu": null
+                    }
+                    ,
+                    {
+                        "name": "Professional",
+                        "action": "[0,1,2,3]",
+                        "IsPageLevelSubMenu": false,
+                        "subMenu": null
+                    }
+                ]
+            },      
+            {
+                "name": "Search",
+                "action": "[0]",
+                "IsPageLevelSubMenu": false,
+                "subMenu": []
+            }
+        ]
+    },
+    {
+        "name": "Finance",
+        "iconCss": "fa fa-university",
+        "css": "third",
+        "IsPageLevelSubMenu": false,
+        "subMenu": [
+            {
+                "name": "Expense",
+                "action": "[0,1]",
+                "id": "",
+                "IsPageLevelSubMenu": true,
+                "subMenu": [
+                    {
+                        "name": "New",
+                        "action": "[0,1,2,3]",
+                        "useAsDefault": true,
+                        "IsPageLevelSubMenu": false,
+                        "subMenu": null
+                    }
+                    ,
+                    {
+                        "name": "Submitted",
+                        "action": "[0,1,2,3]",
+                        "IsPageLevelSubMenu": false,
+                        "subMenu": null
+                    }
+                ]
+            }
+        ]       
+    }
+]
