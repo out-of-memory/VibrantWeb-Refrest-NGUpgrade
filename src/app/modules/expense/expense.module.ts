@@ -14,7 +14,9 @@ import {ExpenseNewComponent} from './expense.new.component';
     CommonModule,
     ControlsModule,
     RouterModule.forChild([
+            {path:'my/expense', redirectTo:'new', pathMatch: 'full'},
             { path: 'my/expense', component: ExpenseComponent,
+              
               children: [
                             { path: 'new', component: ExpenseNewComponent },
                             { path: 'submitted', component: ExpenseSubmittedComponent },
@@ -22,6 +24,7 @@ import {ExpenseNewComponent} from './expense.new.component';
                             { path: "new/:expenseId", component: ExpenseNewComponent  }
                         ]
             }
+            
         ])
     
   ],

@@ -1,5 +1,5 @@
 import { Component, ContentChild, ContentChildren, EventEmitter, TemplateRef, QueryList, Input, forwardRef, Directive} from "@angular/core";
-import { ChangeDetectionStrategy, ViewContainerRef, ChangeDetectorRef, ViewChildren, ComponentResolver, ComponentRef} from '@angular/core'
+import { ChangeDetectionStrategy, ViewContainerRef, ChangeDetectorRef, ViewChildren,  ComponentRef} from '@angular/core'
 
 @Component({
   selector: "ui-form-control",

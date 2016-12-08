@@ -8,9 +8,16 @@ import { LineChart }  from './components/LineChart';
 import { LoaderComponent }  from './components/loader.component';
 import { FileUpload }  from './components/file-upload';
 import { Card }  from './components/Card';
+import { Repeater }  from './components/repeater';
+import { GridCard }  from './components/GridCard';
 import { StatusStep }  from './components/StatusStep';
+import { SearchBox }  from './components/search-box';
 import {UiInput} from './components/UiInput';
 import {UiForm,UiFormControl} from './components/UiForm';
+import {UiGirdForm} from './components/UiGridForm';
+import {pageHeading} from './components/pageHeading';
+import {EditConfirmation} from './components/editConfirmationMsg';
+import {Confirmation} from './components/ConfirmationMsg';
 import {UiCustomModal} from './components/UiCustomModal';
 import {BasicCellC, BasicGrid} from './components/basic-grid';
 import * as Materialize from "angular2-materialize";
@@ -19,10 +26,10 @@ import { MaterializeDirective } from "angular2-materialize";
 
 import { UpdateMaterializeParams, RestrictValueTo } from './directives/materialized.extension.directive';
 
-import { ModulePipe , TicketStatusPipe,FileExtension, FileNamePipe, ApprovalStatus,ApprovalStatusTitle,CurrencyPipe, OptionTextPipe,LocationPipe,CurrencyCommaPipe, CurrencyNamePipe} from './Pipes/Pipes';
+import { ModulePipe ,RatingPipe, TicketStatusPipe,FileExtension, FileNamePipe, ApprovalStatus,ApprovalStatusTitle,CurrencyPipe, OptionTextPipe,LocationPipe,CurrencyCommaPipe, CurrencyNamePipe} from './Pipes/Pipes';
 @NgModule({
   imports:      [ CommonModule,FormsModule,ReactiveFormsModule ,ChartsModule],
-  declarations: [UiInput, MaterializeDirective, UpdateMaterializeParams, RestrictValueTo ,Card,OptionTextPipe ,ModulePipe,TicketStatusPipe,ApprovalStatus,ApprovalStatusTitle,DoughnutChart,LineChart,LoaderComponent,UiFormControl,UiCustomModal,UiForm,BasicCellC,BasicGrid,LocationPipe,CurrencyCommaPipe,StatusStep,CurrencyNamePipe,CurrencyPipe,FileUpload,FileExtension, FileNamePipe,],
-  exports:      [UiInput,MaterializeDirective,ChartsModule, Card,CommonModule, FormsModule,ModulePipe,OptionTextPipe ,TicketStatusPipe,ApprovalStatus,ApprovalStatusTitle,DoughnutChart,LineChart,UiFormControl,UiForm,UiCustomModal,BasicCellC,BasicGrid,LoaderComponent,LocationPipe,CurrencyCommaPipe,StatusStep,CurrencyNamePipe,CurrencyPipe,FileUpload,FileExtension, FileNamePipe,]
+  declarations: [SearchBox,RatingPipe,Confirmation,Repeater,UiGirdForm,EditConfirmation,GridCard,pageHeading,UiInput, MaterializeDirective, UpdateMaterializeParams, RestrictValueTo ,Card,OptionTextPipe ,ModulePipe,TicketStatusPipe,ApprovalStatus,ApprovalStatusTitle,DoughnutChart,LineChart,LoaderComponent,UiFormControl,UiCustomModal,UiForm,BasicCellC,BasicGrid,LocationPipe,CurrencyCommaPipe,StatusStep,CurrencyNamePipe,CurrencyPipe,FileUpload,FileExtension, FileNamePipe,],
+  exports:      [SearchBox,RatingPipe,Confirmation,Repeater,UiGirdForm,EditConfirmation,GridCard,pageHeading,UiInput,MaterializeDirective,ChartsModule, Card,CommonModule, FormsModule,ModulePipe,OptionTextPipe ,TicketStatusPipe,ApprovalStatus,ApprovalStatusTitle,DoughnutChart,LineChart,UiFormControl,UiForm,UiCustomModal,BasicCellC,BasicGrid,LoaderComponent,LocationPipe,CurrencyCommaPipe,StatusStep,CurrencyNamePipe,CurrencyPipe,FileUpload,FileExtension, FileNamePipe,]
 })
 export class ControlsModule { }

@@ -1,5 +1,5 @@
 import {Component, Provider, forwardRef, Input} from "@angular/core";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR, CORE_DIRECTIVES,AbstractControl, FormBuilder} from "@angular/common";
+//import {ControlValueAccessor, NG_VALUE_ACCESSOR, CORE_DIRECTIVES,AbstractControl, FormBuilder} from "@angular/common";
 @Component({
   selector: 'ui-view-control',
   template: `
@@ -13,7 +13,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR, CORE_DIRECTIVES,AbstractControl
                  [src]='model' />
            </div>
   `,
-  directives: [CORE_DIRECTIVES]
+ // directives: [CORE_DIRECTIVES]
 })
 export class UIViewControl {
    @Input() meta:any;

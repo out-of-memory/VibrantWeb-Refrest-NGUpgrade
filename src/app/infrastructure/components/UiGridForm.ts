@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, ContentChild, ContentChildren, ViewContainerRef, ComponentResolver, TemplateRef, QueryList} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ContentChild, ContentChildren, ViewContainerRef,  TemplateRef, QueryList} from '@angular/core';
 import {UiInput} from '../../infrastructure/components/UiInput';
 import {UiFormMessage} from '../../infrastructure/components/UiFormMessage';
 import {ControlMeta} from '../../infrastructure/models/ControlMeta';
-import { FormBuilder, Validators, ControlGroup, AbstractControl} from '@angular/common';
+import { FormBuilder, Validators, FormGroup, AbstractControl} from '@angular/forms';
 import {ControlValidator} from "../Validators/ControlValidator"
 import {UiFormControl} from "../../infrastructure/components/UiForm"
 
@@ -24,16 +24,15 @@ import {UiFormControl} from "../../infrastructure/components/UiForm"
                     </div>
                 </div>
             </div>
-        <form [ngFormModel]="mainForm" (submit)="doLogin($event)" class="form-element">
+        <form [formGroup]="mainForm" (submit)="doLogin($event)" class="form-element">
             <div *ngFor="let arr of orientationArray" class='row m-bottom10'>
                 <div *ngFor="let meta of arr; let i =index" > 
              <ui-input 
                     [(ngModel)]="model[meta.name]"
-                    [(ngFormControl)]='dataModelControl[meta.name+"Control"]'
+                    [(formControl)]='dataModelControl[meta.name+"Control"]'
                     [errors]= 'dataModelControl[meta.name+"Control"]'
                     [meta]='meta'
                     [readonly]='formReadonly'
-                    [controlCss]='controlCss'
                     [errors]='dataModelControl[meta.name+"Control"]'
                     [errorOnlyOnSubmit]='errorOnlyOnSubmit'
                     [attrs]='meta.attrs'
@@ -52,7 +51,7 @@ import {UiFormControl} from "../../infrastructure/components/UiForm"
         </form>
     </div>                          
     `,
-    directives: [UiInput, UiFormMessage, UiFormControl],
+   // directives: [UiInput, UiFormMessage, UiFormControl],
 
 })
 export class UiGirdForm implements OnInit {
@@ -82,10 +81,10 @@ export class UiGirdForm implements OnInit {
     actionsArray: Array<any> = [];
     eventArray: Array<any> = [];
     dataModelControl: { [id: string]: AbstractControl } = {};
-    mainForm: ControlGroup;
+    mainForm: FormGroup;
     modelTypeObject: boolean = true;
     private orientationArray: Array<Array<ControlMeta>>;
-    constructor(private fb: FormBuilder, private viewContainerRef: ViewContainerRef, private componentResolver: ComponentResolver) {
+    constructor(private fb: FormBuilder, private viewContainerRef: ViewContainerRef) {
         this.orientationArray = new Array<Array<ControlMeta>>();
     }
     // ngOnInit() {
@@ -249,7 +248,7 @@ export class UiGirdForm implements OnInit {
 
         for (var i = 0; i < this.controlMetas.length; i++) {
             let meta = this.controlMetas[i];
-            this.dataModelControl[meta.name + "Control"] = this.mainForm.find(meta.name + "Control");
+            this.dataModelControl[meta.name + "Control"] = this.mainForm.controls[meta.name + "Control"];
         }
 
     }

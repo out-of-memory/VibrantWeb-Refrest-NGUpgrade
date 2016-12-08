@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import {HttpSettings} from "../http/http.settings"
 import {CacheService, MenuService, EmployeeService, HttpService} from "../../services"
 
+
 @Injectable()
 export class UserService {
     private loggedIn = false;

@@ -1,6 +1,6 @@
 // Import the core angular services.
 import { Component, ContentChild, ContentChildren, EventEmitter, TemplateRef, QueryList, Input, forwardRef, Directive} from "@angular/core";
-import { ChangeDetectionStrategy, ViewContainerRef, ChangeDetectorRef, ViewChildren, ComponentResolver, ComponentRef} from '@angular/core'
+import { ChangeDetectionStrategy, ViewContainerRef, ChangeDetectorRef, ViewChildren,  ComponentRef} from '@angular/core'
 import {List, Map} from 'immutable'
 @Component({
   selector: "basic-cell",
@@ -136,7 +136,7 @@ export class BasicGrid {
   items: any;
   donePage: any = false;
   pageData: any = 20;
-  constructor(private viewContainerRef: ViewContainerRef, private componentResolver: ComponentResolver) {
+  constructor(private viewContainerRef: ViewContainerRef) {
   }
 
   @ContentChildren(BasicCellC) cells: QueryList<BasicCellC>;
