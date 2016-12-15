@@ -1,9 +1,6 @@
 import { Component, EventEmitter, Input, Output, Directive, ElementRef, HostListener } from '@angular/core';
 import { NavbarModel } from '../../models/NavbarModel';
-import { CacheService } from './../../servicesFolder/CacheService';
-import { HttpService } from './../../servicesFolder/http/http.service';
-import { MenuService } from './../../servicesFolder/Menu/MenuService';
-import { ModulePipe } from '../../infrastructure/Pipes/Pipes';
+
 
 @Directive({
     selector: '[clickOutside]'
@@ -12,7 +9,7 @@ import { ModulePipe } from '../../infrastructure/Pipes/Pipes';
 @Component({
     selector: 'sidenav',
     templateUrl: './../templates/sidenav.html',
-    providers: [HttpService]
+    
 })
 export class SideNavComponent {
     @Input() navbar: NavbarModel[];
