@@ -1,0 +1,337 @@
+<div class="breadcrumb-nav">
+    <div class="row margin-zero">
+        <div class="col s12">
+            <h5>{{selectedReport}} Report</h5>
+        </div>
+    </div>
+</div>
+<div class="row  m-bottom0 report-container">
+    <div class="row back-btn-reports" *ngIf="selectedReport=='LeaveSummary' || selectedReport=='LeaveDetail' ">
+        <div class="col s12 padding-zero">
+            <a (click)="BackToLeaveReport($event)" class="waves-effect waves-light btn back-btn"><i class="fa fa-angle-left left" title="Back to Leave Report" aria-hidden="true"></i>Back</a>
+        </div>
+    </div>
+
+    <div *ngIf="selectedReport=='Leaves'" class="row">
+        <div class="grey-bg-wrapper">
+            <div class="help-container">
+                <div class="help-content-wrapper m-top20">
+                    <div class="help-head leave-head">
+                        <h3 class="help-head-text">Reports</h3>
+                    </div>
+                    <div class="row  margin-zero">
+                        <div class="col s12 padding-zero">
+                            <div class="row m-top20">
+                                <div class="col s12 m6 l3">
+                                    <div class="card padding-zero margin-zero">
+                                        <div class="row heading-content m-top20">
+                                            <div class="col s12 card-heading">
+                                                <span class="card-title">Leave Details</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <div class="view-form-info">
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="data-footer">
+                                            <a (click)="SetLeaveReport($event,'LeaveDetail')" class="btn-flat">Leave Details Report</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m6 l3">
+                                    <div class="card padding-zero margin-zero">
+                                        <div class="row heading-content">
+                                            <div class="col s12 card-heading m-top20">
+                                                <span class="card-title">Leave Ledger Summary</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <div class="view-form-info">
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="data-footer">
+                                            <a (click)="SetLeaveReport($event,'LeaveSummary')" class="btn-flat">Leave Ledger Summary Report</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="selectedReport=='Attendance'" class="row m-bottom0 header m-top20">
+        <div class="col s12 padding-zero">
+            <div class="row m-bottom0 valign-wrapper">
+                <div class="col s12 l6">
+                    <ui-form #attendanceReportForm [controlMetas]="attendanceHub" [model]="attendanceModel" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
+                        formCss='' controlCss='' columnOrientation='3' inputLabelPosition='top'>
+
+                        <ui-control-item for='StartDate' behaviours='[ {"name":"max","value":"{{attendanceModel.EndDate}}:mm/dd/yyyy:1"}]' depends='["EndDate:changeattrs"]'
+                            changeattrs='["max"]'>
+                        </ui-control-item>
+
+                        <ui-control-item for='EndDate' behaviours='[ {"name":"min","value":"{{attendanceModel.StartDate}}:mm/dd/yyyy"}]' depends='["StartDate:changeattrs"]'
+                            changeattrs='["min"]'>
+                        </ui-control-item>
+                    </ui-form>
+
+                </div>
+                <div class="col s12 l6">
+                    <a (click)="ViewReport($event,attendanceModel,attendanceReportForm)" class="waves-effect waves-light btn custom-btn save-as-draft">Get Report</a>
+                </div>
+            </div>
+            <div class="row m-bottom10" *ngIf="showCriteria">
+                <div class="col s12">
+                    <div class="report-details">
+                        <h5>Report Criteria</h5>
+                        <div class="row">
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5 *ngIf="attendanceModel.StartDate">{{attendanceModel.StartDate}}</h5>
+                                    <h6 *ngIf="attendanceModel.StartDate">Start Date</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5 *ngIf="attendanceModel.EndDate">{{attendanceModel.EndDate}}</h5>
+                                    <h6 *ngIf="attendanceModel.EndDate">End Date</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5>{{attendanceModel.Employeecode}}</h5>
+                                    <h6 *ngIf="attendanceModel.Employeecode">Employee Code</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="selectedReport=='EmployeeDetail'" class="row m-bottom0 header m-top20">
+        <div class="col s12 padding-zero">
+            <div class="row m-bottom0 valign-wrapper">
+                <div class="col s12 l6">
+                    <ui-form #empDetailsForm [controlMetas]="empDetailHub" [(model)]="empDetailReportModel" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
+                        formCss='view-card' columnOrientation='5' controlCss='view-form-info' inputLabelPosition='top'>
+                    </ui-form>
+                </div>
+                <div class="col s12 l6">
+                    <a (click)="ViewReport($event,empDetailReportModel,empDetailsForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
+                </div>
+            </div>
+            <div class="row m-bottom10" *ngIf="showCriteria">
+                <div class="col s12">
+                    <div class="report-details">
+                        <h5>Report Criteria</h5>
+                        <div class="row">
+                            <div class="col s12 l2 padding-zero">
+                                <div class="view-form-info" *ngFor="let s of empDetailHub[0].options">
+                                    <h5 *ngIf='s.id==empDetailReportModel.EmploymentStatus'>{{s.text}}</h5>
+                                    <h6 *ngIf='s.id==empDetailReportModel.EmploymentStatus'>Employment Status</h6>
+                                </div>
+                                <div class="view-form-info">
+                                    <h5 *ngIf='empDetailReportModel.EmploymentStatus==""'>All</h5>
+                                    <h6 *ngIf='empDetailReportModel.EmploymentStatus==""'>Employment Status</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 l2 padding-zero">
+                                <div class="view-form-info" *ngFor="let a of empDetailHub[1].options">
+                                    <h5 *ngIf='a.id==empDetailReportModel.EmployeeStatus'>{{a.text}}</h5>
+                                    <h6 *ngIf='a.id==empDetailReportModel.EmployeeStatus'>Employee Status</h6>
+                                </div>
+                                <div class="view-form-info">
+                                    <h5 *ngIf='empDetailReportModel.EmployeeStatus==""'>All</h5>
+                                    <h6 *ngIf='empDetailReportModel.EmployeeStatus==""'>Employee Status</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 l2 padding-zero">
+                                <div class="view-form-info" *ngFor="let p of empDetailHub[2].options">
+                                    <h5 *ngIf='p.id==empDetailReportModel.DeliveryUnit'>{{p.text}}</h5>
+                                    <h6 *ngIf='p.id==empDetailReportModel.DeliveryUnit'>Delivery Unit</h6>
+                                </div>
+                                <div class="view-form-info">
+                                    <h5 *ngIf='empDetailReportModel.DeliveryUnit==""'>All</h5>
+                                    <h6 *ngIf='empDetailReportModel.DeliveryUnit==""'>Delivery Unit</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 l2 padding-zero">
+                                <div class="view-form-info" *ngFor="let r of empDetailHub[3].options">
+                                    <h5 *ngIf='r.id==empDetailReportModel.DeliveryTeam'>{{r.text}}</h5>
+                                    <h6 *ngIf='r.id==empDetailReportModel.DeliveryTeam'>Delivery Team</h6>
+                                </div>
+                                <div class="view-form-info">
+                                    <h5 *ngIf='empDetailReportModel.DeliveryTeam==""'>All</h5>
+                                    <h6 *ngIf='empDetailReportModel.DeliveryTeam==""'>Delivery Team</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5>{{empDetailReportModel.EmployeeName}}</h5>
+                                    <h6 *ngIf="empDetailReportModel.EmployeeName">Employee code</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="selectedReport=='LeaveSummary'" class="row m-bottom0 header m-top20">
+        <div class="col s12 padding-zero">
+            <div class="row m-bottom0 valign-wrapper">
+                <div class="col s12 l6">
+                    <ui-form #LeaveSummaryForm [controlMetas]="leavesummaryHub" [(model)]="leaveSummary" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
+                        formCss='view-card' columnOrientation='3' controlCss='view-form-info' inputLabelPosition='top'>
+                    </ui-form>
+                </div>
+                <div class="col s12 l6">
+                    <a (click)="ViewReport($event,leaveSummary,LeaveSummaryForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
+                </div>
+            </div>
+            <div class="row m-bottom10" *ngIf="showCriteria">
+                <div class="col s12">
+                    <div class="report-details">
+                        <h5>Report Criteria</h5>
+                        <div class="row">
+                            <div class="col s12 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5>{{leaveSummary.UserID}}</h5>
+                                    <h6 *ngIf="leaveSummary.UserID">UserID</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 l2 padding-zero">
+                                <div class="view-form-info" *ngFor="let p of leavesummaryHub[1].options">
+                                    <h5 *ngIf='p.id==leaveSummary.Location'>{{p.text}}</h5>
+                                    <h6 *ngIf='p.id==leaveSummary.Location'>Location</h6>
+                                </div>
+                                <div class="view-form-info">
+                                    <h5 *ngIf='leaveSummary.Location==""'>All</h5>
+                                    <h6 *ngIf='leaveSummary.Location==""'>Location</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 l2 padding-zero">
+                                <div class="view-form-info" *ngFor="let r of leavesummaryHub[2].options">
+                                    <h5 *ngIf='r.id==leaveSummary.DeliveryUnit'>{{r.text}}</h5>
+                                    <h6 *ngIf='r.id==leaveSummary.DeliveryUnit'>Delivery Unit</h6>
+                                </div>
+                                <div class="view-form-info">
+                                    <h5 *ngIf='leaveSummary.DeliveryUnit==""'>All</h5>
+                                    <h6 *ngIf='leaveSummary.DeliveryUnit==""'>Delivery Unit</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="selectedReport=='LeaveDetail'" class="row m-bottom0 header m-top20">
+        <div class="col s12 padding-zero">
+            <div class="row m-bottom0 valign-wrapper">
+                <div class="col s12 l6">
+                    <ui-form #LeaveDetailForm [controlMetas]="leaveDetailHub" [(model)]="leaveDetails" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
+                        formCss='view-card' columnOrientation='3' controlCss='view-form-info'>
+                        <ui-control-item for='StartDate' behaviours='[ {"name":"max","value":"{{leaveDetails.EndDate}}:mm/dd/yyyy:1"}]' depends='["EndDate:changeattrs"]'
+                            changeattrs='["max"]'>
+                        </ui-control-item>
+
+                        <ui-control-item for='EndDate' behaviours='[ {"name":"min","value":"{{leaveDetails.StartDate}}:mm/dd/yyyy"}]' depends='["StartDate:changeattrs"]'
+                            changeattrs='["min"]'>
+                        </ui-control-item>
+                    </ui-form>
+                </div>
+                <div class="col s12 l6">
+                    <a (click)="ViewReport($event,leaveDetails,LeaveDetailForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
+                </div>
+            </div>
+            <div class="row m-bottom10" *ngIf="showCriteria">
+                <div class="col s12">
+                    <div class="report-details">
+                        <h5>Report Criteria</h5>
+                        <div class="row">
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5>{{leaveDetails.UserID}}</h5>
+                                    <h6 *ngIf="leaveDetails.UserID">UserID</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5 *ngIf="leaveDetails.StartDate">{{leaveDetails.StartDate}}</h5>
+                                    <h6 *ngIf="leaveDetails.StartDate">Start Date</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5 *ngIf="leaveDetails.EndDate">{{leaveDetails.EndDate}}</h5>
+                                    <h6 *ngIf="leaveDetails.EndDate">End Date</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 table-data-wrapper">
+            <div class="table-container padding-zero m-top20">
+                <div class="row m-bottom5">
+                    <div class="col s12 " *ngIf="reportData.length>0">
+                        <div id="table-scroll" style="height:auto; overflow:auto; max-height:500px;">
+                            <table class="striped responsive-table" style="width:100%;">
+                                <thead class="same-width-thead thead-custom-style reports-card">
+                                    <tr>
+                                        <th *ngFor="let p of headers">
+                                            {{p|capitalize}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let q of reportData">
+                                        <td *ngFor="let h of headers">
+                                            <div *ngIf="q[h]">
+                                                {{q[h]}}
+                                            </div>
+                                            <div *ngIf="q[h]=='' || q[h]==null">
+                                                -
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="no-data-div" *ngIf="reportData.length == 0 && selectedReport !='Leaves'">
+                        <span class="no-data">No data available.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="downloadReport">
+            <a *ngIf="reportData.length>0" (click)="DownloadReport($event,reportData)" class="btn waves-effect waves-light custom-btn save-as-draft">Download</a>
+        </div>
+    </div>
+
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

@@ -1,22 +1,18 @@
-import { Component, OnInit, Input} from '@angular/core';
-import {ControlMeta} from '../../infrastructure/models/ControlMeta';
-import {Employee} from '../../model/EmployeeViewModel';
-import {SideMenu} from '../../infrastructure/components/sideMenu';
-import {pageHeading} from '../../infrastructure/components/pageHeading';
-//import {ShortProfileComponent} from './short-profile.component';
-import {PersonalComponent} from './personal.component';
-import {ProfessionalComponent} from './professional.component';
-import {UiForm} from '../../infrastructure/components/UiForm';
-import {Card} from '../../infrastructure/components/Card';
-import {Router} from '@angular/router';
-//import {MenuService} from '../../servicesFolder/menu/MenuService';
-//import {HttpService} from '../../servicesFolder/http/http.service';
-import {UserService} from '../../servicesFolder/user/user.service';
-//import {EmployeeService} from '../../servicesFolder/employee/EmployeeService';
-import {CacheService} from '../../servicesFolder/CacheService';
+import { Component, OnInit, Input } from '@angular/core';
+import { ControlMeta } from '../../infrastructure/models/ControlMeta';
+import { Employee } from '../../model/EmployeeViewModel';
+import { SideMenu } from '../../infrastructure/components/sideMenu';
+import { pageHeading } from '../../infrastructure/components/pageHeading';
+import { PersonalComponent } from './personal.component';
+import { ProfessionalComponent } from './professional.component';
+import { UiForm } from '../../infrastructure/components/UiForm';
+import { Card } from '../../infrastructure/components/Card';
+import { Router } from '@angular/router';
+import { UserService } from '../../servicesFolder/user/user.service';
+import { CacheService } from '../../servicesFolder/CacheService';
 import { ActivatedRoute } from '@angular/router';
-import {MaterializeDirective} from "angular2-materialize";
-import {HttpSettings} from "../../servicesFolder/http/http.settings"
+import { MaterializeDirective } from "angular2-materialize";
+import { HttpSettings } from "../../servicesFolder/http/http.settings"
 
 @Component({
     selector: 'main-employee',
@@ -36,10 +32,10 @@ import {HttpSettings} from "../../servicesFolder/http/http.settings"
                                 <div class="col s12 l3 padding-zero">
                                     <ul class="tabs employee-tabs" style="width: 100%;">
                                         <li class="tab col s3" >
-                                        <a [routerLink]="['professional']" data-target='#'>Professional</a>
+                                        <a [routerLink]="['professional']" routerLinkActive="router-link-active" data-target='#'>Professional</a>
                                         </li>    
                                         <li class="tab col s3" >
-                                        <a [routerLink]="['personal']" data-target='#'>Personal</a> 
+                                        <a [routerLink]="['personal']" routerLinkActive="router-link-active" data-target='#'>Personal</a> 
                                         </li>      
                                     </ul>
                                 </div>
@@ -52,23 +48,9 @@ import {HttpSettings} from "../../servicesFolder/http/http.settings"
                </div>
              <!--</main>-->     
  `,
-    //directives: [ROUTER_DIRECTIVES, ProfessionalComponent, SideMenu, pageHeading, PersonalComponent, UiForm, Card, MaterializeDirective],
-    //providers:[ActivatedRoute]
 
 })
-// @RouteConfig([
-//     {
-//         path: '/professional',
-//         name: 'R-Profile-Professional',
-//         component: ProfessionalComponent,
-//         useAsDefault: true
-//     },
-//     {
-//         path: '/personal',
-//         name: 'R-Profile-Personal',
-//         component: PersonalComponent
-//     }
-// ])
+
 export class EmployeeComponent implements OnInit {
     employee: Employee;
     emphub: any;
@@ -79,7 +61,7 @@ export class EmployeeComponent implements OnInit {
     MenuData: any;
     componentData: any;
 
-    constructor( private _router: Router, private activatedRoute: ActivatedRoute, private _cacheService: CacheService, private userService: UserService) {
+    constructor(private _router: Router, private activatedRoute: ActivatedRoute, private _cacheService: CacheService, private userService: UserService) {
         this.employee = new Employee();
         this.emphub = this.employee["hub"];
         this.MenuData = [{ route: "R-Profile-Personal", name: "Personal" }, { route: "R-Profile-Professional", name: "Professional" }];

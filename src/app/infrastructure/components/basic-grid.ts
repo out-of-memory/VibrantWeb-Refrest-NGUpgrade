@@ -5,7 +5,7 @@ import {List, Map} from 'immutable'
 @Component({
   selector: "basic-cell",
   template: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class BasicCellC {

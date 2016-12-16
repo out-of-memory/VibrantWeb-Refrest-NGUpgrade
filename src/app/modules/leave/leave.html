@@ -1,0 +1,33 @@
+<div class="breadcrumb-nav">
+	<div class="row margin-zero">
+		<div class="col s12">
+			<h5>Leave Management
+                <a href="/vibranthelp/help-landing-page.html" target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>
+				<span class="right mandatory-message"><span *ngIf="isUs">US<a><img class="flag-img" src="/assets/images/us-flag.png" /></a></span>
+				<span *ngIf="!isUs">IND<a ><img class="flag-img" src="/assets/images/india-flag.png" /></a></span></span>
+			</h5>
+		</div>
+	</div>
+</div>
+<div>
+    <div class="tab-container">
+        <div class="row">
+            <div class="col s12 tab-control padding-zero" *ngIf="isApprover">
+                <div class="col s12 m8 l5 padding-zero">
+                    <ul class="tabs app-tabs" style="width: 100%;">
+                        <li class="tab col s3">
+                            <a routerLink="/my/leaves/new" routerLinkActive="router-link-active">APPLY FOR LEAVES</a>
+                        </li>
+                        <li class="tab col s3">
+                            <a routerLink="/my/leaves/approvals" routerLinkActive="router-link-active">LEAVE REQUESTS</a>
+                        </li>
+                        <li class="tab col s3">
+                            <a routerLink="/my/leaves/history" routerLinkActive="router-link-active">LEAVE HISTORY</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

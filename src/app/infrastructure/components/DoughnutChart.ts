@@ -6,6 +6,7 @@ import {Component,Input} from '@angular/core';
                 [data]="data"
                 [labels]="labels"
                 [colors]="colors"
+                [options]="doughnutChartOptions"
                 chartType="doughnut">
               </canvas>
               <div>
@@ -24,4 +25,8 @@ export class DoughnutChart {
   @Input() labels;
   @Input() data;
   @Input() colors;
+
+  doughnutChartOptions:any = {
+    responsive: false
+  };
 }

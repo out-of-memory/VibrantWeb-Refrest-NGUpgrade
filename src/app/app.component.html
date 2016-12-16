@@ -1,36 +1,33 @@
- <div class="navbar-fixed">
-                                <nav class="dark-gray">                                     
-                                    <sidenav-panel *ngIf='isUserLoggedIn' [navbar]='menu' [isActive]=isNavActive></sidenav-panel>
+<div class="navbar-fixed">
+    <nav class="dark-gray">
+        <sidenav-panel *ngIf='isUserLoggedIn' [navbar]='menu' [isActive]=isNavActive></sidenav-panel>
 
-                                    <ul class="right right-nav"  >
-                                        <!--<li class="date-time-text">24 Jun 2016</li>-->
-                                        <li class="date-time-text">{{dateObj | date:'dd MMM yyyy'}}</li> 
-                                        <!--<li class="date-time-text hide-on-small-and-down">6:29:01 PM</li>
-                                        <li class="date-time-text hide-on-small-and-down">{{dateObj | date:'hh:mm:ss'}}</li>-->
-                                        <li class="hide-on-small-and-down" *ngIf='userProfile'><span>{{userProfile.lastName}}, {{userProfile.firstName}} ({{userProfile.id}})</span></li>
-                                        <li><a><i (click)='Logout()' class="fa fa-power-off" *ngIf='isUserLoggedIn'></i></a></li>
-                                        
-                                    </ul>
-                                    <sidenav-button [isActive]=isNavActive (click) = "toggle($event)"></sidenav-button>
-                                    <h5 class="header-title">
-                                    <a [routerLink]="['']">
-                                     <img src="/assets/images/logo-img.png" class="header-logo responsive-img">
-                                        VIBRANT <span>WEB 
-                                       
-                                          </span>   </a>
-                                        
-                                    </h5>  
-                                </nav>
-                            </div>          
-                            <main class="attendance-main" *ngIf='isUserLoggedIn' >
-                                 <main class="attendance-main">
-                                <router-outlet></router-outlet>
-                            </main> 
-                            <footer class="page-footer">
-                                <div class="footer-copyright">
-                                    <div class="center-align">
-                                        © 2016 V2Solutions, Inc.
-                                    </div>
-                                </div>
-                            </footer>
-                          
+        <ul class="right right-nav">
+            <li class="date-time-text">{{dateObj | date:'dd MMM yyyy'}}</li>
+            <li class="hide-on-small-and-down" *ngIf='userProfile'><span>{{userProfile.lastName}}, {{userProfile.firstName}} ({{userProfile.id}})</span></li>
+            <li><a><i (click)='Logout()' class="fa fa-power-off" *ngIf='isUserLoggedIn'></i></a></li>
+
+        </ul>
+        <sidenav-button [isActive]=isNavActive (click)="toggle($event)"></sidenav-button>
+        <h5 class="header-title">
+            <a [routerLink]="['']"><img src="/assets/images/logo-img.png" class="header-logo responsive-img"> VIBRANT <span>WEB </span></a>
+            <div style='background:#494342;padding: 0 10px; display: inline-flex; height: 50px;'>
+                <span>Impersonate : </span>
+                <span><input type='number' [(ngModel)]='impersonate' /></span>
+                <span><button (click)='OnImpersonate()' style='background:green;padding:0 15px;'> Do it!</button></span>
+            </div>
+        </h5>
+    </nav>
+</div>
+<main class="attendance-main" *ngIf='isUserLoggedIn'>
+    <router-outlet></router-outlet>
+</main>
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="center-align">
+            © 2016 V2Solutions, Inc.
+        </div>
+    </div>
+</footer>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

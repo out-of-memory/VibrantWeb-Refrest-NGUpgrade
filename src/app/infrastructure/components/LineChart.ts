@@ -1,4 +1,5 @@
 import {Component,Input} from '@angular/core';
+
 @Component({
   selector: 'line-bar-chart',
   template: `<canvas baseChart class="chart"
@@ -28,7 +29,7 @@ export class LineChart {
 
   lineChartOptions:any = {
     animation: false,
-    responsive: true
+    responsive: false
   };
 
   lineChartLegend:boolean = true;
