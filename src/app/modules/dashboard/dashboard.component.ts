@@ -20,9 +20,7 @@ declare var $: any;
 
 @Component({
     selector: 'dashboard',
-    templateUrl: './dashboard.component.html'//,
-    //directives: [ROUTER_DIRECTIVES, Card, UiForm, UiCustomModal, MaterializeDirective],
-    //pipes: [ModulePipe, ApprovalStatus, ApprovalStatusTitle, TicketStatusPipe]
+    templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
     results: any;
@@ -48,6 +46,8 @@ export class DashboardComponent implements OnInit {
     showHelpDeskStatusToggle: boolean = true;
     myTeamList: Array<any> = [];
     myTeamList2Count: Array<any> = [];
+    isUs: boolean = false;
+    appraisalAssignedTo: boolean = false;
 
     constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService) {
         this.date = new Date().toISOString();
@@ -61,10 +61,14 @@ export class DashboardComponent implements OnInit {
         this.GetExpenseActivity();
         this.GetHelpDeskTickets();
         this.fetchPendingHelpDeskTicket();
+        this.GetAppraisalAssignedTo();
     }
 
     ngOnInit() {
         var data = this._cacheService.getParams("profile");
+        if (data["ol"] == 2) {
+            this.isUs = true;
+        }
         this.InitializeCards(data);
         this.GetUpcomingHoliday(data["ol"]);
         this.fetchPendingApprovals();
@@ -217,11 +221,27 @@ export class DashboardComponent implements OnInit {
     }
 
     fetchPendingApprovals() {
-        this
-            .dashboardService
-            .fetchPendingApprovalsForMe((data) => {
-                this.approvals = data;
-            });
+        this.dashboardService.fetchPendingApprovalsForMe((data) => {
+            this.approvals = data;
+            let smallModules: Array<string> = ["leave", "profile", "expense", "compoff", "helpdesk", "travel", "appraisal"];
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].module == '1') {
+                    this.approvals[i].url = 'my/leaves/approvals';
+                }
+                else if (data[i].module == '3') {
+                    this.approvals[i].url = 'my/expense/newapproval';
+                }
+                else if (data[i].module == '5') {
+                    this.approvals[i].url = 'my/helpdesk/newapproval';
+                }
+                else if (data[i].module == '6') {
+                    this.approvals[i].url = 'my/travel/newapproval';
+                }
+                else {
+                    this.approvals[i].url = 'approvals/' + smallModules[(+(data[i].module) - 1)]
+                }
+            }
+        });
     }
 
     GetHelpDeskTickets() {
@@ -287,9 +307,10 @@ export class DashboardComponent implements OnInit {
                     element.expenseStatus.forEach(detailElement => {
                         if (detailElement.status > 0) {
                             model.onStageStatus = detailElement.status;
-                            model.lastcomments = detailElement.comment;
                         }
-
+                        if (detailElement.status > 0) {
+                            model.lastcomments = detailElement.stage == 1 ? 'Primary Approval Stage' : 'Secondary Approval Stage';
+                        }
                     });
                     this.submittedExpenseCollection.push(model);
                 });
@@ -343,46 +364,27 @@ export class DashboardComponent implements OnInit {
         var weekday = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
         return weekday[d.getDay()];
     }
+
+    IsBirthday(date: any) {
+        var birthday = new Date(date), today = new Date();
+        birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
+        var beforBirthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
+        beforBirthday.setDate(beforBirthday.getDate() - 30);
+        if (today.setHours(0, 0, 0, 0) <= birthday.setHours(0, 0, 0, 0) && today.setHours(0, 0, 0, 0) >= beforBirthday.setHours(0, 0, 0, 0)) {
+            return { date: birthday, isDisplay: true };
+        }
+        else {
+            return { date: birthday, isDisplay: false };
+        }
+    }
+
+    GetAppraisalAssignedTo() {
+        var self = this;
+        var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
+        this._httpService.get(url).subscribe(
+            data => {
+                if (data == this.results.id)
+                    self.appraisalAssignedTo = true;
+            });
+    }
 }
-
-
-
-/*
-import { Component, OnInit } from '@angular/core';
-import {DashboardService} from './../../servicesFolder/dashboard/dashboardService';
-import {HttpService} from './../../servicesFolder/http/http.service';
-
-@Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
-  
-  providers:[HttpService,DashboardService]
-})
-export class DashboardComponent implements OnInit {
-
-
-
-name:Abc;
-  constructor(private dashboardService:DashboardService) {
-      this.name=new Abc();
-      this.name.name="Ravi"
-      
-      setTimeout(()=>{this.name.name="Ravi Kant Srivastava"}, 10000);
-   }
-
-  ngOnInit() {
-  }
-
-onCorrect(){
-    
-    this.name.name="Ravi Kant"
-    
-    
-}
-}
-
-export class Abc{
-    name:any;
-    age:any;
-}*/

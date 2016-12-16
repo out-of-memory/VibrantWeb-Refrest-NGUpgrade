@@ -1,17 +1,18 @@
-<div class="breadcrumb-nav">
+<div class="breadcrumb-nav" *ngIf="!searchUser">
 	<div class="row margin-zero">
 		<div class="col s12">
 			<h5>Attendance
+                <a href="/vibranthelp/help-landing-page.html" target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>
 				<span class="right mandatory-message">
                     <span *ngIf="isUs">US<img class="flag-img" src="assets/images/us-flag.png" /></span>
-				<span *ngIf="!isUs">IND<img class="flag-img" src="assets/images/india-flag.png" /></span>
+					<span *ngIf="!isUs">IND<img class="flag-img" src="assets/images/india-flag.png" /></span>
 				</span>
 			</h5>
 		</div>
 	</div>
 </div>
 <div class="attendance-wrapper p-top5">
-	<div class="row m-bottom0 valign-wrapper">
+	<div class="row m-bottom0 valign-wrapper" [class.m-bottom10]="searchUser">
 		<div class="col s6 m3 l1">
 			<div>
 				<select materialize="material_select" [materializeSelectOptions]="monthCollection" [(ngModel)]="selectedMonth" (change)="onMonthSelected($event.target.value)">
@@ -26,7 +27,7 @@
                 </select>
 			</div>
 		</div>
-		<div class="col s12 m6 l10 list-view-options right-align valign m-top10">
+		<div class="col s12 m6 l10 list-view-options right-align valign m-top10" *ngIf="!searchUser">
 			<a [class.active]="showChart==false" (click)="showChart=false;hideLineChartDetail()"><i class="fa fa-th" aria-hidden="true" title="Grid View"></i></a>
 			<a [class.active]="showChart==true" (click)="showChart=true;showLineChartDetail()"><i class="fa fa-line-chart" aria-hidden="true" title="Chart View"></i></a>
 			<!--<a href="attendance-us-calender-view.html"><i class="fa fa-calendar" aria-hidden="true" title="Calender View"></i></a>-->
@@ -121,12 +122,9 @@
 						</div>
 
 					</div>
-					<div class="center-align">
-						<label class="total-ds"><b>Total Days : </b><span class="total-days">{{totalDays}}</span></label>
-					</div>
 				</div>
 			</div>
-			<div class="row margin-zero" *ngIf="isUs">
+			<div class="row margin-zero" *ngIf="isUs && !searchUser">
 				<div class="col s12 center-align manual-attendance">
 					<a *ngIf="!isSignIn" class="waves-effect waves-light btn-large sign-in" title="Sign In" (click)='PerformAutoSignIn($event, "SignIn")'><i class="left"><img src="assets/images/sign-in.png"></i><span class="hide-on-small-only">Sign In</span></a>
 					<a *ngIf="!isSignOut && isSignIn" class="waves-effect waves-light btn-large sign-in" title="Sign Out" (click)='PerformAutoSignIn($event, "SignOut")'><i class="left"><img src="assets/images/signout.png"></i><span class="hide-on-small-only">Sign Out</span></a>
@@ -134,7 +132,7 @@
 			</div>
 		</div>
 		<div class="col s12 l6 padding-zero">
-			<div class="row" *ngIf="isUs">
+			<div class="row" *ngIf="isUs && !searchUser">
 				<div class="col s12">
 					<div class="apply-for-leave-container manual-box">
 						<div class="header">

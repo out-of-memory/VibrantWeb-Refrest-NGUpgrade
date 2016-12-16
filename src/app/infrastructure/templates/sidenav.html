@@ -1,8 +1,8 @@
-<ul id="slide-out"  class="side-nav" [ngClass]="{'active': isActive}">
+<ul id="slide-out" class="side-nav" [ngClass]="{'active': isActive}">
 	<li *ngFor="let item of navbar" class="no-padding" [ngClass]="item.css">
 		<ul class="collapsible collapsible-accordion">
 			<li [ngClass]="{'active': true}">
-				<a class="collapsible-header" [routerLink]="[item.routerName]" *ngIf="item.subNav.length==0" [ngClass]="{'active': item.isActive === true}"
+				<a class="collapsible-header" [routerLink]="[item.routerName, item.routerPara]" *ngIf="item.subNav.length==0" [ngClass]="{'active': item.isActive === true}"
 					(click)='toggle($event,item, childNav)' title="{{item.title}}">
 					<i [ngClass]="item.iconCss" title="{{item.title}}"><img style='width:32px; height:32px' class="circle" *ngIf="item.imageUrl && item.imageUrl !== ''" [src]="item.imageUrl" /></i>					{{item.title}}
 				</a>
@@ -12,9 +12,11 @@
                         <i [ngClass]="item.iconCss" title="{{item.title}}"><img *ngIf="item.imageUrl || '' !== ''" src="{{item.imageUrl}}"></i><span><img src="../assets/images/down-arrow.png"></span>
                 </a>
 				<div #childNav class="collapsible-body" id='childNav' style="display: none;">
-					<ul *ngIf="item.subNav.length > 0 && item.IsPageLevelSubMenu === 'false'">
+					<ul *ngIf="item.subNav.length > 0 && item.IsPageLevelSubMenu === 'false'" class="notification">
 						<li *ngFor="let subitem of item.subNav">
-							<a href="#/approvals/{{subitem.routerPara|module:'small'}}" (click)='close(true)' title="{{subitem.title|module:'cap'}}">{{subitem.title|module:'cap'}}<span class="menu-approval-badge">{{subitem.count}}</span></a>
+							<a href="#/{{subitem.routerPara}}" (click)='close(true)' title="{{subitem.title|module:'cap'}}">{{subitem.title|module:'cap'}}<span class="menu-approval-badge">{{subitem.count}}</span>
+							<span class="menu-approval-badge-1" title="{{subitem.title|module:'cap'}}">{{subitem.title | module:'short'}}</span><div class="notify"><span class="notifi">{{subitem.count}}</span></div>
+							</a>
 						</li>
 					</ul>
 				</div>
