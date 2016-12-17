@@ -68,6 +68,7 @@ export class AppComponent {
                         "css": "first",
                         "parentRoute": "",
                         "routerName": "R-my-dashboard",
+                        "routerUrl": "my/dashboard",
                         "subNav": []
                     },
                     {
@@ -77,6 +78,7 @@ export class AppComponent {
                         "css": "third",
                         "parentRoute": "",
                         "routerName": "R-Reports",
+                        "routerUrl": "employee/reports/view",
                         "subNav": []
                     }
                 ];
@@ -90,6 +92,7 @@ export class AppComponent {
                             "css": "fourth",
                             "parentRoute": "",
                             "routerName": "R-employee-search",
+                            "routerUrl": "employee/search",
                             "subNav": []
                         });
                     }
@@ -127,6 +130,7 @@ export class AppComponent {
                     "css": "fifth",
                     "parentRoute": "",
                     "routerName": "R-my-expense",
+                    "routerUrl": "my/expense",
                     "subNav": []
                 });
                 dis.menu.push({
@@ -136,6 +140,7 @@ export class AppComponent {
                     "css": "sixth",
                     "parentRoute": "",
                     "routerName": "R-my-HelpDesk",
+                    "routerUrl": "",
                     "subNav": []
                 });
 

@@ -151,7 +151,7 @@ export class EmployeeSearchComponent {
         this.userProfile = this._cacheService.getParams("profile");
         if (this.userProfile.role.length != 0) {
             // if (this.userProfile.role[0].roleId != 12 && this.userProfile.role[0].roleId != 27) {
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['my/dashboard']);
             //}
         }
     }

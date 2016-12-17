@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AutoMapperService, HttpService, HttpSettings, CacheService } from '../../services';
 
 @Component({
-    selector: "leave"
-    , templateUrl: './leave.html'
+    selector: "leave",
+    templateUrl: './leave.html'
 })
 
 export class LeaveApproval {

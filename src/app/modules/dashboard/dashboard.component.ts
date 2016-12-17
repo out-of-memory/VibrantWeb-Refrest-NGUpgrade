@@ -379,12 +379,12 @@ export class DashboardComponent implements OnInit {
     }
 
     GetAppraisalAssignedTo() {
-        var self = this;
-        var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
-        this._httpService.get(url).subscribe(
-            data => {
-                if (data == this.results.id)
-                    self.appraisalAssignedTo = true;
-            });
+        // var self = this;
+        // var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
+        // this._httpService.get(url).subscribe(
+        //     data => {
+        //         if (data == this.results.id)
+        //             self.appraisalAssignedTo = true;
+        //     });
     }
 }

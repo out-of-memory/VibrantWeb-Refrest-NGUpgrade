@@ -6,6 +6,7 @@ import { HelpDeskComponent } from '../modules/HelpDesk/helpdesk.component';
 import { HelpDeskSubmitComponent } from '../modules/HelpDesk/helpdesk.submitted.component';
 import { AttendanceComponent } from '../modules/attendance/attendance.component';
 import { LeaveApproval } from '../modules/leave/leave';
+import { ReportsComponent } from '../modules/reports/reports.component';
 
 export module Decorator {
     export class App {
@@ -18,21 +19,24 @@ export module Decorator {
                     useAsDefault: true,
                 },
                 {
+                    path: '', redirectTo: 'my/dashboard', pathMatch: 'full'
+                },
+                {
                     path: '/my/profile/...',
                     name: 'R-my-profile',
                     component: EmployeeComponent,
                     data: { isViewOnly: false, from: 'profile' }
                 },
                 {
-                    path: '/my/attendance',
-                    name: 'R-my-attendence',
-                    component: AttendanceComponent
-                },
-                {
                     path: '/employee/details/:id/...',
                     name: 'R-employee-details',
                     component: EmployeeComponent,
                     data: { isViewOnly: true, from: 'search' }
+                },
+                {
+                    path: '/my/attendance',
+                    name: 'R-my-attendence',
+                    component: AttendanceComponent
                 },
                 {
                     path: '/employee/search',
@@ -58,6 +62,11 @@ export module Decorator {
                     path: '/my/helpdesk/details/:id/:action/:selectedStatus',
                     name: 'R-my-HelpDesk-Details',
                     component: HelpDeskSubmitComponent
+                },
+                {
+                    path: '/employee/reports/...',
+                    name: 'R-Reports',
+                    component: ReportsComponent
                 },
             ]
 
