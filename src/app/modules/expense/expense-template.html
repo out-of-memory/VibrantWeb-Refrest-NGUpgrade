@@ -17,7 +17,7 @@
 					<div class="col s12 m8 l5 padding-zero">
 						<ul class="tabs expense-tabs" style="width: 100%;">
 							<li class="tab col s3" *ngFor="let item of MenuData">
-								<a [routerLink]="[item.routerName]">{{item.title}}</a>
+								<a routerLink="{{item.routerName}}">{{item.title}}</a>
 							</li>
 
 						</ul>

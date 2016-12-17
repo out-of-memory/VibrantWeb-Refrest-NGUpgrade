@@ -1,0 +1,21 @@
+{
+    "reimFormCode": 907,
+    "requestDate": "15/07/2016",
+    "isClientReimbursment": true,
+    "clientId": "1",
+    "primaryApproverUserId": "1",
+    "secondaryApproverUserId": "1",
+    "costCenterId": "1",
+    "currencyId": "1",
+    "expenseDetails": [
+        {
+            
+            "receiptNo": "",
+            "expenseDate": "",
+            "expenseCategoryId": "",
+            "amount": "",
+            "comments": "",
+            "attachedFile": ""
+        }
+    ]
+}

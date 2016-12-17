@@ -3,10 +3,10 @@ import { NewExpenseModel, ExpenseDetails } from '../../model/NewExpenseDataModel
 import { HttpService } from '../../servicesFolder/http/http.service';
 import { AutoMapperService } from '../../servicesFolder/AutoMapperService';
 import { HttpSettings } from '../../servicesFolder/http/http.settings';
-import {ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CacheService } from '../../servicesFolder/CacheService';
 import * as Materialize from "angular2-materialize";
-
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'expense-new',
@@ -21,14 +21,14 @@ import * as Materialize from "angular2-materialize";
                 color: red;
             }
     `],
-    
+
 })
 export class ExpenseNewComponent implements OnInit {
 
     expenseModel: NewExpenseModel;
     expensehub: any;
     expenseDetailCollection: Array<any> = [];
-    url = 'app/TestData/expense.json';
+    url = 'assets/TestData/expense.json';
     expenseDetail: ExpenseDetails[];
 
     detailHub: any;
@@ -250,7 +250,12 @@ export class ExpenseNewComponent implements OnInit {
 
     ngOnInit() {
 
-        let rdata = this.activatedRoute.params['expenseId'];
+        let rdata = this.activatedRoute.root;
+
+        this.activatedRoute.params.subscribe(
+            (param: any) => {
+                rdata = param['expenseId'];
+            });
 
         if (rdata === undefined) {
             this.GetExpenseDetails(0);
@@ -461,7 +466,7 @@ export class ExpenseNewComponent implements OnInit {
         this._httpService.post(url, e).subscribe(
             data => {
                 this.loaderModal = false;
-                Materialize.toast('Reimbursement Saved successfully', 3000, 'successTost');
+                Materialize.toast('Reimbursement Submitted Successfully', 3000, 'successTost');
                 this.showModal = false;
                 this.Cancel(event);
             },
