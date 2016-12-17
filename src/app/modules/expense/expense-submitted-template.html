@@ -41,7 +41,7 @@
 													[lastApprovedComment]="item.comments"></status-step>
 											</div>
 											<div class="col s12 m6 offset-m6 l2 expense-action-icons">
-												<a *ngIf='item.isRejected == true' href="#" class="expense-icon" id="edit-expense" [routerLink]="['Finance_Expense_New_Id',{expenseId: item.expenseId}]"><i class="fa fa-pencil edit" aria-hidden="true" title="Edit"></i></a>
+												<a *ngIf='item.isRejected == true' href="#" class="expense-icon" id="edit-expense" routerLink="/my/expense/new/{{item.expenseId}}"><i class="fa fa-pencil edit" aria-hidden="true" title="Edit"></i></a>
 												<a style="display: none;" href="#" class="left expense-icon"><i class="fa fa-print print" aria-hidden="true" title="Print"></i></a>
 <!--<a href="#" class="expense-icon"><i class="fa fa-trash remove" aria-hidden="true" title="Remove" (click)="RemoveExpense($event,item)"></i></a>-->
 <a href="#" data-collapsible="accordion" class="right expense-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>

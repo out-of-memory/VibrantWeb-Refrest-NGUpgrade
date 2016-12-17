@@ -6,7 +6,7 @@ import { HttpSettings } from '../../servicesFolder/http/http.settings';
 import { ActivatedRoute } from '@angular/router';
 import { CacheService } from '../../servicesFolder/CacheService';
 import * as Materialize from "angular2-materialize";
-
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'expense-new',
@@ -250,7 +250,12 @@ export class ExpenseNewComponent implements OnInit {
 
     ngOnInit() {
 
-        let rdata = ''; //this.activatedRoute.root.currentInstruction.child.component.params['expenseId'];
+        let rdata = this.activatedRoute.root;
+
+        this.activatedRoute.params.subscribe(
+            (param: any) => {
+                rdata = param['expenseId'];
+            });
 
         if (rdata === undefined) {
             this.GetExpenseDetails(0);
