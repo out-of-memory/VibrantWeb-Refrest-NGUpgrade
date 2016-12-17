@@ -25,7 +25,7 @@ declare var $: any;
         display: none !important;    
     }
     `]
-   
+
 })
 export class ExpenseDrafts {
 
