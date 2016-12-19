@@ -49,6 +49,8 @@ export class DashboardComponent implements OnInit {
     isUs: boolean = false;
     appraisalAssignedTo: boolean = false;
     isAdminUser: boolean = false;
+    isLocation: boolean = false;
+    this1: any;
 
     constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService) {
         this.date = new Date().toISOString();
@@ -63,6 +65,7 @@ export class DashboardComponent implements OnInit {
         this.GetHelpDeskTickets();
         this.fetchPendingHelpDeskTicket();
         this.GetAppraisalAssignedTo();
+        this.this1 = $(this);
     }
 
     ngOnInit() {
@@ -82,22 +85,26 @@ export class DashboardComponent implements OnInit {
         //console.log(position.coords.latitude)
         //console.log(position.coords.longitude)
 
-        var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
+        
 
-        $.getJSON(GEOCODING).done(function (location) {
-            if (location.results[0]) {
-                for (var i = 0; i < location.results[0].address_components.length; i++) {
-                    if (location.results[0].address_components[i].types[0] == "country") {
-                        //console.log(location.results[0].address_components[i].long_name);
-                    }
-                }
-            }
+        let latitude = position.coords.latitude.toFixed(5);
+        let longitude = position.coords.longitude.toFixed(5);
+        let timestamp = Number(String(position.timestamp).substring(0, 7));
+
+        var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI"
+
+        $.getJSON(locationUrl).done(function (location) {
+            localStorage.setItem("geolocation", JSON.stringify(location));
         });
-
     }
 
     error(err) {
-        console.log(err)
+
+        console.log(err);
+    }
+
+    Islocation() {
+        this.isLocation = true;
     }
 
     InitializeCards(data) {
