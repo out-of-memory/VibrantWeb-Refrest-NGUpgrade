@@ -130,7 +130,7 @@ export class AppComponent {
                     "css": "fifth",
                     "parentRoute": "",
                     "routerName": "R-my-expense",
-                    "routerUrl": "my/expense",
+                    "routerUrl": "my/expense/new",
                     "subNav": []
                 });
                 dis.menu.push({

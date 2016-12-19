@@ -24,15 +24,6 @@ export class ExpenseComponent {
             this.isUs = true;
         }
 
-        // if (true) {
-        //     let dfdsfsf = this.router;
-        //     //this.router.navigate(['Finance_Expense_New']);
-        // }
-
-        // //  if (this.router.root.currentInstruction.child.urlPath == 'new' || this.router.root.currentInstruction.child.urlPath == '') {
-        // //     this.router.navigate(['Finance_Expense_New']);
-        // // }
-
         this.MenuData = [{ "routerName": "new", "routerPara": "", "title": "New Request" },
         { "routerName": "drafts", "routerPara": "", "title": "Drafts" },
         { "routerName": "submitted", "routerPara": "", "title": "Submitted" }];
@@ -40,7 +31,7 @@ export class ExpenseComponent {
         var url = HttpSettings.apiBaseUrl + 'v1/leave-management/IsApprover/3';
         this._httpService.get(url).subscribe(
             data => {
-                if (data == true || data == false) {
+                if (data == true) {
                     this.MenuData.push({ "routerName": "newapproval", "routerPara": "", "title": "EXPENSE REQUESTS" });
                     this.MenuData.push({ "routerName": "approvalhistory", "routerPara": "", "title": "EXPENSE HISTORY" });
                 }

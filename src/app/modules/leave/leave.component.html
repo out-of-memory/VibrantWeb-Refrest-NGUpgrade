@@ -4,7 +4,7 @@
 			<div class="row m-bottom0">
 				<div class="col s6 m4 padding-zero">
 					<div class="input-field margin-zero">
-						<select materialize="material_select" [materializeSelectOptions]="yearCollection" (change)="onYearSelected($event.target.value)">
+						<select materialize="material_select" [materializeSelectOptions]="yearCollection" [(ngModel)]="selectedYear" (change)="onYearSelected($event.target.value)">
 							<option *ngFor="let option of yearCollection" [value]="option.value">{{option.label}}</option>
 						</select>
 					</div>

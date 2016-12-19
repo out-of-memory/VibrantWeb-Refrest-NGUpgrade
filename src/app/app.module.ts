@@ -28,6 +28,7 @@ import { ApprovalsModule } from './modules/approvals/approvals.module';
 import { HelpdeskModule } from './modules/helpdesk/helpdesk.module';
 import { ExpenseModule } from './modules/expense/expense.module';
 import { EmployeeModule } from './modules/employee/employee.module';
+import { MaintainenceModule } from './modules/maintainence/maintainence.module';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import { EmployeeModule } from './modules/employee/employee.module';
     ExpenseModule,
     EmployeeModule,
     ReportsModule,
-    
+    MaintainenceModule
     
   ],
   providers: [CacheService,{provide: LocationStrategy, useClass: HashLocationStrategy},

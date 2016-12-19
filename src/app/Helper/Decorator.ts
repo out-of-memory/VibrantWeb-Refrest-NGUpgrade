@@ -7,6 +7,7 @@ import { HelpDeskSubmitComponent } from '../modules/HelpDesk/helpdesk.submitted.
 import { AttendanceComponent } from '../modules/attendance/attendance.component';
 import { LeaveApproval } from '../modules/leave/leave';
 import { ReportsComponent } from '../modules/reports/reports.component';
+import { MaintainenceComponent } from '../modules/Maintainence/maintainence.component';
 
 export module Decorator {
     export class App {
@@ -68,6 +69,11 @@ export module Decorator {
                     name: 'R-Reports',
                     component: ReportsComponent
                 },
+                {
+                    path: "/maintainence",
+                    name: "R-Maintainence",
+                    component: MaintainenceComponent
+                }
             ]
 
         }

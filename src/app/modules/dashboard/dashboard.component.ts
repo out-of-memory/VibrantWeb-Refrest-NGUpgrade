@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
     myTeamList2Count: Array<any> = [];
     isUs: boolean = false;
     appraisalAssignedTo: boolean = false;
+    isAdminUser: boolean = false;
 
     constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService) {
         this.date = new Date().toISOString();
@@ -69,6 +70,7 @@ export class DashboardComponent implements OnInit {
         if (data["ol"] == 2) {
             this.isUs = true;
         }
+        this.showAdministration(data.role);
         this.InitializeCards(data);
         this.GetUpcomingHoliday(data["ol"]);
         this.fetchPendingApprovals();
@@ -386,5 +388,15 @@ export class DashboardComponent implements OnInit {
         //         if (data == this.results.id)
         //             self.appraisalAssignedTo = true;
         //     });
+    }
+
+    showAdministration(roles: any) {
+        for (var i = 0; i < roles.length; i++) {
+            if (roles[i].roleId == 24 || roles[i].roleId == 11 || roles[i].roleId == 12 || roles[i].roleId == 7 || roles[i].roleId == 32 || roles[i].roleId == 25 || roles[i].roleId == 32
+                || roles[i].roleId == 23 || roles[i].roleId == 21 || roles[i].roleId == 22 || roles[i].roleId == 1 || roles[i].roleId == 26 || roles[i].roleId == 27 || roles[i].roleId == 28
+                || roles[i].roleId == 29 || roles[i].roleId == 30) {
+                this.isAdminUser = true;
+            }
+        }
     }
 }

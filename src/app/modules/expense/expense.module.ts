@@ -17,7 +17,6 @@ import { ExpenseApprovalHistoryComponent } from './expense.approvalHistory'
             { path: 'my/expense', redirectTo: 'new', pathMatch: 'full' },
             {
                 path: 'my/expense', component: ExpenseComponent,
-
                 children: [
                     { path: 'new', component: ExpenseNewComponent },
                     { path: 'submitted', component: ExpenseSubmittedComponent },
