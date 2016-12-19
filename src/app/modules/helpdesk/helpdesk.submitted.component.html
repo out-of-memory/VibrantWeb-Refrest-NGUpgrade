@@ -109,17 +109,38 @@
                                 <ui-form #addTicketForm [controlMetas]="helpDeskSubmitHub" [model]="helpDeskSubmitModel" [formReadonly]='true' [errorOnlyOnSubmit]='formSubmitted'
                                     formCss='' controlCss='' columnOrientation='2'>
                                 </ui-form>
-                                <div class="col s12 m6 padding-zero" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7 ">
-                                    <select class="col s6" placeholder="Status" [(ngModel)]="helpDeskSubmitModel.status" materialize="material_select" [materializeSelectOptions]="issueStatusCollection"
-                                        (change)="onIssueStatusChanged($event.target.value)">
+                                <div class="col s12 m-bottom20 padding-zero" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7 && assignToVisible == true ">
+                                    <div class="col m6">
+                                        <select placeholder="Status" name="status"[(ngModel)]="helpDeskSubmitModel.status" materialize="material_select" [materializeSelectOptions]="issueStatusCollection"
+                                            (change)="onIssueStatusChanged($event.target.value)">
                                                     <option *ngFor="let option of issueStatusCollection" [value]="option.id">{{option.text}}</option>
                                             </select>
-                                        <div class="col s6" *ngIf="(action == 0 && selectedStatus != 6 && selectedStatus != 7 && assignToVisible == true) ">
-                                              <select placeholder="Status" [(ngModel)]="helpDeskSubmitModel.assignedTo" materialize="material_select" [materializeSelectOptions]="assigneeCollection">
-                                                    <option *ngFor="let option of assigneeCollection" [value]="option.id">{{option.text}}</option> </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m6 padding-zero" *ngIf="(action == 0 && selectedStatus != 6 && selectedStatus != 7 && assignToVisible == true)">
+                                        <div class="row margin-zero">
+                                            <div class="custom-input-field col s12">
+                                                <h6>Assign to</h6>
+                                                <div class="switch">
+                                                    <label>
+                                                    Team members
+                                                    <input type="checkbox" ([ngModel])="raisedByMe" (change)="departmentChanged($event)">
+                                                    <span class="lever"></span>
+                                                    Other Departments
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
-                                       
-                                   
+                                    </div>
+                                    <div class="col s12 m6 padding-zero">
+                                        <div class="row margin-zero">
+                                            <div class="col s6" *ngIf="(action == 0 && selectedStatus != 6 && selectedStatus != 7 && assignToVisible == true) ">
+                                                <select name="assignedTo" placeholder="Status" [(ngModel)]="helpDeskSubmitModel.assignedTo" materialize="material_select" [materializeSelectOptions]="dropDownCollection">
+                                                            <option *ngFor="let option of dropDownCollection" [value]="option.id">{{option.text}}</option> </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col s12 l6 comments-section">

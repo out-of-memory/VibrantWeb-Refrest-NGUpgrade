@@ -39,7 +39,8 @@ export class HelpDeskApprovalComponent {
   }
 
   populateDurationDropDown() {
-    this.durationCollection = new Array();
+    debugger;
+    this.durationCollection = new Array<any>();
     for (var i = 0; i < this.duration.length; i++) {
       this.durationCollection.push({ "id": +(this.duration[i]), "text": this.duration[i] });
     }
@@ -122,6 +123,10 @@ export class HelpDeskApprovalComponent {
     var localOffset = (-1) * new Date().getTimezoneOffset() * 60000;
     var stamp = Math.round(new Date(currentTime + localOffset).getTime() / 1000);
     return stamp.toString();
+  }
+
+  onDurationChanged(val: any){
+console.log(val);
   }
 
 }

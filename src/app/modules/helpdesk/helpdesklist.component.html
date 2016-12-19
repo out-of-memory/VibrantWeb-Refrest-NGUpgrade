@@ -2,12 +2,12 @@
     <div class="employee-form helpdesk-emp">
         <form class="row m-bottom0">
             <div class="col s12 l6 m-top20 m-bottom20">
-                <input type="checkbox" id="raisedByMe" [ngModel]="raisedByMe" (ngModelChange)="raisedCheckboxChanged($event)" />
+                <input type="checkbox" id="raisedByMe" [ngModel]="raisedByMe" name='raisedByMe' (ngModelChange)="raisedCheckboxChanged($event)" />
                 <label for="raisedByMe"> Show Tickets raised only by me</label>
             </div>
             <div class="custom-input-field m-bottom0 col s12 l3">
                 <h6>Search by Status</h6>
-                <select placeholder="Status" [(ngModel)]="selectedStatus" materialize="material_select" [materializeSelectOptions]="issueStatusCollection"
+                <select placeholder="Status" [(ngModel)]="selectedStatus" name='selectedStatus' materialize="material_select" [materializeSelectOptions]="issueStatusCollection"
                     (change)="onIssueStatusChanged($event.target.value)">
                                                     <option *ngFor="let option of issueStatusCollection" [value]="option.id">{{option.text}}</option>
                                             </select>

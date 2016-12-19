@@ -31,8 +31,8 @@ import {HttpSettings} from "../../servicesFolder/http/http.settings"
                     <div class="col s12 tab-control padding-zero">
                         <div class="col s12 m8 l5 padding-zero">
                             <ul class="tabs app-tabs" style="width: 100%;">
-                                <li class="tab col s3"><a [routerLink]="['R-New-HelpDesk']">RAISE  A TICKET</a></li>
-                                <li class="tab col s3"><a [routerLink]="['R-HelpDesk-List',{status:0}]">TICKET LIST</a></li>
+                                <li class="tab col s3"><a [routerLink]="['newticket']">RAISE  A TICKET</a></li>
+                                <li class="tab col s3"><a [routerLink]="['ticketlist/0']">TICKET LIST</a></li>
                             </ul>
                         </div>
                     </div>                    
