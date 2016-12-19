@@ -18,7 +18,7 @@ import { LocationPipe } from '../../infrastructure/pipes/pipes'
 @Component({
     selector: 'submithelpdesk',
     templateUrl: './helpdesk.submitted.component.html',
-   // directives: [UiForm, UiFormControl, MaterializeDirective, FileUpload, BasicGrid, BasicCellC, LoaderComponent, ROUTER_DIRECTIVES],
+    // directives: [UiForm, UiFormControl, MaterializeDirective, FileUpload, BasicGrid, BasicCellC, LoaderComponent, ROUTER_DIRECTIVES],
     providers: [HttpService],
     //pipes: [FileNamePipe, LocationPipe]
 })
@@ -49,6 +49,10 @@ export class HelpDeskSubmitComponent {
     todaysTime: string = "";
     assigneeCollection: Array<any>;
     assignToVisible: boolean = false;
+
+    otherDepartmentAssigneeCollection: Array<any>;
+    dropDownCollection: Array<any>;
+    raisedByMe: boolean = false;
     constructor(private _httpService: HttpService, private _cacheService: CacheService, private routeParams: ActivatedRoute, private _autoMapperService: AutoMapperService) {
         this.setHelpDeskTicket();
         this.populateSubmittedTicket();
@@ -63,9 +67,9 @@ export class HelpDeskSubmitComponent {
     }
 
     populateSubmittedTicket() {
-        this.id = this.routeParams.params['id'];
-        this.action = +(this.routeParams.params['action']);
-        this.issueListSelectedStatus = +(this.routeParams.params['selectedStatus']);
+        this.id = this.routeParams.snapshot.params['id'];
+        this.action = +(this.routeParams.snapshot.params['action']);
+        this.issueListSelectedStatus = +(this.routeParams.snapshot.params['selectedStatus']);
         this.getTicketDetails(this.id);
         this.populateIssueStatusDropDown();
     }
@@ -135,8 +139,10 @@ export class HelpDeskSubmitComponent {
             data => {
                 this.helpDeskSubmitModel = data.helpDesk;
                 this.assigneeCollection = new Array<any>();
-
-                if (data.assigness.result.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0) {
+                this.otherDepartmentAssigneeCollection = new Array<any>();
+                this.dropDownCollection = new Array<any>();
+                debugger;
+                if ((data.assigness.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0) || (data.otherDepartmentAdmin.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo)  >= 0)) {
                     this.assignToVisible = false;
                 }
                 else {
@@ -144,10 +150,17 @@ export class HelpDeskSubmitComponent {
                 }
 
                 this.assigneeCollection.push({ "id": this.personId, "text": "Select" });
-                data.assigness.result.forEach(element => {
+                data.assigness.forEach(element => {
                     this.assigneeCollection.push({ "id": element.id, "text": element.text });
                 });
+
+                this.otherDepartmentAssigneeCollection.push({ "id": this.personId, "text": "Select" });
+                data.otherDepartmentAdmin.forEach(element => {
+                    this.otherDepartmentAssigneeCollection.push({ "id": element.id, "text": element.text });
+                });
+                this.dropDownCollection = this.assigneeCollection;
                 this.helpDeskSubmitModel.assignedTo = this.assigneeCollection[0].id;
+
                 this.selectedStatus = data.helpDesk.status;
                 this.populateSelectedHelpDeskListModel(data, this.helpDeskSubmitModel);
                 this.helpDeskSubmitModel.durationDisplay = this.helpDeskSubmitModel.duration == 0 ? "NA" : this.helpDeskSubmitModel.duration + " Days";
@@ -241,4 +254,14 @@ export class HelpDeskSubmitComponent {
             );
     }
 
+    departmentChanged(val: any) {
+        this.dropDownCollection = new Array<any>();
+        this.dropDownCollection.length = 0;
+        if (val.srcElement.checked == true) {
+            this.dropDownCollection = this.otherDepartmentAssigneeCollection;
+        } else {
+            this.dropDownCollection = this.assigneeCollection;
+        }
+
+    }
 }

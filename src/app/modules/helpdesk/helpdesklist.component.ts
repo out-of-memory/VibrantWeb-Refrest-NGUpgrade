@@ -54,7 +54,7 @@ export class HelpDeskListComponent {
     }
 
     populateHelpDeskList() {
-        this.status = +(this.routeParams.params['status']);
+        this.status = +(this.routeParams.snapshot.params['status']);
         this.selectedStatus = this.status;
         this.helpDeskTicketList = new Array<HelpDeskList>();
         this.rowData = new Array<any>();
