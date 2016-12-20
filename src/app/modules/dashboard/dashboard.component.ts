@@ -17,6 +17,7 @@ import { HelpDeskList } from '../../models/HelpDeskModel';
 import { SubmittedExpense } from './../../model/NewExpenseDataModel';
 import { ApprovalStatus, ApprovalStatusTitle } from '../../infrastructure/pipes/pipes';
 declare var $: any;
+import { LocationserviceService } from '../../servicesFolder/Enablelocation/locationservice.service'
 
 @Component({
     selector: 'dashboard',
@@ -52,7 +53,10 @@ export class DashboardComponent implements OnInit {
     isLocation: boolean = false;
     this1: any;
 
-    constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService) {
+    constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService, private _locationService: LocationserviceService) {
+
+        this._locationService.getLocation();
+
         this.date = new Date().toISOString();
         this.rowData = new Array<HelpDeskList>();
         this.selectedMonth = new Date().getMonth() + 1;
@@ -78,30 +82,9 @@ export class DashboardComponent implements OnInit {
         this.GetUpcomingHoliday(data["ol"]);
         this.fetchPendingApprovals();
         this.GetMyTeamList();
-        window.navigator.geolocation.getCurrentPosition(this.success, this.error);
     }
 
-    success(position) {
-        //console.log(position.coords.latitude)
-        //console.log(position.coords.longitude)
-
-        
-
-        let latitude = position.coords.latitude.toFixed(5);
-        let longitude = position.coords.longitude.toFixed(5);
-        let timestamp = Number(String(position.timestamp).substring(0, 7));
-
-        var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI"
-
-        $.getJSON(locationUrl).done(function (location) {
-            localStorage.setItem("geolocation", JSON.stringify(location));
-        });
-    }
-
-    error(err) {
-
-        console.log(err);
-    }
+    
 
     Islocation() {
         this.isLocation = true;
@@ -140,6 +123,7 @@ export class DashboardComponent implements OnInit {
     PerformAutoSignIn(e: any, status) {
         let url = HttpSettings.apiBaseUrl + 'v1/attendance/add';
         this.attendanceModel = new SISOModel();
+        let timeZone = this._cacheService.getParams('geolocation');
         var model = new SISOModel();
         if (status == 'SignIn') {
             this.attendanceModel.IsSignIn = true;
@@ -153,6 +137,7 @@ export class DashboardComponent implements OnInit {
         this.attendanceModel.Time = stamp.toString();
         this.attendanceModel.Narration = "Auto Approved";
         this.attendanceModel.IsManual = "false";
+        this.attendanceModel.TimeZoneName = timeZone.timeZoneName;
 
         this._autoMapperService.Map(this.attendanceModel, model);
         this._httpService.post(url, model)

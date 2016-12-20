@@ -12,6 +12,7 @@ import { LoaderComponent } from '../../infrastructure/components/loader.componen
 import * as Materialize from "angular2-materialize";
 import { ActivatedRoute } from '@angular/router';
 declare var $: any;
+import { LocationserviceService } from '../../servicesFolder/Enablelocation/locationservice.service'
 
 @Component({
   selector: 'app-attendance',
@@ -63,7 +64,9 @@ export class AttendanceComponent {
   searchUser: boolean = false;
   searchUserId: any;
 
-  constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService, private activatedRoute: ActivatedRoute) {
+  constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService, private activatedRoute: ActivatedRoute, private _locationService: LocationserviceService) {
+    this._locationService.getLocation();
+
     this.searchUserId = this.activatedRoute.parent.snapshot.data["id"];
     if (this.searchUserId) {
       this.searchUser = true;
@@ -394,6 +397,7 @@ export class AttendanceComponent {
       this.loaderModal = true;
       var url = HttpSettings.apiBaseUrl + 'v1/attendance/add';
       this.currentSiSOModel = new SISOModel();
+      let timeZone = this._cacheService.getParams('geolocation');
       var model = new SISOModel();
       this.currentSiSOModel.Time = this.CovertDateToTimeStamp(dataModal.date + " " + dataModal.TimetHr + ":" + dataModal.TimetMin);
       this.currentSiSOModel.Narration = dataModal.Narration;
@@ -404,6 +408,7 @@ export class AttendanceComponent {
         this.currentSiSOModel.IsSignIn = false;
       }
       this.currentSiSOModel.IsManual = "true";
+      this.currentSiSOModel.TimeZoneName = timeZone.timeZoneName;
 
       this._autoMapperService.Map(this.currentSiSOModel, model);
       this._httpService.post(url, model)
@@ -450,6 +455,7 @@ export class AttendanceComponent {
     let url = HttpSettings.apiBaseUrl + 'v1/attendance/add';
     this.currentSiSOModel = new SISOModel();
     var model = new SISOModel();
+    let timeZone = this._cacheService.getParams('geolocation');
     if (status == "SignIn") {
       this.currentSiSOModel.IsSignIn = true;
     }
@@ -462,6 +468,7 @@ export class AttendanceComponent {
     this.currentSiSOModel.Time = stamp.toString();
     this.currentSiSOModel.Narration = "Auto Approved";
     this.currentSiSOModel.IsManual = "false";
+    this.currentSiSOModel.TimeZoneName = timeZone.timeZoneName;
 
     this._autoMapperService.Map(this.currentSiSOModel, model);
     this._httpService.post(url, model)

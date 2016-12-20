@@ -8,6 +8,7 @@ import { AttendanceComponent } from '../modules/attendance/attendance.component'
 import { LeaveApproval } from '../modules/leave/leave';
 import { ReportsComponent } from '../modules/reports/reports.component';
 import { MaintainenceComponent } from '../modules/Maintainence/maintainence.component';
+import { EnablelocationComponent } from '../modules/enablelocation/enablelocation.component'
 
 export module Decorator {
     export class App {
@@ -73,6 +74,12 @@ export module Decorator {
                     path: "/maintainence",
                     name: "R-Maintainence",
                     component: MaintainenceComponent
+                },
+                {
+                    path: "/enablelocation",
+                    name: "R-Enablelocation",
+                    component: EnablelocationComponent
+
                 }
             ]
 
