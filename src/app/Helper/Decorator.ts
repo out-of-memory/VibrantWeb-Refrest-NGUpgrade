@@ -9,6 +9,7 @@ import { LeaveApproval } from '../modules/leave/leave';
 import { ReportsComponent } from '../modules/reports/reports.component';
 import { MaintainenceComponent } from '../modules/Maintainence/maintainence.component';
 import { EnablelocationComponent } from '../modules/enablelocation/enablelocation.component'
+import { TravelComponent } from '../modules/travel/travel.component';
 
 export module Decorator {
     export class App {
@@ -80,6 +81,11 @@ export module Decorator {
                     name: "R-Enablelocation",
                     component: EnablelocationComponent
 
+                },
+                {
+                    path: "/my/travel",
+                    name: "R-my-travel",
+                    component: TravelComponent
                 }
             ]
 

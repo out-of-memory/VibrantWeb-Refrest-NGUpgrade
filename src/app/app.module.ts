@@ -30,13 +30,14 @@ import { ExpenseModule } from './modules/expense/expense.module';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { MaintainenceModule } from './modules/maintainence/maintainence.module';
 import { EnablelocationModule } from './modules/enablelocation/enablelocation.module';
-import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service'
+import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service';
+import { TravelModule } from './modules/travel/travel.module';
+import { TravelComponent } from './modules/travel/travel.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -55,8 +56,8 @@ import { LocationserviceService } from './servicesFolder/Enablelocation/location
     EmployeeModule,
     ReportsModule,
     MaintainenceModule,
-    EnablelocationModule
-
+    EnablelocationModule,
+    TravelModule
   ],
   providers: [CacheService, { provide: LocationStrategy, useClass: HashLocationStrategy },
     HttpService, MenuService, ExpenseService, EmployeeService, UserService, LocationserviceService],
