@@ -1,20 +1,17 @@
-import { Component} from '@angular/core';
-import {SearchBoxViewModel} from '../../../model/SearchBoxViewModel';
-import {SearchBox} from '../../../infrastructure/components/search-box'
-import {UiForm} from '../../../infrastructure/components/UiForm';
-import {pageHeading} from '../../../infrastructure/components/pageHeading';
-
-import { UserService} from '../../../servicesFolder/user/user.service';
-import {CacheService} from '../../../servicesFolder/CacheService';
-import {EmployeeService } from '../../../servicesFolder/employee/EmployeeService';
-import { Router} from '@angular/router';
-import {CapitalizePipe} from '../../../infrastructure/pipes/Pipes';
-import { BasicCellC, BasicGrid} from '../../../infrastructure/components/basic-grid';
+import { Component } from '@angular/core';
+import { SearchBoxViewModel } from '../../../model/SearchBoxViewModel';
+import { SearchBox } from '../../../infrastructure/components/search-box'
+import { UiForm } from '../../../infrastructure/components/UiForm';
+import { pageHeading } from '../../../infrastructure/components/pageHeading';
+import { EmployeeService, UserService, CacheService } from '../../../services';
+import { Router } from '@angular/router';
+import { CapitalizePipe } from '../../../infrastructure/pipes/Pipes';
+import { BasicCellC, BasicGrid } from '../../../infrastructure/components/basic-grid';
 import * as Materialize from "angular2-materialize";
 
 @Component({
     selector: 'employee-search',
-    providers:[EmployeeService],
+    providers: [EmployeeService],
     template: `
     <div class="top-section">
         <page-heading heading="Employee Search"></page-heading>
@@ -130,8 +127,6 @@ import * as Materialize from "angular2-materialize";
         </div>
     </div>
     `,
-   // directives: [pageHeading, SearchBox, UiForm, ROUTER_DIRECTIVES, BasicCellC, BasicGrid],
-    //pipes: [CapitalizePipe]
 })
 
 export class EmployeeSearchComponent {
@@ -155,8 +150,8 @@ export class EmployeeSearchComponent {
 
         this.userProfile = this._cacheService.getParams("profile");
         if (this.userProfile.role.length != 0) {
-           // if (this.userProfile.role[0].roleId != 12 && this.userProfile.role[0].roleId != 27) {
-                this.router.navigate(['dashboard']);
+            // if (this.userProfile.role[0].roleId != 12 && this.userProfile.role[0].roleId != 27) {
+            this.router.navigate(['my/dashboard']);
             //}
         }
     }

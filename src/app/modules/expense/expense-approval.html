@@ -1,0 +1,196 @@
+<div id="savedrequest" class="col s12 tab-content">
+	<div class="row m-top20">
+		<div class="col s12">
+			<div class="reimbursement-wrapper" *ngIf="submittedExpense != undefined">
+				<div class="row m-bottom0 header hide-on-med-and-down">
+					<div class="col s12 m1 offset-m3">
+						<h5 class="title">Request ID</h5>
+					</div>
+					<div class="col s12 m1">
+						<h5 class="title">Reimbursement Title</h5>
+					</div>
+					<div class="col s12 m1">
+						<h5 class="title">Client Reimbursement</h5>
+					</div>
+					<div class="col s12 m1">
+						<h5 class="title">Client Name</h5>
+					</div>
+					<div class="col s12 m1">
+						<h5 class="title">Expenses</h5>
+					</div>
+					<div class="col s12 m1">
+						<h5 class="title">Status</h5>
+					</div>
+				</div>
+				<ul class="collapsible">
+					<li class="">
+						<basic-grid [(source)]='submittedExpense' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false }'
+							[isHeaderVisible]=false>
+							<basic-cell>
+								<template let-item='row'>
+									<div class="collapsible-header" (click)="Hide($event,item)">
+										<div class="row m-bottom0">
+											<div class="col s12 m6 offset-m3 l3">
+												<div class="row m-bottom0 employee-data">
+													<div class="col s12 m4 center-align">
+														<div class="employee-search-img">
+															<a href="#"><img [src]="item.imagePath" alt="" class="circle responsive-img"></a>
+														</div>
+														<div class="employee-id">
+															<h5>{{item.employeeId}}</h5>
+														</div>
+													</div>
+													<div class="col s12 m8 search-result-align">
+														<div class="employee-name">
+															<a href="#">
+																<h5>{{item.employeeName}}</h5>
+															</a>
+														</div>
+														<div class="employee-profile">
+															<h6>{{item.designation}}</h6>
+															<h6>{{item.address|location}}</h6>
+														</div>
+														<div class="employee-contact-info">
+															<h6>{{item.email}}</h6>
+															<h6>t : +91 22 4153.0200 x 000</h6>
+															<h6>m : {{item.mobile}}</h6>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Request Id</span>{{item.expenseId}}</div>
+											<div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Reimbursement Title</span>{{item.reimbursementTitle}}</div>
+											<div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Client Reimbursment</span>{{item.isClientReimbursment}}</div>
+											<div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Client Name</span>{{item.clientName}}</div>
+											<div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Expenses</span>
+												<span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.amount|comma}}</div>
+											<div class="col s12 m6 l1 padding-zero">
+												<status-step [(totalStep)]='item.totalStages' [(approvedTill)]='item.onStage' [(lastApprovedStatus)]='item.onStageStatus'
+													[lastApprovedComment]="item.lastcomments"></status-step>
+											</div>
+											<div class="col s12 m12 l3 align-bottom padding-zero">
+												<div class="row margin-zero">
+													<div class="col s10">
+														<div class="row margin-zero">
+															<div class="custom-input-field col s12 padding-zero">
+																<h6>Action</h6>
+																<select materialize="material_select" [materializeSelectOptions]="dllApprovalStatus" [(ngModel)]='item.submitStatus' [ngClass]="{isRed: true}">
+                                                                    <option value="0" disabled class="disabled">Select</option>
+                                                                    <option *ngFor="let option of dllApprovalStatus" [value]="option.value">{{option.label}}</option>
+                                                                </select>
+															</div>
+															<div class="custom-input-field input-field col s12 padding-zero">
+																<input placeholder="Comments" id="comments" type="text" *ngIf='item.submitStatus==2 || item.submitStatus==3' class="validate"
+																	[(ngModel)]="item.comments" [ngClass]="{isGray: !item.isComment, isRed: item.isComment}" (ngModelChange)="validateComments($event,item)"
+																	restrictValueTo restrictOptions='{"max":50}'>
+															</div>
+															<div class="custom-input-field input-field col s6 padding-zero">
+																<input *ngIf="isFinanceApprover==true && item.submitStatus==1" type="text" placeholder="Form Code" [(ngModel)]="item.formCode"
+																	class="validate" [ngClass]="{isGray: !item.isFormCode, isRed: item.isFormCode}" restrictValueTo restrictOptions='{"max":50}'
+																/>
+															</div>
+															<div class="custom-input-field input-field col s6 padding-right">
+																<input *ngIf="isFinanceApprover==true && item.submitStatus==1" type="text" placeholder="Cheque Details" [(ngModel)]="item.chequeDetails"
+																	class="validate" restrictValueTo restrictOptions='{"max":50}' />
+															</div>
+														</div>
+														<div class="row">
+															<div class="col s12 right-align padding-zero">
+																<a class="waves-effect waves-light btn custom-btn submit button-right" title="Submit" (click)="confirmDelete($event,item)">Submit</a>
+																<a class="waves-effect waves-light btn custom-btn cancel button-right" title="Reset" (click)="Reset($event,item)">Reset</a>
+															</div>
+														</div>
+													</div>
+													<div class="expense-action-icons">
+														<a href="#" data-collapsible="accordion" class="right expense-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="collapsible-body" style="display:none;">
+										<basic-grid [(source)]='item.details' gridPagination='' gridOptions='{"colWidths":[15,15,15,15,15,15],"widthType":"%","useScroll":false}'
+											[isHeaderVisible]=true *ngIf="item.details.length > 0">
+											<basic-cell cell='' headerLabel='Receipt No.'>
+												<template let-detail='row'>
+													<ui-input [(ngModel)]="detail.receiptNo" [meta]='detailHub[0]' [readonly]='true'>
+													</ui-input>
+												</template>
+											</basic-cell>
+											<basic-cell cell='' headerLabel='Receipt Date'>
+												<template let-detail='row'>
+													<ui-input [(ngModel)]="detail.expenseDate" [meta]='detailHub[1]' [readonly]='true'>
+													</ui-input>
+												</template>
+											</basic-cell>
+											<basic-cell cell='' headerLabel='Expense Category'>
+												<template let-detail='row'>
+													<ui-input [(ngModel)]="detail.expenseCategoryId" [meta]='detailHub[2]' [readonly]='true'>
+													</ui-input>
+												</template>
+											</basic-cell>
+											<basic-cell cell='' headerLabel='Expenses'>
+												<template let-detail='row'>
+													<div>
+														<span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{detail.amount|comma}}
+													</div>
+												</template>
+											</basic-cell>
+											<basic-cell cell='' headerLabel='Comments'>
+												<template let-detail='row'>
+													<ui-input [(ngModel)]="detail.comments" [meta]='detailHub[4]' [readonly]='true'>
+													</ui-input>
+												</template>
+											</basic-cell>
+											<basic-cell cell='' headerLabel='Expense Receipt'>
+												<template let-detail='row'>
+													<span class="hover-expense-img" *ngIf='detail.attachedFile !==""'>
+                                                            <a class="expense-icon" (click)="Eyeclicked($event)" *ngIf='detail.fileExtension=="jpeg"||detail.fileExtension=="jpg"||detail.fileExtension=="png"||detail.fileExtension=="gif"'>
+                                                                <i class="fa fa-eye" aria-hidden="true" title="View"></i>
+                                                                <span class="z-depth-1"><img [src]="detail.attachedFile" alt="image" class="responsive-img"></span>
+													</a>
+													<a [href]="detail.attachedFile" target="_blank" class="expense-icon" [download]="detail.attachedFile"><i class="fa fa-cloud-download" aria-hidden="true" title="Download"></i></a>
+													<!--<a href="#" class="expense-icon" (click)="RemoveDetail($event,detail)"><i class="fa fa-trash remove" aria-hidden="true" title="Remove"></i></a>-->
+													</span>
+												</template>
+											</basic-cell>
+										</basic-grid>
+										<div class="row m-bottom0 table-footer">
+											<div class="col s12 m4 l2 padding-zero">
+												Total Expenses: <span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.totalExpenses|comma}}
+											</div>
+											<div class="col s12 m4 l2 padding-zero">
+												Advances: <span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.advance|comma}}
+											</div>
+											<div class="col s12 m4 l2 padding-zero">
+												Amount Reimbursed: <span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.amountReimbursed|comma}}
+											</div>
+										</div>
+										<div *ngIf="item.details.length == 0" style="text-align: center;">No Details Found</div>
+									</div>
+								</template>
+							</basic-cell>
+						</basic-grid>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<span *ngIf="submittedExpense == undefined">No Request for Approvals.</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div *ngIf='isApprove' class="modal modal-custom modal-confirm-full" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
+	<div class="modal-content">
+		<h5 class="margin-zero">Please Confirm</h5>
+		<p>Are you sure, you want {{confirmStatement}} ?</p>
+	</div>
+	<div class="modal-footer">
+		<a href="" class=" modal-action modal-close waves-effect waves-green btn cancel" (click)="CancelDelete($event)">Cancel</a>
+		<a href="" class=" modal-action modal-close waves-effect waves-green btn submit" (click)="ApproveExpense($event,actionItem)">OK</a>
+	</div>
+</div>
+<div *ngIf='isApprove' class="lean-overlay" id="materialize-lean-overlay-1" style="z-index: 1002; display: block; opacity: 0.5;"
+	(click)="CancelDelete($event)"></div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+	[isConformationModal]="isConformationModal"></loader-component>

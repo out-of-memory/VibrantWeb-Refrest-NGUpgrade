@@ -1,26 +1,28 @@
-import {Component, EventEmitter, Input, Output, Directive, ElementRef,} from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { NavbarModel } from '../../models/NavbarModel';
+declare var $: any;
 
 @Component({
-    selector:'sidenav-panel',
-  templateUrl: './../templates/sidenav.html',
+    selector: 'sidenav-panel',
+    templateUrl: './../templates/sidenav.html',
 })
 export class SideNavPanelComponent {
 
-    
+
     @Input() navbar: NavbarModel[];
     @Input() isActive: boolean = false;
-     @Output()
-    public clickOutside = new EventEmitter();
 
+    public clickOutside = new EventEmitter();
     childNev: boolean = false;
-    constructor(private _elementRef: ElementRef) {
+
+    constructor() {
 
     }
 
     close(isActive: boolean) {
         this.isActive = !isActive;
-       
+        $(".button-collapse").removeClass("active");		       
+        $("#slide-out").removeClass("active");
     }
 
     // ND: Need to modify this toggle event as this is creating a issue.

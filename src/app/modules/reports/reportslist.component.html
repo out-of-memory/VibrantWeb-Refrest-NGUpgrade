@@ -1,0 +1,162 @@
+<div class="breadcrumb-nav">
+  <div class="row margin-zero">
+    <div class="col s12">
+      <h5>Reports
+        <a href="/vibranthelp/help-landing-page.html" target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>
+        <span class="right mandatory-message">
+          <span *ngIf="isUs">US<img class="flag-img" src="assets/images/us-flag.png" /></span>
+          <span *ngIf="!isUs">IND<img class="flag-img" src="assets/images/india-flag.png" /></span>
+        </span>
+      </h5>
+    </div>
+  </div>
+</div>
+<div class="grid-container reports">
+  <div class="row margin-zero">
+    <div class="col s12 padding-zero">
+      <div class="row m-top20">
+        <div class="col s12 m6 l3">
+          <div class="card card-with-reveal" style="overflow: hidden;">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="/assets/images/attendance.png">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Attendance<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-action"><a class="btn-flat" routerLink="/employee/reports/view/Attendance">Attendence Report</a></div>
+            <div class="overlay-upcoming"></div>
+          </div>
+        </div>
+        <div class="col s12 m6 l3" *ngIf="isHR">
+          <div class="card card-with-reveal">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="/assets/images/employee_details.png">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Employee Details<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-action">
+              <button class="btn-flat"><a [routerLink]="['R-Reports-View', {id :'EmployeeDetail'}]" >Employee Details Report </a></button>
+            </div>
+            <div class="overlay-upcoming"></div>
+          </div>
+        </div>
+        <div class="col s12 m6 l3">
+          <div class="card card-with-reveal" style="overflow: hidden;">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="/assets/images/leave-reports.png">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Leaves<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-action">
+              <button class="btn-flat"><a [routerLink]="['R-Reports-View', {id :'Leaves'}]" >Leaves Report</a></button>
+            </div>
+            <div class="overlay-upcoming"></div>
+          </div>
+        </div>
+        <div class="col s12 m6 l3">
+          <div class="card card-with-reveal">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="/assets/images/expenses.png">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Expenses<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Expenses<i class="material-icons right">close</i></span>
+              <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
+                layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
+                using 'Content here, content here', making it look like readable English.</p>
+            </div>
+            <div class="card-action">
+              <button class="btn-flat">Expenses Report</button>
+            </div>
+            <div class="overlay-upcoming"></div>
+          </div>
+        </div>
+        <div class="col s12 m6 l3">
+          <div class="card card-with-reveal">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="/assets/images/confirmations.png">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Confirmations<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Confirmations<i class="material-icons right">close</i></span>
+              <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search
+                for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years,
+                sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+            </div>
+            <div class="card-action">
+              <button class="btn-flat">Confirmations Report</button>
+            </div>
+            <div class="overlay-upcoming"></div>
+          </div>
+        </div>
+        <div class="col s12 m6 l3">
+          <div class="card card-with-reveal">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="/assets/images/separations.png">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Separations<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Separations<i class="material-icons right">close</i></span>
+              <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature
+                from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
+                looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites
+                of the word in classical literature, discovered the undoubtable source.</p>
+            </div>
+            <div class="card-action">
+              <button class="btn-flat">Separations Report</button>
+            </div>
+            <div class="overlay-upcoming"></div>
+          </div>
+        </div>
+        <div class="col s12 m6 l3">
+          <div class="card card-with-reveal">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="assets/images/appraisals.png">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Appraisals<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Appraisals<i class="material-icons right">close</i></span>
+              <p>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil)
+                by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance.
+                The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+            </div>
+            <div class="card-action">
+              <button class="btn-flat">Appraisals Report</button>
+            </div>
+            <div class="overlay-upcoming"></div>
+          </div>
+        </div>
+        <div class="col s12 m6 l3">
+          <div class="card card-with-reveal">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="/assets/images/travel.png">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Travel<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Travel<i class="material-icons right">close</i></span>
+              <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,
+                by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage
+                of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+            </div>
+            <div class="card-action">
+              <button class="btn-flat">Travel Report</button>
+            </div>
+            <div class="overlay-upcoming"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

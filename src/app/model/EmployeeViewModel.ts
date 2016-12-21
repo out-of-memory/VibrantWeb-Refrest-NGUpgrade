@@ -346,7 +346,7 @@ export class DeliveryUnitDetailsModel implements IUIMetadata {
     @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", label: "Reporting To",options:"reportingManager", multiple: false, validation: "required c.select", css: "col s6" })
     reportingTo: string = '';
 
-    @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", label: "ExitProcess Manager",options:"exitProcessManager",  multiple: false, validation: "required c.select", css: "col s6" })
+    @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", label: "Exit Process Manager",options:"exitProcessManager",  multiple: false, validation: "required c.select", css: "col s6" })
     exitProcessManager: string = '';
     reportingManager:string='';
     ID:string='';

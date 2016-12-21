@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpService } from './../../servicesFolder/http/http.service';
-import { HttpSettings } from './../../servicesFolder/http/http.settings';
+import { HttpService, HttpSettings, AutoMapperService, CacheService } from './../../services';
 import { LeaveModel } from '../../models/LeaveModel';
-import { AutoMapperService} from './../../servicesFolder/AutoMapperService';
-import { CacheService} from './../../servicesFolder/CacheService';
 import { DropdownValue } from '../../infrastructure/components/DropDownValue';
+import { ActivatedRoute } from '@angular/router';
 import * as Materialize from "angular2-materialize";
-
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-leave',
@@ -17,28 +14,22 @@ declare var $:any;
 export class LeavesComponent {
   leaveModelCollection: Array<any> = [];
   rowData: any;
-
   leaveChartData: Array<any> = [];
   tempLeaveChartData: Array<any> = [];
   leaveChartlabels: Array<any> = [];
   leaveChartColors: Array<any> = [];
-
   yearCollection: Array<any> = [];
   selectedYear: number;
   regex: any = /<br\s*[\/]?>/gi;
-
   addEditLeaveModel: LeaveModel;
   leaveModelHub: any;
   leaveTypeDropDownData: Array<any>;
-
   totalLeaves: number;
   leavesConsumed: number;
   leavesApplied: number;
-
   leaveStatus: string = "Apply For Leaves";
   holiday: boolean = false;
   holidayCollection: Array<any> = [];
-
   loaderModal: boolean = false;
   loaderModalMsg: boolean = false;
   loaderModalText: any;
@@ -53,10 +44,17 @@ export class LeavesComponent {
   CompOffAvailable: number;
   compOffConsumed: number;
   leaveType = ["Compensatory Off", "Leave", "Leave Without Pay (LWP)", "Maternity"];
+  searchUser: boolean = false;
+  searchUserId: any;
+  IsBirthdayApply: boolean = false;
+  isConformationModal: boolean = false;
 
-
-  constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
-    this.selectedYear = 0;
+  constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService, private activatedRoute: ActivatedRoute) {
+    this.searchUserId = this.activatedRoute.parent.snapshot.data["id"];
+    if (this.searchUserId) {
+      this.searchUser = true;
+    }
+    this.selectedYear = (new Date()).getFullYear();
     this.addEditLeaveModel = new LeaveModel();
     this.leaveTypeDropDownData = new Array();
     this.leaveModelHub = this.addEditLeaveModel["hub"];
@@ -155,22 +153,20 @@ export class LeavesComponent {
   //Creation of month array for dropdown
   populateMonthYearDropDowns() {
     var thisYear = (new Date()).getFullYear();
-    for (var i = 0; i < 2; i++) {
-      this.yearCollection.push(new DropdownValue(i, (thisYear).toString()));
-      thisYear = thisYear + 1;
+    thisYear = thisYear + 1;
+    for (var i = 2016; i <= thisYear; i++) {
+      this.yearCollection.push(new DropdownValue(i, i.toString()));
     }
   }
 
   onYearSelected(value: any) {
     this.selectedYear = +(value);
-    let year = this.yearCollection[this.selectedYear];
-    this.GetLeaveDetails(year.label);
+    this.GetLeaveDetails(this.selectedYear);
   }
 
   //Populate Grid
   populateLeaveGrid() {
-    let year = this.yearCollection[this.selectedYear];
-    this.GetLeaveDetails(year.label);
+    this.GetLeaveDetails(this.selectedYear);
   }
 
   //Calculate present and remaining based on data count.Bound to change once leave is integrated.Populate chart.
@@ -210,21 +206,12 @@ export class LeavesComponent {
   }
 
   addUpdateLeaves(myForm) {
-    if (myForm.mainForm.valid) {
-      let url = HttpSettings.apiBaseUrl + "v1/leave-management/apply-or-update-leave/";
-      var newFromDate = new Date(this.addEditLeaveModel.fromDate);
-      var newDate = new Date();
-      this.addEditLeaveModel.status = "1";
-      if (this.addEditLeaveModel.leaveType.toString() == "0") {
-        this.checkCompOff(url, newFromDate, newDate);
-      }
-      else if (this.addEditLeaveModel.leaveType.toString() == "1" && myForm.mainForm.valid) {
-        this.checkBackDateLeave(url, newFromDate, newDate);
-      }
-      else if (this.addEditLeaveModel.leaveType.toString() == "2" && myForm.mainForm.valid) {
-        this.checkLongLeaveAndLWP(url, newFromDate, newDate);
-      }
-      else if (this.addEditLeaveModel.leaveType.toString() == "4" || this.addEditLeaveModel.leaveType.toString() == "3" || myForm.mainForm.valid) {
+    let url = HttpSettings.apiBaseUrl + "v1/leave-management/apply-or-update-leave/";
+    var newFromDate = new Date(this.addEditLeaveModel.fromDate);
+    var newDate = new Date();
+    this.addEditLeaveModel.status = "1";
+    if (this.addEditLeaveModel.leaveType.toString() == "3") {
+      if (this.addEditLeaveModel.narration != "") {
         this.loaderModal = true;
         this.addUpdateLeave(url, this.addEditLeaveModel);
       }
@@ -232,8 +219,28 @@ export class LeavesComponent {
         this.formSubmitted = true;
       }
     }
-    else{
-       this.formSubmitted = true;
+    else {
+      if (myForm.mainForm.valid) {
+        if (this.addEditLeaveModel.leaveType.toString() == "0") {
+          this.checkCompOff(url, newFromDate, newDate);
+        }
+        else if (this.addEditLeaveModel.leaveType.toString() == "1" && myForm.mainForm.valid) {
+          this.checkBackDateLeave(url, newFromDate, newDate);
+        }
+        else if (this.addEditLeaveModel.leaveType.toString() == "2" && myForm.mainForm.valid) {
+          this.checkLongLeaveAndLWP(url, newFromDate, newDate);
+        }
+        else if (this.addEditLeaveModel.leaveType.toString() == "4" || myForm.mainForm.valid) {
+          this.loaderModal = true;
+          this.addUpdateLeave(url, this.addEditLeaveModel);
+        }
+        else {
+          this.formSubmitted = true;
+        }
+      }
+      else {
+        this.formSubmitted = true;
+      }
     }
   }
 
@@ -274,17 +281,33 @@ export class LeavesComponent {
   }
 
   checkLongLeaveAndLWP(url: string, newFromDate: Date, newDate: Date) {
-    newDate = new Date(this.addEditLeaveModel.toDate);
-    var distance = (newDate.getTime() - newFromDate.getTime());
+    var distance = (new Date(this.addEditLeaveModel.toDate).getTime() - newFromDate.getTime());
     // ND: Converting the above milisecond time into no. of days.
     distance = Math.ceil(distance / 1000 / 60 / 60 / 24);
-    if (distance > 60) {
-      Materialize.toast("Leave Without Pay(LWP) cannot be posted for more than 2 months", 3000, 'errorTost');
+    var currentYear = new Date(this.addEditLeaveModel.toDate).getFullYear();
+    var previousMonth = new Date(this.addEditLeaveModel.toDate).getMonth() - 1;
+    var previousMonthDate = new Date(currentYear, previousMonth, 23);
+    if (newDate.getDate() > 22) {
+      var newCurrentMonthDate = new Date(currentYear, newDate.getMonth(), 23);
+      var leaveApplied = newCurrentMonthDate.getTime() - newFromDate.getTime();
+    }
+    // ND: This is to check the leave applied will be for currnet attendance month.
+    else {
+      var leaveApplied = previousMonthDate.getTime() - newFromDate.getTime();
+    }
+    if (leaveApplied > 0) {
+      Materialize.toast("Attendance data for the selected date has been frozen", 3000, 'errorTost');
       this.resetLeaves();
     }
     else {
-      this.loaderModal = true;
-      this.addUpdateLeave(url, this.addEditLeaveModel);
+      if (distance > 60) {
+        Materialize.toast("Leave Without Pay(LWP) cannot be posted for more than 2 months", 3000, 'errorTost');
+        this.resetLeaves();
+      }
+      else {
+        this.loaderModal = true;
+        this.addUpdateLeave(url, this.addEditLeaveModel);
+      }
     }
   }
 
@@ -334,7 +357,11 @@ export class LeavesComponent {
     this.rowData = new Array<any>();
     this.leaveModelCollection.length = 0;
     this.rowData.length = 0;
+    var count = 0;
     var url = HttpSettings.apiBaseUrl + "v1/leave-management/for-current-user/0/0/" + year;
+    if (this.searchUser == true) {
+      url = HttpSettings.apiBaseUrl + "v1/leave-management/for-search-user/0/0/" + year + '/' + this.searchUserId;
+    }
     this._httpService.get(url)
       .subscribe
       (
@@ -343,6 +370,9 @@ export class LeavesComponent {
           var model = new LeaveModel();
           this._autoMapperService.Map(element, model);
           this.leaveModelCollection.push(model);
+          if (element.leaveType == 6 && (element.status == '1' || element.status == '2')) {
+            count++;
+          }
         });
         this.rowData = this.leaveModelCollection;
         this.compOffNumber = data.availableLeaves.compOffAvailable;
@@ -351,7 +381,12 @@ export class LeavesComponent {
         this.PopulateLeaveChart(data.availableLeaves.totalLeaves, data.availableLeaves.leavesTaken, data.availableLeaves.leavesApplied, data.availableLeaves.compOffAvailable, data.availableLeaves.lwp);
         this.addEditLeaveModel = new LeaveModel();
         $('ul.tabs').tabs('select_tab', 'leaves-applied');
-        this.loaderModal = false;
+        if (count == 0) {
+          this.IsBirthday();
+        }
+        else {
+          this.loaderModal = false;
+        }
       },
       error => {
         this.loaderModal = false;
@@ -366,7 +401,7 @@ export class LeavesComponent {
         if (typeof callBack === 'function') {
           callBack();
         }
-        this.populateLeaveGrid();
+        this.GetLeaveDetails(this.selectedYear);
         this.leaveStatus = "Apply For Leaves";
         if (data.isError == true) {
           Materialize.toast(data.errorMessage, 5000, 'errorTost');
@@ -389,19 +424,7 @@ export class LeavesComponent {
   }
 
   openHolidayList() {
-    this.holidayCollection = new Array<any>();
-    var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" + this.data["ol"];
-    this._httpService.get(url)
-      .subscribe
-      (
-      data => {
-        data.forEach(element => {
-          this.holidayCollection.push(element);
-        });
-        this.holiday = true;
-      },
-      error => { }
-      );
+    this.holiday = true;
   }
 
   onHolidayClose(e) {
@@ -467,5 +490,53 @@ export class LeavesComponent {
     var d = new Date(days);
     var weekday = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
     return weekday[d.getDay()];
+  }
+
+  IsBirthday() {
+    this.holidayCollection = new Array<any>();
+    var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" + this.data["ol"];
+    this._httpService.get(url)
+      .subscribe
+      (
+      data => {
+        data.forEach(element => {
+          this.holidayCollection.push(element);
+        });
+        var birthday = new Date(this.data.dateOfBirth), today = new Date();
+        birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
+        if (this.GetDays(birthday) == "Sunday" || this.GetDays(birthday) == "Saturday") {
+          this.IsBirthdayApply = false;
+        }
+        else {
+          var beforBirthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
+          beforBirthday.setDate(beforBirthday.getDate() - 30);
+          if (today <= birthday && today >= beforBirthday) {
+            for (var i = 0; i < this.holidayCollection.length; i++) {
+              if (new Date(this.holidayCollection[i].holidayDate) == birthday) {
+                this.IsBirthdayApply = false;
+              }
+              else {
+                this.IsBirthdayApply = true;
+              }
+            }
+          }
+          else {
+            this.IsBirthdayApply = false;
+          }
+        }
+        this.loaderModal = false;
+      });
+  }
+
+  applyBirthdayLeave() {
+    this.loaderModal = true;
+    var date = this.data.dateOfBirth.split("/");
+    let url = HttpSettings.apiBaseUrl + "v1/leave-management/apply-birthday-leave/";
+    this.addEditLeaveModel.status = "1";
+    this.addEditLeaveModel.leaveType = 6;
+    this.addEditLeaveModel.fromDate = date[0] + '/' + date[1] + '/' + new Date().getFullYear();
+    this.addEditLeaveModel.toDate = date[0] + '/' + date[1] + '/' + new Date().getFullYear();
+    this.addEditLeaveModel.narration = "Birthday Leave";
+    this.addUpdateLeave(url, this.addEditLeaveModel);
   }
 }

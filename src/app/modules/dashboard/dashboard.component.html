@@ -2,6 +2,11 @@
     <div class="row margin-zero">
         <div class="col s12">
             <h5>Dashboard
+                <a href="/vibranthelp/help-landing-page.html" target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>
+                <span class="right mandatory-message">
+                    <span *ngIf="isUs">US<img class="flag-img" src="assets/images/us-flag.png" /></span>
+					<span *ngIf="!isUs">IND<img class="flag-img" src="assets/images/india-flag.png" /></span>
+				</span>
             </h5>
         </div>
     </div>
@@ -59,6 +64,23 @@
                         <a class="waves-effect waves-light btn manual" title="Manual" href="#/my/attendance"><i class="left"><img src="assets/images/manual-icon.png"></i><span class="left">Manual</span></a>
                     </div>
                 </div>
+                <div class="card white attendance-dashboard-data" *ngIf="isAdminUser==true">
+                    <div class="row m-bottom0 administration-bg">
+                        <div class="col s12">
+                            <h5>Maintainence</h5>
+                        </div>
+                    </div>
+                    <div class="row dashboard-view-content">
+                        <div class="collection">
+                            <a href="/#/maintainence/helpdesk" class="collection-item">Help Desk Tickets</a>
+                            <!--<a href="#" class="collection-item">Admin Approvals</a>
+                            <a href="#" class="collection-item">Admin Leave Application</a>
+                            <a href="#" class="collection-item">Leave Transactions</a>
+                            <a href="#" class="collection-item">Bulk Entries</a>
+                            <a href="#" class="collection-item">Master Enteries</a>-->
+                        </div>
+                    </div>
+                </div>
                 <div class="card white" *ngIf='approvals.length>0'>
                     <div class="row m-bottom0">
                         <div class="col s12">
@@ -67,8 +89,7 @@
                     </div>
                     <div class="row dashboard-view-content">
                         <div class="collection">
-                            <a *ngFor='let approval of approvals' href="#/approvals/{{approval.module|module:'small'}}" class="collection-item">{{approval.module|module:'cap'}}<span class="badge">{{approval.count}}</span></a>
-
+                            <a *ngFor='let approval of approvals' href="#/{{approval.url}}" class="collection-item">{{approval.module|module:'cap'}}<span class="badge">{{approval.count}}</span></a>
                         </div>
                     </div>
                 </div>
@@ -81,22 +102,34 @@
                     <div class="row dashboard-view-content">
                         <ul class="collection my-team-section margin-zero" *ngIf='myTeamList.length > 3'>
                             <li class="collection-item avatar" *ngFor='let l of myTeamList2Count'>
-                                <a>
-                                    <img src="/images/{{l.employeeTeamProfile.imagePath}}" alt="" class="circle">
-                                    <h5>{{l.employeeTeamProfile.id}} </h5>
-                                    <h5 class="title">{{l.employeeTeamProfile.firstName}} {{l.employeeTeamProfile.lastName}}</h5>
-                                </a>
-                                <h6><a>m : {{l.employeeTeamProfile.mobile}} </a></h6>
+                                <div class="team-details">
+                                    <a>
+                                        <img src="/images/{{l.employeeTeamProfile.imagePath}}" alt="" class="circle">
+                                        <h5>{{l.employeeTeamProfile.id}} </h5>
+                                        <h5 class="title">{{l.employeeTeamProfile.firstName}} {{l.employeeTeamProfile.lastName}}</h5>
+                                    </a>
+                                    <h6><a>m : {{l.employeeTeamProfile.mobile}} </a></h6>
+                                </div>
+                                <div class="team-birthday" *ngIf="IsBirthday(l.employeeTeamProfile.dateOfBirth).isDisplay">
+                                    <h6><i class="fa fa-birthday-cake fa-2x" aria-hidden="true"></i></h6>
+                                    <h6>{{IsBirthday(l.employeeTeamProfile.dateOfBirth).date | date:'EEE, MMM dd'}}</h6>
+                                </div>
                             </li>
                         </ul>
                         <ul class="collection my-team-section margin-zero" *ngIf='myTeamList.length <= 3'>
                             <li class="collection-item avatar" *ngFor='let l of myTeamList'>
-                                <a>
-                                    <img src="/images/{{l.employeeTeamProfile.imagePath}}" alt="" class="circle">
-                                    <h5>{{l.employeeTeamProfile.id}} </h5>
-                                    <h5 class="title">{{l.employeeTeamProfile.firstName}} {{l.employeeTeamProfile.lastName}}</h5>
-                                </a>
-                                <h6><a>m : {{l.employeeTeamProfile.mobile}} </a></h6>
+                                <div class="team-details">
+                                    <a>
+                                        <img src="/images/{{l.employeeTeamProfile.imagePath}}" alt="" class="circle">
+                                        <h5>{{l.employeeTeamProfile.id}} </h5>
+                                        <h5 class="title">{{l.employeeTeamProfile.firstName}} {{l.employeeTeamProfile.lastName}}</h5>
+                                    </a>
+                                    <h6><a>m : {{l.employeeTeamProfile.mobile}} </a></h6>
+                                </div>
+                                <div class="team-birthday" *ngIf="IsBirthday(l.employeeTeamProfile.dateOfBirth).isDisplay">
+                                    <h6><i class="fa fa-birthday-cake fa-2x" aria-hidden="true"></i></h6>
+                                    <h6>{{IsBirthday(l.employeeTeamProfile.dateOfBirth).date | date:'EEE, MMM dd'}}</h6>
+                                </div>
                             </li>
                         </ul>
                         <label *ngIf='myTeamList.length > 3' class="read-more-trigger" (click)="ShowMoreMyTeam($event)">Show More</label>
@@ -113,50 +146,19 @@
                             <h6>{{holidayModel.holidayDate}}</h6>
                             <h6>{{holidayModel.description}}</h6>
                         </div>
-                        <a href="#/my/leaves">
+                        <a href="#/my/leaves/new">
                             <div class="leaves-data">
-                                <h5>{{noOfLeaves}}</h5>
+                                <h5 *ngIf="noOfLeaves>=0">{{noOfLeaves}}</h5>
+                                <h5 *ngIf="noOfLeaves<0">0</h5>
                                 <h6>Available Leave</h6>
                             </div>
                         </a>
                     </div>
                     <div class="data-footer">
-                        <a href="#/my/leaves" class="btn-flat">APPLY FOR LEAVE</a>
+                        <a href="#/my/leaves/new" class="btn-flat">APPLY FOR LEAVE</a>
                         <a class="btn-flat" (click)="openHolidayList(results.ol)">HOLIDAY LIST</a>
                     </div>
                 </div>
-
-                <!--<div class="card white" id="helpdesk-with-records">
-                    <div class="row m-bottom0">
-                        <div class="col s12">
-                            <h5>Help Desk
-                                <a href="#" class="info-btn" id="helpdesk"><i class="right fa fa-dot-circle-o" aria-hidden="true"></i></a>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="row dashboard-view-content">
-                        <div class="col s12 dashboard-view-data">
-                            <div class="left">
-                                <h5><span>#32456</span> Amol Naresh</h5>
-                                <h6 class="content-text">Can not login to the site from past 3 days</h6>
-                            </div>
-                            <a class="right"><i class="fa fa-clock-o status-pending" aria-hidden="true" title="Pending"></i></a>
-                        </div>
-                    </div>
-                    <div class="row dashboard-view-content">
-                        <div class="col s12 dashboard-view-data">
-                            <div class="left">
-                                <h5><span>#98775</span> Neha Subad</h5>
-                                <h6 class="content-text">Can not login to the site from past 3 days</h6>
-                            </div>
-                            <a class="right"><i class="fa fa-clock-o status-pending" aria-hidden="true" title="Pending"></i></a>
-                        </div>
-                    </div>
-                    <div class="data-footer">
-                        <a class="btn-flat">REPORT ISSUE</a>
-                        <a class="btn-flat">ALL ISSUES</a>
-                    </div>
-                </div>-->
                 <div class="card white" id="helpdesk-with-records" *ngIf="rowData.length > 0 || showHelpDeskStatusDetails">
                     <div class="row m-bottom0">
                         <div class="col s12">
@@ -188,8 +190,8 @@
                         </div>
                     </div>
                     <div class="data-footer">
-                        <a class="btn-flat" href="/#/my/helpdesk/newticket">REPORT ISSUE</a>
-                        <a class="btn-flat" href="/#/my/helpdesk/ticketlist/0">ALL ISSUES</a>
+                        <a class="btn-flat" href="/#/my/helpdesk/newticket">NEW TICKET</a>
+                        <a class="btn-flat" href="/#/my/helpdesk/ticketlist/0">MY TICKETS</a>
                     </div>
                 </div>
 
@@ -200,34 +202,34 @@
                         </div>
                     </div>
                     <div class="data-footer">
-                        <a class="btn-flat" href="/#/my/helpdesk/newticket">REPORT ISSUE</a>
+                        <a class="btn-flat" href="/#/my/helpdesk/newticket">NEW TICKET</a>
                     </div>
                 </div>
 
 				<div class="card white" id="expense-with-records" *ngIf="submittedExpense">
-					<div class="row m-bottom0">
-						<div class="col s12">
-							<h5>Expense Request
-								<!--<a class="info-btn" id="expense"><i class="right fa fa-dot-circle-o" aria-hidden="true"></i></a>-->
-							</h5>
-						</div>
-					</div>
-					<div *ngFor="let item of submittedExpense">
-						<div class="row dashboard-view-content">
-							<div class="col s12 dashboard-view-data">
-								<div class="left">
-									<h5><span>#{{item.expenseId}}</span> {{item.reimbursementTitle}}</h5>
-									<!--<h6 class="content-text">{{item.lastcomments}}</h6>-->
-								</div>
-								<a href="#/my/expense/submitted" class="right"><i class="{{item.onStageStatus|approvalstatus}}" aria-hidden="true" title="{{item.onStageStatus|approvalstatusTitle}}"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="data-footer">
-						<a href="#/my/expense/new" class="btn-flat">NEW REQUEST</a>
-						<a href="#/my/expense/submitted" class="btn-flat">ALL REQUESTS</a>
-					</div>
-				</div>
+                    <div class="row m-bottom0">
+                        <div class="col s12">
+                            <h5>Expense Request
+                                <!--<a class="info-btn" id="expense"><i class="right fa fa-dot-circle-o" aria-hidden="true"></i></a>-->
+                            </h5>
+                        </div>
+                    </div>
+                    <div *ngFor="let item of submittedExpense">
+                        <div class="row dashboard-view-content">
+                            <div class="col s12 dashboard-view-data">
+                                <div class="left">
+                                    <h5><span>#{{item.expenseId}}</span> {{item.reimbursementTitle}}</h5>
+                                    <h6 class="content-text">{{item.lastcomments}}</h6>
+                                </div>
+                                <a href="#/my/expense/submitted" class="right"><i class="{{item.onStageStatus|approvalstatus}}" aria-hidden="true" title="{{item.onStageStatus|approvalstatusTitle}}"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-footer">
+                        <a href="#/my/expense/new" class="btn-flat">NEW EXPENSE</a>
+                        <a href="#/my/expense/submitted" class="btn-flat">MY EXPENSES</a>
+                    </div>
+                </div>
 
                 <div class="card white card-bg expense-bg " id="expense-without-records" *ngIf="submittedExpense == undefined">
                     <div class="row m-bottom0 height-60">
@@ -236,10 +238,10 @@
                         </div>
                     </div>
                     <div class="data-footer">
-                        <a href="#/my/expense/new" class="btn-flat">NEW REQUEST</a>
+                        <a href="#/my/expense/new" class="btn-flat">NEW EXPENSE</a>
                     </div>
                 </div>
-                <div class="card white card-bg travel-bg phase2" id="travel-without-records">
+                <div class="card white card-bg travel-bg" id="travel-without-records">
                     <div class="row m-bottom0 height-60">
                         <div class="col s12">
                             <h5>Travel</h5>
@@ -248,6 +250,7 @@
                     <div class="data-footer">
                         <span class="btn-flat">Upcoming.. </span>
                     </div>
+                    <div class="overlay-upcoming"></div>
                 </div>
 
                 <div class="card white card-bg appraisal-bg phase2">
@@ -257,11 +260,12 @@
                         </div>
                     </div>
                     <div class="data-footer">
-                        <span class="btn-flat">Upcoming.. </span>
+                        <a *ngIf="appraisalAssignedTo" href="#/my/appraisal" class="btn-flat">My</a>
+                        <h5 *ngIf="!appraisalAssignedTo">My</h5>
                     </div>
                 </div>
 
-                <div class="card white card-bg separation-bg phase2">
+                <div class="card white card-bg separation-bg">
                     <div class="row m-bottom0 height-60">
                         <div class="col s12">
                             <h5>Separation</h5>
@@ -270,11 +274,21 @@
                     <div class="data-footer">
                         <span class="btn-flat">Upcoming.. </span>
                     </div>
+                    <div class="overlay-upcoming"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="holiday-modal">
-    
+    <ui-custom-model [(edited)]='holiday' [modalHeader]="'Holiday List'" (onClose)='onHolidayClose($event)'>
+        <div class="row margin-zero holiday-list-options">
+            <div class="col s6 m4" *ngFor="let item of holidayCollection">
+                <div class="modal-view-data">
+                    <h6>{{item.holidayDate | date:'fullDate'}}</h6>
+                    <h5>{{item.description}}</h5>
+                </div>
+            </div>
+        </div>
+    </ui-custom-model>
 </div>

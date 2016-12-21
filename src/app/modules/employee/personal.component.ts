@@ -503,7 +503,7 @@ export class PersonalComponent {
         this.loaderModal = true;
         this.rdata = this._activatedRoute.parent;
         if (this.rdata)
-            this.isReadOnlyMode = this.isViewOnly = this.rdata.snapshot.data["isViewOnly"];
+            this.isReadOnlyMode = this.isViewOnly = this.displaymedical = this.displaypassport = this.rdata.snapshot.data["isViewOnly"];
 
         if (this.rdata) {
             this.InitializeCards(this._cacheService.getParams(this.rdata.snapshot.data["from"]));

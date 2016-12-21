@@ -1,35 +1,27 @@
-
 import { Component } from '@angular/core';
-//import { TimerWrapper } from '@angular/core/src/facade/async';
 import { AttendenceModel } from '../../models/AttendenceModel';
 import { DropdownValue } from '../../infrastructure/components/DropDownValue';
 import { UiForm, UiFormControl } from '../../infrastructure/components/UiForm';
 import { DoughnutChart } from '../../infrastructure/components/DoughnutChart';
 import { LineChart } from '../../infrastructure/components/LineChart';
-import { CacheService} from './../../servicesFolder/CacheService';
-import { AutoMapperService} from './../../servicesFolder/AutoMapperService';
-import {HttpService } from './../../servicesFolder/http/http.service';
-import { HttpSettings } from './../../servicesFolder/http/http.settings';
+import { CacheService, AutoMapperService, HttpService, HttpSettings } from '../../services';
 import { SISOModel } from '../../models/AttendenceModel';
 import { List, Map } from 'immutable';
 import { MaterializeDirective } from "angular2-materialize";
 import { LoaderComponent } from '../../infrastructure/components/loader.component';
 import * as Materialize from "angular2-materialize";
+import { ActivatedRoute } from '@angular/router';
 declare var $: any;
+import { LocationserviceService } from '../../servicesFolder/Enablelocation/locationservice.service'
+
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
   styleUrls: ['./attendance.component.css']
-  //directives: [UiForm, DoughnutChart, BasicCellC, BasicGrid, MaterializeDirective, LoaderComponent, LineChart, UiFormControl],
 })
 
-export class AttendanceComponent{
-
-  
-
-  
+export class AttendanceComponent {
   attendenceModelCollection: Array<any> = [];
-
   monthCollection: Array<any> = [];
   yearCollection: Array<any> = [];
   months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -69,8 +61,16 @@ export class AttendanceComponent{
   previousDay: any;
   todayDate: any;
   holiday: any;
+  searchUser: boolean = false;
+  searchUserId: any;
 
-  constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
+  constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService, private activatedRoute: ActivatedRoute, private _locationService: LocationserviceService) {
+    this._locationService.getLocation();
+
+    this.searchUserId = this.activatedRoute.parent.snapshot.data["id"];
+    if (this.searchUserId) {
+      this.searchUser = true;
+    }
     this.date = new Date();
     this.monthForAttendence = '23/' + this.date.getMonth() + '/' + this.date.getFullYear();
     this.attendenceModelCollection = new Array<AttendenceModel>();
@@ -286,7 +286,7 @@ export class AttendanceComponent{
     }
     for (var j = 0; j < this.attendenceChartData.length; j++) {
       this.tempAttendenceChartData.push(this.attendenceChartData[j]);
-      if (this.attendenceChartData[j] == 0) {
+      if (this.attendenceChartData[j] == 0 && j != 0) {
         this.attendenceChartData.splice(j, 1);
         j--;
       }
@@ -314,7 +314,12 @@ export class AttendanceComponent{
       if (currentDate < holidayDate)
         remainingDaysCount--;
     }
-    return (remainingDaysCount - leave);
+    if (leave >= 0) {
+      return (remainingDaysCount - leave);
+    }
+    else {
+      return (remainingDaysCount);
+    }
   }
 
   //Get call to get attendence data for the month and year
@@ -327,6 +332,9 @@ export class AttendanceComponent{
     var stamp = Math.round(new Date(currentTime + localOffset).getTime() / 1000);
     var todayTime = stamp.toString();
     var url = HttpSettings.apiBaseUrl + 'v1/attendance/for-current-user/' + month + '/' + year + '/' + todayTime;
+    if (this.searchUser == true) {
+      url = HttpSettings.apiBaseUrl + "v1/attendance/for-search-user/" + month + '/' + year + '/' + todayTime + "/" + this.searchUserId;
+    }
     this._httpService.get(url)
       .subscribe
       (
@@ -389,6 +397,7 @@ export class AttendanceComponent{
       this.loaderModal = true;
       var url = HttpSettings.apiBaseUrl + 'v1/attendance/add';
       this.currentSiSOModel = new SISOModel();
+      let timeZone = this._cacheService.getParams('geolocation');
       var model = new SISOModel();
       this.currentSiSOModel.Time = this.CovertDateToTimeStamp(dataModal.date + " " + dataModal.TimetHr + ":" + dataModal.TimetMin);
       this.currentSiSOModel.Narration = dataModal.Narration;
@@ -399,6 +408,7 @@ export class AttendanceComponent{
         this.currentSiSOModel.IsSignIn = false;
       }
       this.currentSiSOModel.IsManual = "true";
+      this.currentSiSOModel.TimeZoneName = timeZone.timeZoneName;
 
       this._autoMapperService.Map(this.currentSiSOModel, model);
       this._httpService.post(url, model)
@@ -445,6 +455,7 @@ export class AttendanceComponent{
     let url = HttpSettings.apiBaseUrl + 'v1/attendance/add';
     this.currentSiSOModel = new SISOModel();
     var model = new SISOModel();
+    let timeZone = this._cacheService.getParams('geolocation');
     if (status == "SignIn") {
       this.currentSiSOModel.IsSignIn = true;
     }
@@ -457,6 +468,7 @@ export class AttendanceComponent{
     this.currentSiSOModel.Time = stamp.toString();
     this.currentSiSOModel.Narration = "Auto Approved";
     this.currentSiSOModel.IsManual = "false";
+    this.currentSiSOModel.TimeZoneName = timeZone.timeZoneName;
 
     this._autoMapperService.Map(this.currentSiSOModel, model);
     this._httpService.post(url, model)

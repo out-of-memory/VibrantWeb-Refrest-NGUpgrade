@@ -40,8 +40,7 @@
 												<status-step [totalStep]='3' [approvedTill]='0' [lastApprovedStatus]='0' [lastApprovedComment]="''"></status-step>
 											</div>
 											<div class="col s12 m6 offset-m6 l2 expense-action-icons">
-												<a href="#" class="expense-icon" id="edit-expense" [routerLink]="['Finance_Expense_New_Id',{expenseId: item.expenseId}]"><i class="fa fa-pencil edit" aria-hidden="true" title="Edit"></i></a>
-												<!--<a href="#" class="expense-icon" id="edit-expense" (click)="goTo(item)"><i class="fa fa-pencil edit" aria-hidden="true" title="Edit" ></i></a>-->
+												<a href="#" class="expense-icon" id="edit-expense" routerLink="/my/expense/new/{{item.expenseId}}"><i class="fa fa-pencil edit" aria-hidden="true" title="Edit"></i></a>
 												<a href="#" class="expense-icon" id="save-expense" style="display: none;"><i class="fa fa-floppy-o save" aria-hidden="true" title="Save"></i></a>
 												<a href="#" class="expense-icon"><i class="fa fa-trash remove" aria-hidden="true" title="Remove" (click)="confirmDelete($event,item)"></i></a>
 												<a href="#" data-collapsible="accordion" class="right expense-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
