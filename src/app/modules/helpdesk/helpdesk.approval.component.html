@@ -1,0 +1,95 @@
+<div class="padding-20">
+    <div class="row attendance-data">
+        <div class="col s12  padding-zero">
+            <div class="table-container padding-zero table-scroll">
+                <div class="row m-bottom5">
+                    <div class="col s12 padding-zero" *ngIf="helpDeskTicketList">
+                        <div *ngIf="helpDeskTicketList.length > 0" class="reimbursement-wrapper approvals-data helpdesk-table-view">
+                            <basic-grid [(source)]='helpDeskTicketList' gridPagination='bottom' gridOptions='{"colWidths":[25,8,10,10,12,10,25],"widthType":"%","useScroll":true}'>
+                                <basic-cell cell='' headerLabel=''>
+                                    <template let-item='row'>
+                                        <div class="row m-bottom0 employee-data">
+                                            <div class="col s12 m4 center-align padding-zero">
+                                                <div class="employee-search-img">
+                                                    <a><img [src]="item.imagePath" alt="" class="circle responsive-img"></a>
+                                                </div>
+                                                <div class="employee-id">
+                                                    <h5>{{item.employeeId}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m8 search-result-align">
+                                                <div class="employee-name">
+                                                    <h5>{{item.employeeName}}</h5>
+                                                </div>
+                                                <div class="employee-profile">
+                                                    <h6>{{item.designation}}</h6>
+                                                    <h6>{{item.address|location}}</h6>
+                                                </div>
+                                                <div class="employee-contact-info">
+                                                    <h6 class="email-id">{{item.email}}</h6>
+                                                    <h6>t : +91 22 4153.0200 x 000</h6>
+                                                    <h6>m : {{item.mobile}}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </basic-cell>
+                                <basic-cell cell='' headerLabel='TicketId'>
+                                    <template let-item='row'>
+                                        {{item.number}}
+                                    </template>
+                                </basic-cell>
+                                <basic-cell cell='' headerLabel='Issue Date'>
+                                    <template let-item='row'>
+                                        {{item.issueDate}}
+                                    </template>
+                                </basic-cell>
+                                <basic-cell cell='' headerLabel='Assigned To'>
+                                    <template let-item='row'>
+                                        {{item.assignedToName}}
+                                    </template>
+                                </basic-cell>
+                                <basic-cell cell='' headerLabel='Description'>
+                                    <template let-item='row'>
+                                        <div class="details-data">{{item.description}}</div>
+                                    </template>
+                                </basic-cell>
+                                <basic-cell cell='' headerLabel='Type/Severity'>
+                                    <template let-item='row'>
+                                        {{item.type}}<span>-</span>{{item.severity}}
+                                    </template>
+                                </basic-cell>
+                                <basic-cell cell='' headerLabel=''>
+                                    <template let-item='row'>
+                                       
+                                     
+                                     
+                                       <select placeholder="Duration" [(ngModel)]="item.duration" id="Duration_{{item.number}}" name="Duration_{{item.number}}" style="display:block !important" (change)="onDurationChanged($event.target.value)">
+                                                        <option value="30">30</option>
+                                                        <option value="60">60</option>
+                                                        <option value="90">90</option>
+                                                        <option value="120">120</option>
+                                                </select>
+
+                                                <input type='text' name="comments" [(ngModel)]="item.comments" maxlength="900" />
+
+                                                 <button class="btn custom-btn submit" type='button' (click)="approveLeave(item)" title="Approve" value='Approve'>Approve</button>
+                                                    <button class="btn custom-btn cancel" (click)="rejectLeave(item)" title="Reject" type='button' value="Reject">Reject</button>
+                                    </template>
+                                </basic-cell>
+
+                            </basic-grid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="helpDeskTicketList.length == 0">
+                <div class="col s12 table-note">
+                    <span>No Request for Approvals.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

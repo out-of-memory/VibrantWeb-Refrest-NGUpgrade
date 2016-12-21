@@ -140,7 +140,7 @@ export class AppComponent {
                     "css": "sixth",
                     "parentRoute": "",
                     "routerName": "R-my-HelpDesk",
-                    "routerUrl": "",
+                    "routerUrl": "my/helpdesk/newticket",
                     "subNav": []
                 });
 

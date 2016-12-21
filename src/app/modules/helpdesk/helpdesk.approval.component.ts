@@ -1,23 +1,21 @@
-import { Component} from '@angular/core';
-import {HttpService} from './../../../servicesFolder/http/http.service';
-import {AutoMapperService} from './../../../servicesFolder/AutoMapperService';
-import {LeaveApprovalModel} from './../../../models/LeaveModel';
-import {UiForm} from './../../../infrastructure/components/UiForm';
-import {CacheService} from './../../../servicesFolder/CacheService';
-import {BasicCellC, BasicGrid} from './../../../infrastructure/components/basic-grid';
-import {List, Map} from 'immutable';
-import {MaterializeDirective} from "angular2-materialize";
-import {HttpSettings} from "./../../../servicesFolder/http/http.settings"
-import {LoaderComponent} from  './../../../infrastructure/components/loader.component';
+import { Component } from '@angular/core';
+import { HttpService } from '../../servicesFolder/http/http.service';
+import { AutoMapperService } from '../../servicesFolder/AutoMapperService';
+import { LeaveApprovalModel } from '../../models/LeaveModel';
+import { UiForm } from '../../infrastructure/components/UiForm';
+import { CacheService } from '../../servicesFolder/CacheService';
+import { List, Map } from 'immutable';
+import { MaterializeDirective } from "angular2-materialize";
+import { HttpSettings } from "../../servicesFolder/http/http.settings"
+import { LoaderComponent } from '../../infrastructure/components/loader.component';
 import * as Materialize from "angular2-materialize";
-import {HelpDeskList} from './../../../models/HelpDeskModel';
-import { LocationPipe } from './../../../infrastructure/pipes/pipes'
+import { HelpDeskList } from '../../models/HelpDeskModel';
 
 @Component({
   selector: 'helpdesk-approval',
   templateUrl: './helpdesk.approval.component.html',
   providers: [HttpService],
-  
+
 })
 
 export class HelpDeskApprovalComponent {
@@ -124,8 +122,8 @@ export class HelpDeskApprovalComponent {
     return stamp.toString();
   }
 
-  onDurationChanged(val: any){
-console.log(val);
+  onDurationChanged(val: any) {
+    console.log(val);
   }
 
 }

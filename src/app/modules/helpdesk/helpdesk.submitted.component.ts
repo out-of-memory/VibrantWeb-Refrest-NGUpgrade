@@ -1,26 +1,25 @@
-import { Component} from '@angular/core';
-import {HttpService} from '../../servicesFolder/http/http.service';
-import {AutoMapperService} from '../../servicesFolder/AutoMapperService';
-import {HelpDeskModel, HelpDeskList, HelpDeskCommentModel, HelpDeskSubmitModel, } from '../../models/HelpDeskModel';
-import {UiForm, UiFormControl} from '../../infrastructure/components/UiForm';
-import {CacheService} from '../../servicesFolder/CacheService';
-import {BasicCellC, BasicGrid} from '../../infrastructure/components/basic-grid';
-import {List, Map} from 'immutable';
-import {MaterializeDirective} from "angular2-materialize";
-import {HttpSettings} from "../../servicesFolder/http/http.settings"
-import {LoaderComponent} from  '../../infrastructure/components/loader.component';
+import { Component } from '@angular/core';
+import { HttpService } from '../../servicesFolder/http/http.service';
+import { AutoMapperService } from '../../servicesFolder/AutoMapperService';
+import { HelpDeskModel, HelpDeskList, HelpDeskCommentModel, HelpDeskSubmitModel, } from '../../models/HelpDeskModel';
+import { UiForm, UiFormControl } from '../../infrastructure/components/UiForm';
+import { CacheService } from '../../servicesFolder/CacheService';
+import { BasicCellC, BasicGrid } from '../../infrastructure/components/basic-grid';
+import { List, Map } from 'immutable';
+import { MaterializeDirective } from "angular2-materialize";
+import { HttpSettings } from "../../servicesFolder/http/http.settings"
+import { LoaderComponent } from '../../infrastructure/components/loader.component';
 import * as Materialize from "angular2-materialize";
-import {FileUpload} from  '../../infrastructure/components/file-upload';
-import {FileNamePipe} from '../../infrastructure/pipes/pipes'
-import {  ActivatedRoute, Router} from '@angular/router';
-import { LocationPipe } from '../../infrastructure/pipes/pipes'
+import { FileUpload } from '../../infrastructure/components/file-upload';
+import { FileNamePipe } from '../../infrastructure/pipes/pipes'
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocationPipe } from '../../infrastructure/pipes/pipes';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'submithelpdesk',
     templateUrl: './helpdesk.submitted.component.html',
-    // directives: [UiForm, UiFormControl, MaterializeDirective, FileUpload, BasicGrid, BasicCellC, LoaderComponent, ROUTER_DIRECTIVES],
     providers: [HttpService],
-    //pipes: [FileNamePipe, LocationPipe]
 })
 
 export class HelpDeskSubmitComponent {
@@ -53,7 +52,7 @@ export class HelpDeskSubmitComponent {
     otherDepartmentAssigneeCollection: Array<any>;
     dropDownCollection: Array<any>;
     raisedByMe: boolean = false;
-    constructor(private _httpService: HttpService, private _cacheService: CacheService, private routeParams: ActivatedRoute, private _autoMapperService: AutoMapperService) {
+    constructor(private _httpService: HttpService, private _cacheService: CacheService, private routeParams: ActivatedRoute, private _autoMapperService: AutoMapperService, private _location: Location) {
         this.setHelpDeskTicket();
         this.populateSubmittedTicket();
         this.getCurrentDateTime();
@@ -141,8 +140,7 @@ export class HelpDeskSubmitComponent {
                 this.assigneeCollection = new Array<any>();
                 this.otherDepartmentAssigneeCollection = new Array<any>();
                 this.dropDownCollection = new Array<any>();
-                debugger;
-                if ((data.assigness.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0) || (data.otherDepartmentAdmin.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo)  >= 0)) {
+                if ((data.assigness.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0) || (data.otherDepartmentAdmin.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0)) {
                     this.assignToVisible = false;
                 }
                 else {
@@ -262,6 +260,9 @@ export class HelpDeskSubmitComponent {
         } else {
             this.dropDownCollection = this.assigneeCollection;
         }
+    }
 
+    backClicked() {
+        this._location.back();
     }
 }

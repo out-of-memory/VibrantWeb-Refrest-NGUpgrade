@@ -61,7 +61,6 @@ export class CompOffApprovalComponent {
         this._httpService.get(url)
             .subscribe(
             data => {
-                debugger;
                 for (var i = 0; i < data.employeeLeaveViewModels.length; i++) {
                     var compoffModel = data.employeeLeaveViewModels[i];
                     this.rowData.push({ "model": compoffModel, "statusModel": { "status": compoffModel.status, "statusComment": compoffModel.statusComment }, cardSubmitted: false });
