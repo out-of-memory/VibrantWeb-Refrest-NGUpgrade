@@ -65,7 +65,7 @@ export class AttendanceComponent {
   searchUserId: any;
 
   constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService, private activatedRoute: ActivatedRoute, private _locationService: LocationserviceService) {
-    this._locationService.getLocation();
+    
 
     this.searchUserId = this.activatedRoute.parent.snapshot.data["id"];
     if (this.searchUserId) {

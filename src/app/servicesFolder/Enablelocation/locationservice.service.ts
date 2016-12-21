@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 declare var $: any;
+declare var navigator: any;
 
 @Injectable()
 export class LocationserviceService {
@@ -11,8 +12,14 @@ export class LocationserviceService {
 
   getLocation() {
 
-    window.navigator.geolocation.getCurrentPosition(this.success, this.error, { timeout: 10000 });
+    // window.navigator.geolocation.getCurrentPosition(this.success, this.error, { timeout: 10000 });
 
+    navigator.permissions.query({ name: 'geolocation' })
+      .then(function (permissionStatus) {
+        if (permissionStatus.state == "denied" || permissionStatus.state == "prompt") {
+          window.location.href = "index.html";
+        }
+      });
   }
 
   private success(position) {

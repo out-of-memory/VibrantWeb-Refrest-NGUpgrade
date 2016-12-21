@@ -51,11 +51,8 @@ export class DashboardComponent implements OnInit {
     appraisalAssignedTo: boolean = false;
     isAdminUser: boolean = false;
     isLocation: boolean = false;
-    this1: any;
 
-    constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService, private _locationService: LocationserviceService) {
-
-        this._locationService.getLocation();
+    constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService, private _locationService: LocationserviceService) {        
 
         this.date = new Date().toISOString();
         this.rowData = new Array<HelpDeskList>();
@@ -69,7 +66,6 @@ export class DashboardComponent implements OnInit {
         this.GetHelpDeskTickets();
         this.fetchPendingHelpDeskTicket();
         this.GetAppraisalAssignedTo();
-        this.this1 = $(this);
     }
 
     ngOnInit() {
@@ -84,7 +80,7 @@ export class DashboardComponent implements OnInit {
         this.GetMyTeamList();
     }
 
-    
+
 
     Islocation() {
         this.isLocation = true;
