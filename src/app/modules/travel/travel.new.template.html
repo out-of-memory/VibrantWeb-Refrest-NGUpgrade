@@ -1,1 +1,229 @@
-Travel new component...!!
+<div id="travel-newrequest" class="col s12 padding-zero tab-content" style="display: block;">
+    <div>
+        <div class="row main-data-container" *ngIf="loading">
+            <div class="col s12 padding-zero">
+                <div class="tab-container custom-tabs-wrapper">
+                    <div class="row margin-zero">
+                        <div class="col s12 bottom-divider p-left10">
+                            <div class="col s12 m12 l3 padding-zero">
+                                <ul class="tabs approvals-tabs" style="width: 100%;">
+                                    <li class="tab col s3"><a class="active">TRAVELLER DETAILS</a></li>
+                                    <div class="indicator" style="right: 0px; left: 0px;"></div>
+                                    <div class="indicator" style="right: 0px; left: 0px;"></div>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="traveller-details" class="col s12 tab-content padding-zero">
+                            <div class="card-container padding-20 travel-cards">
+                                <div [ngClass]="{toDisplay: travelRequirementsModel.travelType == 1 , toDisplayBlock : travelRequirementsModel.travelType == ''}" class="card white approvals-card">
+                                    <div class="card-edit">
+                                        <div class="row heading-content">
+                                            <div class="col s12 card-heading">
+                                                <span class="card-title">Passport Details</span>
+                                            </div>
+                                        </div>
+                                        <ui-form #passportForm [controlMetas]="passportHub" [(model)]="passportModel" [errorOnlyOnSubmit]='passportSubmitted' [formReadonly]='false'
+                                            formCss='view-card' columOrientation='1' inputLabelPosition='top' controlCss='view-form-info'>
+                                            <ui-control-item for='dateOfIssue' behaviours='[ {"name":"max","value":"today"}]'>
+                                            </ui-control-item>
+                                            <ui-control-item for='dateOfExpiry' behaviours='[{"name":"min","value":"{{passportModel.dateOfIssue}}:mm/dd/yyyy"}]' depends='["dateOfIssue:changeattrs"]'
+                                                changeattrs='["min"]'>
+                                            </ui-control-item>
+                                        </ui-form>
+                                    </div>
+                                </div>
+                                <grid-card *ngIf="travelRequirementsModel.travelType != 1" header="Visa Details" [formReadonly]='true' [nonEditable]='false'
+                                    (addActivationChanged)="GridAddNewVisa($event,visaModel)">
+                                    <repeater [(source)]='visaDetails' *ngIf="!addVisaDetails">
+                                        <template let-item='item'>
+                                            <div class="saved-data">
+                                                <div class="row">
+                                                    <div class="col s8">
+                                                        <div class="view-form-info">
+                                                            <div>
+                                                                <h5>{{item.visaTypeID|visaType}}</h5>
+                                                            </div>
+                                                            <div>
+                                                                <h6>Country<span class="p-left10">{{item.countryID|countryName}}</span></h6>
+                                                            </div>
+                                                            <h6>Valid Till<span class="p-left10">{{item.validTill}}</span></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4 valign right-align">
+                                                        <span><i class="fa fa-pencil icon-btn edit" aria-hidden="true" title="Edit" (click)="EditVisa($event, item)"></i></span>
+                                                        <span><i class="fa fa-trash icon-btn remove" aria-hidden="true" title="Remove" (click)="DeleteVisa($event, item)"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </repeater>
+                                    <ui-grid-form #visaForm [header]="visaDetailsHeader" [controlMetas]="visaHub" [model]="visaModel" [errorOnlyOnSubmit]='visaSubmit'
+                                        [formReadonly]='false' formCss='view-card saved-data' inputLabelPosition='top' columnOrientation='1'
+                                        controlCss='view-form-info' *ngIf="addVisaDetails" (cancelData)="CancelVisaEdit($event,visaModel)"
+                                        (addData)="ConfirmVisaEdit($event,visaForm.mainForm,visaModel)">
+                                        <ui-control-item for='validTill' behaviours='[{"name":"min","value":"today"}]'></ui-control-item>
+                                    </ui-grid-form>
+
+                                    <loader-component [(loading)]='visaCardLoader' [(isConformationModal)]='visaCardConfirmation' [(showMsg)]='visaCardShow'
+                                        [callBackMsg]='visaModalText' [cardLoading]="'isCard'">
+
+                                        <confirm (DeleteControl)="DeleteVisaData(visaModel)" (CancelDelete)="CancelVisaEdit($event,visaModel)"></confirm>
+
+                                    </loader-component>
+                                </grid-card>
+
+                                <div class="card white approvals-card">
+                                    <div class="card-edit">
+                                        <div class="row heading-content">
+                                            <div class="col s12 card-heading">
+                                                <span class="card-title">Organization Details</span>
+                                            </div>
+                                        </div>
+                                        <div class="saved-data">
+                                            <div class="row">
+                                                <div class="col s6">
+                                                    <div class="view-form-info">
+                                                        <h5>{{organizationDetails.deliveryUnit}}</h5>
+                                                        <h6>Delivery Unit</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="col s6">
+                                                    <div class="view-form-info">
+                                                        <h5>{{organizationDetails.currentDU}}</h5>
+                                                        <h6>Current Delivery Unit</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s6">
+                                                    <div class="view-form-info">
+                                                        <h5>{{organizationDetails.deliveryTeam}}</h5>
+                                                        <h6>Delivery Team</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="col s6">
+                                                    <div class="view-form-info">
+                                                        <h5>{{organizationDetails.resourcePool}}</h5>
+                                                        <h6>Resource Pool Name</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s6">
+                                                    <div class="view-form-info">
+                                                        <h5>{{organizationDetails.reportingManager}}</h5>
+                                                        <h6>Reporting To</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="col s6">
+                                                    <div class="view-form-info">
+                                                        <h5>{{organizationDetails.exitProcessManager|exitprocessmanager}}</h5>
+                                                        <h6>ExitProcess Manager</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <grid-card header="Emergency Contact" [formReadonly]='true' [nonEditable]='false' (addActivationChanged)="GridAddNewContact($event,emergencyContactsModel)">
+                                    <repeater [(source)]='emergencyContacts' *ngIf="!isAddEmergencyContacts">
+                                        <template let-item='item'>
+                                            <div class="saved-data">
+                                                <div class="row">
+                                                    <div class="col s7">
+                                                        <div class="view-form-info">
+                                                            <h5>{{item.contactPersonName}}<span class="p-left10">{{item.relation|relation}}</span></h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s5 valign right-align">
+                                                        <span><i class="fa fa-pencil icon-btn edit" aria-hidden="true" title="Edit" (click)="EditGridData($event,item)"></i></span>
+                                                        <span><i class="fa fa-trash icon-btn remove" aria-hidden="true" title="Remove" (click)="DeleteContact($event,item)"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5><i class="fa fa-phone" aria-hidden="true"></i>{{item.emergencyContactNo}}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5> {{item.contactAddress}}</h5>
+                                                            <h6 *ngIf="item.contactAddress">Contact Person Address</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5 class="new-line-word" *ngIf="item.emergencyEmail"><i class="fa fa-envelope" aria-hidden="true"></i>{{item.emergencyEmail}}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </repeater>
+                                    <ui-grid-form #emergencyContactsForm [header]="emergencyContactsheader" [controlMetas]="emergerncyContactsHub" [model]="emergencyContactsModel"
+                                        [errorOnlyOnSubmit]='emergencyContactsSubmit' [formReadonly]='false' formCss='view-card saved-data'
+                                        inputLabelPosition='top' columnOrientation='1' controlCss='view-form-info' *ngIf="isAddEmergencyContacts"
+                                        (cancelData)="CancelEmergencyEdit($event,emergencyContactsModel)" (addData)="ConfirmEmergencyEdit($event,emergencyContactsForm.mainForm,emergencyContactsModel)">
+                                    </ui-grid-form>
+
+                                    <loader-component [(loading)]='emergencyCardLoader' [(isConformationModal)]='emergencyCardConfirmation' [(showMsg)]='emergencyCardShow'
+                                        [callBackMsg]='emergencyModalText' [cardLoading]="'isCard'">
+
+                                        <confirm (DeleteControl)="DeleteEmergencyContactData(emergencyContactsModel)" (CancelDelete)="CancelEmergencyEdit($event,emergencyContactsModel)"></confirm>
+
+                                    </loader-component>
+
+                                </grid-card>
+                                <div class="card white approvals-card">
+                                    <div class="card-edit">
+                                        <div class="row heading-content">
+                                            <div class="col s12 card-heading">
+                                                <span class="card-title">Client Information</span>
+                                            </div>
+                                        </div>
+                                        <ui-form #clientForm [controlMetas]="clientInformationHub" [model]="clientInformationModel" [errorOnlyOnSubmit]='formSubmitted'
+                                            [formReadonly]='false' formCss='view-card' columnOrientation='1' inputLabelPosition='top'
+                                            controlCss='view-form-info'>
+                                        </ui-form>
+
+                                    </div>
+                                </div>
+                                <div class="card white approvals-card">
+                                    <div class="card-edit">
+                                        <div class="row heading-content">
+                                            <div class="col s12 card-heading">
+                                                <span class="card-title">Travel Requirements</span>
+                                            </div>
+                                        </div>
+                                        <ui-form #travelRequirementsForm [controlMetas]="travelRequirementsHub" [model]="travelRequirementsModel" [errorOnlyOnSubmit]='formSubmitted'
+                                            [formReadonly]='false' formCss='view-card' columnOrientation='1' inputLabelPosition='top'
+                                            controlCss='view-form-info'>
+                                            <ui-control-item for='departure' behaviours='[{"name":"min","value":"Today"}]'></ui-control-item>
+                                            <ui-control-item for='arrival' behaviours='[{"name":"min","value":"{{departure}}:mm/dd/yyyy"}]' depends='["departure:changeattrs"]'
+                                                changeattrs='["min"]'>
+                                            </ui-control-item>
+                                        </ui-form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer padding-15-0 top-divider">
+                                <div class="row valign-wrapper margin-zero">
+                                    <div class="col s12 m12 l6 right-align">
+                                        <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel" (click)="ResetForm()">Cancel</a>
+                                        <i class="waves-effect waves-light btn custom-btn submit waves-input-wrapper"><input (click)="SaveTravel($event,clientForm,travelRequirementsForm,passportForm,clientInformationModel,travelRequirementsModel,passportModel)" class="waves-button-input" type="submit" title="Submit" value="Submit" name="action"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<loader-component [(loading)]='pageLoaderModal' [showMsg]='false' [callBackMsg]='false' [cardLoading]="'isPage'" [isConformationModal]="false"></loader-component>

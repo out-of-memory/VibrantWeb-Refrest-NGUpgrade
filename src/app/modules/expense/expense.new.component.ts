@@ -250,7 +250,7 @@ export class ExpenseNewComponent implements OnInit {
 
     ngOnInit() {
 
-        let rdata = this.activatedRoute.root;
+        let rdata: any;
 
         this.activatedRoute.params.subscribe(
             (param: any) => {

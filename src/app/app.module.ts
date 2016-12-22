@@ -32,7 +32,7 @@ import { MaintainenceModule } from './modules/maintainence/maintainence.module';
 import { EnablelocationModule } from './modules/enablelocation/enablelocation.module';
 import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service';
 import { TravelModule } from './modules/travel/travel.module';
-import { TravelComponent } from './modules/travel/travel.component';
+
 
 
 @NgModule({
