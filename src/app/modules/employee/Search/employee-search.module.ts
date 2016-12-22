@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlsModule } from '../../../infrastructure/ControlsModule';
 import { RouterModule } from '@angular/router';
-import { UserService } from '../../../services';
+import { UserService, EmployeeService } from '../../../services';
 import { EmployeeSearchComponent } from './employee-search.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { EmployeeSearchComponent } from './employee-search.component';
         EmployeeSearchComponent
     ],
     exports: [RouterModule],
-    providers: [UserService]
+    providers: [UserService, EmployeeService]
 })
 
 export class EmployeeSearchModule { }

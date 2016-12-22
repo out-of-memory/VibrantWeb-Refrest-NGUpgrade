@@ -8,6 +8,8 @@ import { AttendanceComponent } from '../modules/attendance/attendance.component'
 import { LeaveApproval } from '../modules/leave/leave';
 import { ReportsComponent } from '../modules/reports/reports.component';
 import { MaintainenceComponent } from '../modules/Maintainence/maintainence.component';
+import { ProfileComponent } from '../modules/approvals/profile/profile.component';
+import { CompOffApprovalComponent } from '../modules/approvals/compoff/compoff.approval';
 
 export module Decorator {
     export class App {
@@ -73,7 +75,17 @@ export module Decorator {
                     path: "/maintainence",
                     name: "R-Maintainence",
                     component: MaintainenceComponent
-                }
+                },
+                {
+                    path: '/approvals/profile',
+                    name: 'R-Approvals-EmployeeDetails',
+                    component: ProfileComponent
+                },
+                {
+                    path: '/approvals/compoff',
+                    name: 'R-Approvals-Compoff',
+                    component: CompOffApprovalComponent
+                }               
             ]
 
         }

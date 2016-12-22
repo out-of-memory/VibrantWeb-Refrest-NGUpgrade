@@ -50,10 +50,8 @@ export class LeavesComponent {
   isConformationModal: boolean = false;
 
   constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService, private activatedRoute: ActivatedRoute) {
-    this.searchUserId = this.activatedRoute.parent.snapshot.data["id"];
-    if (this.searchUserId) {
-      this.searchUser = true;
-    }
+    this.searchUser = this.activatedRoute.parent.snapshot.data["isViewOnly"];
+    this.searchUserId = this.activatedRoute.parent.snapshot.params["id"];
     this.selectedYear = (new Date()).getFullYear();
     this.addEditLeaveModel = new LeaveModel();
     this.leaveTypeDropDownData = new Array();

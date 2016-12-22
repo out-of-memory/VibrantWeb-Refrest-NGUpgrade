@@ -1,3 +1,9 @@
+html {
+   line-height: 1.5;
+   font-family: "Lato-Regular", sans-serif;
+   font-weight: normal;
+   color: rgba(0, 0, 0, 0.87);
+}
 /* Classic theme */
 @font-face {
   font-family: 'Lato-Regular';
@@ -4027,4 +4033,7 @@ nav .button-collapse{
  background: #000;
  display: none;
  will-change: opacity;
+}
+.side-nav .collapsible .collapsible-body li:last-child {
+   padding-bottom: 5px;
 }

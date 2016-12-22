@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule }        from '@angular/router';
-import {CompOffApprovalComponent} from './compoff.approval';
-import {ControlsModule} from './../../../infrastructure/ControlsModule';
+import { RouterModule } from '@angular/router';
+import { CompOffApprovalComponent } from './compoff.approval';
+import { ControlsModule } from './../../../infrastructure/ControlsModule';
 
 @NgModule({
     imports: [
         CommonModule,
         ControlsModule,
         RouterModule.forChild([
-            { path: 'approval/attendance', component: CompOffApprovalComponent }
+            { path: 'approvals/compoff', component: CompOffApprovalComponent }
         ])
     ],
     declarations: [
         CompOffApprovalComponent
-        
     ],
-    exports:[RouterModule]
+    exports: [RouterModule]
 })
 export class CompoffApprovalsModule { }

@@ -64,10 +64,8 @@ export class AttendanceComponent {
   searchUserId: any;
 
   constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService, private activatedRoute: ActivatedRoute) {
-    this.searchUserId = this.activatedRoute.parent.snapshot.data["id"];
-    if (this.searchUserId) {
-      this.searchUser = true;
-    }
+    this.searchUser = this.activatedRoute.parent.snapshot.data["isViewOnly"];
+    this.searchUserId = this.activatedRoute.parent.snapshot.params["id"];
     this.date = new Date();
     this.monthForAttendence = '23/' + this.date.getMonth() + '/' + this.date.getFullYear();
     this.attendenceModelCollection = new Array<AttendenceModel>();

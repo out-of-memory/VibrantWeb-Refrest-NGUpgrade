@@ -10,7 +10,7 @@ import { ControlsModule } from './../../infrastructure/ControlsModule';
     CommonModule, ControlsModule,
     AttendanceRoutingModule
   ],
-  declarations: [AttendanceComponent],
+  declarations: [],
   providers: [AutoMapperService]
 })
 export class AttendanceModule { }

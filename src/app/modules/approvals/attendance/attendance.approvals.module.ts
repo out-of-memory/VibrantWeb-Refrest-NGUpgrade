@@ -9,7 +9,7 @@ import {ControlsModule} from './../../../infrastructure/ControlsModule';
         CommonModule,
         ControlsModule,
         RouterModule.forChild([
-            { path: 'approval/attendance', component: AttendanceApprovalComponent }
+            { path: 'approvals/attendance', component: AttendanceApprovalComponent }
         ])
     ],
     declarations: [

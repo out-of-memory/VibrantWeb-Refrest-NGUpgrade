@@ -22,7 +22,7 @@ import { LeaveApprovalHistory } from "./leave.approval.history";
       }
     ])
   ],
-  declarations: [LeaveApproval, LeavesComponent, LeaveApprovalComponent, LeaveApprovalHistory],
+  declarations: [LeaveApproval, LeaveApprovalComponent, LeaveApprovalHistory],
   exports: [RouterModule]
 })
 export class LeaveModule { }

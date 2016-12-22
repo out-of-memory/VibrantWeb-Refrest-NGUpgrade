@@ -36,7 +36,13 @@ import { HttpSettings } from "../../servicesFolder/http/http.settings"
                                         </li>    
                                         <li class="tab col s3" >
                                         <a [routerLink]="['personal']" routerLinkActive="router-link-active" data-target='#'>Personal</a> 
-                                        </li>      
+                                        </li>
+                                        <li class="tab col s3" *ngIf="fromserch==true">
+                                        <a [routerLink]="['attendance']" routerLinkActive="router-link-active" data-target='#'>Attendance</a>
+                                        </li>
+                                        <li class="tab col s3" *ngIf="fromserch==true">
+                                        <a [routerLink]="['leave']" routerLinkActive="router-link-active" data-target='#'>Leave</a>
+                                        </li> 
                                     </ul>
                                 </div>
                             </div>
@@ -60,6 +66,7 @@ export class EmployeeComponent implements OnInit {
     formReadonly: boolean;
     MenuData: any;
     componentData: any;
+    fromserch: boolean = false;
 
     constructor(private _router: Router, private activatedRoute: ActivatedRoute, private _cacheService: CacheService, private userService: UserService) {
         this.employee = new Employee();
@@ -69,13 +76,26 @@ export class EmployeeComponent implements OnInit {
 
     ngOnInit() {
         let rdata = this.activatedRoute;
-        if (rdata.snapshot.data["from"] == "profile")
-            this.data = this._cacheService.getParams("profile");
-        else
-            this.userService.fetchEmployee(rdata["id"], data => {
-                this.data = data;
 
-            })
+        this.activatedRoute.params.subscribe((param: any) => {
+            if (param.id) {
+                this.fromserch = true;
+                if (rdata.snapshot.data["from"] == "profile")
+                    this.data = this._cacheService.getParams("profile");
+                else
+                    this.userService.fetchEmployee(rdata["id"], data => {
+                        this.data = data;
+                    })
+            }
+            else {
+                if (rdata.snapshot.data["from"] == "profile")
+                    this.data = this._cacheService.getParams("profile");
+                else
+                    this.userService.fetchEmployee(rdata["id"], data => {
+                        this.data = data;
+                    })
+            }
+        });
     }
 
     ngOnChanges() {

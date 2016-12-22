@@ -30,12 +30,15 @@ import { ExpenseModule } from './modules/expense/expense.module';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { MaintainenceModule } from './modules/maintainence/maintainence.module';
 import { EmployeeSearchModule } from './modules/employee/Search/employee-search.module';
+import { AttendanceComponent } from './modules/attendance/attendance.component';
+import { LeavesComponent } from './modules/leave/leave.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
+    AttendanceComponent,
+    LeavesComponent
   ],
   imports: [
     BrowserModule,

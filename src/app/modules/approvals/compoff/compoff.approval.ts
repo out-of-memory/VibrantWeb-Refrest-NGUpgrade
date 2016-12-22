@@ -1,31 +1,31 @@
-import {Component} from '@angular/core';
-import {UiForm, UiFormControl} from './../../../infrastructure/components/UiForm';
-import {Card} from './../../../infrastructure/components/Card';
+import { Component } from '@angular/core';
+import { UiForm, UiFormControl } from './../../../infrastructure/components/UiForm';
+import { Card } from './../../../infrastructure/components/Card';
 //import {ROUTER_DIRECTIVES, RouteConfig, RouteParams, Router, RouteData} from '@angular/router-deprecated';
 
-import {MenuService} from "./../../../servicesFolder/menu/MenuService";
-import {EmployeeService} from './../../../servicesFolder/employee/EmployeeService';
-import { CacheService} from './../../../servicesFolder/CacheService';
-import {UserService} from './../../../servicesFolder/user/user.service';
+import { MenuService } from "./../../../servicesFolder/menu/MenuService";
+import { EmployeeService } from './../../../servicesFolder/employee/EmployeeService';
+import { CacheService } from './../../../servicesFolder/CacheService';
+import { UserService } from './../../../servicesFolder/user/user.service';
 
 import { ActivatedRoute } from '@angular/router';
-import {MaterializeDirective} from "angular2-materialize";
-import {SideMenu} from './../../../infrastructure/components/sideMenu';
-import {pageHeading} from './../../../infrastructure/components/pageHeading';
-import {SearchBoxViewModel} from './../../../model/SearchBoxViewModel';
-import {HttpSettings} from "./../../../servicesFolder/http/http.settings";
-import {HttpService} from "./../../../servicesFolder/http/http.service";
-import {Repeater} from './../../../infrastructure/components/repeater';
-import { BasicCellC, BasicGrid} from './../../../infrastructure/components/basic-grid';
-import {CompoffApprovalModel} from './../../../models/CompOffModel';
-import {DropdownValue} from  './../../../infrastructure/components/DropDownValue';
-import {UiCustomModal} from  './../../../infrastructure/components/UiCustomModal';
+import { MaterializeDirective } from "angular2-materialize";
+import { SideMenu } from './../../../infrastructure/components/sideMenu';
+import { pageHeading } from './../../../infrastructure/components/pageHeading';
+import { SearchBoxViewModel } from './../../../model/SearchBoxViewModel';
+import { HttpSettings } from "./../../../servicesFolder/http/http.settings";
+import { HttpService } from "./../../../servicesFolder/http/http.service";
+import { Repeater } from './../../../infrastructure/components/repeater';
+import { BasicCellC, BasicGrid } from './../../../infrastructure/components/basic-grid';
+import { CompoffApprovalModel } from './../../../models/CompOffModel';
+import { DropdownValue } from './../../../infrastructure/components/DropDownValue';
+import { UiCustomModal } from './../../../infrastructure/components/UiCustomModal';
 import * as Materialize from "angular2-materialize";
 
 @Component({
     selector: 'compoff-approval',
-    templateUrl: `./compoff.approval.html`,
-    
+    templateUrl: './compoff.approval.html',
+    providers:[EmployeeService]
 })
 
 export class CompOffApprovalComponent {
@@ -68,7 +68,7 @@ export class CompOffApprovalComponent {
 
             },
             error => alert(error)
-           // () => console.log('Get request has Completed')
+            // () => console.log('Get request has Completed')
             );
 
     }
@@ -109,7 +109,7 @@ export class CompOffApprovalComponent {
             .subscribe(
             data => {
                 if (model.status == 1)
-                   Materialize.toast('Compensatory Off has been Approved', 3000, 'successTost');
+                    Materialize.toast('Compensatory Off has been Approved', 3000, 'successTost');
                 else
                     Materialize.toast('Compensatory Off has been Rejected', 3000, 'successTost');
 
