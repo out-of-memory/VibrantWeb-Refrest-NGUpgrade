@@ -47,6 +47,14 @@ import * as Materialize from "angular2-materialize";
                         [type]='"text"' 
                         [attr.placeholder]='meta.placeholder' 
                         [(ngModel)]="value" [attr.maxlength]='meta.maxlength'/>
+
+                <input
+                        style='position:relative'
+                        *ngIf='!readonly && meta.type=="time"'
+                        [ngClass]='errors.errors?"invalidControl": "validControl"' 
+                        [type]='"time"' 
+                        [attr.placeholder]='meta.placeholder' 
+                        [(ngModel)]="value" />
                 
                 <textarea #textarea
                         style='position:relative' 
