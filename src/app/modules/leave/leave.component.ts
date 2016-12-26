@@ -422,7 +422,19 @@ export class LeavesComponent {
   }
 
   openHolidayList() {
-    this.holiday = true;
+    this.holidayCollection = new Array<any>();
+    var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" +  this.data["ol"];
+    this._httpService.get(url)
+      .subscribe
+      (
+      data => {
+        data.forEach(element => {
+          this.holidayCollection.push(element);
+        });
+        this.holiday = true;
+      },
+      error => console.log(error)
+      );
   }
 
   onHolidayClose(e) {
@@ -502,11 +514,14 @@ export class LeavesComponent {
         });
         var birthday = new Date(this.data.dateOfBirth), today = new Date();
         birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
+        if (birthday.getMonth() == 0) {
+          birthday = new Date((today.getFullYear()) + 1, birthday.getMonth(), birthday.getDate());
+        }
         if (this.GetDays(birthday) == "Sunday" || this.GetDays(birthday) == "Saturday") {
           this.IsBirthdayApply = false;
         }
         else {
-          var beforBirthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
+          var beforBirthday = new Date(birthday.getFullYear(), birthday.getMonth(), birthday.getDate());
           beforBirthday.setDate(beforBirthday.getDate() - 30);
           if (today <= birthday && today >= beforBirthday) {
             for (var i = 0; i < this.holidayCollection.length; i++) {
@@ -527,13 +542,18 @@ export class LeavesComponent {
   }
 
   applyBirthdayLeave() {
+    var birthday = new Date(this.data.dateOfBirth), today = new Date();
+    birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
+    if (birthday.getMonth() == 0) {
+      birthday = new Date((today.getFullYear()) + 1, birthday.getMonth(), birthday.getDate());
+    }
     this.loaderModal = true;
     var date = this.data.dateOfBirth.split("/");
     let url = HttpSettings.apiBaseUrl + "v1/leave-management/apply-birthday-leave/";
     this.addEditLeaveModel.status = "1";
     this.addEditLeaveModel.leaveType = 6;
-    this.addEditLeaveModel.fromDate = date[0] + '/' + date[1] + '/' + new Date().getFullYear();
-    this.addEditLeaveModel.toDate = date[0] + '/' + date[1] + '/' + new Date().getFullYear();
+    this.addEditLeaveModel.fromDate = date[0] + '/' + date[1] + '/' + birthday.getFullYear();
+    this.addEditLeaveModel.toDate = date[0] + '/' + date[1] + '/' + birthday.getFullYear();
     this.addEditLeaveModel.narration = "Birthday Leave";
     this.addUpdateLeave(url, this.addEditLeaveModel);
   }
