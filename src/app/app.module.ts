@@ -32,6 +32,7 @@ import { MaintainenceModule } from './modules/maintainence/maintainence.module';
 import { EmployeeSearchModule } from './modules/employee/Search/employee-search.module';
 import { AttendanceComponent } from './modules/attendance/attendance.component';
 import { LeavesComponent } from './modules/leave/leave.component';
+import { AuthGuard } from './servicesFolder/auth-guard.service';
 
 
 @NgModule({
@@ -61,7 +62,7 @@ import { LeavesComponent } from './modules/leave/leave.component';
 
   ],
   providers: [CacheService, { provide: LocationStrategy, useClass: HashLocationStrategy },
-    HttpService, MenuService, ExpenseService, EmployeeService, UserService],
+    HttpService, MenuService, ExpenseService, EmployeeService, UserService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
