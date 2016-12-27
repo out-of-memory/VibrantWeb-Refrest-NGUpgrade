@@ -4037,3 +4037,30 @@ nav .button-collapse{
 .side-nav .collapsible .collapsible-body li:last-child {
    padding-bottom: 5px;
 }
+/* New CSS for report table*/
+@media only screen and (min-width: 993px) {
+#table-scroll table {
+	width: 100%;
+}
+#table-scroll thead tr {
+    display: block;
+    position: relative;
+}
+#table-scroll thead th, #table-scroll tbody td {
+    min-width: 200px;
+    width: 200px;
+    text-align: center;
+}
+#table-scroll tbody {
+	display: block;
+    overflow: auto;
+    width: 100%;
+    max-height: 450px;
+}
+}
+.rptlable{
+    font-size: 12px;
+    color: #888489;
+    margin-bottom: 0;
+    margin-top: 5px; 
+    }
