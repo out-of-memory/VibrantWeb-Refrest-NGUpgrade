@@ -1,0 +1,202 @@
+<div id="list" class="col s12 tab-content padding-zero" style="display: block;">
+<div class="row m-top10 expense-card-container">
+    <div class="col s12 padding-zero">
+        <div class="row m-bottom0 header">
+            <div class="col s12 m12">
+                <div class="row margin-zero">
+                    <div class="col s12 m6 l2">
+                        <div class="row margin-zero">
+                            <div class="custom-input-field col s12">
+                                <h6>List</h6>
+                                <select materialize="material_select" [materializeSelectOptions]="listCollection" [(ngModel)]="selectedList" (change)="populatelist($event.target.value)">
+                                    <option value="" disabled="" selected="">Select</option>
+                                    <option value="activeemployee">Active Employee List</option>
+                                    <option value="eligibility">Eligibility List</option>
+                                    <option value="initiated">Initiated List</option>
+                                    <option value="freeze">Freezed List</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l2">
+                        <div class="row margin-zero">
+                            <div class="custom-input-field col s12">
+                                <h6>Grade</h6>
+                                <select materialize="material_select" [materializeSelectOptions]="levelCollection" [(ngModel)]="selectedLevel" (change)="onLevelSelected($event.target.value)">
+                                    <option value="" disabled="" selected="">Select</option>
+                                    <option value="0">All</option>
+                                    <option value="1">Level 1</option>
+                                    <option value="2">Level 2</option>
+                                    <option value="3">Level 3</option>
+                                    <option value="3">Level 4</option>
+                                    <option value="3">Level 5</option>
+                                    <option value="3">Level 6</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l3">
+                        <div class="row margin-zero">
+                            <div class="custom-input-field input-field col s12">
+                                <h6>Employee Search</h6>
+                                <input placeholder="" id="title" type="text" class="validate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l2">
+                        <div class="row margin-zero">
+                            <div class="custom-input-field col s12">
+                                <h6>Location</h6>
+                                <select materialize="material_select" [materializeSelectOptions]="locationCollection" [(ngModel)]="selectedLocation" (change)="onLevelSelected($event.target.value)">
+                                    <option value="" disabled="" selected="">Select</option>
+                                    <option value="0">All</option>
+                                    <option value="1">Mumbai, India</option>
+                                    <option value="2">Bangalore, India</option>
+                                    <option value="3">USA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l3 padding-zero">
+                        <a class="waves-effect waves-light btn custom-btn save-as-draft m-bottom10">Show</a>
+                        <a class="waves-effect waves-light btn custom-btn save-as-draft m-bottom10">Reset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="reimbursement-wrapper approvals-data eligibility box" *ngIf="isShow">
+            <div class="row">
+                <div class="row margin-zero list-emp">
+                    <div class="col s12 tab-content padding-zero">
+                        <div class="reimbursement-wrapper approvals-data" [hidden]="rowData.length == 0">
+                            <div class="row m-bottom0 header hide-on-med-and-down">
+                                <!--<div class="col-width-8 p-left10 content-none">
+                                        <p class="margin-zero">
+                                            <input type="checkbox" class="filled-in" id="selectAll">
+                                            <label for="selectAll">All</label>
+                                        </p>
+                                    </div>-->
+                                <div class="col s12 m1">
+                                    <h5 class="title">Grade</h5>
+                                </div>
+                                <div class="col s12 m1">
+                                    <h5 class="title">Emp.Code</h5>
+                                </div>
+                                <div class="col s12 m1">
+                                    <h5 class="title">Employee Name</h5>
+                                </div>
+                                <div class="col s12 m1">
+                                    <h5 class="title">Appraiser</h5>
+                                </div>
+                                <div class="col s12 m1">
+                                    <h5 class="title">Reviewer</h5>
+                                </div>
+                                <div class="col s12 m1">
+                                    <h5 class="title">Location</h5>
+                                </div>
+                                <div class="col s12 m1">
+                                    <h5 class="title">Designation</h5>
+                                </div>
+                                <div *ngIf="selectedList=='freeze'" class="col s12 m1">
+                                    <h5 class="title">Comment</h5>
+                                </div>
+                            </div>
+                            <div class="approvals">
+                                <basic-grid [(source)]='rowData' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false}'
+                                    [isHeaderVisible]=false>
+                                    <basic-cell>
+                                        <template #bg let-item='row'>
+                                            <div class="approvals-wrapper">
+                                                <div class="row m-bottom0">
+                                                    <div class="col s12 m10 offset-m1 l3">
+                                                        <p class="margin-zero">
+                                                            <input type="checkbox" [(ngModel)]="item.isSelect" class="filled-in" id="#{{item.id}}">
+                                                            <label for="#{{item.id}}"></label>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Grade</span>{{item.grade}}
+                                                    </div>
+                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Emp.Code</span>
+                                                        <span>{{item.empID}}</span>
+                                                    </div>
+                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Employee Name</span>{{item.empName}}</div>
+                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Appraiser</span>
+                                                        <span *ngIf="selectedList!='eligibility' && selectedList!='activeemployee'">{{item.appraiserName}}</span>
+                                                        <div class="p-right20" *ngIf="selectedList=='eligibility'  || selectedList=='activeemployee'">
+                                                            <select materialize="material_select" [materializeSelectOptions]="allManagers" [(ngModel)]="item.appraiserId">
+                                                                <option value="" disabled="" selected="">Select</option>
+                                                                <option *ngFor="let item of allManagers" value="{{item.id}}">{{item.text}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Reviewer</span>
+                                                        <span *ngIf="selectedList!='eligibility' && selectedList!='activeemployee'">{{item.reviewerName}}</span>
+                                                        <div class="p-right20" *ngIf="selectedList=='eligibility'  || selectedList=='activeemployee'">
+                                                            <select materialize="material_select" [materializeSelectOptions]="allManagers" [(ngModel)]="item.reviewerId">
+                                                                <option value="" disabled="" selected="">Select</option>
+                                                                <option *ngFor="let item of allManagers" value="{{item.id}}">{{item.text}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Location</span>
+                                                        <span>{{item.location}}</span>
+                                                    </div>
+                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Designation</span>
+                                                        <span>{{item.designation}}</span>
+                                                    </div>
+                                                    <div class="col s12 m6 l2" *ngIf="selectedList=='freeze'"><span class="expense-label hide-on-large-only">Comment</span>
+                                                        <span [innerHtml]="item.freezedComment"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </basic-cell>
+                                </basic-grid>
+                            </div>
+                        </div>
+                        <div class="card-footer padding-15-0 top-divider">
+                            <div class="row valign-wrapper margin-zero">
+                                <div class="col s12 m12 l6 right-align">
+                                    <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
+                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Freeze List" *ngIf="selectedList!='freeze'" (click)="confirmFreezed=true">Freeze</a>
+                                    <a id="freezed" title="Unfreeze List" *ngIf="selectedList=='freeze'" (click)="confirmUnfreezed=true">Unfreeze</a>
+                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Initiate Appraisal" *ngIf="selectedList!='freeze' && selectedList!='initiated'"
+                                        (click)="initiatEmp(filterEmpList)">Initiate Appraisal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="confirm-modal">
+    <ui-custom-model [(edited)]='confirmFreezed' [modalHeader]="'Confirm Freezed'" (onClose)='ConfirmClose($event)'>
+        <div class="row margin-zero">
+            <div class="col s6 m4">
+                <div class="modal-view-data">
+                    <input type="text" [(ngModel)]="freezedComment" />
+                </div>
+                <div class="modal-footer">
+                    <a (click)="FreezedEmp(filterEmpList)" [class.disabled]="freezedComment == ''" class="modal-action modal-close waves-effect waves-green btn submit">OK</a>
+                </div>
+            </div>
+        </div>
+    </ui-custom-model>
+    <ui-custom-model [(edited)]='confirmUnfreezed' [modalHeader]="'Confirm Unfreezed'" (onClose)='ConfirmClose($event)'>
+        <div class="row margin-zero">
+            <div class="col s6 m4">
+                <div class="modal-view-data">
+                    <input type="text" [(ngModel)]="unfreezedComment" />
+                </div>
+                <div class="modal-footer">
+                    <a (click)="UnFreezedEmp(filterEmpList)" [class.disabled]="unfreezedComment == ''" class="modal-action modal-close waves-effect waves-green btn submit">OK</a>
+                </div>
+            </div>
+        </div>
+    </ui-custom-model>
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

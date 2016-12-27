@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CompoffApprovalsModule } from './compoff/compoff.approvals.module';
 import { AttendanceApprovalsModule } from './attendance/attendance.approvals.module';
 import { ProfileModule } from './profile/profile.module';
+import { AppraisalApprovalsModule } from './appraisal/appraisal.approval.module';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { ProfileModule } from './profile/profile.module';
     CommonModule,
     CompoffApprovalsModule,
     AttendanceApprovalsModule,
-    ProfileModule
+    ProfileModule,
+    AppraisalApprovalsModule
   ],
   declarations: []
 })

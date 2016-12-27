@@ -252,7 +252,6 @@
                     </div>
                     <div class="overlay-upcoming"></div>
                 </div>
-
                 <div class="card white card-bg appraisal-bg">
                     <div class="row m-bottom0 height-60">
                         <div class="col s12">
@@ -261,11 +260,10 @@
                     </div>
                     <div class="data-footer">
                         <a *ngIf="appraisalAssignedTo" href="#/my/appraisal" class="btn-flat">My</a>
-                        <h5 *ngIf="!appraisalAssignedTo">My</h5>
+                        <a *ngIf="!appraisalAssignedTo">My</a>
+                        <a href="#/appraisal/admin" class="btn-flat">Initiation</a>
                     </div>
-                    <div class="overlay-upcoming"></div>
                 </div>
-
                 <div class="card white card-bg separation-bg">
                     <div class="row m-bottom0 height-60">
                         <div class="col s12">

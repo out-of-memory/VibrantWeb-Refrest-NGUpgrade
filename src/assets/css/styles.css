@@ -4105,6 +4105,150 @@ h6.active-select{
 }
 
 /*Appraisal-Appraiser-Module*/
+.raters-details-appraisee{
+  font-size: 16px;
+  font-family: 'Lato-Bold';
+  text-align: right;
+  margin: 0;
+}
+.reimbursement-wrapper.appraisals {
+    border-top: none;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), inset 0 2px 0 0 #f15a24;
+}
+.row.rating-content-appraiser{
+  position: relative;
+}
+.row.rating-content-appraiser:before {
+    top: 100px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 4px;
+    background-color: #f1e7e7;
+    left: 50%;
+}
+.employ-img-appraiser{
+  display: inline-block;
+  position: relative;
+  left: -5.5%;
+}
+.row.rating-content-reviewer{
+  position: relative;
+}
+.row.rating-content-reviewer:before {
+    top: 100px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 4px;
+    background-color: #f1e7e7;
+    left: 33.5%;
+}
+.rating-container{
+  margin: auto;
+  padding: 20px;
+}
+.content-rater{
+  margin-bottom: 30px;
+}
+.help-content{
+  background-color: #e8e7e3;
+  border: solid 1px #cdcdcd;
+  padding: 20px;
+  position: relative;
+}
+.help-content:before, .help-content:after {
+  z-index: -1; 
+  position: absolute; 
+  content: "";
+  bottom: 8px;
+  left: 10px;
+  width: 50%; 
+  top: 80%;
+  max-width:300px;
+  background: rgba(0, 0, 0, 0.7); 
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+  transform: rotate(-3deg);
+}
+
+.help-content:after {
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+.help-content-head{
+  font-size: 30px;
+  color: #2d81af;
+  margin-top: 40px;
+}
+.note-help-icon{
+  float: right;
+  margin-top: -23px;
+}
+.help-content ul{
+  padding: 0px 20px;
+}
+.help-content ul li{
+  list-style-type: disc;
+  padding: 10px 0px;
+}
+.row .col.l8.rating-questions{
+  margin-left: 20px;
+}
+.emp-details-panel{
+  margin-bottom: 0;
+}
+.employ-img{
+  display: inline-block;
+  position: relative;
+  left: -4%;
+}
+.employ-details{
+    position: relative;
+    bottom: 80px;
+    left: 37%;
+    text-align: left;
+    font-family: 'Lato-Bold';
+}
+.employ-details .name-details {
+    font-size: 18px;
+    margin: 10px 0;
+}
+.employ-details .raters-details {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.row .col.l6.right-bar, .row .col.l4.right-bar{
+ padding: 0;
+ z-index: 1;
+ position: relative;
+}
+.row .col.l6.right-bar.right-bar-appraiser{
+ padding: 0;
+ margin-left: -1px;
+ z-index: 1;
+ position: relative;
+}
+
+.timeline-panel-appraisee.ans-1, .timeline-panel-appraiser.ans-1{
+  border:3px solid #76B1CD;
+}
+.timeline-panel-appraisee.comment-box, .timeline-panel-appraiser.comment-box{
+  border:3px solid #2D81AF;
+  margin-left: 5px;
+  margin-top: -5px;
+}
+.remark{
+  margin: 0px;
+  font-family: 'Lato-Regular';
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  color: #d0021b;
+}
+/*Appraisal-Appraiser-Module*/
 .appraisee-quest{
     padding: 13px 30px;
     font-size: 16px;
@@ -4115,25 +4259,7 @@ h6.active-select{
     border-bottom-left-radius: 100px;
   }
 .appraisee-quest.quest-1{
-   background: #fbb03b;
-}
-.appraisee-quest.quest-2{
-   background: #dbc970;
-}
-.appraisee-quest.quest-3{
-   background: #b29c7f;
-}
-.appraisee-quest.quest-4{
-   background: #c8b661;
-}
-.appraisee-quest.quest-5{
-   background: #7bb5c7;
-}
-.appraisee-quest.quest-6{
-   background: #a7c7b6;
-}
-.appraisee-quest.quest-7{
-   background: #63a29f;
+   background: #76B1CD;
 }
 
 .appraisee-quest p{
@@ -4148,9 +4274,9 @@ h6.active-select{
   margin-bottom: 40px;
 }
 .rating-panel{
-  border-left: 8px solid #76b1cd;
   margin-top: 20px;
   min-height: 220px;
+  margin-left: 5px;
 }
 .rating-panel.sub-rating-panel{
   border-left: 6px solid #76b1cd;
@@ -4160,16 +4286,22 @@ h6.active-select{
 .overall-rating.appraiser-rate{
   position: relative;
   height: 30px;
-  background: #76b1cd;
+  background: #2D81AF;
   width: 98%;
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
+  border-right: 4px solid #FFF
 }
 .overall-rating{
   position: relative;
   height: 30px;
   background: #76b1cd;
   width: 95%;
+  background: #2D81AF;
+  width: 98%;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-right: 4px solid #FFF;
 }
 
 .overall-rate-circle{
@@ -4182,7 +4314,7 @@ h6.active-select{
   border-top-left-radius: 50%;
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
-  background: #76b1cd;
+  background: #2D81AF;
   left: 40%;
   top: -34px;
   border: 5px solid #fff;
@@ -4270,11 +4402,14 @@ h6.active-select{
 }
 .parameter-1{
   height: 60px;
-  background: #76b1cd;
+  background: #2D81AF;
   margin-top: 40px;
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
   border-right: 4px solid #FFF;
+}
+.parameter-1.appraiser-comment{
+  margin-left: 5px;
 }
 .parameter-heading{
     margin: 0px 10px;
@@ -4349,18 +4484,18 @@ h6.active-select{
 .overall-rating.overall-reviewer{
   position: relative;
   height: 30px;
-  background: #e0784e;
+  background: #D87C43;
   width: 100%;
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
 }
 .overall-rate-circle.rate-circle-reviewer {
-    background: #e0784e;
+    background: #D87C43;
     left: 40%;
 }
 .parameter-1-1 {
     height: 60px;
-    background: #e0784e;
+    background: #D87C43;
     margin-top: 40px;
     border-top-right-radius: 100px;
     border-bottom-right-radius: 100px;
@@ -4443,12 +4578,17 @@ h6.active-select{
   font-size: 1.5rem;
 }
 
+.reviwer-comment-1 {
+    margin-top: -5px;
+    margin-left: 15px;
+    border: 3px solid #D87C43;
+}
+.parameter-heading.rwc{
+  padding-left: 40px;
+}
 
 @media all and (max-width: 1450px) and (min-width: 1320px){
-  .note-help-icon {
-    left: 76%;
-    bottom: 91.3%;
-}
+  
   .employ-img-appraiser {
     display: inline-block;
     position: relative;
@@ -4515,6 +4655,61 @@ h6.active-select{
     top: 17px;
     right: 26px;
     font-size: 18px;
+}
+/*Appraisee Status*/
+.status-progresbar{
+  margin-bottom: 20px;
+  position: relative;
+}
+.rating-panel-stat {
+    border: none;
+    margin-top: 20px;
+    min-height: 220px;
+}
+.raters-appraisee-stat {
+    font-size: 16px;
+    font-family: 'Lato-Bold';
+    text-align: left;
+    margin: 0;
+}
+.reviwer-comment-1-2 {
+    margin-top: -5px;
+    margin-left: 5px;
+    border: 3px solid #D87C43;
+    width: 94%;
+}
+.reviwer-comment-2 {
+    margin-top: -5px;
+    margin-left: 5px;
+    border: 3px solid #2D81AF;
+    width: 94%;
+}
+.status-rating-content{
+  position: relative;
+}
+.status-rating-content::before{
+  top: 0px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 4px;
+  background-color: #f1e7e7;
+  left: 50%;
+}
+.rating-panel-stat .overall-rating.overall-reviewer{
+  margin-left: 4px;
+}
+.hexagon.progress-rating{
+  left: 90%;
+  top: -25px;
+}
+.progress.appraisal-progress{
+  width: 50%;
+  height: 12px!important;
+}
+.progress.appraisal-progress .determinate{
+  width: 70%;
+  background-color: #8da408;
 }
 
 .isGray{

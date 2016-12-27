@@ -333,6 +333,17 @@ export class DashboardComponent implements OnInit {
         return weekday[d.getDay()];
     }
 
+    GetAppraisalAssignedTo() {
+        var self = this;
+        var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
+        this._httpService.get(url).subscribe(
+            data => {
+                if (data == this.results.id) {
+                    self.appraisalAssignedTo = true;
+                }
+            });
+    }
+
     IsBirthday(date: any) {
         var birthday = new Date(date), today = new Date();
         birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
@@ -347,16 +358,6 @@ export class DashboardComponent implements OnInit {
         else {
             return { date: birthday, isDisplay: false };
         }
-    }
-
-    GetAppraisalAssignedTo() {
-        // var self = this;
-        // var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
-        // this._httpService.get(url).subscribe(
-        //     data => {
-        //         if (data == this.results.id)
-        //             self.appraisalAssignedTo = true;
-        //     });
     }
 
     showAdministration(roles: any) {

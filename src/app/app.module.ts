@@ -36,7 +36,7 @@ import { EnablelocationModule } from './modules/enablelocation/enablelocation.mo
 import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service';
 import { TravelModule } from './modules/travel/travel.module';
 import { AuthGuard } from './servicesFolder/AuthGuard.service';
-
+import { AppraisalsModule } from './modules/appraisals/appraisals.module';
 
 
 @NgModule({
@@ -50,8 +50,9 @@ import { AuthGuard } from './servicesFolder/AuthGuard.service';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-
     RoutingModule,
+    
+    AppraisalsModule,
     DashboardModule,
     AttendanceModule,
     SideNavPanelModule,
