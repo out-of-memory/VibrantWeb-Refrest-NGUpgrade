@@ -1,22 +1,22 @@
 import { Component, ValueProvider, forwardRef, Input, ElementRef, ViewChild } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR,  AbstractControl, FormBuilder } from "@angular/forms";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, FormBuilder } from "@angular/forms";
 import { BaseControlValueAccessor } from './BaseControlValueAccessor';
 import { OptionTextPipe, AlphabetPipe } from '../pipes/Pipes';
 import { MaterializeDirective } from "angular2-materialize";
 //import {NKDatetime} from "ng2-datetime/ng2-datetime";
 import * as Materialize from "angular2-materialize";
-    const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => UiInput),
     multi: true
 };
-    
-    
+
+
 
 @Component({
     selector: 'ui-input',
     //pipes: [OptionTextPipe, AlphabetPipe],
-    
+
     template: `
     
         <div class='view-form-info ui-input'>
@@ -74,7 +74,7 @@ import * as Materialize from "angular2-materialize";
                         style='position:relative' 
                         *ngIf='!readonly && meta.type=="selectMaterialize"'
                         [ngClass]='errors.errors?"invalidControl": "validControl"'
-                        class="" 
+                        class=""
                         [(ngModel)]='value' [materializeSelectOptions]="meta.options">
                             <option value="" disabled class="disabled" >Select</option>
                             <option *ngFor="let p of meta.options" [value]="p.id">{{p.text}}</option>
@@ -86,8 +86,10 @@ import * as Materialize from "angular2-materialize";
                         *ngIf='!readonly && meta.type=="selectMaterialize-custom"'
                         [ngClass]='errors.errors?"invalidControl": "validControl"'
                         class="" 
+                        [multiple]='meta.multiple'
+                        (change)="setSelected($event)"
                         [(ngModel)]='value' [materializeSelectOptions]="meta.options">
-                            <option value="" disabled class="disabled" >{{meta.defaultselect}}</option>
+                            <option value='null'  class="disabled" >{{meta.defaultselect}}</option>
                             <option *ngFor="let p of meta.options" [value]="p.id">{{p.text}}</option>
                 </select>
 
@@ -116,7 +118,7 @@ import * as Materialize from "angular2-materialize";
             </div>     
         </div>
   `,
-   //declarations: [MaterializeDirective],//NKDatetime],
+    //declarations: [MaterializeDirective],//NKDatetime],
     providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class UiInput extends BaseControlValueAccessor {
@@ -135,6 +137,7 @@ export class UiInput extends BaseControlValueAccessor {
     @ViewChild("date") date;
     isChanged: boolean = false;
     updateParams: any = undefined;
+    slectedvalue: any;
     constructor(ref: ElementRef) {
         super();
     }
@@ -148,7 +151,7 @@ export class UiInput extends BaseControlValueAccessor {
         this.isChanged = false;
     }
     ngAfterViewInit() {
-        if (!this.meta.show && (this.meta.validation!=undefined))
+        if (!this.meta.show && (this.meta.validation != undefined))
             this.meta.show = true;
         if (this.attrs) {
             this.attrs = typeof (this.attrs) === "string" ? JSON.parse(this.attrs) : this.attrs;
@@ -215,7 +218,7 @@ export class UiInput extends BaseControlValueAccessor {
     }
 
     private MaterializedDateParams() {
-        let materializedParams = [{ format: 'mm/dd/yyyy',today:'', selectYears: 30 }];
+        let materializedParams = [{ format: 'mm/dd/yyyy', today: '', selectYears: 30 }];
         if (this.attrs && this.attrs.forEach) {
             this.attrs.forEach(item => {
                 //console.log(item);
@@ -248,5 +251,20 @@ export class UiInput extends BaseControlValueAccessor {
 
     private CheckboxClick(e: any, checked: boolean) {
         this.value = !checked;
+    }
+
+    private setSelected(selectElement) {
+        let str: Array<any> = [];
+        for (var i = 0; i < selectElement.currentTarget.options.length; i++) {
+            var optionElement = selectElement.currentTarget.options[i];
+            if (optionElement.selected == true) {
+            this.slectedvalue = optionElement.value.split(':');
+                str.push(parseInt(this.slectedvalue[1]));
+            }
+            else {
+                optionElement.selected == false;
+            }
+        }
+        this.value = str;
     }
 }

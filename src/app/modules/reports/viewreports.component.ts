@@ -9,10 +9,14 @@ import { MenuService, HttpService, EmployeeService, CacheService, UserService } 
 import { ActivatedRoute } from '@angular/router';
 import { MaterializeDirective } from "angular2-materialize";
 import { HttpSettings } from "../../servicesFolder/http/http.settings"
-import { AttendanceReportModel, EmployeeDetailsReportModel, LeaveSummaryReportModel, LeaveDetailsReportModel } from "../../models/ReportsModel"
+import {
+    AttendanceReportModel, EmployeeDetailsReportModel, LeaveSummaryReportModel, LeaveDetailsReportModel,
+    LeaveTransactionReportModel, HelpdeskReportModel, HelpDeskStatus
+} from "../../models/ReportsModel"
 import { BasicCellC, BasicGrid } from '../../infrastructure/components/basic-grid';
 import { CapitalizePipe } from '../../infrastructure/pipes/Pipes';
 import { LoaderComponent } from '../../infrastructure/components/loader.component';
+import { LineChart } from '../../infrastructure/components/LineChart';
 import * as Materialize from "angular2-materialize";
 declare var $: any;
 
@@ -29,10 +33,14 @@ export class ViewReportsComponent {
     empDetailReportModel: EmployeeDetailsReportModel;
     leaveSummary: LeaveSummaryReportModel;
     leaveDetails: LeaveDetailsReportModel;
+    leavetrans: LeaveTransactionReportModel;
+    helpdesk: HelpdeskReportModel;
     attendanceHub: any;
     empDetailHub: any;
     leavesummaryHub: any;
     leaveDetailHub: any;
+    leavetransHub: any;
+    hlpdeskhub: any;
     cardSubmitted: boolean = false;
     reportData: Array<any> = [];
     headers: Array<any> = [];
@@ -43,11 +51,24 @@ export class ViewReportsComponent {
     showCriteria: boolean = false;
     data: any;
     originalWidth: any;
+    hlpdskCategories: Array<any> = [];
 
     loaderModalMsg: boolean = false;
     loaderModalText: any;
     loaderModal: boolean = false;
     isConformationModal: boolean = false;
+
+    statusChartData: Array<any> = [];
+    statusChartlabels: Array<any> = [];
+    statusChartColors: Array<any> = [];
+    typeChartData: Array<any> = [];
+    typeChartlabels: Array<any> = [];
+    typeChartColors: Array<any> = [];
+
+    lineChartData: Array<any> = [{ data: [], label: 'Ticket Reporting Trend' }];
+    lineChartLabels: any = [];
+    lineChartChartColors: any;
+    helpdeskStatusModel: HelpDeskStatus;
 
     constructor(private es: EmployeeService, private _httpService: HttpService, private _cacheService: CacheService, private userService: UserService, private activatedRoute: ActivatedRoute) {
         this.activatedRoute.params.subscribe(
@@ -72,14 +93,20 @@ export class ViewReportsComponent {
         this.leavesummaryHub = this.leaveSummary["hub"];
         this.leaveDetails = new LeaveDetailsReportModel();
         this.leaveDetailHub = this.leaveDetails["hub"];
+        this.leavetrans = new LeaveTransactionReportModel();
+        this.leavetransHub = this.leavetrans["hub"];
+        this.helpdesk = new HelpdeskReportModel();
+        this.hlpdeskhub = this.helpdesk["hub"];
         this.dropdowncard.push(this.empDetailReportModel);
         this.dropdowncard.push(this.attendanceModel);
         this.dropdowncard.push(this.leaveSummary);
         this.dropdowncard.push(this.leaveDetails);
+        this.dropdowncard.push(this.leavetrans);
         if (!this.isHR) {
             this.attendanceModel.Employeecode = this.data.id;
             this.leaveSummary.UserID = this.data.id;
             this.leaveDetails.UserID = this.data.id;
+            this.leavetrans.UserID = this.data.id;
             this.DisableUserIDEdit(this.dropdowncard);
         }
         if (this.isHR) {
@@ -87,7 +114,9 @@ export class ViewReportsComponent {
             this.empDetailReportModel.EmployeeName = 'All';
             this.leaveSummary.UserID = 'All';
             this.leaveDetails.UserID = 'All';
+            this.leavetrans.UserID = 'All';
         }
+        this.FillHelpDeskData(this.helpdesk);
 
     }
     InitializeDropdownsForModels() {
@@ -134,6 +163,30 @@ export class ViewReportsComponent {
         }
     }
 
+    FillHelpDeskData(model) {
+        this.getDropDownValue(data => {
+            this.hlpdskCategories = data;
+            (model.hub as Array<any>).forEach(hub => {
+                if ((hub["name"]) === 'category') {
+                    hub["options"] = this.hlpdskCategories;
+                }
+            })
+        });
+    }
+    getDropDownValue(callback) {
+        var url = HttpSettings.apiBaseUrl + "v1/HelpDesk/get-dropdown"
+        this._httpService.get(url)
+            .subscribe
+            (
+            data => {
+                callback(data.categories)
+            },
+            error => {
+                console.log(error)
+            }
+            );
+    }
+
     DisableUserIDEdit(model: any) {
         for (var i = 0; i < model.length; i++) {
             (model[i].hub as Array<any>).forEach(hub => {
@@ -152,14 +205,100 @@ export class ViewReportsComponent {
         this.showCriteria = false;
         this.leaveSummary = new LeaveSummaryReportModel();
         this.leaveDetails = new LeaveDetailsReportModel();
+        this.leavetrans = new LeaveTransactionReportModel();
         if (this.isHR) {
             this.leaveSummary.UserID = 'All';
             this.leaveDetails.UserID = 'All';
+            this.leavetrans.UserID = 'All';
         }
         else {
             this.leaveSummary.UserID = this.data.id;
             this.leaveDetails.UserID = this.data.id;
+            this.leavetrans.UserID = this.data.id;
         }
+    }
+
+    PopulateStatusChart(reportData) {
+        this.helpdeskStatusModel = new HelpDeskStatus();
+        for (var prop in reportData) {
+            if (reportData[prop].status === 'Open') {
+                this.helpdeskStatusModel.Open += 1;
+            }
+            if (reportData[prop].status === 'On Hold') {
+                this.helpdeskStatusModel.OnHold += 1;
+            }
+            if (reportData[prop].status === 'Pending For Approval') {
+                this.helpdeskStatusModel.PendingForApproval += 1;
+            }
+            if (reportData[prop].status === 'In Progress') {
+                this.helpdeskStatusModel.InProgress += 1;
+            }
+            if (reportData[prop].status === 'Rejected') {
+                this.helpdeskStatusModel.Rejected += 1;
+            }
+            if (reportData[prop].status === 'Resolved') {
+                this.helpdeskStatusModel.Resolved += 1;
+            }
+            if (reportData[prop]['help DeskTicket Type'] === "Request") {
+
+                this.helpdeskStatusModel.Request += 1;
+            }
+            if (reportData[prop]['help DeskTicket Type'] === 'Issue') {
+                this.helpdeskStatusModel.Issue += 1;
+            }
+        }
+        this.statusChartData = new Array<any>();
+        this.statusChartData.push(this.helpdeskStatusModel.Open);
+        this.statusChartData.push(this.helpdeskStatusModel.OnHold);
+        this.statusChartData.push(this.helpdeskStatusModel.PendingForApproval);
+        this.statusChartData.push(this.helpdeskStatusModel.InProgress);
+        this.statusChartData.push(this.helpdeskStatusModel.Rejected);
+        this.statusChartData.push(this.helpdeskStatusModel.Resolved);
+
+        this.typeChartData = new Array<any>();
+        this.typeChartData.push(this.helpdeskStatusModel.Request);
+        this.typeChartData.push(this.helpdeskStatusModel.Issue);
+
+        var labels = ["Open", "On Hold", "Pending For Approval", "In Progress", "Rejected", "Resolved"];
+        var colors = ["#2D82B0", "#76B1CD", "#F15B28", "#cd7320", "#c31205", "#8DA408"];
+        var typeLable = ["Reuest", "Issue"];
+        var typecolors = ["#cd7320", "#8DA408"]
+        var tempLabels = [], tempColors = [], typetmpclr = [], typetmplable = [];
+        for (var i = 0; i < this.statusChartData.length; i++) {
+            if (this.statusChartData[i] != 0) {
+                tempLabels.push(labels[i]);
+                tempColors.push(colors[i]);
+            }
+        }
+        for (var i = 0; i < this.typeChartData.length; i++) {
+            if (this.typeChartData[i] != 0) {
+                typetmplable.push(typeLable[i]);
+                typetmpclr.push(typecolors[i]);
+            }
+        }
+        this.statusChartlabels = tempLabels;
+        this.statusChartColors = [{ backgroundColor: tempColors }];
+        this.typeChartlabels = typetmplable;
+        this.typeChartColors = [{ backgroundColor: typetmpclr }];
+        this.showLineChartDetail();
+    }
+
+    showLineChartDetail() {
+        this.lineChartData = [{ data: [14, 7, 18, 11, 9, 15, 25], label: 'Ticket Reporting Trend' }];
+        this.lineChartLabels = ['NOVW1', 'NOVW2', 'NOVW3', 'NOVW4', 'DECW1', 'DECW2', 'DECW3'];
+        var time = [], days = [], count = 0;
+        var lineChartColors: Array<any> = [
+            { // grey
+                //backgroundColor: 'rgba(148,159,177,0.2)',
+                borderColor: 'rgba(148,159,177,1)',
+                pointBackgroundColor: 'rgba(148,159,177,1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+            }
+        ];
+        this.lineChartChartColors = lineChartColors;
+
     }
 
     ViewReport(e: any, model: any, form) {
@@ -189,6 +328,9 @@ export class ViewReportsComponent {
         if (form.mainForm.valid) {
             this.showCriteria = true;
             this.GetReportData(link, model, function () {
+                if (self.selectedReport == 'Helpdesk') {
+                    self.PopulateStatusChart(self.reportData);
+                }
                 for (var i = 0; i < self.reportData.length; i++) {
                     var keys = Object.keys(self.reportData[i]);
                     for (var i = 0; i < keys.length; i++) {

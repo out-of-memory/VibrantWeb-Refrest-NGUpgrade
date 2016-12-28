@@ -23,8 +23,12 @@
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Attendance<i class="material-icons right">more_vert</i></span>
             </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Attendance<i class="material-icons right">close</i></span>
+              <p>You can generate your Monthly Attendance reports that consists of total number of days in a month, Present Days (P), Absent days, (A), Leaves (L), Holidays (H) and Week offs (W).<br> Monthly Attendance report gets freezed on 22nd of every month.</p>
+            </div>
             <div class="card-action"><a class="btn-flat" routerLink="/employee/reports/view/Attendance">Attendence Report</a></div>
-            <div class="overlay-upcoming"></div>
+            <div class=""></div>
           </div>
         </div>
         <div class="col s12 m6 l3" *ngIf="isHR">
@@ -35,10 +39,14 @@
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Employee Details<i class="material-icons right">more_vert</i></span>
             </div>
+             <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Employee Details<i class="material-icons right">close</i></span>
+              <p>This report contains detailed information about employees viz., joining, status, skills, organizational details and experience. It also contains specific personal information like contact details, dependent and certifications. This report is only available for HR and RMG departments.</p>
+            </div>
             <div class="card-action">
               <button class="btn-flat"><a [routerLink]="['R-Reports-View', {id :'EmployeeDetail'}]" >Employee Details Report </a></button>
             </div>
-            <div class="overlay-upcoming"></div>
+            <div class=""></div>
           </div>
         </div>
         <div class="col s12 m6 l3">
@@ -49,10 +57,14 @@
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Leaves<i class="material-icons right">more_vert</i></span>
             </div>
+             <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Leaves<i class="material-icons right">close</i></span>
+              <p>Leave reports provide you detailed insights about leaves applied, leave plans and balance available. Additionally, you can also find Leave Ledger Report and Leave Transaction Report. Select any specific date range/Delivery Unit or filters available for particular Reports.</p>
+            </div>
             <div class="card-action">
               <button class="btn-flat"><a [routerLink]="['R-Reports-View', {id :'Leaves'}]" >Leaves Report</a></button>
             </div>
-            <div class="overlay-upcoming"></div>
+            <div class=""></div>
           </div>
         </div>
         <div class="col s12 m6 l3">
@@ -75,6 +87,25 @@
             <div class="overlay-upcoming"></div>
           </div>
         </div>
+        <div class="col s12 m6 l3">
+                            <div class="card card-with-reveal">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img class="activator" src="/assets/images/help_desk-reports.png">
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title activator grey-text text-darken-4">HelpDesk<i class="material-icons right">more_vert</i></span>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">HelpDesk<i class="material-icons right">close</i></span>
+                                    <p>Helpdesk Report</p>
+                                </div>
+                                <div class="card-action">
+                                   <button class="btn-flat"><a [routerLink]="['R-Reports-View', {id :'Helpdesk'}]" >Helpdesk Report</a></button>
+                                </div>
+                                <div class=""></div>
+                            </div>
+                        </div>
+
         <div class="col s12 m6 l3">
           <div class="card card-with-reveal">
             <div class="card-image waves-effect waves-block waves-light">
