@@ -107,11 +107,12 @@ export class LeaveTransactionReportModel implements IUIMetadata {
     })
     Location: string = '';
 
-    @UIProperty({
-        hub: "LeaveTransactionReportModel", type: "selectMaterialize", options: "deliveryUnit", label: "Delivery Unit", placeholder: "", validation: "  ",
-        multiple: false, css: "col s12 m6 l4"
+ @UIProperty({
+        hub: "LeaveTransactionReportModel", type: "selectMaterialize", options: [{ id: '0', text: 'Compansatory Off' }, { id: '1', text: 'Leave' }, { id: '2', text: 'Leave Wihtout Pay' }, { id: '3', text: 'Maternity Leave' }, { id: '4', text: 'Paternity Leave' }, { id: '5', text: 'Long Leave' }, { id: '6', text: 'Birthday Leave' }],
+        label: "Leave Type", validation: "  ", placeholder: "", multiple: false, css: "col s12 m6 l4"
     })
-    DeliveryUnit: string = '';
+LeaveType: string = '';
+
 }
 @UIClass("HelpdeskReportModel", { fetch: {} })
 export class HelpdeskReportModel implements IUIMetadata {
