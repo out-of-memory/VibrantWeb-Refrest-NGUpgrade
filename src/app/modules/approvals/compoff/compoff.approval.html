@@ -57,7 +57,7 @@
                                                         </div>
                                                         <div class="employee-contact-info">
                                                             <h6>{{item.model.email}}</h6>
-                                                            <h6 *ngIf="item.model.residenceNumber != 0">t : +91 {{item.model.residenceNumber}}</h6>
+                                                            <h6 [hidden]="item.model.residenceNumber == 0">t : +91 {{item.model.residenceNumber}}</h6>
                                                             <h6>m : +91 {{item.model.mobile}}</h6>
                                                         </div>
                                                     </div>

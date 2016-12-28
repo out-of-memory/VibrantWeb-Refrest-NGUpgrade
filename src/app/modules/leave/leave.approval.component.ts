@@ -102,4 +102,8 @@ export class LeaveApprovalComponent {
             });
     }
 
+    leaveTypes(leave) {
+        var data = ["Comp Off", "Leave", "LWP", "Maternity", "Paternity", "LL", "Birthday"];
+        return data[leave];
+    }
 }

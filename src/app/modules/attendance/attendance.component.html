@@ -36,7 +36,7 @@
 	<div class="row attendance-data" *ngIf="!showChart">
 		<div class="col s12 l6">
 			<div class="row available-leaves m-bottom0 valign-wrapper">
-				<div class="col s12 leave-data">
+				<div class="col s12 leave-data" style="height: 100%;width: 50%;">
 					<doughnut-chart [data]="attendenceChartData" [labels]="attendenceChartlabels" [colors]="attendenceChartColors"></doughnut-chart>
 				</div>
 			</div>
@@ -215,7 +215,9 @@
 				<h5 class="left-align" *ngIf="totalHour">Total Hours : {{totalHour | number}}
 					<span class="right chartText" *ngIf="present!=0"><b>{{present}}</b> Present</span>
 				</h5>
-				<line-bar-chart [data]="lineChartData" [labels]="lineChartLabels" [colors]="lineChartChartColors" [chartType]="'bar'"></line-bar-chart>
+				<div style="height: 100%;width: 50%;">
+					<line-bar-chart [data]="lineChartData" [labels]="lineChartLabels" [colors]="lineChartChartColors" [chartType]="'bar'"></line-bar-chart>
+				</div>
 				<div class="row attendance-pagination m-top20">
 					<div class="col s12">
 						<div class="left">

@@ -1,7 +1,7 @@
 <div id="" class="col s12 tab-content padding-zero" style="display: block;">
     <div class="row main-data-container">
         <div class="col s12 padding-zero">
-            <div class="reimbursement-wrapper approvals-data" *ngIf="rowData.length > 0">
+            <div class="reimbursement-wrapper approvals-data" [hidden]="rowData.length == 0">
                 <div class="row m-bottom0 header hide-on-med-and-down">
                     <div class="col s12 m2 offset-m3">
                         <h5 class="title">From > To</h5>
@@ -43,7 +43,7 @@
                                                     </div>
                                                     <div class="employee-contact-info">
                                                         <h6 class="email-id">{{item.model.email}}</h6>
-                                                        <h6 *ngIf="item.model.residenceNumber != 0">t : +91 {{item.model.residenceNumber}}</h6>
+                                                        <h6 [hidden]="item.model.residenceNumber == 0">t : +91 {{item.model.residenceNumber}}</h6>
                                                         <h6>m : +91 {{item.model.mobile}}</h6>
                                                     </div>
                                                 </div>
@@ -53,13 +53,7 @@
                                             <img class="arrow-right-img" src="assets/images/arrow-right.png"> {{item.model.toDate}}
                                         </div>
                                         <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Leave Type</span>
-                                            <span *ngIf="item.model.leaveType == 0">Comp Off</span>
-                                            <span *ngIf="item.model.leaveType == 1">Leave</span>
-                                            <span *ngIf="item.model.leaveType == 2">LWP</span>
-                                            <span *ngIf="item.model.leaveType == 3">Maternity</span>
-                                            <span *ngIf="item.model.leaveType == 4">Paternity</span>
-                                            <span *ngIf="item.model.leaveType == 5">LL</span>
-                                            <span *ngIf="item.model.leaveType == 6">Birthday</span>
+                                            <span>{{leaveTypes(item.model.leaveType)}}</span>
                                         </div>
                                         <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Leaves</span>{{item.model.leaves}}</div>
                                         <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Narration</span>{{item.model.narration}}</div>
@@ -86,7 +80,7 @@
                     </basic-grid>
                 </div>
             </div>
-            <div class="row" *ngIf="rowData.length == 0">
+            <div class="row" [hidden]="rowData.length > 0">
                 <div class="col s12 table-note">
                     <span>No data available for this year</span>
                 </div>
