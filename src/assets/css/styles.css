@@ -4064,3 +4064,13 @@ nav .button-collapse{
     margin-bottom: 0;
     margin-top: 5px; 
     }
+.test canvas {
+    width: 50%;
+}
+.select-wrapper input.select-dropdown{
+    margin:0px !important;
+}
+.comments-scrollable{
+  height:330px;
+  overflow-y:auto;
+}

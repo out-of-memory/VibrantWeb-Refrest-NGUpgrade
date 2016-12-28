@@ -16,7 +16,6 @@ import {Component,Input} from '@angular/core';
   styles: [`
     .chart {
       display: block;
-      width: 100%;
     }
   `],
 

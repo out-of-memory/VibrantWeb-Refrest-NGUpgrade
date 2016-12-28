@@ -36,7 +36,7 @@
 	<div class="row attendance-data" *ngIf="!showChart">
 		<div class="col s12 l6">
 			<div class="row available-leaves m-bottom0 valign-wrapper">
-				<div class="col s12 leave-data" style="height: 100%;width: 50%;">
+				<div class="col s12 leave-data" style="display: flex;justify-content: center;">
 					<doughnut-chart [data]="attendenceChartData" [labels]="attendenceChartlabels" [colors]="attendenceChartColors"></doughnut-chart>
 				</div>
 			</div>
@@ -173,13 +173,13 @@
 								<template let-item='row'>
 									<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.signInTime | slice : 0:-3}}</span>
 									<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true"> | </span>
-									<span *ngIf="item.signOutTime != '00:00:00'" [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.signOutTime | slice : 0:-3}}</span>
-									<button class="edit-icon" *ngIf="isEditeble(item) && isUs" title="Edit" type='button' value="Edit" (click)="DisplayManualPage(item)"><i class="fa fa-pencil"></i></button>
+									<span [hidden]="item.signOutTime == '00:00:00'" [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.signOutTime | slice : 0:-3}}</span>
+									<button class="edit-icon" [hidden]="!isEditeble(item) && !isUs" title="Edit" type='button' value="Edit" (click)="DisplayManualPage(item)"><i class="fa fa-pencil"></i></button>
 								</template>
 							</basic-cell>
 							<basic-cell cell='totalHoursWorked' headerLabel='Total Hours Present'>
 								<template let-item='row'>
-									<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true" *ngIf="item.totalHoursWorked!='0:0'">{{item.totalHoursWorked}}</span>
+									<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true" [hidden]="item.totalHoursWorked=='0:0'">{{item.totalHoursWorked}}</span>
 								</template>
 							</basic-cell>
 							<basic-cell cell='narration' headerLabel='Narration'>
@@ -215,7 +215,7 @@
 				<h5 class="left-align" *ngIf="totalHour">Total Hours : {{totalHour | number}}
 					<span class="right chartText" *ngIf="present!=0"><b>{{present}}</b> Present</span>
 				</h5>
-				<div style="height: 100%;width: 50%;">
+				<div style="width: 100%;height: auto;" class="test">
 					<line-bar-chart [data]="lineChartData" [labels]="lineChartLabels" [colors]="lineChartChartColors" [chartType]="'bar'"></line-bar-chart>
 				</div>
 				<div class="row attendance-pagination m-top20">
