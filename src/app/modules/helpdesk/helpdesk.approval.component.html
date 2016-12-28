@@ -61,20 +61,21 @@
                                 </basic-cell>
                                 <basic-cell cell='' headerLabel=''>
                                     <template let-item='row'>
-                                       
-                                     
-                                     
-                                       <select placeholder="Duration" [(ngModel)]="item.duration" id="Duration_{{item.number}}" name="Duration_{{item.number}}" style="display:block !important" (change)="onDurationChanged($event.target.value)">
+                                            <div class="custom-input-field input-field col s12">
+                                                <h6>Duration</h6>
+                                                <select placeholder="Duration" [(ngModel)]="item.duration" materialize="material_select">
                                                         <option value="30">30</option>
                                                         <option value="60">60</option>
                                                         <option value="90">90</option>
                                                         <option value="120">120</option>
                                                 </select>
-
+                                            </div>
+                                            <div class="custom-input-field input-field col s12">
+                                                <h6>Comments</h6>
                                                 <input type='text' name="comments" [(ngModel)]="item.comments" maxlength="900" />
-
-                                                 <button class="btn custom-btn submit" type='button' (click)="approveLeave(item)" title="Approve" value='Approve'>Approve</button>
-                                                    <button class="btn custom-btn cancel" (click)="rejectLeave(item)" title="Reject" type='button' value="Reject">Reject</button>
+                                            </div>
+                                        <button class="btn custom-btn submit" type='button' (click)="approveLeave(item)" title="Approve" value='Approve'>Approve</button>
+                                        <button class="btn custom-btn cancel" (click)="rejectLeave(item)" title="Reject" type='button' value="Reject">Reject</button>
                                     </template>
                                 </basic-cell>
 

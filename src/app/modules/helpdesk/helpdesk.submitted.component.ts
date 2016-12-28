@@ -126,6 +126,7 @@ export class HelpDeskSubmitComponent {
     }
 
     getTicketDetails(id: number) {
+        debugger;
         this.loaderModal = true;
         this.helpDeskSubmitModel = new HelpDeskSubmitModel();
         this.helpDeskCommentCollection = new Array<any>();
@@ -264,5 +265,10 @@ export class HelpDeskSubmitComponent {
 
     backClicked() {
         this._location.back();
+    }
+
+    getStatusType(status) {
+        var data = ["Pending For Approval", "Open", " Rejected", " In Progress", "On Hold", "Resolved", "Cancelled"];
+        return data[status -1];
     }
 }

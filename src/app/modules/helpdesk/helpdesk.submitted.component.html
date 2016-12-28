@@ -1,7 +1,10 @@
 <div class="row m-top20 expense-card-container">
-    <div class="row">
-        <div class="col s12 padding-zero">
-            <a (click)="backClicked()" class="waves-effect waves-light btn back-btn"><i class="fa fa-angle-left left" title="Back to List" aria-hidden="true"></i>Back</a>
+    <div class="col s12">
+        <div class="row m-top20">
+            <div class="col s12 padding-zero">
+                <a (click)="backClicked()" class="waves-effect waves-light btn back-btn"><i class="fa fa-angle-left left" title="Back to List" aria-hidden="true"></i>Back</a>
+            </div>
+
         </div>
     </div>
     <div class="approvals-data">
@@ -56,27 +59,7 @@
             </basic-cell>
             <basic-cell cell='' headerLabel='Status'>
                 <template let-item='row'>
-                    <span *ngIf="item.status == 1">
-                                            Pending For Approval
-                                            </span>
-                    <span *ngIf="item.status == 2">
-                                                Open
-                                            </span>
-                    <span *ngIf="item.status == 3">
-                                            Rejected
-                                            </span>
-                    <span *ngIf="item.status == 4">
-                                                In Progress
-                                            </span>
-                    <span *ngIf="item.status == 5">
-                                            On Hold
-                                            </span>
-                    <span *ngIf="item.status == 6">
-                                            Resolved
-                                            </span>
-                    <span *ngIf="item.status == 7">
-                                            Cancelled
-                                            </span>
+                    <span> {{getStatusType(item.status)}}</span>
                 </template>
             </basic-cell>
             <basic-cell cell='' headerLabel=''>
@@ -101,7 +84,7 @@
                                 </ui-form>
                                 <div class="col s12 m-bottom20 padding-zero" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7 && assignToVisible == true ">
                                     <div class="col m6">
-                                        <select placeholder="Status" name="status"[(ngModel)]="helpDeskSubmitModel.status" materialize="material_select" [materializeSelectOptions]="issueStatusCollection"
+                                        <select placeholder="Status" name="status" [(ngModel)]="helpDeskSubmitModel.status" materialize="material_select" [materializeSelectOptions]="issueStatusCollection"
                                             (change)="onIssueStatusChanged($event.target.value)">
                                                     <option *ngFor="let option of issueStatusCollection" [value]="option.id">{{option.text}}</option>
                                             </select>
@@ -126,7 +109,8 @@
                                     <div class="col s12 m6 padding-zero">
                                         <div class="row margin-zero">
                                             <div class="col s6" *ngIf="(action == 0 && selectedStatus != 6 && selectedStatus != 7 && assignToVisible == true) ">
-                                                <select name="assignedTo" placeholder="Status" [(ngModel)]="helpDeskSubmitModel.assignedTo" materialize="material_select" [materializeSelectOptions]="dropDownCollection">
+                                                <select name="assignedTo" placeholder="Status" [(ngModel)]="helpDeskSubmitModel.assignedTo" materialize="material_select"
+                                                    [materializeSelectOptions]="dropDownCollection">
                                                             <option *ngFor="let option of dropDownCollection" [value]="option.id">{{option.text}}</option> </select>
                                             </div>
                                         </div>
