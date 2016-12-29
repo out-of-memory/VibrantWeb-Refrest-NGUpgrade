@@ -298,12 +298,24 @@
                             </div>
                             <div class="col s12 l2 padding-zero">
                                 <div class="view-form-info" *ngFor="let r of leavetransHub[2].options">
-                                    <h5 *ngIf='r.id==leavetrans.DeliveryUnit'>{{r.text}}</h5>
-                                    <h6 *ngIf='r.id==leavetrans.DeliveryUnit'>Delivery Unit</h6>
+                                    <h5 *ngIf='r.id==leavetrans.LeaveType'>{{r.text}}</h5>
+                                    <h6 *ngIf='r.id==leavetrans.LeaveType'>Leave Type</h6>
                                 </div>
                                 <div class="view-form-info">
-                                    <h5 *ngIf='leavetrans.DeliveryUnit==""'>All</h5>
-                                    <h6 *ngIf='leavetrans.DeliveryUnit==""'>Delivery Unit</h6>
+                                    <h5 *ngIf='leavetrans.LeaveType==""'>All</h5>
+                                    <h6 *ngIf='leavetrans.LeaveType==""'>Leave Type</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5 *ngIf="leavetrans.StartDate">{{leavetrans.StartDate}}</h5>
+                                    <h6 *ngIf="leavetrans.StartDate">Start Date</h6>
+                                </div>
+                            </div>
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5 *ngIf="leavetrans.EndDate">{{leavetrans.EndDate}}</h5>
+                                    <h6 *ngIf="leavetrans.EndDate">End Date</h6>
                                 </div>
                             </div>
                         </div>
