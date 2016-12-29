@@ -922,6 +922,8 @@ span.form-code-val {
     table.scroll tr {
       display: flex;
       align-items: center; }
+      .helpdesk-table-view table.scroll tr {
+      padding: 10px; }
       table.scroll tr.week-end {
         border-bottom: 2px solid #cccdd2; }
       table.scroll tr.holiday-work td {
@@ -2020,7 +2022,7 @@ button, button:focus {
     margin-right: -0.75rem; } }
 /* Main content */
 main {
-  padding-left: 50px; }
+  padding-left: 25px; }
   @media only screen and (max-width: 600px) {
     main {
       padding: 0; } }
