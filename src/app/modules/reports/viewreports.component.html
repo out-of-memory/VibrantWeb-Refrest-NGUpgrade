@@ -146,12 +146,12 @@
     <div *ngIf="selectedReport=='EmployeeDetail'" class="row m-bottom0 header m-top20">
         <div class="col s12 padding-zero">
             <div class="row m-bottom0 valign-wrapper">
-                <div class="col s12 l6">
+                <div class="col s12 l10">
                     <ui-form #empDetailsForm [controlMetas]="empDetailHub" [(model)]="empDetailReportModel" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
-                        formCss='view-card' columnOrientation='3' controlCss='view-form-info' inputLabelPosition='top'>
+                        formCss='view-card' columnOrientation='5' controlCss='view-form-info' inputLabelPosition='top'>
                     </ui-form>
                 </div>
-                <div class="col s12 l6">
+                <div class="col s12 l2">
                     <a (click)="ViewReport($event,empDetailReportModel,empDetailsForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
                 </div>
             </div>
@@ -266,12 +266,12 @@
     <div *ngIf="selectedReport=='LeaveTransaction'" class="row m-bottom0 header m-top20">
         <div class="col s12 padding-zero">
             <div class="row m-bottom0 valign-wrapper">
-                <div class="col s12 l6">
+                <div class="col s12 l10">
                     <ui-form #LeaveTransactionForm [controlMetas]="leavetransHub" [(model)]="leavetrans" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
-                        formCss='view-card' columnOrientation='3' controlCss='view-form-info' inputLabelPosition='top'>
+                        formCss='view-card' columnOrientation='5' controlCss='view-form-info' inputLabelPosition='top'>
                     </ui-form>
                 </div>
-                <div class="col s12 l6">
+                <div class="col s12 l2">
                     <a (click)="ViewReport($event,leavetrans,LeaveTransactionForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
                 </div>
             </div>
@@ -328,9 +328,9 @@
     <div *ngIf="selectedReport=='LeaveDetail'" class="row m-bottom0 header m-top20">
         <div class="col s12 padding-zero">
             <div class="row m-bottom0 valign-wrapper">
-                <div class="col s12 l6">
+                <div class="col s12 l10">
                     <ui-form #LeaveDetailForm [controlMetas]="leaveDetailHub" [(model)]="leaveDetails" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
-                        formCss='view-card' columnOrientation='3' controlCss='view-form-info'>
+                        formCss='view-card' columnOrientation='4' controlCss='view-form-info' inputLabelPosition='top'>
                         <ui-control-item for='StartDate' behaviours='[ {"name":"max","value":"{{leaveDetails.EndDate}}:mm/dd/yyyy:1"}]' depends='["EndDate:changeattrs"]'
                             changeattrs='["max"]'>
                         </ui-control-item>
@@ -340,7 +340,7 @@
                         </ui-control-item>
                     </ui-form>
                 </div>
-                <div class="col s12 l6">
+                <div class="col s12 l2">
                     <a (click)="ViewReport($event,leaveDetails,LeaveDetailForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
                 </div>
             </div>
@@ -377,7 +377,7 @@
     <div *ngIf="selectedReport=='Helpdesk'" class="row m-bottom0 header m-top20">
         <div class="col s12 padding-zero">
             <div class="row m-bottom0 valign-wrapper">
-                <div class="col s12 l6">
+                <div class="col s12 l10">
                     <ui-form #HelpdeskForm [controlMetas]="hlpdeskhub" [(model)]="helpdesk" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
                         formCss='view-card' columnOrientation='5' controlCss='view-form-info'>
                         <ui-control-item for='issuestartdate' behaviours='[ {"name":"max","value":"{{helpdesk.issueenddate}}:mm/dd/yyyy:1"}]' depends='["issueenddate:changeattrs"]'
@@ -397,7 +397,7 @@
                         </ui-control-item>
                     </ui-form>
                 </div>
-                <div class="col s12 l6">
+                <div class="col s12 l2">
                     <a (click)="ViewReport($event,helpdesk,HelpdeskForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
                 </div>
             </div>
@@ -464,7 +464,7 @@
             <div class="table-container padding-zero m-top20">
                 <div class="row m-bottom5">
                     <div class="col s12 " *ngIf="reportData.length>0">
-                        <div id="table-scroll" style="height:auto; overflow:auto; max-height:450px;">
+                        <div id="table-scroll" class="generate-report-data">
                             <table class="striped responsive-table" style="width:100%;">
                                 <thead class="same-width-thead thead-custom-style reports-card">
                                     <tr>
