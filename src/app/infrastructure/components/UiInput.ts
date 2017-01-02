@@ -47,6 +47,14 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
                         [type]='"text"' 
                         [attr.placeholder]='meta.placeholder' 
                         [(ngModel)]="value" [attr.maxlength]='meta.maxlength'/>
+
+                <input
+                        style='position:relative'
+                        *ngIf='!readonly && meta.type=="time"'
+                        [ngClass]='errors.errors?"invalidControl": "validControl"' 
+                        [type]='"time"' 
+                        [attr.placeholder]='meta.placeholder' 
+                        [(ngModel)]="value" />
                 
                 <textarea #textarea
                         style='position:relative' 

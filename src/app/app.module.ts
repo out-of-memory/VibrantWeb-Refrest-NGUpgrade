@@ -32,6 +32,10 @@ import { MaintainenceModule } from './modules/maintainence/maintainence.module';
 import { EmployeeSearchModule } from './modules/employee/Search/employee-search.module';
 import { AttendanceComponent } from './modules/attendance/attendance.component';
 import { LeavesComponent } from './modules/leave/leave.component';
+import { EnablelocationModule } from './modules/enablelocation/enablelocation.module';
+import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service';
+import { TravelModule } from './modules/travel/travel.module';
+
 
 
 @NgModule({
@@ -57,11 +61,13 @@ import { LeavesComponent } from './modules/leave/leave.component';
     EmployeeModule,
     ReportsModule,
     MaintainenceModule,
-    EmployeeSearchModule
-
+    EmployeeSearchModule,
+    EnablelocationModule,
+    TravelModule
   ],
   providers: [CacheService, { provide: LocationStrategy, useClass: HashLocationStrategy },
-    HttpService, MenuService, ExpenseService, EmployeeService, UserService],
+    HttpService, MenuService, ExpenseService, EmployeeService, UserService, LocationserviceService],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

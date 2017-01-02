@@ -10,6 +10,11 @@ import { ReportsComponent } from '../modules/reports/reports.component';
 import { MaintainenceComponent } from '../modules/Maintainence/maintainence.component';
 import { ProfileComponent } from '../modules/approvals/profile/profile.component';
 import { CompOffApprovalComponent } from '../modules/approvals/compoff/compoff.approval';
+import { EnablelocationComponent } from '../modules/enablelocation/enablelocation.component'
+import { TravelComponent } from '../modules/travel/travel.component';
+import { ViewMyHistoryComponent } from '../modules/travel/travel.view.my.history.component';
+import { TravelApprovalHistoryView } from '../modules/travel/travel.approval.history.view.component';
+import { TravelViewRequestComponent } from '../modules/travel/travel.view.request.component';
 
 export module Decorator {
     export class App {
@@ -85,10 +90,34 @@ export module Decorator {
                     path: '/approvals/compoff',
                     name: 'R-Approvals-Compoff',
                     component: CompOffApprovalComponent
-                }               
+                },
+                {
+                    path: "/enablelocation",
+                    name: "R-Enablelocation",
+                    component: EnablelocationComponent
+
+                },
+                {
+                    path: "/my/travel/...",
+                    name: "R-my-travel",
+                    component: TravelComponent
+                },
+                {
+                    path: "/my/travel/view/:id",
+                    name: "Travel_My_View_Request_Id",
+                    component: ViewMyHistoryComponent
+                },
+                {
+                    path: "/approvalhistory/travel/view/:id",
+                    name: "Travel_My_Approval_View_Request_Id",
+                    component: TravelApprovalHistoryView
+                },
+                {
+                    path: "/travel/view/:id",
+                    name: "Travel_View_Request_Id",
+                    component: TravelViewRequestComponent
+                }
             ]
-
         }
-
     }
 }
