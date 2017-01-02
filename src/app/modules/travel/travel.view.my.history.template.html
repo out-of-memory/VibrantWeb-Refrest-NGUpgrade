@@ -1,0 +1,559 @@
+<div class="breadcrumb-nav">
+    <div class="row margin-zero">
+        <div class="col s12">
+            <h5>Travel
+                <a href="vibrant_web_help/help-landing-page.html" target="_blank" title="Help" class="help-btn">
+                    <i class="right fa fa-question-circle" aria-hidden="true"></i></a>
+            </h5>
+        </div>
+    </div>
+</div>
+<div class="row main-data-container" *ngIf="loadStatus">
+    <div class="col s12 padding-zero">
+        <div class="row">
+            <div class="col s12 padding-zero">
+                <a href="/#/my/travel/history" class="waves-effect waves-light btn back-btn"><i class="fa fa-angle-left left" title="Back to List" aria-hidden="true"></i>Back</a>
+            </div>
+        </div>
+        <div class="reimbursement-wrapper travel-data">
+            <div class="row m-bottom0 header hide-on-med-and-down">
+                <div class="col s12 m2">
+                    <h5 class="title">Req ID</h5>
+                </div>
+                <div class="col s12 m2">
+                    <h5 class="title">Travel Title</h5>
+                </div>
+                <div class="col s12 m3">
+                    <h5 class="title">Travel Details</h5>
+                </div>
+                <div class="col s12 m2">
+                    <h5 class="title">Client Name</h5>
+                </div>
+                <div class="col s12 m3">
+                    <h5 class="title">Status</h5>
+                </div>
+            </div>
+            <div class="approvals">
+                <div class="approvals-wrapper">
+                    <div class="row m-bottom0 valign-wrapper">
+                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Req ID</span>{{travelModel.id}}</div>
+                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Travel Title</span>{{travelModel.travelTitle}}</div>
+                        <div class="col s12 m6 l3"><span class="expense-label hide-on-large-only">Travel Details</span>
+                            <div class="valign-wrapper">
+                                <div>{{travelModel.travelFrom}}
+                                    <div>{{travelModel.departure}}</div>
+                                </div>
+                                <div>
+                                    <div class="padding-0-30"><img src="assets/images/arrow-inout.svg" title="Travel-trip"></div>
+                                </div>
+                                <div class="changed-value">{{travelModel.travelTo}}
+                                    <div>{{travelModel.arrival}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Client Name</span>{{travelModel.clientInformation.clientName.clientName}}
+                        </div>
+                        <div class="col s12 m6 l3"><span class="expense-label hide-on-large-only">Status</span>
+                            <div class="col s6">
+                                <status-step [(totalStep)]='travelModel.totalStages' [(approvedTill)]='travelModel.onStage' [(lastApprovedStatus)]='travelModel.onStageStatus'
+                                    [(lastApprovedComment)]="travelModel.lastcomments">
+                                </status-step>
+                            </div>
+                            <div [ngClass]="{toDisplayNone : showClosingForm}" class="right">
+                                <a href="" (click)="OpenTravelExtension($event,travelModel)" class="expense-icon modal-trigger"><img [src]="travelModel.travelExtensionImageUrl" class="view-icon" title="Travel Extension"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="approvals-wrapper padding-zero">
+                    <div class="tab-container">
+                        <div class="row margin-zero">
+                            <div class="col s12 bottom-divider p-left10 m-top20">
+                                <div class="col s12 m12 l3 padding-zero">
+                                    <ul materialize="tabs" class="tabs approvals-tabs" style="width: 100%;">
+                                        <li class="tab col s3"><a class="active" href="#traveller-details">TRAVELLER DETAILS</a></li>
+                                        <li class="tab col s3"><a href="#additional-info">ADDITIONAL INFORMATION</a></li>
+                                        <div class="indicator" style="right: 0px; left: 0px;"></div>
+                                        <div class="indicator" style="right: 0px; left: 0px;"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="traveller-details" class="col s12 tab-content padding-zero">
+                                <div class="card-container padding-20 fixed-height-section">
+                                    <div *ngIf="travelModel.travelDetails.travelType == 2" class="card white">
+                                        <div class="card-edit">
+                                            <div class="row heading-content">
+                                                <div class="col s12 card-heading">
+                                                    <span class="card-title">Passport Details</span>
+                                                </div>
+                                            </div>
+                                            <form>
+                                                <div class="saved-data">
+                                                    <div class="row">
+                                                        <div class="col s6">
+                                                            <div class="view-form-info">
+                                                                <h5>{{travelModel.employeePassport.nameAsInPassport}}</h5>
+                                                                <h6>Full Name as in Passport</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s6">
+                                                            <div class="view-form-info">
+                                                                <h5>{{travelModel.employeePassport.passportNumber}}</h5>
+                                                                <h6>Passport Number</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col s6">
+                                                            <div class="view-form-info">
+                                                                <h5>{{travelModel.employeePassport.dateOfIssue}}</h5>
+                                                                <h6>Date of Issue</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s6">
+                                                            <div class="view-form-info">
+                                                                <h5>{{travelModel.employeePassport.dateOfExpiry}}</h5>
+                                                                <h6>Date of Expiry</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col s6">
+                                                            <div class="view-form-info">
+                                                                <h5>{{travelModel.employeePassport.placeIssued}}</h5>
+                                                                <h6>Place of Issue</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="travelModel.travelDetails.travelType == 2" class="card white">
+                                        <div class="card-edit">
+                                            <div class="row heading-content">
+                                                <div class="col s12 card-heading">
+                                                    <span class="card-title">Visa Details</span>
+                                                </div>
+                                            </div>
+                                            <repeater [source]="travelModel.employeeVisas">
+                                                <template let-visa="item">
+                                                    <div class="saved-data">
+                                                        <div class="row valign-wrapper">
+                                                            <div class="col s12">
+                                                                <div class="view-form-info">
+                                                                    <h5>{{visa.visaTypeID|visaType}}</h5>
+                                                                    <h6>Country<span class="p-left10">{{visa.countryID|countryName}}</span></h6>
+                                                                    <h6>Valid Till<span class="p-left10">{{visa.validTill}}</span></h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </repeater>
+                                        </div>
+                                    </div>
+                                    <div class="card white">
+                                        <div class="card-edit">
+                                            <div class="row heading-content">
+                                                <div class="col s12 card-heading">
+                                                    <span class="card-title">Organization Details</span>
+                                                </div>
+                                            </div>
+                                            <div class="saved-data">
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.organizationDetails.deliveryUnit}}</h5>
+                                                            <h6>Delivery Unit</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.organizationDetails.currentDU}}</h5>
+                                                            <h6>Current Delivery Unit</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.organizationDetails.deliveryTeam}}</h5>
+                                                            <h6>Delivery Team</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.organizationDetails.resourcePool}}</h5>
+                                                            <h6>Resource Pool Name</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.organizationDetails.reportingManager}}</h5>
+                                                            <h6>Reporting To</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.organizationDetails.exitProcessManager|exitprocessmanager}}</h5>
+                                                            <h6>ExitProcess Manager</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card white">
+                                        <div class="card-edit">
+                                            <div class="row heading-content">
+                                                <div class="col s12 card-heading">
+                                                    <span class="card-title">Emergency Contact</span>
+                                                </div>
+                                            </div>
+                                            <repeater [source]="travelModel.employeeContacts">
+                                                <template let-contact="item">
+                                                    <div class="saved-data">
+                                                        <div class="row">
+                                                            <div class="col s7">
+                                                                <div class="view-form-info">
+                                                                    <h5>{{contact.contactPersonName}}<span class="p-left10">{{contact.relation|relation}}</span></h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col s12">
+                                                                <div class="view-form-info">
+                                                                    <h5><i class="fa fa-phone" aria-hidden="true"></i>{{contact.emergencyContactNo}}</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col s12">
+                                                                <div class="view-form-info">
+                                                                    <h5> {{contact.contactAddress}}</h5>
+                                                                    <h6>Contact Person Address</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col s12">
+                                                                <div class="view-form-info">
+                                                                    <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{contact.emergencyEmail}}</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </repeater>
+                                        </div>
+                                    </div>
+                                    <div class="card white">
+                                        <div class="card-edit">
+                                            <div class="row heading-content">
+                                                <div class="col s12 card-heading">
+                                                    <span class="card-title">Client Information</span>
+                                                </div>
+                                            </div>
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.clientInformation.clientName.clientName}}</h5>
+                                                            <h6>Client Name</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.clientInformation.businessProspect}}</h5>
+                                                            <h6>Business Prospect</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5 *ngIf="travelModel.clientInformation.isClientReimbursment">Yes</h5>
+                                                            <h5 *ngIf="!travelModel.clientInformation.isClientReimbursment">No</h5>
+                                                            <h6>Client-Reimbursment</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.clientInformation.purposeOfVisit}}</h5>
+                                                            <h6>Purpose of Visit</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.clientInformation.contactNumber}}</h5>
+                                                            <h6>POC Contact Number</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.clientInformation.adddress}}</h5>
+                                                            <h6>Address</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.clientInformation.emailId}}</h5>
+                                                            <h6>Email Id</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="card white">
+                                        <div class="card-edit">
+                                            <div class="row heading-content">
+                                                <div class="col s12 card-heading">
+                                                    <span class="card-title">Travel Requirements</span>
+                                                </div>
+                                            </div>
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.travelDetails.travelType|travelType}}</h5>
+                                                            <h6>Travel Type</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s6">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.travelDetails.travelFrom}}</h5>
+                                                            <h6>From</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s6">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.travelDetails.travelTo}}</h5>
+                                                            <h6>To</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s6">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.travelDetails.departure}}</h5>
+                                                            <h6>Departure</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s6">
+                                                        <div class="view-form-info">
+                                                            <h5>{{travelModel.travelDetails.arrival}}</h5>
+                                                            <h6>Arrival</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="view-form-info">
+                                                            <h6>Travel Preferences (if any)</h6>
+                                                            <p>{{travelModel.travelDetails.additionalInformation}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="additional-info" class="col s12 tab-content padding-zero" style="display: block;">
+                                <div class="padding-20">
+                                    <div class="row margin-zero">
+                                        <!--<div class="col s12 l6 m-bottom20">
+                                            <div class="card white approvals-card margin-zero manual-box">
+                                                <div class="card-footer padding-15-0 m-bottom5">
+                                                    <div class="row valign-wrapper margin-zero">
+                                                        <div class="col s12 right-align">
+                                                            <a class="waves-effect waves-light btn back-btn" title="Reload">Reload My Card</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div class="col s12 l6 m-bottom20">
+                                            <div class="table-container padding-zero">
+                                                <div class="row m-bottom5">
+                                                    <div class="col s12 padding-zero">
+                                                        <div class="table-responsive">
+                                                            <table class="striped responsive-table scroll">
+                                                                <thead class="thead-custom-style travel-card">
+                                                                    <tr>
+                                                                        <th class="col-width-20" data-field="date">Date</th>
+                                                                        <th class="col-width-20" data-field="transaction-details">Transaction Details</th>
+                                                                        <th class="col-width-20" data-field="amount">Amount</th>
+                                                                        <th class="col-width-40" data-field="comments">Comments</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="approvals-tbody">
+                                                                    <tr *ngFor="let item of travelModel.moneyTransactions">
+                                                                        <td class="col-width-20">{{item.createdDate}}</td>
+                                                                        <td class="col-width-20">{{item.transactionType}}</td>
+                                                                        <td class="col-width-20"><span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.amount}}</td>
+                                                                        <td class="col-width-40">{{item.comments}}</td>
+                                                                    </tr>
+                                                                    <tr *ngIf="travelModel.moneyTransactions.length == 0">
+                                                                        <td>
+                                                                            No Recorded Transactions.
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tfoot class="top-divider">
+                                                                    <tr>
+                                                                        <td class="col-width-20"></td>
+                                                                        <td class="col-width-20 right-align">Total:</td>
+                                                                        <td class="col-width-20"><span aria-hidden="true" class="fa fa-{{currencyId|currency}} currency-symbol"> {{totalAmount}}</span></td>
+                                                                        <td class="col-width-40">Cash: <span aria-hidden="true" class="fa fa-{{currencyId|currency}} currency-symbol"> {{cashAmount}}</span>;
+                                                                            Wire:
+                                                                            <span aria-hidden="true" class="fa fa-{{currencyId|currency}} currency-symbol"> {{wireAmount}}</span></td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m12 l6 m-bottom20">
+                                            <div class="card white travel-card margin-zero">
+                                                <div class="card-edit">
+                                                    <div *ngIf="travelModel.documentUploads.length == 0" class="row heading-content">
+                                                        <div class="col s12 card-heading">
+                                                            <span class="card-title">No Documents Uploaded.</span>
+                                                        </div>
+                                                    </div>
+                                                    <repeater *ngIf="travelModel.documentUploads.length > 0" [source]='travelModel.documentUploads'>
+                                                        <template let-item='item'>
+                                                            <div class="saved-data m-bottom25">
+                                                                <div class="row valign-wrapper">
+                                                                    <div class="col s7">
+                                                                        <div class="view-form-info">
+                                                                            <h6>{{item.description}}</h6>
+                                                                            <h5>{{item.url|filename}}</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col s5 valign right-align">
+                                                                        <a [href]="item.url" target="_blank" [download]="item.url"><i class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </template>
+                                                    </repeater>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div [ngClass]="{toDisplayNone : showClosingForm}" class="row margin-zero">
+                                        <div class="col s12 m12 l6">
+                                            <div class="card white travel-card margin-zero manual-box">
+                                                <div class="card-edit">
+                                                    <div class="col s12 right-align">
+                                                        <a class="waves-effect waves-light btn back-btn" title="Submit" (click)="CloseTravelRequest(commentForm)">Close Travel Request</a>
+                                                    </div>
+                                                    <!--<form>
+                                                        <div class="row margin-zero">
+                                                            <div class="custom-input-field input-field col s12">
+                                                                <h6>Feedback</h6>
+                                                                <input placeholder="Enter Comments" type="text" class="validate">
+                                                            </div>
+                                                        </div>
+                                                    </form>-->
+                                                    <ui-form #commentForm [controlMetas]="commentHub" [(model)]="commentModel" [errorOnlyOnSubmit]='commentSubmit' [formReadonly]='false'
+                                                        formCss='' columnOrientation='1' inputLabelPosition='top' controlCss='view-form-info'>
+                                                    </ui-form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>
+
+<!--<div *ngIf="isTravelExtension" id="travel-ext-modal" class="modal modal-custom open" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
+    <div class="modal-header">
+        <h4>Travel Extension</h4>
+        <a class="right modal-close"><i class="material-icons small" (click)="CloseTravelExtension()">close</i></a>
+    </div>
+    <div class="modal-content">
+        <form class="modal-form">
+            <div class="row margin-zero valign-wrapper">
+                <div class="col s5 padding-zero">
+                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{extensionItem.travelFrom}}</h5>
+                    <div class="input-field view-form-info">
+                        <h5>{{extensionItem.departure}}</h5>
+                        <h6>Departure</h6>
+                    </div>
+                </div>
+                <div class="col s2 padding-zero">
+                    <div>
+                        <div class="padding-0-30"><img src="assets/images/arrow-inout.svg" title="Travel-trip"></div>
+                    </div>
+                </div>
+                <div class="col s5 padding-zero">
+                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{extensionItem.travelTo}}</h5>
+                    <div class="input-field">
+                        <label for="time" class="active">Arrival</label>
+                        <ui-input [(ngModel)]="extensionItem.arrival" [meta]='extensionItemHub[0]' [readonly]='false' [controlCss]='' [errors]='true'
+                            [attrs]='[{ "name": "", "value": "today:mm/dd/yyyy" }]' [showSpan]='false'>
+                        </ui-input>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-zero">
+                <div class="input-field col s12 padding-zero">
+                    <input [(ngModel)]="extensionItem.comments" id="comments" type="text" class="validate">
+                    <label for="comments" class="active">Comments</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close btn" (click)="SubmitTravelExtension($event)">Submit</a>
+    </div>
+</div>-->
+<div *ngIf="isCloseTravel" (click)="CloseTravelExtension()" class="lean-overlay" id="materialize-lean-overlay-2"
+    style="z-index: 1002; display: block; opacity: 0.5;"></div>
+
+<div *ngIf='isCloseTravel' class="modal modal-custom modal-confirm-full" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
+    <div class="modal-content">
+        <h5 class="margin-zero">Please Confirm</h5>
+        <p>Are you sure, you want close your travel request ?</p>
+    </div>
+    <div class="modal-footer">
+        <a class=" modal-action modal-close waves-effect waves-green btn cancel" (click)="CloseTravelExtension()">Cancel</a>
+        <a class=" modal-action modal-close waves-effect waves-green btn submit" (click)="CloseTravelRequest()">OK</a>
+    </div>
+</div>

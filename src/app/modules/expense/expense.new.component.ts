@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CacheService } from '../../servicesFolder/CacheService';
 import * as Materialize from "angular2-materialize";
 import { Subscription } from 'rxjs';
+import { MaterializeDirective } from "angular2-materialize";
 
 @Component({
     selector: 'expense-new',
@@ -54,6 +55,8 @@ export class ExpenseNewComponent implements OnInit {
     isConformationModal: boolean = false;
 
     globalvalidate: boolean = false;
+    dateFormat: any = '';
+    expenseCategoryCollection: any;
 
     constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private activatedRoute: ActivatedRoute, private _cacheService: CacheService) {
         this.Component_Initialization();
@@ -97,6 +100,11 @@ export class ExpenseNewComponent implements OnInit {
         // this.setReportingManager(this.expenseModel);
 
         this.location = this._cacheService.getParams('profile').ol;
+
+        let date = new Date();
+        this.dateFormat = [{ "format": "mm/dd/yyyy", "today": "", "selectYears": 30, "max": date }];
+
+        this.expenseCategoryCollection = this._cacheService.getParams('expenseDropdowns')["expenseCategory"];
     }
 
     SaveExpense(expenseDetail: ExpenseDetails[], expenseForm) {
@@ -250,7 +258,7 @@ export class ExpenseNewComponent implements OnInit {
 
     ngOnInit() {
 
-        let rdata = this.activatedRoute.root;
+        let rdata: any;
 
         this.activatedRoute.params.subscribe(
             (param: any) => {

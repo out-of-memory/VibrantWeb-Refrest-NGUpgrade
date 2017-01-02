@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, ContentChild, ContentChildren, ViewContainerRef,  TemplateRef, QueryList} from '@angular/core';
+import { Component, OnInit, Input, ContentChild, ContentChildren, ViewContainerRef, TemplateRef, QueryList } from '@angular/core';
 
-import {UiFormMessage} from '../../infrastructure/components/UiFormMessage';
-import {ControlMeta} from '../../infrastructure/models/ControlMeta';
+import { UiFormMessage } from '../../infrastructure/components/UiFormMessage';
+import { ControlMeta } from '../../infrastructure/models/ControlMeta';
 
-import { FormBuilder, Validators, FormGroup, AbstractControl} from '@angular/forms';
-import {ControlValidator} from "../Validators/ControlValidator"
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { ControlValidator } from "../Validators/ControlValidator"
 //import {UiFormControl} from "./app/infrastructure/components/ui.form.control"
 
 
@@ -23,6 +23,7 @@ export class UiFormControl {
     @Input() onChange: any;
     @Input() visible: boolean = true;
     @Input() readonlyValue: any;
+    @Input() requiredValue: any;
     @ContentChild(TemplateRef)
     template: TemplateRef<any>
 
@@ -60,7 +61,7 @@ export class UiFormControl {
         </form>
     </div>                          
                             `
-   
+
 
 })
 export class UiForm implements OnInit {
@@ -87,6 +88,7 @@ export class UiForm implements OnInit {
     mainForm: FormGroup;
     modelTypeObject: boolean = true;
     private orientationArray: Array<Array<ControlMeta>>;
+    bookingArray: Array<any> = [{ 'id': '1', text: 'WorldSpin Holidays' }, { 'id': '2', text: 'Booking 1' }, { 'id': '3', text: 'Other Agency' }];
     constructor(private fb: FormBuilder, private viewContainerRef: ViewContainerRef) {
         this.orientationArray = new Array<Array<ControlMeta>>();
     }
@@ -105,15 +107,15 @@ export class UiForm implements OnInit {
         this.registerEvents();
         // this.registerVisibility();
     }
-   
+
     ngOnChanges(changes) {
         if (this.itemTemplateList) {
             this.registerVisibility();
-           // console.log(this.controlMetas);
+            // console.log(this.controlMetas);
         }
     }
-    
-    resetUIForm(){
+
+    resetUIForm() {
         this.ngAfterContentInit();
     }
 
@@ -204,6 +206,9 @@ export class UiForm implements OnInit {
                                         case "readonlyValue":
                                             meta = this.processReadonlyValues(element.readonlyValue, meta, data);
                                             break;
+                                        case "requiredValue":
+                                            meta = this.processMandatory(element.requiredValue, meta, data);
+                                            break;
                                     }
 
                                 }
@@ -217,12 +222,26 @@ export class UiForm implements OnInit {
 
     }
 
+    processMandatory(attrs, meta, data): any {
+
+
+        let thisModel = this;
+
+        if (Number(thisModel.model.bookingFrom) != 3)
+            thisModel.model.agencyName = this.bookingArray.find(x => x.id == thisModel.model.bookingFrom).text;
+        else
+            thisModel.model.agencyName = "";
+
+        return meta;
+
+    }
+
     private processReadonlyValues(attrs, meta, data): any {
         var attrArr = JSON.parse(attrs);
         for (var i = 0; i < attrArr.length; i++) {
             meta.show = true;
             if (attrArr[i].toString() == data) {
-               // console.log("it actually happened")
+                // console.log("it actually happened")
                 meta.show = false;
                 meta.validation = undefined;
                 break;
@@ -275,7 +294,7 @@ export class UiForm implements OnInit {
     }
 
     doLogin(event) {
-      //  console.log(this.mainForm);
+        //  console.log(this.mainForm);
         event.preventDefault();
     }
 
