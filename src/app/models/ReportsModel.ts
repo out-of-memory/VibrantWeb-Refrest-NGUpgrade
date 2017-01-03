@@ -26,31 +26,31 @@ export class EmployeeDetailsReportModel implements IUIMetadata {
     }
     @UIProperty({
         hub: "EmployeeDetailsReportModel", type: "selectMaterialize-custom", options: "empStatus", label: "Employment Status", placeholder: "", validation: "  ", multiple: true,
-        defaultselect: 'All', css: "col s12 m6 l4"
+        defaultselect: 'All', css: "col s12 m6 l2"
     })
     EmploymentStatus: string = null;
 
     @UIProperty({
         hub: "EmployeeDetailsReportModel", type: "selectMaterialize", options: [{ id: '0', text: 'Inactive' }, { id: '1', text: 'Active' }], label: "Employee Status",
-        placeholder: "", validation: "", multiple: false, css: "col s12 m6 l4"
+        placeholder: "", validation: "", multiple: false, css: "col s12 m6 l2"
     })
     EmployeeStatus: string = '1';
 
 
     @UIProperty({
         hub: "EmployeeDetailsReportModel", type: "selectMaterialize-custom", options: "deliveryUnit", label: "Delivery Unit", placeholder: "", validation: "  ", multiple: true,
-        defaultselect: 'All', css: "col s12 m6 l4"
+        defaultselect: 'All', css: "col s12 m6 l2"
     })
     DeliveryUnit: string = null;
 
     @UIProperty({
         hub: "EmployeeDetailsReportModel", type: "selectMaterialize-custom", options: "deliveryTeam", label: "Delivery Team", placeholder: "", validation: "  ", multiple: true,
-        defaultselect: 'All', css: "col s12 m6 l4"
+        defaultselect: 'All', css: "col s12 m6 l2"
     })
     DeliveryTeam: string = null;
 
 
-    @UIProperty({ hub: "EmployeeDetailsReportModel", type: "text", label: "Employee Code", placeholder: "", validation: "c.empCodeForReport maxLength:4", css: "col s12 m6 l4" })
+    @UIProperty({ hub: "EmployeeDetailsReportModel", type: "text", label: "Employee Code", placeholder: "", validation: "c.empCodeForReport maxLength:4", css: "col s12 m6 l2" })
     EmployeeName: string = '';
 }
 
@@ -82,17 +82,17 @@ export class LeaveDetailsReportModel implements IUIMetadata {
     constructuor() {
         this.hub = new Array<any>();
     }
-    @UIProperty({ hub: "LeaveDetailsReportModel", type: "text", label: "UserID", placeholder: "", validation: " c.empCodeForReport maxLength:4 ", css: "col s12 m6 l4" })
+    @UIProperty({ hub: "LeaveDetailsReportModel", type: "text", label: "UserID", placeholder: "", validation: " c.empCodeForReport maxLength:4 ", css: "col s12 m6 l2" })
     UserID: string = '';
 
-    @UIProperty({ hub: "LeaveDetailsReportModel", type: "date", label: "Start Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
+    @UIProperty({ hub: "LeaveDetailsReportModel", type: "date", label: "Start Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
     StartDate: any = '';
 
-    @UIProperty({ hub: "LeaveDetailsReportModel", type: "date", label: "End Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
+    @UIProperty({ hub: "LeaveDetailsReportModel", type: "date", label: "End Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
     EndDate: any = '';
     @UIProperty({
         hub: "LeaveDetailsReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'Compansatory Off' }, { id: '1', text: 'Leave' }, { id: '2', text: 'Leave Wihtout Pay' }, { id: '3', text: 'Maternity Leave' }, { id: '4', text: 'Paternity Leave' }, { id: '5', text: 'Long Leave' }, { id: '6', text: 'Birthday Leave' }],
-        label: "Leave Type", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l4"
+        label: "Leave Type", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l2"
     })
 LeaveType: string = 'All';
 }
@@ -102,24 +102,24 @@ export class LeaveTransactionReportModel implements IUIMetadata {
     constructuor() {
         this.hub = new Array<any>();
     }
-    @UIProperty({ hub: "LeaveTransactionReportModel", type: "text", label: "Employee Code", placeholder: "", validation: " c.empCodeForReport maxLength:4 ", css: "col s12 m6 l4" })
+    @UIProperty({ hub: "LeaveTransactionReportModel", type: "text", label: "Employee Code", placeholder: "", validation: " c.empCodeForReport maxLength:4 ", css: "col s12 m6 l2" })
     UserID: string = '';
 
     @UIProperty({
         hub: "LeaveTransactionReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'India-Mumbai' }, { id: '1', text: 'U.S.A-Santa Clara' }, { id: '2', text: 'India-Bengaluru' }],
-        label: "Location", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l4"
+        label: "Location", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l2"
     })
     Location: string = 'All';
 
  @UIProperty({
         hub: "LeaveTransactionReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'Compansatory Off' }, { id: '1', text: 'Leave' }, { id: '2', text: 'Leave Wihtout Pay' }, { id: '3', text: 'Maternity Leave' }, { id: '4', text: 'Paternity Leave' }, { id: '5', text: 'Long Leave' }, { id: '6', text: 'Birthday Leave' }],
-        label: "Leave Type", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l4"
+        label: "Leave Type", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l2"
     })
 LeaveType: string = 'All';
-  @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "Start Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
+  @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "Start Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
     StartDate: any = '';
 
-    @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "End Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
+    @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "End Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
     EndDate: any = '';
 
 }
@@ -131,7 +131,7 @@ export class HelpdeskReportModel implements IUIMetadata {
     }
     @UIProperty({
         hub: "HelpdeskReportModel", type: "selectMaterialize", options: "department", label: "Category", placeholder: "", validation: "  ",
-        multiple: false, css: "col s12 m6 l4"
+        multiple: false, css: "col s12 m6 l2"
     })
     category: string = '';
 

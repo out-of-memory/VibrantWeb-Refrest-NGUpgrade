@@ -4057,7 +4057,7 @@ nav .button-collapse{
 	display: block;
     overflow: auto;
     width: 100%;
-    max-height: 450px;
+    max-height: 420px;
 }
 }
 .rptlable{
@@ -4066,13 +4066,19 @@ nav .button-collapse{
     margin-bottom: 0;
     margin-top: 5px; 
     }
-.test canvas {
-    width: 50%;
-}
+
 .select-wrapper input.select-dropdown{
-    margin:0px !important;
+margin: 0px!important;
 }
-.comments-scrollable{
-  height:330px;
-  overflow-y:auto;
+.comments-scrollable {
+   height: 330px;
+   overflow-y: scroll;
+}
+ .table-container .generate-report-data table td{
+  padding: 15px 5px!important;
+}
+.generate-report-data{
+  height:auto;
+  overflow:auto; 
+  max-height:600px;
 }
