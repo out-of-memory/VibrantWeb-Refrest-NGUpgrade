@@ -64,16 +64,16 @@ export class LeaveSummaryReportModel implements IUIMetadata {
     UserID: string = '';
 
     @UIProperty({
-        hub: "LeaveSummaryReportModel", type: "selectMaterialize", options: [{ id: '0', text: 'India-Mumbai' }, { id: '1', text: 'U.S.A-Santa Clara' }, { id: '2', text: 'India-Bengaluru' }], label: "Location", validation: "",
-        placeholder: "", multiple: false, css: "col s12 m6 l4"
+        hub: "LeaveSummaryReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'India-Mumbai' }, { id: '1', text: 'U.S.A-Santa Clara' }, { id: '2', text: 'India-Bengaluru' }], label: "Location", validation: "",
+        placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l4"
     })
-    Location: string = null;
+    Location: string = 'All';
 
     @UIProperty({
-        hub: "LeaveSummaryReportModel", type: "selectMaterialize", options: "deliveryUnit", label: "Delivery Unit", placeholder: "", validation: "  ", multiple: false,
-        css: "col s12 m6 l4"
+        hub: "LeaveSummaryReportModel", type: "selectMaterialize-custom", options: "deliveryUnit", label: "Delivery Unit", placeholder: "", validation: "  ", multiple: false,
+         defaultselect: 'All', css: "col s12 m6 l4"
     })
-    DeliveryUnit: string = '';
+    DeliveryUnit: string = 'All';
 }
 
 @UIClass("LeaveDetailsReportModel", { fetch: {} })
@@ -90,7 +90,11 @@ export class LeaveDetailsReportModel implements IUIMetadata {
 
     @UIProperty({ hub: "LeaveDetailsReportModel", type: "date", label: "End Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
     EndDate: any = '';
-    LeaveType: string = "1";
+    @UIProperty({
+        hub: "LeaveDetailsReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'Compansatory Off' }, { id: '1', text: 'Leave' }, { id: '2', text: 'Leave Wihtout Pay' }, { id: '3', text: 'Maternity Leave' }, { id: '4', text: 'Paternity Leave' }, { id: '5', text: 'Long Leave' }, { id: '6', text: 'Birthday Leave' }],
+        label: "Leave Type", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l4"
+    })
+LeaveType: string = 'All';
 }
 @UIClass("LeaveTransactionReportModel", { fetch: {} })
 export class LeaveTransactionReportModel implements IUIMetadata {
@@ -98,20 +102,25 @@ export class LeaveTransactionReportModel implements IUIMetadata {
     constructuor() {
         this.hub = new Array<any>();
     }
-    @UIProperty({ hub: "LeaveTransactionReportModel", type: "text", label: "UserID", placeholder: "", validation: " c.empCodeForReport maxLength:4 ", css: "col s12 m6 l4" })
+    @UIProperty({ hub: "LeaveTransactionReportModel", type: "text", label: "Employee Code", placeholder: "", validation: " c.empCodeForReport maxLength:4 ", css: "col s12 m6 l4" })
     UserID: string = '';
 
     @UIProperty({
-        hub: "LeaveTransactionReportModel", type: "selectMaterialize", options: [{ id: '0', text: 'India-Mumbai' }, { id: '1', text: 'U.S.A-Santa Clara' }, { id: '2', text: 'India-Bengaluru' }],
-        label: "Location", validation: "  ", placeholder: "", multiple: false, css: "col s12 m6 l4"
+        hub: "LeaveTransactionReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'India-Mumbai' }, { id: '1', text: 'U.S.A-Santa Clara' }, { id: '2', text: 'India-Bengaluru' }],
+        label: "Location", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l4"
     })
-    Location: string = '';
+    Location: string = 'All';
 
  @UIProperty({
-        hub: "LeaveTransactionReportModel", type: "selectMaterialize", options: [{ id: '0', text: 'Compansatory Off' }, { id: '1', text: 'Leave' }, { id: '2', text: 'Leave Wihtout Pay' }, { id: '3', text: 'Maternity Leave' }, { id: '4', text: 'Paternity Leave' }, { id: '5', text: 'Long Leave' }, { id: '6', text: 'Birthday Leave' }],
-        label: "Leave Type", validation: "  ", placeholder: "", multiple: false, css: "col s12 m6 l4"
+        hub: "LeaveTransactionReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'Compansatory Off' }, { id: '1', text: 'Leave' }, { id: '2', text: 'Leave Wihtout Pay' }, { id: '3', text: 'Maternity Leave' }, { id: '4', text: 'Paternity Leave' }, { id: '5', text: 'Long Leave' }, { id: '6', text: 'Birthday Leave' }],
+        label: "Leave Type", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l4"
     })
-LeaveType: string = '';
+LeaveType: string = 'All';
+  @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "Start Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
+    StartDate: any = '';
+
+    @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "End Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
+    EndDate: any = '';
 
 }
 @UIClass("HelpdeskReportModel", { fetch: {} })
