@@ -164,8 +164,8 @@ export class AttendanceComponent {
   //Common method to set text of the buttons below the grid.
   SetMonthButtonsText() {
     this.selectedMonth = (this.date).getMonth();
-    this.nextMonthValue = this.months[this.selectedMonth + 1];
-    this.previousMonthValue = this.months[this.selectedMonth - 1];
+    this.nextMonthValue = this.selectedMonth == 11 ? this.months[0] : this.months[this.selectedMonth + 1];
+    this.previousMonthValue = this.selectedMonth == 0 ? this.months[11] : this.months[this.selectedMonth - 1];
     this.nextMonthEnabled = true;
     this.isPreviousMonthEnabled();
   }
@@ -202,7 +202,12 @@ export class AttendanceComponent {
       this.nextMonthEnabled = this.selectedMonth >= (this.date).getMonth() ? true : false;
     }
     else {
-      this.nextMonthEnabled = this.selectedMonth == 11 ? true : false;
+      if (this.selectedYear < currentYear) {
+        this.nextMonthEnabled = false;
+      }
+      else {
+        this.nextMonthEnabled = this.selectedMonth == 11 ? true : false;
+      }
     }
     this.previousMonthEnabled = this.selectedMonth == 0 ? true : false;
     this.isPreviousMonthEnabled();
@@ -217,6 +222,9 @@ export class AttendanceComponent {
   //Event hooked when year selection is changed
   onYearSelected(selectedValue: number) {
     this.selectedYear = +selectedValue;
+    if (this.selectedMonth < 9 && this.selectedYear == 2016) {
+      this.selectedMonth = 9
+    }
     this.PopulateMonthDropDown();
     if (this.showChart == false) {
       var currentYear = (this.date).getFullYear();
@@ -238,9 +246,28 @@ export class AttendanceComponent {
   }
 
   //Populate grid based on month button click
-  PopulateGridOnClick(buttonValue: any) {
-    this.selectedMonth = this.months.indexOf(buttonValue);
-    this.onMonthSelected(this.selectedMonth);
+  PopulateGridOnClick(buttonValue: any, type: any) {
+    var currentYear = (this.date).getFullYear();
+    if (buttonValue == "December") {
+      if (type == 'Previous') {
+        this.selectedYear = this.selectedYear - 1;
+      }
+      this.PopulateMonthDropDown();
+      this.selectedMonth = this.months.indexOf(buttonValue);
+      this.onMonthSelected(this.selectedMonth);
+    }
+    else if (buttonValue == "January") {
+      if (type == 'Next') {
+        this.selectedYear = this.selectedYear + 1;
+      }
+      this.PopulateMonthDropDown();
+      this.selectedMonth = this.months.indexOf(buttonValue);
+      this.onMonthSelected(this.selectedMonth);
+    }
+    else {
+      this.selectedMonth = this.months.indexOf(buttonValue);
+      this.onMonthSelected(this.selectedMonth);
+    }
   }
 
   //Calculate present and remaining based on data count.Bound to change once leave is integrated.Populate chart.

@@ -200,10 +200,10 @@
 				<div class="col s12">
 					<div class="left">
 						<a class="waves-effect waves-light prev-month btn" [class.disabled]="previousMonthEnabled==true" title="{{previousMonthValue}}"
-							(click)='PopulateGridOnClick(previousMonthValue)'><i class="fa fa-angle-double-left left" aria-hidden="true"></i> {{previousMonthValue}}</a>
+							(click)="PopulateGridOnClick(previousMonthValue,'Previous')"><i class="fa fa-angle-double-left left" aria-hidden="true"></i> {{previousMonthValue}}</a>
 					</div>
 					<div class="right">
-						<a class="waves-effect waves-light next-month btn" [class.disabled]="nextMonthEnabled==true" title="{{nextMonthValue}}" (click)='PopulateGridOnClick(nextMonthValue)'><i class="fa fa-angle-double-right right" aria-hidden="true"></i> {{nextMonthValue}}</a>
+						<a class="waves-effect waves-light next-month btn" [class.disabled]="nextMonthEnabled==true" title="{{nextMonthValue}}" (click)="PopulateGridOnClick(nextMonthValue,'Next')"><i class="fa fa-angle-double-right right" aria-hidden="true"></i> {{nextMonthValue}}</a>
 					</div>
 				</div>
 			</div>
@@ -222,10 +222,10 @@
 					<div class="col s12">
 						<div class="left">
 							<a class="waves-effect waves-light prev-month btn" [class.disabled]="previousMonthEnabled==true" title="{{previousMonthValue}}"
-								(click)='PopulateGridOnClick(previousMonthValue)'><i class="fa fa-angle-double-left left" aria-hidden="true"></i> {{previousMonthValue}}</a>
+								(click)="PopulateGridOnClick(previousMonthValue,'Previous')"><i class="fa fa-angle-double-left left" aria-hidden="true"></i> {{previousMonthValue}}</a>
 						</div>
 						<div class="right">
-							<a class="waves-effect waves-light next-month btn" [class.disabled]="nextMonthEnabled==true" title="{{nextMonthValue}}" (click)='PopulateGridOnClick(nextMonthValue)'><i class="fa fa-angle-double-right right" aria-hidden="true"></i> {{nextMonthValue}}</a>
+							<a class="waves-effect waves-light next-month btn" [class.disabled]="nextMonthEnabled==true" title="{{nextMonthValue}}" (click)="PopulateGridOnClick(nextMonthValue,'Next')"><i class="fa fa-angle-double-right right" aria-hidden="true"></i> {{nextMonthValue}}</a>
 						</div>
 					</div>
 				</div>

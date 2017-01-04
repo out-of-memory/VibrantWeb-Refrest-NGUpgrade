@@ -349,7 +349,7 @@ export class LeavesComponent {
     this.addUpdateLeave(url, item)
   }
 
-  //Get call to get attendence data for the month and year
+  //Get call to get leave data for the year
   GetLeaveDetails(year: number) {
     this.loaderModal = true;
     this.rowData = new Array<any>();
