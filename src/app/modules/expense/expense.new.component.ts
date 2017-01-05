@@ -207,6 +207,7 @@ export class ExpenseNewComponent implements OnInit {
             model.amount = String(model.amount).trim();
             model.comments = String(model.comments).trim();
             model.receiptNo = String(model.receiptNo).trim();
+            model.expenseCategoryId = element.expenseCategoryId[0];            
 
             if (element.receiptNo !== '' || element.expenseDate !== '' || Number(element.expenseCategoryId) > 0 || element.amount !== '' || element.comments !== '' || element.attachedFile != '') {
                 e.details.push(model);
@@ -469,6 +470,7 @@ export class ExpenseNewComponent implements OnInit {
             model.amount = String(model.amount).trim();
             model.comments = String(model.comments).trim();
             model.receiptNo = String(model.receiptNo).trim();
+            model.expenseCategoryId = element.expenseCategoryId[0];
             e.details.push(model);
         });
         this.loaderModal = true;

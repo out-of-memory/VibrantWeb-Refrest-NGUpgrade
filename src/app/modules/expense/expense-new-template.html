@@ -42,7 +42,7 @@
 								<template let-item='row'>
 									<!--<ui-input [(ngModel)]="item.amount" [ngModelOptions]="{standalone: true}" [meta]='detailHub[3]' [readonly]='false' (change)="amountChanged(expenseDetail,0)"
 											[errors]='true' [showSpan]='false'></ui-input>-->
-									<input type="text" [(ngModel)]="item.amount" placeholder="Amount" maxlength="5" class="validControl" />
+									<input type="text" [(ngModel)]="item.amount" placeholder="Amount" maxlength="5" class="validControl" (change)="amountChanged(expenseDetail,0)"/>
 								</template>
 							</basic-cell>
 							<basic-cell cell='' headerLabel=''>
