@@ -47,7 +47,7 @@ export class HelpDeskSubmitComponent {
     personId: string;
     todaysTime: string = "";
     assigneeCollection: Array<any>;
-    assignToVisible: boolean = false;
+   // assignToVisible: boolean = false;
 
     otherDepartmentAssigneeCollection: Array<any>;
     dropDownCollection: Array<any>;
@@ -141,19 +141,19 @@ export class HelpDeskSubmitComponent {
                 this.assigneeCollection = new Array<any>();
                 this.otherDepartmentAssigneeCollection = new Array<any>();
                 this.dropDownCollection = new Array<any>();
-                if ((data.assigness.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0) || (data.otherDepartmentAdmin.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0)) {
-                    this.assignToVisible = false;
-                }
-                else {
-                    this.assignToVisible = true;
-                }
+                // if ((data.assigness.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0) || (data.otherDepartmentAdmin.findIndex(x => x.id == this.helpDeskSubmitModel.assignedTo) >= 0)) {
+                //     this.assignToVisible = false;
+                // }
+                // else {
+                //     this.assignToVisible = true;
+                // }
 
-                this.assigneeCollection.push({ "id": this.personId, "text": "Select" });
+                this.assigneeCollection.push({ "id": 0, "text": "Select" });
                 data.assigness.forEach(element => {
                     this.assigneeCollection.push({ "id": element.id, "text": element.text });
                 });
 
-                this.otherDepartmentAssigneeCollection.push({ "id": this.personId, "text": "Select" });
+                this.otherDepartmentAssigneeCollection.push({ "id": 0, "text": "Select" });
                 data.otherDepartmentAdmin.forEach(element => {
                     this.otherDepartmentAssigneeCollection.push({ "id": element.id, "text": element.text });
                 });
