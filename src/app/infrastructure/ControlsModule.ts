@@ -19,9 +19,10 @@ import { pageHeading } from './components/pageHeading';
 import { EditConfirmation } from './components/editConfirmationMsg';
 import { Confirmation } from './components/ConfirmationMsg';
 import { UiCustomModal } from './components/UiCustomModal';
-import { BasicCellC, BasicGrid } from './components/basic-grid';
+import { BasicCellC, BasicGrid, BasicCellC1, BasicGrid1 } from './components/basic-grid';
 import * as Materialize from "angular2-materialize";
 import { MaterializeDirective } from "angular2-materialize";
+
 //import {NKDatetime} from "ng2-datetime/ng2-datetime";
 
 import { UpdateMaterializeParams, RestrictValueTo } from './directives/materialized.extension.directive';
@@ -29,7 +30,7 @@ import { UpdateMaterializeParams, RestrictValueTo } from './directives/materiali
 import { ModulePipe, RatingPipe, TicketStatusPipe, FileExtension, FileNamePipe, ApprovalStatus, ApprovalStatusTitle, CurrencyPipe, OptionTextPipe, LocationPipe, CurrencyCommaPipe, CurrencyNamePipe, CapitalizePipe, VisaType, ExitProcessManager, CountryName, TravelType, TripType, FlightClass, BookingFrom, Airlines, RoomType, RelationPipe } from './Pipes/Pipes';
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, ChartsModule],
-  declarations: [SearchBox, RatingPipe, Confirmation, Repeater, UiGirdForm, EditConfirmation, GridCard, pageHeading, UiInput, MaterializeDirective, UpdateMaterializeParams, RestrictValueTo, Card, OptionTextPipe, ModulePipe, TicketStatusPipe, ApprovalStatus, ApprovalStatusTitle, DoughnutChart, LineChart, LoaderComponent, UiFormControl, UiCustomModal, UiForm, BasicCellC, BasicGrid, LocationPipe, CurrencyCommaPipe, StatusStep, CurrencyNamePipe, CurrencyPipe, FileUpload, FileExtension, FileNamePipe, CapitalizePipe, VisaType, ExitProcessManager, CountryName, TravelType, TripType, FlightClass, BookingFrom, Airlines, RoomType, RelationPipe],
-  exports: [SearchBox, RatingPipe, Confirmation, Repeater, UiGirdForm, EditConfirmation, GridCard, pageHeading, UiInput, MaterializeDirective, ChartsModule, Card, CommonModule, FormsModule, ModulePipe, OptionTextPipe, TicketStatusPipe, ApprovalStatus, ApprovalStatusTitle, DoughnutChart, LineChart, UiFormControl, UiForm, UiCustomModal, BasicCellC, BasicGrid, LoaderComponent, LocationPipe, CurrencyCommaPipe, StatusStep, CurrencyNamePipe, CurrencyPipe, FileUpload, FileExtension, FileNamePipe, CapitalizePipe, VisaType, ExitProcessManager, CountryName, TravelType, TripType, FlightClass, BookingFrom, Airlines, RoomType, RelationPipe]
+  declarations: [SearchBox, RatingPipe, Confirmation, Repeater, UiGirdForm, EditConfirmation, GridCard, pageHeading, UiInput, MaterializeDirective, UpdateMaterializeParams, RestrictValueTo, Card, OptionTextPipe, ModulePipe, TicketStatusPipe, ApprovalStatus, ApprovalStatusTitle, DoughnutChart, LineChart, LoaderComponent, UiFormControl, UiCustomModal, UiForm, BasicCellC, BasicGrid, LocationPipe, CurrencyCommaPipe, StatusStep, CurrencyNamePipe, CurrencyPipe, FileUpload, FileExtension, FileNamePipe, CapitalizePipe, VisaType, ExitProcessManager, CountryName, TravelType, TripType, FlightClass, BookingFrom, Airlines, RoomType, RelationPipe, BasicCellC1, BasicGrid1],
+  exports: [SearchBox, RatingPipe, Confirmation, Repeater, UiGirdForm, EditConfirmation, GridCard, pageHeading, UiInput, MaterializeDirective, ChartsModule, Card, CommonModule, FormsModule, ModulePipe, OptionTextPipe, TicketStatusPipe, ApprovalStatus, ApprovalStatusTitle, DoughnutChart, LineChart, UiFormControl, UiForm, UiCustomModal, BasicCellC, BasicGrid, LoaderComponent, LocationPipe, CurrencyCommaPipe, StatusStep, CurrencyNamePipe, CurrencyPipe, FileUpload, FileExtension, FileNamePipe, CapitalizePipe, VisaType, ExitProcessManager, CountryName, TravelType, TripType, FlightClass, BookingFrom, Airlines, RoomType, RelationPipe, BasicCellC1, BasicGrid1]
 })
 export class ControlsModule { }

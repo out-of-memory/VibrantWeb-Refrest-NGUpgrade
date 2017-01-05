@@ -62,7 +62,7 @@ declare var $: any;
             <grid-card header="Contact Details" *ngIf='setCardVisibility(addressCard.id,cardsVisibilityArr)' [nonEditable]='true' 
             [isSentForApproval]="GetApprovalStatus(addressCard,approvalStatus)" [formReadonly]='addressCard.readOnlyFormState'>
                      <repeater [source]='addressCard.model' *ngIf='addressCard.readOnlyFormState'>
-                        <template let-item='item'>
+                        <template  #tmplRepeater let-item='item'>
                             <div class="saved-data">
                                 <div class="row m-bottom10">
                                     <div class="col s8">
@@ -124,7 +124,7 @@ declare var $: any;
              <grid-card header="Education Details" *ngIf='setCardVisibility(educationCard.id,cardsVisibilityArr)' [formReadonly]='educationCard.readOnlyFormState' [isSentForApproval]="GetApprovalStatus(educationCard,approvalStatus)" [nonEditable]='isViewOnly' 
              (addActivationChanged)="GridAddNew($event,educationCard)">
                      <repeater [source]='educationCard.model' *ngIf='educationCard.readOnlyFormState'>
-                        <template let-item='item'>
+                        <template #tmplRepeater let-item='item'>
                             <div class="saved-data">
                                 <div class="row m-bottom10">
                                     <div class="col s7">
@@ -225,7 +225,7 @@ declare var $: any;
             </card> 
              <grid-card header="Emergency Contact" *ngIf='setCardVisibility(emergencyCard.id,cardsVisibilityArr)' [formReadonly]='emergencyCard.readOnlyFormState' [nonEditable]='isViewOnly' [isSentForApproval]="GetApprovalStatus(emergencyCard,approvalStatus)" (addActivationChanged)="GridAddNew($event,emergencyCard)">
                     <repeater [source]='emergencyCard.model' *ngIf='emergencyCard.readOnlyFormState'>
-                    <template let-item='item'>
+                    <template  #tmplRepeater let-item='item'>
                     <div class="saved-data">
                         <div class="row">
                             <div class="col s7">
@@ -289,7 +289,7 @@ declare var $: any;
             </grid-card>
              <grid-card header="Certification Details" *ngIf='setCardVisibility(certificationCard.id,cardsVisibilityArr)' [formReadonly]='certificationCard.readOnlyFormState' [isSentForApproval]="GetApprovalStatus(certificationCard,approvalStatus)" [nonEditable]='isViewOnly' (addActivationChanged)="GridAddNew($event,certificationCard)">
                      <repeater [source]='certificationCard.model' *ngIf='certificationCard.readOnlyFormState'>
-                     <template let-item='item'>
+                     <template #tmplRepeater  let-item='item'>
                      <div class="saved-data">
                         <div class="row">
                             <div class="col s8">
@@ -347,7 +347,7 @@ declare var $: any;
              </grid-card>
               <grid-card header="Dependent Details" *ngIf='setCardVisibility(dependentCard.id,cardsVisibilityArr)' [formReadonly]='dependentCard.readOnlyFormState' [isSentForApproval]="GetApprovalStatus(dependentCard,approvalStatus)" [nonEditable]='isViewOnly' (addActivationChanged)="GridAddNew($event,dependentCard)">
                      <repeater [source]='dependentCard.model' *ngIf='dependentCard.readOnlyFormState'>
-                      <template let-item='item'>
+                      <template  #tmplRepeater let-item='item'>
                       <div class="saved-data">
                         <div class="row valign-wrapper">
                             <div class="col s7">
@@ -394,7 +394,7 @@ declare var $: any;
             </grid-card>
               <grid-card header="Visa Details" *ngIf='setCardVisibility(visaCard.id,cardsVisibilityArr)' [formReadonly]='visaCard.readOnlyFormState' [isSentForApproval]="GetApprovalStatus(visaCard,approvalStatus)" [nonEditable]='isViewOnly' (addActivationChanged)="GridAddNew($event,visaCard)">
                       <repeater [source]='visaCard.model' *ngIf='visaCard.readOnlyFormState'>
-                      <template let-item='item'>
+                      <template  #tmplRepeater let-item='item'>
                       <div class="saved-data">
                         <div class="row">
                             <div class="col s8">

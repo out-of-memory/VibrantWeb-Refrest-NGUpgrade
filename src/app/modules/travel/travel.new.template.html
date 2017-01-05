@@ -35,7 +35,7 @@
                                 <grid-card *ngIf="travelRequirementsModel.travelType != 1" header="Visa Details" [formReadonly]='true' [nonEditable]='false'
                                     (addActivationChanged)="GridAddNewVisa($event,visaModel)">
                                     <repeater [(source)]='visaDetails' *ngIf="!addVisaDetails">
-                                        <template let-item='item'>
+                                        <template #tmplRepeater let-item='item'>
                                             <div class="saved-data">
                                                 <div class="row">
                                                     <div class="col s8">
@@ -127,7 +127,7 @@
                                 </div>
                                 <grid-card header="Emergency Contact" [formReadonly]='true' [nonEditable]='false' (addActivationChanged)="GridAddNewContact($event,emergencyContactsModel)">
                                     <repeater [(source)]='emergencyContacts' *ngIf="!isAddEmergencyContacts">
-                                        <template let-item='item'>
+                                        <template #tmplRepeater let-item='item'>
                                             <div class="saved-data">
                                                 <div class="row">
                                                     <div class="col s7">

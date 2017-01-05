@@ -15,16 +15,47 @@
 						<basic-grid [(source)]='expenseDetail' gridPagination='' gridOptions='{"colWidths":[15,15,15,15,15,15],"widthType":"%","useScroll":false}'
 							[isHeaderVisible]=false>
 							<basic-cell cell='' headerLabel=''>
-								<template let-item='row'>
-									<!--<ui-input [(ngModel)]="item.receiptNo" [ngModelOptions]="{standalone: true}" [meta]='detailHub[0]' [readonly]='false' [errors]='true'
-											[showSpan]='false'></ui-input>-->
-									<input type="text" [(ngModel)]="item.receiptNo" placeholder="Receipt No" maxlength="50" class="validControl"/>
+								<template #bg let-item='row'>
+										<div class="row valign-wrapper margin-zero">
+											<div class="col s12 m4 l2">
+												<div class="input-field col s12">
+													<input type="text" [(ngModel)]="item.receiptNo" placeholder="Receipt No" maxlength="50" class="validControl"/>
+												</div>
+											</div>
+											<div class="col s12 m4 l2">
+												<div class="input-field col s12">
+													<input style='position:relative' placeholder="Expense Date" type='text' [(ngModel)]="item.expenseDate" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams class="validControl" />
+												</div>
+											</div>
+											<div class="col s12 m4 l2">
+												<div class="input-field custom-select col s12">
+													<select materialize="material_select" [materializeSelectOptions]="expenseCategoryCollection" [(ngModel)]="item.expenseCategoryId">
+														<option value="" disabled class="disabled" >Expense Category</option>
+                    									<option *ngFor="let option of expenseCategoryCollection" [value]="option.id">{{option.text}}</option>
+                									</select>
+												</div>
+											</div>
+											<div class="col s12 m4 l2">
+												<div class="input-field col s12">
+													<input type="text" [(ngModel)]="item.amount" placeholder="Amount" maxlength="5" class="validControl" (change)="amountChanged(expenseDetail,0)"/>
+												</div>
+											</div>
+											<div class="col s12 m4 l2">
+												<div class="input-field col s12">
+													<input type="text" [(ngModel)]="item.comments" placeholder="Comments" maxlength="50" class="validControl" />
+												</div>
+											</div>
+											<div class="col s12 m4 l2">
+												<div class="custom-input-field col s12">
+													<file-upload [PlaceHolder]='"Upload Receipts"' [ModuleType]='"expense"' (Uploaded)='FileUploaded($event,item)' [fileurl]="item.attachedFile"
+														(validateImage)="showImageModal($event)"></file-upload>
+												</div>
+											</div>                                                    
+										</div>
 								</template>
 							</basic-cell>
-							<basic-cell cell='' headerLabel=''>
+							<!--<basic-cell cell='' headerLabel=''>
 								<template let-item='row'>
-									<!--<ui-input [(ngModel)]="item.expenseDate" [ngModelOptions]="{standalone: true}" [meta]='detailHub[1]' [readonly]='false' [errors]='true'
-										[attrs]='[{ "name": "max", "value": "today:mm/dd/yyyy" }]' [showSpan]='false'></ui-input>-->
 									<input style='position:relative' placeholder="Expense Date" type='text' [(ngModel)]="item.expenseDate" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams class="validControl" />
 								</template>
 							</basic-cell>
@@ -32,23 +63,15 @@
 								<template let-item='row'>
 									<ui-input [(ngModel)]="item.expenseCategoryId" [ngModelOptions]="{standalone: true}" [meta]='detailHub[2]' [readonly]='false'
 										[errors]='true' [showSpan]='false'></ui-input>
-										<!--<select materialize="material_select" [materializeSelectOptions]="expenseCategoryCollection" [(ngModel)]="item.expenseCategoryId">
-                    						<option value="">Select Expense Category</option>
-											<option *ngFor="let option of expenseCategoryCollection" value="option.id">{{option.text}}</option>
-                						</select>-->
 								</template>
 							</basic-cell>
 							<basic-cell cell='' headerLabel=''>
 								<template let-item='row'>
-									<!--<ui-input [(ngModel)]="item.amount" [ngModelOptions]="{standalone: true}" [meta]='detailHub[3]' [readonly]='false' (change)="amountChanged(expenseDetail,0)"
-											[errors]='true' [showSpan]='false'></ui-input>-->
 									<input type="text" [(ngModel)]="item.amount" placeholder="Amount" maxlength="5" class="validControl" (change)="amountChanged(expenseDetail,0)"/>
 								</template>
 							</basic-cell>
 							<basic-cell cell='' headerLabel=''>
 								<template let-item='row'>
-									<!--<ui-input [(ngModel)]="item.comments" [ngModelOptions]="{standalone: true}" [meta]='detailHub[4]' [readonly]='false' [errors]='true'
-										[showSpan]='false'></ui-input>-->
 									<input type="text" [(ngModel)]="item.comments" placeholder="Comments" maxlength="50" class="validControl" />
 								</template>
 							</basic-cell>
@@ -57,7 +80,7 @@
 									<file-upload [PlaceHolder]='"Upload Receipts"' [ModuleType]='"expense"' (Uploaded)='FileUploaded($event,item)' [fileurl]="item.attachedFile"
 										(validateImage)="showImageModal($event)"></file-upload>
 								</template>
-							</basic-cell>
+							</basic-cell>-->
 						</basic-grid>
 					</div>
 					<div class="card-footer">

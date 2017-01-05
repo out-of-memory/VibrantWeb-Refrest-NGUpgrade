@@ -52,7 +52,7 @@ import * as Materialize from "angular2-materialize";
             <grid-card header="Skills" *ngIf='setCardVisibility(skillCard.id,cardsVisibilityArr)' [formReadonly]='skillCard.readOnlyFormState' [nonEditable]='isViewOnly'
              [isSentForApproval]="GetApprovalStatus(skillCard,approvalStatus)" (addActivationChanged)="GridAddNew($event,skillCard)">
                     <repeater [source]='skillCard.model' *ngIf='skillCard.readOnlyFormState'>
-                    <template let-item='item'>
+                    <template  #tmplRepeater  let-item='item'>
                      <div class="saved-data">
                         <div class="row valign-wrapper">
                             <div class="col s8 valign">
@@ -113,8 +113,8 @@ import * as Materialize from "angular2-materialize";
              <grid-card header="Experience Details" *ngIf='setCardVisibility(experienceCard.id,cardsVisibilityArr)' [formReadonly]='experienceCard.readOnlyFormState' [nonEditable]='isViewOnly'
               [isSentForApproval]="GetApprovalStatus(experienceCard,approvalStatus)"
               (addActivationChanged)="GridAddNew($event,experienceCard)" >
-                     <repeater [source]='experienceCard.model' *ngIf='experienceCard.readOnlyFormState'>
-                     <template let-item='item'>
+                     <repeater  [source]='experienceCard.model' *ngIf='experienceCard.readOnlyFormState'>
+                     <template #tmplRepeater let-item='item'>
                      <div class="saved-data">
                         <div class="row">
                             <div class="col s8">
@@ -160,7 +160,7 @@ import * as Materialize from "angular2-materialize";
              <grid-card header="Declaration" *ngIf='setCardVisibility(declarationCard.id,cardsVisibilityArr)' [formReadonly]='declarationCard.readOnlyFormState' [nonEditable]='isViewOnly'
              [isSentForApproval]="GetApprovalStatus(declarationCard,approvalStatus)" (addActivationChanged)="GridAddNew($event,declarationCard)">
                      <repeater [source]='declarationCard.model' *ngIf='declarationCard.readOnlyFormState'>
-                      <template let-item='item'>
+                      <template  #tmplRepeater  let-item='item'>
                       <div class="saved-data">
                             <div class="row">
                                 <div class="col s8">
