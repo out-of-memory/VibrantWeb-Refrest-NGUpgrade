@@ -25,7 +25,7 @@ import * as Materialize from "angular2-materialize";
 @Component({
     selector: 'compoff-approval',
     templateUrl: './compoff.approval.html',
-    providers: [EmployeeService]
+    providers:[EmployeeService]
 })
 
 export class CompOffApprovalComponent {
@@ -142,7 +142,7 @@ export class CompOffApprovalComponent {
 
     openHolidayList() {
         this.holidayCollection = new Array<any>();
-        var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/1" + "/" + (new Date()).getFullYear();
+        var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/1";
         this._httpService.get(url)
             .subscribe
             (

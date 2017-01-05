@@ -423,7 +423,7 @@ export class LeavesComponent {
 
   openHolidayList() {
     this.holidayCollection = new Array<any>();
-    var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" + this.data["ol"] + "/" + this.selectedYear;
+    var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" +  this.data["ol"];
     this._httpService.get(url)
       .subscribe
       (
@@ -504,7 +504,7 @@ export class LeavesComponent {
 
   IsBirthday() {
     this.holidayCollection = new Array<any>();
-    var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" + this.data["ol"] + "/" + (new Date()).getFullYear();
+    var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" + this.data["ol"];
     this._httpService.get(url)
       .subscribe
       (
