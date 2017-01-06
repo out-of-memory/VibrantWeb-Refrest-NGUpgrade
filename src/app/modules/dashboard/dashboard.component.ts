@@ -203,7 +203,7 @@ export class DashboardComponent implements OnInit {
 
     openHolidayList(ol) {
         this.holidayCollection = new Array<any>();
-        var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" + ol;
+        var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" + ol + "/" + (new Date()).getFullYear();
         this._httpService.get(url)
             .subscribe
             (
@@ -370,7 +370,7 @@ export class DashboardComponent implements OnInit {
         var birthday = new Date(date), today = new Date();
         birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
         if (birthday.getMonth() == 0) {
-          birthday = new Date((today.getFullYear()) + 1, birthday.getMonth(), birthday.getDate());
+            birthday = new Date((today.getFullYear()) + 1, birthday.getMonth(), birthday.getDate());
         }
         var beforBirthday = new Date(birthday.getFullYear(), birthday.getMonth(), birthday.getDate());
         beforBirthday.setDate(beforBirthday.getDate() - 30);

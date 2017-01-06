@@ -282,7 +282,7 @@
 </div>
 <div class="holiday-modal">
     <ui-custom-model [(edited)]='holiday' [modalHeader]="'Holiday List'" (onClose)='onHolidayClose($event)'>
-        <div class="row margin-zero holiday-list-options">
+        <div class="row margin-zero holiday-list-options" *ngIf="holidayCollection">
             <div class="col s6 m4" *ngFor="let item of holidayCollection">
                 <div class="modal-view-data">
                     <h6>{{item.holidayDate | date:'fullDate'}}</h6>
@@ -290,5 +290,8 @@
                 </div>
             </div>
         </div>
+        <div class="row margin-zero holiday-list-options" *ngIf="holidayCollection.length == 0">
+			Holiday List not provide by HR yet.
+		</div>
     </ui-custom-model>
 </div>
