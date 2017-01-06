@@ -23,7 +23,7 @@
                     <basic-grid [(source)]='travelsModel' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false }'
                         [isHeaderVisible]=false>
                         <basic-cell>
-                            <template let-item='row'>
+                            <template #bg let-item='row'>
                                 <div class="approvals-wrapper">
                                     <div class="row m-bottom0 valign-wrapper padding-15-0">
                                         <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Req ID</span>{{item.id}}</div>
