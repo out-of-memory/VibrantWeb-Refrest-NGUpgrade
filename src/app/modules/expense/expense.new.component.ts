@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CacheService } from '../../servicesFolder/CacheService';
 import * as Materialize from "angular2-materialize";
 import { Subscription } from 'rxjs';
+import { MaterializeDirective } from "angular2-materialize";
 
 @Component({
     selector: 'expense-new',
@@ -55,6 +56,9 @@ export class ExpenseNewComponent implements OnInit {
 
     globalvalidate: boolean = false;
 
+    dateFormat: any = '';
+    expenseCategoryCollection: any;
+
     constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private activatedRoute: ActivatedRoute, private _cacheService: CacheService) {
         this.Component_Initialization();
         this.FillDropdowns();
@@ -97,6 +101,11 @@ export class ExpenseNewComponent implements OnInit {
         // this.setReportingManager(this.expenseModel);
 
         this.location = this._cacheService.getParams('profile').ol;
+
+        let date = new Date();
+        this.dateFormat = [{ "format": "mm/dd/yyyy", "today": "", "selectYears": 30, "max": date }];
+
+        this.expenseCategoryCollection = this._cacheService.getParams('expenseDropdowns')["expenseCategory"];
     }
 
     SaveExpense(expenseDetail: ExpenseDetails[], expenseForm) {
@@ -198,6 +207,7 @@ export class ExpenseNewComponent implements OnInit {
             model.amount = String(model.amount).trim();
             model.comments = String(model.comments).trim();
             model.receiptNo = String(model.receiptNo).trim();
+            model.expenseCategoryId = element.expenseCategoryId[0];            
 
             if (element.receiptNo !== '' || element.expenseDate !== '' || Number(element.expenseCategoryId) > 0 || element.amount !== '' || element.comments !== '' || element.attachedFile != '') {
                 e.details.push(model);
@@ -250,7 +260,7 @@ export class ExpenseNewComponent implements OnInit {
 
     ngOnInit() {
 
-        let rdata = this.activatedRoute.root;
+        let rdata: any;
 
         this.activatedRoute.params.subscribe(
             (param: any) => {
@@ -460,6 +470,7 @@ export class ExpenseNewComponent implements OnInit {
             model.amount = String(model.amount).trim();
             model.comments = String(model.comments).trim();
             model.receiptNo = String(model.receiptNo).trim();
+            model.expenseCategoryId = element.expenseCategoryId[0];
             e.details.push(model);
         });
         this.loaderModal = true;

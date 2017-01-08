@@ -20,7 +20,7 @@
                     <basic-grid [(source)]='rowData' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false}'
                         [isHeaderVisible]=false>
                         <basic-cell>
-                            <template #bg let-item='row'>
+                            <template let-item='row'>
                                 <div class="approvals-wrapper">
                                     <div class="row m-bottom0">
                                         <div class="col s12 m10 offset-m1 l3">
@@ -62,18 +62,21 @@
                                             <span *ngIf="item.model.leaveType == 6">Birthday</span>
                                         </div>
                                         <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Leaves</span>{{item.model.leaves}}</div>
-                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Narration</span><span [innerHtml]="item.model.narration"></span></div>
-                                        <div class="col s12 m6 l3 align-bottom padding-zero">
-                                            <div class="row">
-                                                <div class="col s1 m1 l1"><i class="{{item.model.status|approvalstatus}}" aria-hidden="true" title="{{item.model.status|approvalstatusTitle}}"></i></div>
-                                                <div class="col s11 m5 l4">
-                                                    <div class="comment-status">{{item.model.status|approvalstatusTitle}}</div>
-                                                </div>
-                                                <!--<div class="col s11 m6 l7">
-                                                    <div class="comment-status" *ngIf="item.model.status == 2">{{item.model.statusComment}}</div>
-                                                </div>-->
-                                            </div>
+                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Narration</span>{{item.model.narration}}</div>
+                                        <div class="col s12 m12 l3 align-bottom padding-zero">
+                                            <ui-form #approvalForm [controlMetas]="statushub" [model]="item.statusModel" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
+                                                formCss='view-card' columOrientation='2' controlCss='view-form-info' inputLabelPosition='top'>
+                                                <ui-control-item for='statusComment' depends='["status:readonlyValue"]' readonlyValue="[2]">
+                                                </ui-control-item>
+                                            </ui-form>
 
+                                            <div class="row">
+                                                <div class="col s12 right-align padding-zero">
+                                                    <a (click)="Cancel(item,item.statusModel)" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
+                                                    <a (click)="SaveLeave($event,item,item.statusModel,approvalForm.mainForm)" class="waves-effect waves-light btn custom-btn save-as-draft"
+                                                        title="Save">Save</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

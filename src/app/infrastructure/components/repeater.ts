@@ -8,7 +8,7 @@ import { ViewContainerRef, ChangeDetectorRef} from '@angular/core'
         <div *ngIf='children'>
             <div *ngFor='let current of source'>
                 <template
-                    [ngTemplateOutlet]="children._results[0]"
+                    [ngTemplateOutlet]="children"
                     [ngOutletContext]="{ item: current }">
                 </template>
              </div>
@@ -16,8 +16,8 @@ import { ViewContainerRef, ChangeDetectorRef} from '@angular/core'
     `
 })
 export class Repeater {
-    @ContentChildren(TemplateRef)
-    children: QueryList<TemplateRef<any>>
+    @ContentChild('tmplRepeater')
+    children: TemplateRef<any>
 
     @Input()
     source: Array<any>;

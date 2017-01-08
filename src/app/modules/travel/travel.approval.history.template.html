@@ -1,0 +1,99 @@
+<div id="travel-history" class="col s12 tab-content padding-zero" style="display: block;">
+    <div class="row main-data-container">
+        <div class="col s12 padding-zero">
+            <div class="reimbursement-wrapper travel-data" *ngIf="travelsModel.length != 0">
+                <div class="row m-bottom0 header hide-on-med-and-down">
+                    <div class="col s12 m1 offset-m3">
+                        <h5 class="title">Req ID</h5>
+                    </div>
+                    <div class="col s12 m1">
+                        <h5 class="title">Travel Title</h5>
+                    </div>
+                    <div class="col s12 m3">
+                        <h5 class="title">Travel Details</h5>
+                    </div>
+                    <div class="col s12 m1">
+                        <h5 class="title">Client Name</h5>
+                    </div>
+                    <div class="col s12 m3">
+                        <h5 class="title">Status</h5>
+                    </div>
+                </div>
+                <div class="approvals">
+                    <basic-grid [(source)]='travelsModel' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false }'
+                        [isHeaderVisible]=false>
+                        <basic-cell>
+                            <template #bg let-item='row'>
+                                <div class="approvals-wrapper">
+                                    <div class="row m-bottom0 valign-wrapper">
+                                        <div class="col s12 m10 offset-m1 l3">
+                                            <div class="row m-bottom0 employee-data">
+                                                <div class="col s12 m4 center-align">
+                                                    <div class="employee-search-img">
+                                                        <a><img [src]="item.userProfile.imageURL" alt="" class="circle responsive-img"></a>
+                                                    </div>
+                                                    <div class="employee-id">
+                                                        <h5>{{item.userProfile.id}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col s12 m8 search-result-align">
+                                                    <div class="employee-name">
+                                                        <h5><a>{{item.userProfile.fullName}}</a></h5>
+                                                    </div>
+                                                    <div class="employee-profile">
+                                                        <h6>{{item.userProfile.designation}}</h6>
+                                                        <h6>{{item.userProfile.location}}</h6>
+                                                    </div>
+                                                    <div class="employee-contact-info">
+                                                        <h6><a class="email-id">{{item.userProfile.emailId}}</a></h6>
+                                                        <h6><a> t : +91 22 4153.0200 x000</a></h6>
+                                                        <h6><a>m : {{item.userProfile.mobileNumber}} </a></h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Req ID</span>{{item.id}}</div>
+                                        <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Travel Title</span>{{item.travelTitle}}</div>
+                                        <div class="col s12 m6 l3"><span class="expense-label hide-on-large-only">Travel Details</span>
+                                            <div class="valign-wrapper">
+                                                <div>{{item.travelFrom}}
+                                                    <div>{{item.departure}}</div>
+                                                </div>
+                                                <div>
+                                                    <div class="padding-0-30"><img src="assets/images/arrow-inout.svg" title="Travel-trip"></div>
+                                                </div>
+                                                <div>{{item.travelTo}}
+                                                    <div>{{item.arrival}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Client Name</span>{{item.clientInformation.clientName}}</div>
+                                        <div class="col s12 m12 l3"><span class="expense-label hide-on-large-only">Status</span>
+                                            <div class="row m-bottom0">
+                                                <div class="col s6">
+                                                    <status-step [(totalStep)]='item.totalStages' [(approvedTill)]='item.onStage' [(lastApprovedStatus)]='item.onStageStatus'
+                                                        [lastApprovedComment]="item.lastcomments"></status-step>
+                                                </div>
+                                                <div class="col s6">
+                                                    <div>
+                                                        <a class="expense-icon" routerLink="/approvalhistory/travel/view/{{item.id}}"><img src="assets/images/view-icon.svg" class="view-icon" title="View Request"></a>
+                                                        <!--<a class="expense-icon modal-trigger right"><img [src]="item.travelExtensionImageUrl" class="view-icon" title="Travel Extension"></a>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </basic-cell>
+                    </basic-grid>
+                </div>
+            </div>
+            <div *ngIf="travelsModel.length == 0">
+                <span>No History of Approval</span>
+            </div>
+        </div>
+    </div>
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

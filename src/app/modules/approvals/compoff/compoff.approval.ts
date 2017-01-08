@@ -43,6 +43,11 @@ export class CompOffApprovalComponent {
     holiday: boolean = false;
     holidayCollection: Array<any> = [];
 
+    loaderModal: boolean = false;
+    loaderModalMsg: boolean = false;
+    loaderModalText: any;
+    isConformationModal: boolean = false;
+
     constructor(private _employeeService: EmployeeService, private _httpService: HttpService, private _cacheService: CacheService) {
         this.profile = this._cacheService.getParams("profile");
         if (this.profile["ol"] == 2) {
@@ -58,16 +63,18 @@ export class CompOffApprovalComponent {
     GetEmployeeData() {
         this.rowData.length = 0;
         var url = HttpSettings.apiBaseUrl + 'v1/approval/compoffs';
+        this.loaderModal = true;
         this._httpService.get(url)
             .subscribe(
             data => {
+                this.loaderModal = false;
                 for (var i = 0; i < data.employeeLeaveViewModels.length; i++) {
                     var compoffModel = data.employeeLeaveViewModels[i];
                     this.rowData.push({ "model": compoffModel, "statusModel": { "status": compoffModel.status, "statusComment": compoffModel.statusComment }, cardSubmitted: false });
                 }
 
             },
-            error => alert(error)
+            error => { alert(error); this.loaderModal = false; }
             // () => console.log('Get request has Completed')
             );
 

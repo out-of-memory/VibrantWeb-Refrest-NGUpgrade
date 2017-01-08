@@ -1,13 +1,32 @@
-<div class="padding-20">
-    <div class="row attendance-data">
-        <div class="col s12  padding-zero">
-            <div class="table-container padding-zero table-scroll">
-                <div class="row m-bottom5">
-                    <div class="col s12 padding-zero" *ngIf="helpDeskTicketList">
-                        <div *ngIf="helpDeskTicketList.length > 0" class="reimbursement-wrapper approvals-data helpdesk-table-view">
-                            <basic-grid [(source)]='helpDeskTicketList' gridPagination='bottom' gridOptions='{"colWidths":[25,8,10,10,12,10,25],"widthType":"%","useScroll":true}'>
-                                <basic-cell cell='' headerLabel=''>
-                                    <template let-item='row'>
+<div id="emp-savedrequest" class="col s12 tab-content padding-zero" style="display: block;">
+<div class="row main-data-container">
+    <div class="col s12 padding-zero">
+        <div class="reimbursement-wrapper approvals-data" *ngIf="helpDeskTicketList.length > 0">
+            <div class="row m-bottom0 header hide-on-med-and-down">
+                <div class="col s12 m1 offset-m3">
+                    <h5 class="title">Ticket Id</h5>
+                </div>
+                <div class="col s12 m1">
+                    <h5 class="title">Issue Date</h5>
+                </div>
+                <div class="col s12 m3">
+                    <h5 class="title">Assigned To</h5>
+                </div>
+                <div class="col s12 m2">
+                    <h5 class="title">Description</h5>
+                </div>
+                <div class="col s12 m2">
+                    <h5 class="title">Type/Severity</h5>
+                </div>
+            </div>
+            <div class="approvals">
+                <basic-grid [(source)]='helpDeskTicketList' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false}'
+                    [isHeaderVisible]=false>
+                    <basic-cell>
+                        <template #bg let-item='row'>
+                            <div class="approvals-wrapper">
+                                <div class="row m-bottom0 valign-wrapper">
+                                    <div class="col s12 m10 offset-m1 l3">
                                         <div class="row m-bottom0 employee-data">
                                             <div class="col s12 m4 center-align padding-zero">
                                                 <div class="employee-search-img">
@@ -32,65 +51,50 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </template>
-                                </basic-cell>
-                                <basic-cell cell='' headerLabel='TicketId'>
-                                    <template let-item='row'>
-                                        {{item.number}}
-                                    </template>
-                                </basic-cell>
-                                <basic-cell cell='' headerLabel='Issue Date'>
-                                    <template let-item='row'>
-                                        {{item.issueDate}}
-                                    </template>
-                                </basic-cell>
-                                <basic-cell cell='' headerLabel='Assigned To'>
-                                    <template let-item='row'>
-                                        {{item.assignedToName}}
-                                    </template>
-                                </basic-cell>
-                                <basic-cell cell='' headerLabel='Description'>
-                                    <template let-item='row'>
-                                        <div class="details-data">{{item.description}}</div>
-                                    </template>
-                                </basic-cell>
-                                <basic-cell cell='' headerLabel='Type/Severity'>
-                                    <template let-item='row'>
-                                        {{item.type}}<span>-</span>{{item.severity}}
-                                    </template>
-                                </basic-cell>
-                                <basic-cell cell='' headerLabel=''>
-                                    <template let-item='row'>
-                                            <div class="custom-input-field input-field col s12">
-                                                <h6>Duration</h6>
-                                                <select placeholder="Duration" [(ngModel)]="item.duration" materialize="material_select">
+                                    </div>
+                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Ticket ID</span>
+                                        <div class="details-data">{{item.number}}</div>
+                                    </div>
+                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Assigned To</span>
+                                        <div class="details-data">{{item.assignedToName}}</div>
+                                    </div>
+                                    <div class="col s12 m6 l3"><span class="expense-label hide-on-large-only">Description</span>
+                                        <div class="details-data">
+                                            <div class="details-data">{{item.description}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Type/Severity</span>
+                                        <div class="details-data">{{item.type}}<span>-</span>{{item.severity}}</div>
+                                    </div>
+                                    <div class="custom-input-field input-field col s12">
+                                        <h6>Duration</h6>
+                                        <select placeholder="Duration" [(ngModel)]="item.duration" materialize="material_select">
                                                         <option value="30">30</option>
                                                         <option value="60">60</option>
                                                         <option value="90">90</option>
                                                         <option value="120">120</option>
                                                 </select>
-                                            </div>
-                                            <div class="custom-input-field input-field col s12">
-                                                <h6>Comments</h6>
-                                                <input type='text' name="comments" [(ngModel)]="item.comments" maxlength="900" />
-                                            </div>
-                                        <button class="btn custom-btn submit" type='button' (click)="approveLeave(item)" title="Approve" value='Approve'>Approve</button>
-                                        <button class="btn custom-btn cancel" (click)="rejectLeave(item)" title="Reject" type='button' value="Reject">Reject</button>
-                                    </template>
-                                </basic-cell>
-
-                            </basic-grid>
-                        </div>
-                    </div>
-                </div>
+                                    </div>
+                                    <div class="custom-input-field input-field col s12">
+                                        <h6>Comments</h6>
+                                        <input type='text' name="comments" [(ngModel)]="item.comments" maxlength="900" />
+                                    </div>
+                                    <button class="btn custom-btn submit" type='button' (click)="approveLeave(item)" title="Approve" value='Approve'>Approve</button>
+                                    <button class="btn custom-btn cancel" (click)="rejectLeave(item)" title="Reject" type='button' value="Reject">Reject</button>
+                                </div>
+                            </div>
+                        </template>
+                    </basic-cell>
+                </basic-grid>
             </div>
-            <div class="row" *ngIf="helpDeskTicketList.length == 0">
-                <div class="col s12 table-note">
-                    <span>No Request for Approvals.</span>
-                </div>
+        </div>
+        <div class="row" *ngIf="helpDeskTicketList.length == 0">
+            <div class="col s12 table-note">
+                <span>No help desk tickets available</span>
             </div>
         </div>
     </div>
+</div>
 </div>
 <loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
     [isConformationModal]="isConformationModal"></loader-component>

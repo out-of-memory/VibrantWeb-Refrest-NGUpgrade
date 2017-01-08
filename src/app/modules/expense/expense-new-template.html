@@ -1,155 +1,153 @@
 <div id="newrequest" class="col s12 padding-zero tab-content">
-	<div class="employee-form expense">
-		<ui-form #addExpenseForm [controlMetas]="expensehub" [model]="expenseModel" [formReadonly]='false' formCss='row margin-zero'
-			controlCss='custom-input-field input-field col s12' columnOrientation='4' inputLabelPosition='top' [errorOnlyOnSubmit]='formSubmitted'></ui-form>
-	</div>
-	<div class="expense-card-container">
-		<div class="row">
-			<div class="col s12 padding-zero">
-				<div class="custom-card white">
-					<form class="formValidate" id="formValidate" novalidate="novalidate" #frm='ngForm'>
-						<a href="#" class="add-expense" title="Add Expense" (click)="AddRow($event)">
-							<i class="fa fa-plus"></i>
-						</a>
-						<div class="scrollable-card-content">
-							<basic-grid [(source)]='expenseDetail' gridPagination='' gridOptions='{"colWidths":[15,15,15,15,15,15],"widthType":"%","useScroll":false}'
-								[isHeaderVisible]=false>
-								<basic-cell cell='' headerLabel=''>
-									<template let-item='row'>
-										<ui-input [(ngModel)]="item.receiptNo" [ngModelOptions]="{standalone: true}" [meta]='detailHub[0]' [readonly]='false' [errors]='true'
-											[showSpan]='false'></ui-input>
-									</template>
-								</basic-cell>
-								<basic-cell cell='' headerLabel=''>
-									<template let-item='row'>
-										<ui-input [(ngModel)]="item.expenseDate" [ngModelOptions]="{standalone: true}" [meta]='detailHub[1]' [readonly]='false' [errors]='true'
-											[attrs]='[{ "name": "max", "value": "today:mm/dd/yyyy" }]' [showSpan]='false'></ui-input>
-									</template>
-								</basic-cell>
-								<basic-cell cell='' headerLabel=''>
-									<template let-item='row'>
-										<ui-input [(ngModel)]="item.expenseCategoryId" [ngModelOptions]="{standalone: true}" [meta]='detailHub[2]' [readonly]='false'
-											[errors]='true' [showSpan]='false'></ui-input>
-									</template>
-								</basic-cell>
-								<basic-cell cell='' headerLabel=''>
-									<template let-item='row'>
-										<ui-input [(ngModel)]="item.amount" [ngModelOptions]="{standalone: true}" [meta]='detailHub[3]' [readonly]='false' (change)="amountChanged(expenseDetail,0)"
-											[errors]='true' [showSpan]='false'></ui-input>
-									</template>
-								</basic-cell>
-								<basic-cell cell='' headerLabel=''>
-									<template let-item='row'>
-										<ui-input [(ngModel)]="item.comments" [ngModelOptions]="{standalone: true}" [meta]='detailHub[4]' [readonly]='false' [errors]='true'
-											[showSpan]='false'></ui-input>
-									</template>
-								</basic-cell>
-								<basic-cell cell='' headerLabel=''>
-									<template let-item='row'>
-										<file-upload [PlaceHolder]='"Upload Receipts"' [ModuleType]='"expense"' (Uploaded)='FileUploaded($event,item)' [fileurl]="item.attachedFile"
-											(validateImage)="showImageModal($event)"></file-upload>
-									</template>
-								</basic-cell>
-							</basic-grid>
-						</div>
-						<div class="card-footer">
-							<div class="row valign-wrapper margin-zero">
-								<div class="col s12 m12 l6">
-									<div class="row m-top20">
-										<div class="custom-input-field col s12 m4 l3">
-											<h6>Total Expenses</h6>
-											<input placeholder="" id="total-expenses" type="text" class="validate" [value]="totalExpenses" disabled style="color: rgba(0, 0, 0, 0.87);"/>
-										</div>
-										<div class="custom-input-field col s12 m4 l3">
-											<h6>Advances</h6>
-											<input placeholder="" id="advances" type="text" [(ngModel)]="advance" name='advance' class="validate" (change)="amountChanged(expenseDetail,advance)" maxlength="5">
-											</div>
-											<div class="custom-input-field col s12 m4 l4">
-												<h6>Amount Reimbursed</h6>
-												<input placeholder="" id="amount-reimbursed" type="text" [value]="amountReimbursed" class="validate" disabled style="color: rgba(0, 0, 0, 0.87);">
-												</div>
-												<div class="col s12 m4 l4"></div>
-											</div>
-										</div>
-										<div class="col s12 m12 l6 right-align">
-											<a class="waves-effect waves-light btn custom-btn cancel" title="Reset" (click)="Cancel($event)">Reset</a>
-											<a class="waves-effect waves-light btn custom-btn save-as-draft" title="Save as Draft" (click)="SaveAsDraft(expenseModel,expenseDetail)">Save as Draft</a>
-											<i class="waves-effect waves-light btn custom-btn submit waves-input-wrapper" style="">
-												<input class="waves-button-input submit-btn-custom" (click)="SaveExpense(expenseDetail,addExpenseForm.mainForm)" type="submit" title="Submit" value="Submit" name="action">
-												</i>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="expense-modal">
-				<ui-custom-model [(edited)]='showModal' [modalHeader]="'Confirmation of Expenses'" (onClose)='onModalClose($event)'>
-					<div class="table-responsive table-container padding-zero">
-						<table class="striped responsive-table">
-							<thead *ngIf="errorCollection.length > 0">
-								<th>#Row No</th>
-								<th>Receipt No.</th>
-								<th>Expense Date</th>
-								<th>Expense Category</th>
-								<th>Expenses</th>
-								<th>Comments</th>
-							</thead>
-							<tbody *ngIf="errorCollection.length > 0">
-								<tr *ngFor="let option of errorCollection">
-									<td>{{option.rowNumber}}</td>
-									<td *ngFor="let d of option.detail">
-										<span aria-hidden="true" class="fa fa-{{currentCurrency|currency}} currency-symbol" *ngIf="d.isAmount"></span>
-										<!--{{d.isAmount}}-->
-										<span [ngClass]="{isRed: d.error}" *ngIf="d.isAmount">{{d.value|comma}}</span>
-										<span [ngClass]="{isRed: d.error}" *ngIf="d.isAmount==false">{{d.value}}</span>
-									</td>
-								</tr>
-							</tbody>
-							<tbody *ngIf="errorCollection.length == 0">
-								<tr>
-									<td>Enter expense details.</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div *ngIf="errorCollection.length > 0" class="row m-bottom0" style="border-top: 1px solid rgba(157, 158, 162, 0.6);padding: 7px 7px 7px 0px;font-weight:500;">
-						<div class="col s12 m4 l4 padding-zero">
-	Total Expenses: 
-							<span aria-hidden="true" class="fa fa-{{currentCurrency|currency}} currency-symbol"></span>{{totalExpenses|comma}}
+    <div class="employee-form expense">
+        <ui-form #addExpenseForm [controlMetas]="expensehub" [model]="expenseModel" [formReadonly]='false' formCss='row margin-zero' controlCss='custom-input-field input-field col s12' columnOrientation='4' inputLabelPosition='top' [errorOnlyOnSubmit]='formSubmitted'></ui-form>
+    </div>
+    <div class="expense-card-container">
+        <div class="row">
+            <div class="col s12 padding-zero">
+                <div class="custom-card white">
+                    <a href="#" class="add-expense" title="Add Expense" (click)="AddRow($event)">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <div class="scrollable-card-content">
+                        <basic-grid [(source)]='expenseDetail' gridPagination='' gridOptions='{"colWidths":[15,15,15,15,15,15],"widthType":"%","useScroll":false}' [isHeaderVisible]=false>
+                            <basic-cell cell='' headerLabel=''>
+                                <template #bg let-item='row'>
+                                    <div class="row valign-wrapper margin-zero">
+                                        <div class="col s12 m4 l2">
+                                            <div class="input-field col s12">
+                                                <input type="text" [(ngModel)]="item.receiptNo" placeholder="Receipt No" maxlength="50" class="validControl" />
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m4 l2">
+                                            <div class="input-field col s12">
+                                                <input style='position:relative' placeholder="Expense Date" type='text' [(ngModel)]="item.expenseDate" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams class="validControl" />
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m4 l2">
+                                            <div class="input-field custom-select col s12">
+                                                <select materialize="material_select" [materializeSelectOptions]="expenseCategoryCollection" [(ngModel)]="item.expenseCategoryId">
+                                                    <option value="" class="disabled">Expense Category</option>
+                                                    <option *ngFor="let option of expenseCategoryCollection" [value]="option.id">{{option.text}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m4 l2">
+                                            <div class="input-field col s12">
+                                                <input type="text" [(ngModel)]="item.amount" placeholder="Amount" maxlength="5" class="validControl" (change)="amountChanged(expenseDetail,0)" />
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m4 l2">
+                                            <div class="input-field col s12">
+                                                <input type="text" [(ngModel)]="item.comments" placeholder="Comments" maxlength="50" class="validControl" />
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m4 l2">
+                                            <div class="custom-input-field col s12">
+                                                <file-upload [PlaceHolder]='"Upload Receipts"' [ModuleType]='"expense"' (Uploaded)='FileUploaded($event,item)' [fileurl]="item.attachedFile" (validateImage)="showImageModal($event)"></file-upload>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </basic-cell>
+                        </basic-grid>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row valign-wrapper margin-zero">
+                            <div class="col s12 m12 l6">
+                                <div class="row m-top20">
+                                    <div class="custom-input-field col s12 m4 l3">
+                                        <h6>Total Expenses</h6>
+                                        <input placeholder="" id="total-expenses" type="text" class="validate" [value]="totalExpenses" disabled style="color: rgba(0, 0, 0, 0.87);" />
+                                    </div>
+                                    <div class="custom-input-field col s12 m4 l3">
+                                        <h6>Advances</h6>
+                                        <input placeholder="" id="advances" type="text" [(ngModel)]="advance" name='advance' class="validate" (change)="amountChanged(expenseDetail,advance)" maxlength="5">
+                                    </div>
+                                    <div class="custom-input-field col s12 m4 l4">
+                                        <h6>Amount Reimbursed</h6>
+                                        <input placeholder="" id="amount-reimbursed" type="text" [value]="amountReimbursed" class="validate" disabled style="color: rgba(0, 0, 0, 0.87);">
+                                    </div>
+                                    <div class="col s12 m4 l4"></div>
+                                </div>
+                            </div>
+                            <div class="col s12 m12 l6 right-align">
+                                <a class="waves-effect waves-light btn custom-btn cancel" title="Reset" (click)="Cancel($event)">Reset</a>
+                                <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Save as Draft" (click)="SaveAsDraft(expenseModel,expenseDetail)">Save as Draft</a>
+                                <i class="waves-effect waves-light btn custom-btn submit waves-input-wrapper">
+								<input class="waves-button-input submit-btn-custom" (click)="SaveExpense(expenseDetail,addExpenseForm.mainForm)" type="submit" title="Submit" value="Submit" name="action"></i>
+                            </div>
+                        </div>
+                    </div>
 
-						</div>
-						<div class="col s12 m4 l3 padding-zero">
-	Advances: 
-							<span aria-hidden="true" class="fa fa-{{currentCurrency|currency}} currency-symbol"></span>{{advance|comma}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="expense-modal">
+    <ui-custom-model [(edited)]='showModal' [modalHeader]="'Confirmation of Expenses'" (onClose)='onModalClose($event)'>
+        <div class="table-responsive table-container padding-zero">
+            <table class="striped responsive-table">
+                <thead *ngIf="errorCollection.length > 0">
+                    <th>#Row No</th>
+                    <th>Receipt No.</th>
+                    <th>Expense Date</th>
+                    <th>Expense Category</th>
+                    <th>Expenses</th>
+                    <th>Comments</th>
+                </thead>
+                <tbody *ngIf="errorCollection.length > 0">
+                    <tr *ngFor="let option of errorCollection">
+                        <td>{{option.rowNumber}}</td>
+                        <td *ngFor="let d of option.detail">
+                            <span aria-hidden="true" class="fa fa-{{currentCurrency|currency}} currency-symbol" *ngIf="d.isAmount"></span>
+                            <!--{{d.isAmount}}-->
+                            <span [ngClass]="{isRed: d.error}" *ngIf="d.isAmount">{{d.value|comma}}</span>
+                            <span [ngClass]="{isRed: d.error}" *ngIf="d.isAmount==false">{{d.value}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="errorCollection.length == 0">
+                    <tr>
+                        <td>Enter expense details.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="errorCollection.length > 0" class="row m-bottom0" style="border-top: 1px solid rgba(157, 158, 162, 0.6);padding: 7px 7px 7px 0px;font-weight:500;">
+            <div class="col s12 m4 l4 padding-zero">
+                Total Expenses:
+                <span aria-hidden="true" class="fa fa-{{currentCurrency|currency}} currency-symbol"></span>{{totalExpenses|comma}}
 
-						</div>
-						<div class="col s12 m4 l4 padding-zero">
-	Amount Reimbursed: 
-							<span aria-hidden="true" class="fa fa-{{currentCurrency|currency}} currency-symbol"></span>{{amountReimbursed|comma}}
+            </div>
+            <div class="col s12 m4 l3 padding-zero">
+                Advances:
+                <span aria-hidden="true" class="fa fa-{{currentCurrency|currency}} currency-symbol"></span>{{advance|comma}}
 
-						</div>
-					</div>
-					<div class="modal-footer right-align m-top20">
-						<input type="submit" title="Edit" value="Edit" class="modal-action modal-close waves-effect waves-green btn cancel" (click)="onModalClose($event)">
-							<span style="display:none">{{lastvalid}}</span>
-							<input type="button" title="Submit" class="modal-action modal-close waves-effect waves-green btn submit" (click)="Save(expenseModel)"	[disabled]='lastvalid' value="Submit" />
-						</div>
-					</ui-custom-model>
-				</div>
-				<!--<ui-custom-model [(edited)]='imageModal' [modalHeader]="'Image validation'" (onClose)='closeImageModal($event)'><span>Please select an image of jpeg, jpg or png file format.</span></ui-custom-model>-->
-				<div *ngIf='imageModal' class="modal modal-custom modal-confirm-full" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
-					<div class="modal-header">
-						<a class="right modal-close" (click)="closeImageModal()">
-							<i class="material-icons small">close</i>
-						</a>
-					</div>
-					<div class="modal-content">
-						<span>Please select an image of jpeg, jpg or png file format.</span>
-					</div>
-				</div>
-				<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
-	[isConformationModal]="isConformationModal"></loader-component>
+            </div>
+            <div class="col s12 m4 l4 padding-zero">
+                Amount Reimbursed:
+                <span aria-hidden="true" class="fa fa-{{currentCurrency|currency}} currency-symbol"></span>{{amountReimbursed|comma}}
+
+            </div>
+        </div>
+        <div class="modal-footer right-align m-top20">
+            <input type="submit" title="Edit" value="Edit" class="modal-action modal-close waves-effect waves-green btn cancel" (click)="onModalClose($event)">
+            <span style="display:none">{{lastvalid}}</span>
+            <input type="button" title="Submit" class="modal-action modal-close waves-effect waves-green btn submit" (click)="Save(expenseModel)" [disabled]='lastvalid' value="Submit" />
+        </div>
+    </ui-custom-model>
+</div>
+<!--<ui-custom-model [(edited)]='imageModal' [modalHeader]="'Image validation'" (onClose)='closeImageModal($event)'><span>Please select an image of jpeg, jpg or png file format.</span></ui-custom-model>-->
+<div *ngIf='imageModal' class="modal modal-custom modal-confirm-full" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
+    <div class="modal-header">
+        <a class="right modal-close" (click)="closeImageModal()">
+            <i class="material-icons small">close</i>
+        </a>
+    </div>
+    <div class="modal-content">
+        <span>Please select an image of jpeg, jpg or png file format.</span>
+    </div>
+</div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'" [isConformationModal]="isConformationModal"></loader-component>

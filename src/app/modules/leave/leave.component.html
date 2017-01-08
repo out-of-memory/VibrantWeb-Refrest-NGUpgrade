@@ -1,151 +1,154 @@
 <div class="attendance-wrapper p-top20" style="width: 100%;float: left;">
-	<div class="row attendance-data">
-		<div class="col s12 l6 m-bottom20">
-			<div class="row m-bottom0">
-				<div class="col s6 m4 padding-zero">
-					<div class="input-field margin-zero">
-						<select materialize="material_select" [materializeSelectOptions]="yearCollection" [(ngModel)]="selectedYear" (change)="onYearSelected($event.target.value)">
+<div class="row attendance-data">
+	<div class="col s12 l6 m-bottom20">
+		<div class="row m-bottom0">
+			<div class="col s6 m4 padding-zero">
+				<div class="input-field margin-zero">
+					<select materialize="material_select" [materializeSelectOptions]="yearCollection" [(ngModel)]="selectedYear" (change)="onYearSelected($event.target.value)">
 							<option *ngFor="let option of yearCollection" [value]="option.value">{{option.label}}</option>
 						</select>
-					</div>
 				</div>
-				<div class="col s6 m4 right right-align" *ngIf="!searchUser">
-					<button class="waves-effect waves-light btn-large holiday-btn" type='button' (click)="openHolidayList()">
+			</div>
+			<div class="col s6 m4 right right-align" *ngIf="!searchUser">
+				<button class="waves-effect waves-light btn-large holiday-btn" type='button' (click)="openHolidayList()">
 						<i class="left"><img src="/assets/images/holiday.png"></i>
 						<span class="hide-on-small-only">Holiday list</span>
 					</button>
-				</div>
-			</div>
-			<div class="row available-leaves m-bottom0">
-				<div class="col s12 center-align leave-data"  style="display: flex;justify-content: center;">
-					<doughnut-chart [data]="leaveChartData" [labels]="leaveChartlabels" [colors]="leaveChartColors"></doughnut-chart>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s12 valign center-align padding-zero">
-					<div class="attend-tab-record">
-						<ul class="tabs attendance-tabs" materialize="tabs">
-							<li class="tab">
-								<a href="#leaves-applied" class="applied-color">
-									<h5 class="margin-zero">{{leavesApplied}}</h5>
-									<h6>Leaves Applied</h6>
-									<div class="applied-border"></div>
-								</a>
-							</li>
-							<li class="tab">
-								<a href="#remaining-leaves" class="available-color">
-									<h5 class="margin-zero">{{remainingLeaves}}</h5>
-									<h6>Leaves Available</h6>
-									<div class="available-border"></div>
-								</a>
-							</li>
-							<li class="tab tds" *ngIf="compOffConsumed!=0">
-								<a href="#comp-off-number" class="comp-off-color">
-									<h5 class="margin-zero">{{compOffConsumed}}</h5>
-									<h6>Comp Off Consumed</h6>
-									<div class="comp-off-border"></div>
-								</a>
-							</li>
-							<li class="tab tds" *ngIf="CompOffAvailable!=0">
-								<a href="#comp-off-number" class="compoff-avail-color">
-									<h5 class="margin-zero">{{CompOffAvailable}}</h5>
-									<h6>Comp Off Available</h6>
-									<div class="compoff-avail-border"></div>
-								</a>
-							</li>
-							<li class="tab" *ngIf="leavesConsumed!=0">
-								<a href="#leaves-consumed" class="consumed-color">
-									<h5 class="margin-zero">{{leavesConsumed}}</h5>
-									<h6>Leaves Consumed</h6>
-									<div class="consumed-border"></div>
-								</a>
-							</li>
-							<li class="tab tds" *ngIf="LWP!=0">
-								<a href="#leave-without-pay" class="absent-color">
-									<h5 class="margin-zero">{{LWP}}</h5>
-									<h6>Leave Without Pay (LWP)</h6>
-									<div class="absent-border"></div>
-								</a>
-							</li>
-							<div class="indicator" style="right: 480px; left: 0px;"></div>
-							<div class="indicator" style="right: 480px; left: 0px;"></div>
-						</ul>
-						<div id="total-leaves" class="attend-description hide-on-small-only" style="display: none;">
-							<p class="left-align">Total of all the leave types seen on the right.</p>
-						</div>
-						<div id="leaves-consumed" class="attend-description hide-on-small-only" style="display: none;">
-							<p class="left-align">Total number leaves consumed in this year.</p>
-						</div>
-						<div id="leaves-applied" class="attend-description hide-on-small-only">
-							<p class="left-align">Total number of leaves applied in the system.</p>
-						</div>
-						<div id="remaining-leaves" class="attend-description hide-on-small-only" style="display: none;">
-							<p class="left-align">Total number of leaves available in the system.</p>
-						</div>
-						<div id="comp-off-number" class="attend-description hide-on-small-only" style="display: none;">
-							<p class="left-align">Total number of Comp Off available to you till date.</p>
-						</div>
-						<div id="leave-without-pay" class="attend-description hide-on-small-only" style="display: none;">
-							<p class="left-align">Total number of applied LWP(Leave Without Pay) till date.</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
-		<div class="col s12 l6 padding-zero">
-			<div class="row" *ngIf="!searchUser">
-				<div class="col s12">
-					<div class="apply-for-leave-container">
-						<div class="header">
-							<h4>{{leaveStatus}}</h4>
-							<a class="right" *ngIf="IsBirthdayApply" (click)="applyBirthdayLeave();IsBirthdayApply=false"><span class="hide-on-small-only bday-msg">Birthday Leave </span><i class="fa fa-birthday-cake fa-2x bday-cake" aria-hidden="true" title="Birthday Leave"></i></a>
-						</div>
-						<form>
-							<div>
-								<ui-form #addUpdateForm [controlMetas]="leaveModelHub" [model]="addEditLeaveModel" [formReadonly]='false' [errorOnlyOnSubmit]='formSubmitted'
-									formCss='' controlCss='' columnOrientation='3'>
-
-									<ui-control-item for='fromDate' behaviours='[ {"name":"disable","value":[1,7]},{"name":"max","value":"{{addEditLeaveModel.toDate}}:mm/dd/yyyy:1"},
-                                        {"name":"min","value":"18/10/2016"}]' depends='["toDate:changeattrs"]' changeattrs='["max"]'>
-									</ui-control-item>
-
-									<ui-control-item for='toDate' behaviours='[ {"name":"disable","value":[1,7]},{"name":"min","value":"{{addEditLeaveModel.fromDate}}:mm/dd/yyyy"},{"name":"max","value":"today:mm/dd/yyyy:1"}]'
-										depends='["fromDate:changeattrs","leaveType:readonlyValue"]' changeattrs='["min"]' readonlyValue="[3,4]">
-									</ui-control-item>
-
-								</ui-form>
-							</div>
-							<div class="row m-bottom0">
-								<div class="col s12 m6 leave-action table-note left-align">
-									<h6>To apply Long Leave/Paternity Leave contact HR.</h6>
-								</div>
-								<div class="col s12 m6 leave-action right-align">
-									<a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='addUpdateLeaves(addUpdateForm)'>Submit</a>
-									<a class="waves-effect waves-light btn custom-btn reset" title="Cancel" (click)='resetLeavesForm(addUpdateForm)'>Cancel</a>
-								</div>
-							</div>
-						</form>
-					</div>
+		<div class="row available-leaves m-bottom0">
+			<div class="col s12 center-align leave-data" style="display: flex;justify-content: center;">
+<doughnut-chart [data]="leaveChartData" [labels]="leaveChartlabels" [colors]="leaveChartColors"></doughnut-chart>
+</div>
+</div>
+<div class="row">
+	<div class="col s12 valign center-align padding-zero">
+		<div class="attend-tab-record">
+			<ul class="tabs attendance-tabs" materialize="tabs">
+				<li class="tab">
+					<a href="#leaves-applied" class="applied-color">
+						<h5 class="margin-zero">{{leavesApplied}}</h5>
+						<h6>Leaves Applied</h6>
+						<div class="applied-border"></div>
+					</a>
+				</li>
+				<li class="tab">
+					<a href="#remaining-leaves" class="available-color">
+						<h5 class="margin-zero">{{remainingLeaves}}</h5>
+						<h6>Leaves Available</h6>
+						<div class="available-border"></div>
+					</a>
+				</li>
+				<li class="tab tds" *ngIf="compOffConsumed!=0">
+					<a href="#comp-off-number" class="comp-off-color">
+						<h5 class="margin-zero">{{compOffConsumed}}</h5>
+						<h6>Comp Off Consumed</h6>
+						<div class="comp-off-border"></div>
+					</a>
+				</li>
+				<li class="tab tds" *ngIf="CompOffAvailable!=0">
+					<a href="#comp-off-number" class="compoff-avail-color">
+						<h5 class="margin-zero">{{CompOffAvailable}}</h5>
+						<h6>Comp Off Available</h6>
+						<div class="compoff-avail-border"></div>
+					</a>
+				</li>
+				<li class="tab" *ngIf="leavesConsumed!=0">
+					<a href="#leaves-consumed" class="consumed-color">
+						<h5 class="margin-zero">{{leavesConsumed}}</h5>
+						<h6>Leaves Consumed</h6>
+						<div class="consumed-border"></div>
+					</a>
+				</li>
+				<li class="tab tds" *ngIf="LWP!=0">
+					<a href="#leave-without-pay" class="absent-color">
+						<h5 class="margin-zero">{{LWP}}</h5>
+						<h6>Leave Without Pay (LWP)</h6>
+						<div class="absent-border"></div>
+					</a>
+				</li>
+				<div class="indicator" style="right: 480px; left: 0px;"></div>
+<div class="indicator" style="right: 480px; left: 0px;"></div>
+</ul>
+<div id="total-leaves" class="attend-description hide-on-small-only" style="display: none;">
+<p class="left-align">Total of all the leave types seen on the right.</p>
+</div>
+<div id="leaves-consumed" class="attend-description hide-on-small-only" style="display: none;">
+<p class="left-align">Total number leaves consumed in this year.</p>
+</div>
+<div id="leaves-applied" class="attend-description hide-on-small-only">
+	<p class="left-align">Total number of leaves applied in the system.</p>
+</div>
+<div id="remaining-leaves" class="attend-description hide-on-small-only" style="display: none;">
+<p class="left-align">Total number of leaves available in the system.</p>
+</div>
+<div id="comp-off-number" class="attend-description hide-on-small-only" style="display: none;">
+<p class="left-align">Total number of Comp Off available to you till date.</p>
+</div>
+<div id="leave-without-pay" class="attend-description hide-on-small-only" style="display: none;">
+<p class="left-align">Total number of applied LWP(Leave Without Pay) till date.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col s12 l6 padding-zero">
+	<div class="row" *ngIf="!searchUser">
+		<div class="col s12">
+			<div class="apply-for-leave-container">
+				<div class="header">
+					<h4>{{leaveStatus}}</h4>
+					<a class="right" *ngIf="IsBirthdayApply" (click)="applyBirthdayLeave();IsBirthdayApply=false"><span class="hide-on-small-only bday-msg">Birthday Leave </span><i class="fa fa-birthday-cake fa-2x bday-cake" aria-hidden="true" title="Birthday Leave"></i></a>
 				</div>
-			</div>
+				<form>
+					<div>
+						<ui-form #addUpdateForm [controlMetas]="leaveModelHub" [model]="addEditLeaveModel" [formReadonly]='false' [errorOnlyOnSubmit]='formSubmitted'
+							formCss='' controlCss='' columnOrientation='3'>
 
-			<div class="table-container padding-zero table-scroll">
-				<div class="row m-bottom5">
-					<div class="col s12" *ngIf="rowData">
-						<div *ngIf="rowData.length > 0" class="leave-table">
-							<basic-grid [(source)]='rowData' gridPagination='bottom' gridOptions='{"colWidths":[30,10,10,30,20],"widthType":"%","useScroll":true}'>
-								<basic-cell cell='date' headerLabel='From > To'>
-									<template let-item='row'>
-										{{item.fromDate}} <span><img class="arrow-right-img" src="assets/images/arrow-right.png"/></span>{{item.toDate}}
-									</template>
-								</basic-cell>
-								<basic-cell cell='leaves' headerLabel='Leaves'>
-									<template let-item='row'>
-										{{item.leaves}}
-									</template>
-								</basic-cell>
-								<basic-cell cell='leaveType' headerLabel='Type'>
-									<template let-item='row'>
+							<ui-control-item for='fromDate' behaviours='[ {"name":"disable","value":[1,7]},{"name":"max","value":"{{addEditLeaveModel.toDate}}:mm/dd/yyyy:1"},
+                                        {"name":"min","value":"18/10/2016"}]' depends='["toDate:changeattrs"]' changeattrs='["max"]'>
+							</ui-control-item>
+
+							<ui-control-item for='toDate' behaviours='[ {"name":"disable","value":[1,7]},{"name":"min","value":"{{addEditLeaveModel.fromDate}}:mm/dd/yyyy"},{"name":"max","value":"today:mm/dd/yyyy:1"}]'
+								depends='["fromDate:changeattrs","leaveType:readonlyValue"]' changeattrs='["min"]' readonlyValue="[3,4]">
+							</ui-control-item>
+
+						</ui-form>
+					</div>
+					<div class="row m-bottom0">
+						<div class="col s12 m6 leave-action table-note left-align">
+							<h6>To apply Long Leave/Paternity Leave contact HR.</h6>
+						</div>
+						<div class="col s12 m6 leave-action right-align">
+							<a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='addUpdateLeaves(addUpdateForm)'>Submit</a>
+							<a class="waves-effect waves-light btn custom-btn reset" title="Cancel" (click)='resetLeavesForm(addUpdateForm)'>Cancel</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="rowData.length > 0" class="">
+		<div class="table-container padding-zero">
+			<div class="row m-bottom5">
+				<div class="col s12 padding-zero">
+					<div class="table-responsive">
+						<table class="striped responsive-table scroll">
+							<thead class="thead-custom-style approvals-card">
+								<tr>
+									<th class="col-width-20" data-field="date">From > To</th>
+									<th class="col-width-20" data-field="transaction-details">Leaves</th>
+									<th class="col-width-20" data-field="amount">Type</th>
+									<th class="col-width-20" data-field="comments">Narration</th>
+									<th class="col-width-20" data-field="comments">Status</th>
+								</tr>
+							</thead>
+							<tbody class="approvals-tbody">
+								<tr *ngFor="let item of rowData">
+									<td class="col-width-20">{{item.fromDate}} <span><img class="arrow-right-img" src="assets/images/arrow-right.png"/></span>{{item.toDate}}</td>
+									<td class="col-width-20">{{item.leaves}}</td>
+									<td class="col-width-20">
 										<span *ngIf="item.leaveType == 0">
                                              Comp Off
                                         </span>
@@ -167,15 +170,11 @@
 										<span *ngIf="item.leaveType == 6">
                                               Birthday
                                         </span>
-									</template>
-								</basic-cell>
-								<basic-cell cell='narration' headerLabel='Narration'>
-									<template let-item='row'>
+									</td>
+									<td class="col-width-20">
 										<div class="break-word"><span [innerHtml]="item.narration"></span></div>
-									</template>
-								</basic-cell>
-								<basic-cell cell='status' headerLabel='Status'>
-									<template let-item='row'>
+									</td>
+									<td class="col-width-20">
 										<span *ngIf="item.status == '1'">
                                                <i class="fa fa-clock-o status-pending" aria-hidden="true" title="Pending"></i>
                                         </span>
@@ -194,26 +193,26 @@
 										<span class="right-align" *ngIf="isEdit(item.status, item.fromDate, item.leaveType) && !searchUser && item.leaveType != 6">
                                             <button class="edit-icon" title="Edit" type='button' value="Edit" (click)="editLeaveRequest(item)"><i class="fa fa-pencil"></i></button>
                                         </span>
-									</template>
-								</basic-cell>
-
-							</basic-grid>
-						</div>
+									</td>
+								</tr>
+						</table>
 					</div>
-				</div>
-			</div>
-			<div class="row" *ngIf="rowData.length > 0 && !searchUser">
-				<div class="col s12 table-note">
-					<span><i class="pending-msg fa fa-pencil"></i>Only future date pending entries will be editable.</span>
-				</div>
-			</div>
-			<div class="row" *ngIf="rowData.length == 0">
-				<div class="col s12 table-note">
-					<span>No data available for this year</span>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="row" *ngIf="rowData.length > 0 && !searchUser">
+		<div class="col s12 table-note">
+			<span><i class="pending-msg fa fa-pencil"></i>Only future date pending entries will be editable.</span>
+		</div>
+	</div>
+	<div class="row" *ngIf="rowData.length == 0">
+		<div class="col s12 table-note">
+			<span>No data available for this year</span>
+		</div>
+	</div>
+</div>
+</div>
 </div>
 <div class="holiday-modal">
 	<ui-custom-model [(edited)]='holiday' [modalHeader]="'Holiday List'" (onClose)='onHolidayClose($event)'>

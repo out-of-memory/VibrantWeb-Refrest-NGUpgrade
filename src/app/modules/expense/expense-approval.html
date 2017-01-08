@@ -27,7 +27,7 @@
 						<basic-grid [(source)]='submittedExpense' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false }'
 							[isHeaderVisible]=false>
 							<basic-cell>
-								<template let-item='row'>
+								<template #bg let-item='row'>
 									<div class="collapsible-header" (click)="Hide($event,item)">
 										<div class="row m-bottom0">
 											<div class="col s12 m6 offset-m3 l3">
@@ -109,52 +109,34 @@
 										</div>
 									</div>
 									<div class="collapsible-body" style="display:none;">
-										<basic-grid [(source)]='item.details' gridPagination='' gridOptions='{"colWidths":[15,15,15,15,15,15],"widthType":"%","useScroll":false}'
-											[isHeaderVisible]=true *ngIf="item.details.length > 0">
-											<basic-cell cell='' headerLabel='Receipt No.'>
-												<template let-detail='row'>
-													<ui-input [(ngModel)]="detail.receiptNo" [meta]='detailHub[0]' [readonly]='true'>
-													</ui-input>
-												</template>
-											</basic-cell>
-											<basic-cell cell='' headerLabel='Receipt Date'>
-												<template let-detail='row'>
-													<ui-input [(ngModel)]="detail.expenseDate" [meta]='detailHub[1]' [readonly]='true'>
-													</ui-input>
-												</template>
-											</basic-cell>
-											<basic-cell cell='' headerLabel='Expense Category'>
-												<template let-detail='row'>
-													<ui-input [(ngModel)]="detail.expenseCategoryId" [meta]='detailHub[2]' [readonly]='true'>
-													</ui-input>
-												</template>
-											</basic-cell>
-											<basic-cell cell='' headerLabel='Expenses'>
-												<template let-detail='row'>
-													<div>
-														<span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{detail.amount|comma}}
-													</div>
-												</template>
-											</basic-cell>
-											<basic-cell cell='' headerLabel='Comments'>
-												<template let-detail='row'>
-													<ui-input [(ngModel)]="detail.comments" [meta]='detailHub[4]' [readonly]='true'>
-													</ui-input>
-												</template>
-											</basic-cell>
-											<basic-cell cell='' headerLabel='Expense Receipt'>
-												<template let-detail='row'>
-													<span class="hover-expense-img" *ngIf='detail.attachedFile !==""'>
-                                                            <a class="expense-icon" (click)="Eyeclicked($event)" *ngIf='detail.fileExtension=="jpeg"||detail.fileExtension=="jpg"||detail.fileExtension=="png"||detail.fileExtension=="gif"'>
-                                                                <i class="fa fa-eye" aria-hidden="true" title="View"></i>
-                                                                <span class="z-depth-1"><img [src]="detail.attachedFile" alt="image" class="responsive-img"></span>
-													</a>
-													<a [href]="detail.attachedFile" target="_blank" class="expense-icon" [download]="detail.attachedFile"><i class="fa fa-cloud-download" aria-hidden="true" title="Download"></i></a>
-													<!--<a href="#" class="expense-icon" (click)="RemoveDetail($event,detail)"><i class="fa fa-trash remove" aria-hidden="true" title="Remove"></i></a>-->
-													</span>
-												</template>
-											</basic-cell>
-										</basic-grid>
+										<table class="responsive-table" *ngIf="item.details.length > 0">
+											<thead>
+												<tr>
+													<th data-field="receipt-no">Receipt No</th>
+													<th data-field="requested-date">Receipt Date</th>
+													<th data-field="expense-category">Expense Category</th>
+													<th data-field="amount">Amount</th>
+													<th data-field="Comments">Comments</th>
+													<th data-field="expensereceipt">Expense Receipt</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr *ngFor="let detail of item.details">
+													<td>{{detail.receiptNo}}</td>
+													<td>{{detail.expenseDate}}</td>
+													<td>{{detail.expenseCategoryId}}</td>
+													<td><span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{detail.amount|comma}}</td>
+													<td>{{detail.comments}}</td>
+													<td class="hover-expense-img">
+														<a  href="#" class="expense-icon" *ngIf='detail.fileExtension=="jpeg"||detail.fileExtension=="jpg"||detail.fileExtension=="png"||detail.fileExtension=="gif"'>
+															<i class="fa fa-eye" aria-hidden="true" title="View"></i>
+															<span class="z-depth-1"><img [src]="detail.attachedFile" alt="image" class="responsive-img"></span>
+														</a>
+														<a *ngIf='detail.attachedFile !==""' [href]="detail.attachedFile" target="_blank" class="expense-icon" [download]="detail.attachedFile"><i class="fa fa-cloud-download" aria-hidden="true" title="Download"></i></a>
+													</td>
+												</tr>                                                            
+											</tbody>
+										</table>
 										<div class="row m-bottom0 table-footer">
 											<div class="col s12 m4 l2 padding-zero">
 												Total Expenses: <span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{item.totalExpenses|comma}}

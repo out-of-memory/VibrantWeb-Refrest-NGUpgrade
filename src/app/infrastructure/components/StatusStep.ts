@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
         <div class="col s12">
             <div class="status-wrapper">
                 <span *ngFor="let step of steps" class="status-circle" [class.inprocess-status]="step<approvedTill" [class.approved-status]="step==approvedTill && lastApprovedStatus==0" 
-                [class.cancelled-status]="step==approvedTill && lastApprovedStatus==1" [class.onhold-status]="step==approvedTill && lastApprovedStatus==2">
+                [class.cancelled-status]="step==approvedTill && lastApprovedStatus==1" [class.onhold-status]="step==approvedTill && lastApprovedStatus==2" [class.pushedback-status]="step==approvedTill && lastApprovedStatus==3">
                     <i class="fa"></i>
                 </span>
             </div>
