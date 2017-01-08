@@ -47,7 +47,7 @@ export class HelpDeskSubmitComponent {
     personId: string;
     todaysTime: string = "";
     assigneeCollection: Array<any>;
-   // assignToVisible: boolean = false;
+    // assignToVisible: boolean = false;
 
     otherDepartmentAssigneeCollection: Array<any>;
     dropDownCollection: Array<any>;
@@ -93,6 +93,7 @@ export class HelpDeskSubmitComponent {
             this.helpDeskModel.status = this.helpDeskSubmitModel.status;
             this.helpDeskModel.ID = this.helpDeskSubmitModel.id;
             this.helpDeskModel.comments = this.helpDeskCommentModel.comments;
+            this.helpDeskModel.IsOtherDepartmant = this.raisedByMe;
             this.addUpdateTicket(url, this.helpDeskModel);
         }
         else {
@@ -103,8 +104,7 @@ export class HelpDeskSubmitComponent {
     addUpdateTicket(url, postData, callBack = null) {
         this.loaderModal = true;
         let isAdd = postData.id == "" ? 0 : 1;
-        this._httpService.post(url, postData)
-            .subscribe(
+        this._httpService.post(url, postData).subscribe(
             data => {
                 if (typeof callBack === 'function') {
                     callBack();
@@ -119,23 +119,17 @@ export class HelpDeskSubmitComponent {
                 }
                 this.formSubmitted = false;
                 this.loaderModal = false;
-            },
-            error => console.log(error),
-            () => console.log('Post request has Completed')
-            );
+            });
     }
 
     getTicketDetails(id: number) {
-        debugger;
         this.loaderModal = true;
         this.helpDeskSubmitModel = new HelpDeskSubmitModel();
         this.helpDeskCommentCollection = new Array<any>();
         this.helpDeskTicketList = new Array<any>();
         var todayTime = this.getCurrentDateTime();
         var url = HttpSettings.apiBaseUrl + "v1/HelpDesk/get-ticket/" + id + "/" + todayTime;
-        this._httpService.get(url)
-            .subscribe
-            (
+        this._httpService.get(url).subscribe(
             data => {
                 this.helpDeskSubmitModel = data.helpDesk;
                 this.assigneeCollection = new Array<any>();
@@ -186,9 +180,7 @@ export class HelpDeskSubmitComponent {
                 }
                 this.loaderModal = false;
 
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     populateSelectedHelpDeskListModel(data: any, helpDeskSubmitModel: any) {
@@ -218,7 +210,7 @@ export class HelpDeskSubmitComponent {
             data => {
                 var mediaType = 'application/octet-stream';
                 var blob = new Blob([data._body], { type: data });
-            }, error => console.log(error));
+            });
     }
 
     populateCachedData() {
@@ -258,8 +250,12 @@ export class HelpDeskSubmitComponent {
         this.dropDownCollection.length = 0;
         if (val.srcElement.checked == true) {
             this.dropDownCollection = this.otherDepartmentAssigneeCollection;
+            this.helpDeskSubmitModel.assignedTo = 0;
+            this.raisedByMe = true;
         } else {
             this.dropDownCollection = this.assigneeCollection;
+            this.helpDeskSubmitModel.assignedTo = 0;
+            this.raisedByMe = false;
         }
     }
 
@@ -269,6 +265,6 @@ export class HelpDeskSubmitComponent {
 
     getStatusType(status) {
         var data = ["Pending For Approval", "Open", " Rejected", " In Progress", "On Hold", "Resolved", "Cancelled"];
-        return data[status -1];
+        return data[status - 1];
     }
 }
