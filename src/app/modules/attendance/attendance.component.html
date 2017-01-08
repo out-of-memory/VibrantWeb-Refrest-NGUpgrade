@@ -162,7 +162,7 @@
 			<div class="table-container padding-zero" *ngIf="rowData">
 				<div class="row m-bottom5">
 					<div class="col s12">
-						<basic-grid [(source)]='rowData' gridOptions='{"colWidths":[25,25,20,30],"widthType":"%","useScroll":true}'>
+						<!--<basic-grid [(source)]='rowData' gridOptions='{"colWidths":[25,25,20,30],"widthType":"%","useScroll":true}'>
 							<basic-cell cell='date' headerLabel='Date'>
 								<template let-item='row'>
 									<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{GetDays(item.date)}} </span>
@@ -187,7 +187,39 @@
 									<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.narration}}</span>
 								</template>
 							</basic-cell>
-						</basic-grid>
+						</basic-grid>-->
+						<table class="striped responsive-table scroll">
+							<thead class="same-width-thead">
+								<tr>									
+									<th data-field="date" class="col-width-18">Date</th>
+									<th data-field="time-in-out" class="col-width-18">SignIn | SignOut Time</th>
+									<th data-field="working-hours" class="col-width-18">Total Hours Present</th>
+									<th data-field="narration" class="col-width-18">Narration</th>
+								</tr>
+							</thead>
+							<tbody class="same-width-tbody leave-tbody">
+								<tr *ngFor="let item of rowData">
+									<td class="col-width-18">
+										<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{GetDays(item.date)}} </span>
+										<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true"> {{item.date}}</span>
+									</td>
+									<td class="col-width-18">
+										<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.signInTime | slice : 0:-3}}</span>
+										<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true"> | </span>
+										<span [hidden]="item.signOutTime == '00:00:00'" [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.signOutTime | slice : 0:-3}}</span>
+										<button class="edit-icon" [hidden]="!isEditeble(item) && !isUs" title="Edit" type='button' value="Edit" (click)="DisplayManualPage(item)"><i class="fa fa-pencil"></i></button>
+									</td>
+									<td class="col-width-18">
+										<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true" [hidden]="item.totalHoursWorked=='0:0'">{{item.totalHoursWorked}}</span>
+									</td>
+									<td class="col-width-18">
+										<div class="display-flex">
+											<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.narration}}</span>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
