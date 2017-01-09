@@ -9,7 +9,7 @@ import { ExpenseDetails } from '../../model/NewExpenseDataModel';
 import { FileUpload } from '../../infrastructure/components/file-upload';
 import { StatusStep } from '../../infrastructure/components/StatusStep';
 import { CacheService } from '../../servicesFolder/CacheService';
-import {ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CurrencyPipe, CurrencyNamePipe, FileExtension, CurrencyCommaPipe } from '../../infrastructure/pipes/pipes';
 import { LoaderComponent } from '../../infrastructure/components/loader.component';
 import 'rxjs/Rx';
@@ -27,7 +27,7 @@ declare var $: any;
         background-color: aquamarine;    
     }
     `],
-    
+
 })
 export class ExpenseSubmittedComponent {
 
@@ -126,7 +126,7 @@ export class ExpenseSubmittedComponent {
                     model.createdBy = element.createdBy;
                     model.currencyName = 'Indian - Rupees';
                     model.chequeDetails = element.chequeDetails;
-                    model.approverFullName = approvers.find(x => x.id == element.primaryApproverId).text;
+                    model.approverFullName = element.primaryApproverName;
                     model.officeLocation = element.employeeProfile.olText;
 
                     model.details = expenseDetailsCollection;
