@@ -94,7 +94,7 @@
 </div>
 <div class="col s12 l6 padding-zero">
 	<div class="row" *ngIf="!searchUser">
-		<div class="col s12">
+		<div class="col s12 padding-zero">
 			<div class="apply-for-leave-container">
 				<div class="header">
 					<h4>{{leaveStatus}}</h4>
@@ -144,7 +144,7 @@
 									<th class="col-width-20" data-field="comments">Status</th>
 								</tr>
 							</thead>
-							<tbody class="approvals-tbody">
+							<tbody class="leave-tbody">
 								<tr *ngFor="let item of rowData">
 									<td class="col-width-20">{{item.fromDate}} <span><img class="arrow-right-img" src="assets/images/arrow-right.png"/></span>{{item.toDate}}</td>
 									<td class="col-width-20">{{item.leaves}}</td>
