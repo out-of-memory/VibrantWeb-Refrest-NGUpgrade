@@ -11,12 +11,14 @@
 <div>
     <div class="tab-container">
         <div class="row">
-            <div class="row margin-zero">
-                <div class="col s6 m4 l2">
-                    <div>
-                        <select materialize="material_select" [materializeSelectOptions]="yearCollection" (change)="onYearSelected($event.target.value)">
-                            <option *ngFor="let option of yearCollection" [value]="option.value">{{option.label}}</option>
-                        </select>
+            <div class="col s12">
+                <div class="row margin-zero">
+                    <div class="col s6 m4 l2">
+                        <div>
+                            <select materialize="material_select" [materializeSelectOptions]="yearCollection" (change)="onYearSelected($event.target.value)">
+                                <option *ngFor="let option of yearCollection" [value]="option.value">{{option.label}}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,10 +30,10 @@
                                 <div class="col s12 m2 offset-m3">
                                     <h5 class="title">Applied For</h5>
                                 </div>
-                                <div class="col s12 m1">
+                                <div class="col s12 m2">
                                     <h5 class="title">Expires On</h5>
                                 </div>
-                                <div class="col s12 m1">
+                                <div class="col s12 m4">
                                     <h5 class="title">Action</h5>
                                 </div>
                             </div>
@@ -70,10 +72,10 @@
                                                     </div>
                                                     <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Applied For</span>{{item.model.forDate}}
                                                     </div>
-                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Expires On</span>
+                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Expires On</span>
                                                         <span>{{item.model.expiresOn}}</span>
                                                     </div>
-                                                    <div class="col s12 m12 l3 align-bottom padding-zero">
+                                                    <div class="col s12 m12 l4 align-bottom padding-zero">
                                                         <ui-form #approvalForm [controlMetas]="statushub" [model]="item.statusModel" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
                                                             formCss='view-card' columOrientation='2' controlCss='view-form-info'
                                                             inputLabelPosition='top'>
