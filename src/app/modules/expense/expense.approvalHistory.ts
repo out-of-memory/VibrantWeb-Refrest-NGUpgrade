@@ -156,7 +156,7 @@ export class ExpenseApprovalHistoryComponent {
                     model.currencyName = 'Indian - Rupees';
                     model.chequeDetails = element.chequeDetails;
                     if (profile.id != element.primaryApproverId) {
-                        model.approverFullName = approvers.find(x => x.id == element.primaryApproverId).text;
+                        model.approverFullName = element.primaryApproverName;
                     } else {
                         model.approverFullName = profile.firstName + ' ' + profile.lastName;
                     }
