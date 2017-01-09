@@ -2,6 +2,7 @@
 import { Component, ContentChild, ContentChildren, EventEmitter, TemplateRef, QueryList, Input, forwardRef, Directive } from "@angular/core";
 import { ChangeDetectionStrategy, ViewContainerRef, ChangeDetectorRef, ViewChildren, ComponentRef } from '@angular/core'
 import { List, Map } from 'immutable'
+import { MaterializeDirective } from "angular2-materialize";
 @Component({
   selector: "basic-cell",
   template: ``,
@@ -23,15 +24,15 @@ export class BasicCellC {
   selector: "basic-grid",
   template: `<div>
     <div class="wrap">
-      <div *ngIf="gridPagination=='top' || gridPagination=='both'">
-        <div *ngIf="donePage">
-          <select [(ngModel)]="pageData" name="pageData" (change)="setPage('dropdownChange',$event.target.value)">
+      <div *ngIf="gridPagination=='top' || gridPagination=='both'" class="row">
+        <div *ngIf="donePage" class="col s12 m6 l4">
+          <select materialize="material_select" [(ngModel)]="pageData" name="pageData" (change)="setPage('dropdownChange',$event.target.value)">
             <option value=20>20</option>
             <option value=50>50</option>
             <option value=100>100</option>
           </select>
         </div>
-        <div *ngIf="donePage">
+        <div *ngIf="donePage" class="col s12 m6 l8 right-align">
           <ul class="pagination">
             <li [class.disabled]="pager.currentPage == 1" class="waves-effect">
               <a (click)="setPage(1)"><i class="fa fa-angle-double-left" title="First"></i></a>
@@ -83,18 +84,14 @@ export class BasicCellC {
         </div>
       </div>      
       <div *ngIf="gridPagination=='bottom' || gridPagination=='both'" class="row">
-        <div *ngIf="donePage" class="col s12 m-top10">
-          <div class="row margin-zero">
-            <div class="col s12 l2 offset-l10">
-              <select [(ngModel)]="pageData" name="pageData" (change)="setPage('dropdownChange',$event.target.value)">
-                <option value=20>20</option>
-                <option value=50>50</option>
-                <option value=100>100</option>
-              </select>
-            </div>
-          </div>
+        <div *ngIf="donePage" class="col s12 m6 l4">
+          <select materialize="material_select" [(ngModel)]="pageData" name="pageData" (change)="setPage('dropdownChange',$event.target.value)">
+            <option value=20>20</option>
+            <option value=50>50</option>
+            <option value=100>100</option>
+          </select>
         </div>
-        <div *ngIf="donePage" class="col s12 right-align">
+        <div *ngIf="donePage" class="col s12 m6 l8 right-align">
           <ul class="pagination">
             <li [class.disabled]="pager.currentPage == 1" class="waves-effect">
               <a (click)="setPage(1)"><i class="fa fa-angle-double-left" title="First"></i></a>
