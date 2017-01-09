@@ -15,6 +15,7 @@ import { TravelComponent } from '../modules/travel/travel.component';
 import { ViewMyHistoryComponent } from '../modules/travel/travel.view.my.history.component';
 import { TravelApprovalHistoryView } from '../modules/travel/travel.approval.history.view.component';
 import { TravelViewRequestComponent } from '../modules/travel/travel.view.request.component';
+import { TalentacquisitionComponent } from '../modules/talentacquisition/talentacquisition.component';
 
 export module Decorator {
     export class App {

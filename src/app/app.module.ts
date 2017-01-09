@@ -35,6 +35,7 @@ import { LeavesComponent } from './modules/leave/leave.component';
 import { EnablelocationModule } from './modules/enablelocation/enablelocation.module';
 import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service';
 import { TravelModule } from './modules/travel/travel.module';
+import { TalentacquisitionModule } from './modules/talentacquisition/talentacquisition.module';
 
 
 
@@ -63,7 +64,8 @@ import { TravelModule } from './modules/travel/travel.module';
     MaintainenceModule,
     EmployeeSearchModule,
     EnablelocationModule,
-    TravelModule
+    TravelModule,
+    TalentacquisitionModule
   ],
   providers: [CacheService, { provide: LocationStrategy, useClass: HashLocationStrategy },
     HttpService, MenuService, ExpenseService, EmployeeService, UserService, LocationserviceService],
