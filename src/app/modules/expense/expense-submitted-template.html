@@ -69,7 +69,7 @@
 																<td><span aria-hidden="true" class="fa fa-{{item.currencyId|currency}} currency-symbol"></span>{{detail.amount|comma}}</td>
                                                                 <td>{{detail.comments}}</td>
                                                                 <td class="hover-expense-img">
-                                                                    <a  href="#" class="expense-icon" *ngIf='detail.fileExtension=="jpeg"||detail.fileExtension=="jpg"||detail.fileExtension=="png"||detail.fileExtension=="gif"'>
+                                                                    <a class="expense-icon" *ngIf='detail.fileExtension=="jpeg"||detail.fileExtension=="jpg"||detail.fileExtension=="png"||detail.fileExtension=="gif"'>
                                                                         <i class="fa fa-eye" aria-hidden="true" title="View"></i>
                                                                         <span class="z-depth-1"><img [src]="detail.attachedFile" alt="image" class="responsive-img"></span>
                                                                     </a>
