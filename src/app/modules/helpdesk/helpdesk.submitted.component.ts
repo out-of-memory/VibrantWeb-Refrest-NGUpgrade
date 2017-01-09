@@ -111,8 +111,13 @@ export class HelpDeskSubmitComponent {
                 }
                 if (data == true) {
                     Materialize.toast('Your help desk ticket has been updated', 5000, 'green');
-                    this.getTicketDetails(this.id);
-                    this.helpDeskCommentModel = new HelpDeskCommentModel();
+                    if (this.raisedByMe == true) {
+                        this.backClicked();
+                    }
+                    else {
+                        this.getTicketDetails(this.id);
+                        this.helpDeskCommentModel = new HelpDeskCommentModel();
+                    }
                 }
                 else {
                     Materialize.toast('Issue in updating help desk ticket.Please contact System Administrator', 5000, 'red')
