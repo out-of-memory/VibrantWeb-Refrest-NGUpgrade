@@ -188,11 +188,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer padding-15-0 m-bottom5 top-divider">
+            <div class="card-footer padding-15-0 m-bottom5 top-divider" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7">
                 <div class="row valign-wrapper margin-zero">
                     <div class="col s12 right-align">
-                        <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
-                        <a class="waves-effect waves-light btn custom-btn submit" title="Reload">Reload</a>
+                        <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel" (click)="backClicked()">Cancel</a>
+                        <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='addUpdateTickets()'>Submit</a>
                     </div>
                 </div>
             </div>

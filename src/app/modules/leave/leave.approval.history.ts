@@ -16,52 +16,17 @@ import * as Materialize from "angular2-materialize";
 export class LeaveApprovalHistory {
     leaveModelCollection: Array<any> = [];
     rowData: Array<any> = [];
-
-    leaveChartData: Array<any> = [];
-    leaveChartlabels: Array<any> = [];
-    leaveChartColors: Array<any> = [];
-
     addEditLeaveModel: LeaveApprovalModel;
     leaveModelHub: any;
-    leaveTypeDropDownData: any;
-
-    totalLeaves: number;
-    isUs: boolean = false;
-    profile: any;
-
-    leaveStatus: string = "Apply For Leaves";
-    holiday: boolean = false;
-    holidayCollection: Array<any> = [];
-
     loaderModal: boolean = false;
     loaderModalMsg: boolean = false;
     loaderModalText: any;
     isConformationModal: boolean = false;
     formSubmitted: boolean = false;
 
-    approvalStatus: LeaveApprovalStatus;
-    statushub: any;
-    cardSubmitted: boolean = false;
-
     constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
         this.addEditLeaveModel = new LeaveApprovalModel();
         this.leaveModelHub = this.addEditLeaveModel["hub"];
-        this.approvalStatus = new LeaveApprovalStatus();
-        this.statushub = this.approvalStatus["hub"];
-        this.PopulateLeaveModulePage();
-        this.profile = this._cacheService.getParams("profile");
-        if (this.profile["ol"] == 2) {
-            this.isUs = true;
-        }
-    }
-
-    //Calls to populate all the controls of the page
-    PopulateLeaveModulePage() {
-        this.populateLeaveGrid();
-    }
-
-    //Populate Grid
-    populateLeaveGrid() {
         this.GetLeaveDetails();
     }
 
@@ -71,9 +36,7 @@ export class LeaveApprovalHistory {
         this.leaveModelCollection.length = 0;
         this.rowData.length = 0;
         var url = HttpSettings.apiBaseUrl + "v1/approval/leaves-history";
-        this._httpService.get(url)
-            .subscribe
-            (
+        this._httpService.get(url).subscribe(
             data => {
                 data.employeeLeaveViewModels.forEach(element => {
                     var model = new LeaveApprovalModel();
@@ -88,6 +51,6 @@ export class LeaveApprovalHistory {
                 this.loaderModal = false;
             },
             error => console.log(error)
-            );
+        );
     }
 }

@@ -71,7 +71,7 @@ export class LeaveApprovalComponent {
     GetLeaveDetails() {
         this.loaderModal = true;
         this.leaveModelCollection.length = 0;
-        this.rowData.length = 0;
+        this.rowData = new Array<any>();
         var url = HttpSettings.apiBaseUrl + "v1/approval/leaves/0/0/0";
         this._httpService.get(url)
             .subscribe
