@@ -8,8 +8,8 @@
             </div>
         </div>
 
-        <div class="row main-data-container">
-            <div class="col s12 padding-zero">
+        <div class="row">
+            <div class="col s12">
                 <div class="reimbursement-wrapper approvals-data" *ngIf="helpDeskTicketList.length > 0">
                     <div class="row m-bottom0 header hide-on-med-and-down">
                         <div class="col s12 m1 offset-m3">
@@ -18,13 +18,13 @@
                         <div class="col s12 m1">
                             <h5 class="title">Request Date</h5>
                         </div>
-                        <div class="col s12 m2">
+                        <div class="col s12 m3">
                             <h5 class="title">Description</h5>
                         </div>
-                        <div class="col s12 m1">
+                        <div class="col s12 m2">
                             <h5 class="title">Type / Severity</h5>
                         </div>
-                        <div class="col s12 m1">
+                        <div class="col s12 m2">
                             <h5 class="title">Status</h5>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                                             <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Request Date</span>
                                                 <div class="details-data">{{item.issueDate}}</div>
                                             </div>
-                                            <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Description</span>
+                                            <div class="col s12 m6 l3"><span class="expense-label hide-on-large-only">Description</span>
                                                 <div class="details-data">{{item.description}}</div>
                                             </div>
                                             <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Description</span>
@@ -102,97 +102,101 @@
                             </basic-cell>
                         </basic-grid>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card white approvals-card margin-zero padding-zero">
-            <div class="padding-15-0">
-                <div class="row margin-zero display-flex">
-                    <div class="col s12 l6">
-                        <ui-form #addTicketForm [controlMetas]="helpDeskSubmitHub" [model]="helpDeskSubmitModel" [formReadonly]='true' [errorOnlyOnSubmit]='formSubmitted'
-                            formCss='' controlCss='' columnOrientation='2'>
-                        </ui-form>
-                        <div class="col s12 m-bottom20 padding-zero" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7">
-                            <div class="col m6">
-                                <select placeholder="Status" name="status" [(ngModel)]="helpDeskSubmitModel.status" materialize="material_select" [materializeSelectOptions]="issueStatusCollection"
-                                    (change)="onIssueStatusChanged($event.target.value)">
-                                                    <option *ngFor="let option of issueStatusCollection" [value]="option.id">{{option.text}}</option>
-                                            </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12 m6 padding-zero" *ngIf="(action == 0 && selectedStatus != 6 && selectedStatus != 7)">
-                                <div class="row margin-zero">
-                                    <div class="custom-input-field col s12">
-                                        <h6>Assign to</h6>
-                                        <div class="switch">
-                                            <label>
-                                                    Team members
-                                                    <input type="checkbox" ([ngModel])="raisedByMe" (change)="departmentChanged($event)">
-                                                    <span class="lever"></span>
-                                                    Other Departments
-                                                    </label>
+                    <div class="bg-white padding-zero">
+                        <div class="padding-15-0">
+                            <div class="row margin-zero display-flex">
+                                <div class="col s12 l6">
+                                    <ui-form #addTicketForm [controlMetas]="helpDeskSubmitHub" [model]="helpDeskSubmitModel" [formReadonly]='true' [errorOnlyOnSubmit]='formSubmitted'
+                                        formCss='' controlCss='' columnOrientation='2'>
+                                    </ui-form>
+                                    <div class="col s12 m-bottom20 padding-zero" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7">
+                                        <div class="col m6">
+                                            <select placeholder="Status" name="status" [(ngModel)]="helpDeskSubmitModel.status" materialize="material_select" [materializeSelectOptions]="issueStatusCollection"
+                                                (change)="onIssueStatusChanged($event.target.value)">
+                                                                <option *ngFor="let option of issueStatusCollection" [value]="option.id">{{option.text}}</option>
+                                                        </select>
+                                            <div class="view-form-info">
+                                                <h6>Select Status</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 m6 padding-zero" *ngIf="(action == 0 && selectedStatus != 6 && selectedStatus != 7)">
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field col s12">
+                                                    <h6>Assign to</h6>
+                                                    <div class="switch">
+                                                        <label>
+                                                                Team members
+                                                                <input type="checkbox" ([ngModel])="raisedByMe" (change)="departmentChanged($event)">
+                                                                <span class="lever"></span>
+                                                                Other Departments
+                                                                </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m6 padding-zero">
+                                            <div class="row margin-zero">
+                                                <div class="col s6" *ngIf="(action == 0 && selectedStatus != 6 && selectedStatus != 7)">
+                                                    <select name="assignedTo" placeholder="roles" [(ngModel)]="helpDeskSubmitModel.assignedTo" materialize="material_select"
+                                                        [materializeSelectOptions]="dropDownCollection">
+                                                                        <option *ngFor="let option of dropDownCollection" [value]="option.id">{{option.text}}</option> </select>
+                                                    <div *ngIf="helpDeskSubmitModel.assignedTo==0">
+                                                        <span class="no-data" *ngIf="raisedByMe">Select Departments</span>
+                                                        <span class="no-data" *ngIf="!raisedByMe">Select Employee</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col s12 m6 padding-zero">
-                                <div class="row margin-zero">
-                                    <div class="col s6" *ngIf="(action == 0 && selectedStatus != 6 && selectedStatus != 7)">
-                                        <select name="assignedTo" placeholder="roles" [(ngModel)]="helpDeskSubmitModel.assignedTo" materialize="material_select"
-                                            [materializeSelectOptions]="dropDownCollection">
-                                                            <option *ngFor="let option of dropDownCollection" [value]="option.id">{{option.text}}</option> </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 l6 comments-section">
-                        <h5 class="margin-zero p-left10">Comments</h5><span class="right date-reminder"> {{durationRemaining}}</span>
-                        <div *ngFor="let comment of helpDeskCommentCollection">
-                            <div class="comments-scrollable">
-                                <div class="row m-top10">
-                                    <div class="col s12">
-                                        <div class="user-comments right-arrow">
-                                            <h6 class="req-name">{{comment.CommentedByName}}<span class="padding-5">({{comment.CommentedByRole}} )</span></h6>
-                                            <h6 class="comment-text">{{comment.comments}}</h6>
-                                            <div class="row margin-zero">
-                                                <div *ngFor="let uploadedFile of comment.attachedFiles">
-                                                    <div class="col s12 l6">
-                                                        <div class="attached-document">
-                                                            <div class="row valign-wrapper margin-zero">
-                                                                <div class="col s6">
-                                                                    <div class="view-form-info">
-                                                                        <h5>{{uploadedFile|filename}}</h5>
+                                <div class="col s12 l6 comments-section">
+                                    <h5 class="margin-zero p-left10">Comments</h5><span class="right date-reminder"> {{durationRemaining}}</span>
+                                    <div class="comments-scrollable">
+                                        <div class="row m-top10" *ngFor="let comment of helpDeskCommentCollection">
+                                            <div class="col s12">
+                                                <div class="user-comments right-arrow">
+                                                    <h6 class="req-name">{{comment.CommentedByName}}<span class="padding-5">({{comment.CommentedByRole}} )</span></h6>
+                                                    <h6 class="comment-text">{{comment.comments}}</h6>
+                                                    <div class="row margin-zero">
+                                                        <div *ngFor="let uploadedFile of comment.attachedFiles">
+                                                            <div class="col s12 l6">
+                                                                <div class="attached-document">
+                                                                    <div class="row valign-wrapper margin-zero">
+                                                                        <div class="col s6">
+                                                                            <div class="view-form-info">
+                                                                                <h5>{{uploadedFile|filename}}</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col s6 valign right-align">
+                                                                            <a [href]="uploadedFile" target="_blank"><i class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download"></i></a>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col s6 valign right-align">
-                                                                    <a [href]="uploadedFile" target="_blank"><i class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download"></i></a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <h6 class="right-align comment-time">{{comment.commentedDate}}</h6>
                                                 </div>
                                             </div>
-                                            <h6 class="right-align comment-time">{{comment.commentedDate}}</h6>
                                         </div>
+                                    </div>
+                                    <div class="input-field col s12" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7">
+                                        <ui-form #updateTicketCommentsForm [controlMetas]="helpDeskCommentHub" [model]="helpDeskCommentModel" [formReadonly]='false'
+                                            [errorOnlyOnSubmit]='formSubmitted' formCss='' controlCss=''> </ui-form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="input-field col s12" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7">
-                            <ui-form #updateTicketCommentsForm [controlMetas]="helpDeskCommentHub" [model]="helpDeskCommentModel" [formReadonly]='false'
-                                [errorOnlyOnSubmit]='formSubmitted' formCss='' controlCss=''> </ui-form>
+                        <div class="card-footer padding-15-0 m-bottom5 top-divider" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7">
+                            <div class="row valign-wrapper margin-zero">
+                                <div class="col s12 right-align">
+                                    <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel" (click)="backClicked()">Cancel</a>
+                                    <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='addUpdateTickets()' [class.disabled]="helpDeskSubmitModel.assignedTo==0">Submit</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer padding-15-0 m-bottom5 top-divider" *ngIf="action == 0 && selectedStatus != 6 && selectedStatus != 7">
-                <div class="row valign-wrapper margin-zero">
-                    <div class="col s12 right-align">
-                        <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel" (click)="backClicked()">Cancel</a>
-                        <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='addUpdateTickets()'>Submit</a>
                     </div>
                 </div>
             </div>

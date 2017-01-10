@@ -80,6 +80,7 @@ export class HelpDeskApprovalComponent {
           var model = new HelpDeskList();
           this._autoMapperService.Map(element, model);
           model.designation = element.employeeProfile.currentDesignation;
+          model.issueDate = element.issueDate;
           model.email = element.employeeProfile.email;
           model.address = element.employeeProfile.ol;
           model.imagePath = "assets/images/" + element.employeeProfile.imagePath;

@@ -505,16 +505,14 @@ export class LeavesComponent {
   IsBirthday() {
     this.holidayCollection = new Array<any>();
     var url = HttpSettings.apiBaseUrl + "v1/leave-management/current-year-holidaylist/" + this.data["ol"] + "/" + (new Date()).getFullYear();
-    this._httpService.get(url)
-      .subscribe
-      (
+    this._httpService.get(url).subscribe(
       data => {
         data.forEach(element => {
           this.holidayCollection.push(element);
         });
         var birthday = new Date(this.data.dateOfBirth), today = new Date();
         birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
-        if (birthday.getMonth() == 0) {
+        if (birthday.getMonth() == 0 && today.getMonth() == 11) {
           birthday = new Date((today.getFullYear()) + 1, birthday.getMonth(), birthday.getDate());
         }
         if (this.GetDays(birthday) == "Sunday" || this.GetDays(birthday) == "Saturday") {

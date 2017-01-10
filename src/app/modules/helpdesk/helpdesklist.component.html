@@ -34,8 +34,10 @@
                 <div class="col s12 m1">
                     <h5 class="title">Type / Severity</h5>
                 </div>
-                <div class="col s12 m1">
+                <div class="col s12 m2">
                     <h5 class="title">Status</h5>
+                </div>
+                <div class="col s12 m1">
                 </div>
             </div>
             <div class="approvals">
@@ -83,7 +85,7 @@
                                     <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Description</span>
                                         <div class="details-data">{{item.description}}</div>
                                     </div>
-                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Description</span>
+                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Description</span>
                                         <div class="details-data"> {{item.type}}<span>-</span>{{item.severity}}</div>
                                     </div>
 
@@ -109,22 +111,13 @@
                                           Cancelled
                                         </span>
                                     </div>
-                                    <div>
-                                        <div class="col s12 leave-action right-align" *ngIf="item.assignedTo ==personId && item.status != 6 && item.status != 7 && item.status != 3 && item.status != 1">
-                                            <a class="edit-icon expense-icon" title="Edit" type='button' value="Edit" href="/#/my/helpdesk/details/{{item.ID}}/0/{{selectedStatus}}"><i class="fa fa-pencil"></i></a>
+                                    <div class="col s12 m6 l1">
+                                        <div class="col s12 leave-action right-align valign-wrapper">
+                                            <a class="edit-icon expense-icon" *ngIf="item.assignedTo ==personId && item.status != 6 && item.status != 7 && item.status != 3 && item.status != 1" title="Edit" type='button' value="Edit" href="/#/my/helpdesk/details/{{item.ID}}/0/{{selectedStatus}}"><i class="fa fa-pencil"></i></a>
+                                            <a class="edit-icon expense-icon disabled" *ngIf="item.assignedTo != personId || item.status == 6 || item.status == 7 || item.status == 3 || item.status == 1" title="Edit" type='button' value="Edit" href="#"><i class="fa fa-pencil disabled "></i></a>
+                                            <a href="/#/my/helpdesk/details/{{item.ID}}/1/{{selectedStatus}}" class=""><img src="assets/images/view-icon.svg" height="30px" width="30px" title="View Request"></a>
+                                            <a *ngIf="item.assignedTo !=personId && item.employeeId == personId && item.status != 6 && item.status != 7 && item.status != 3 && (item.isPokeEnabled == true)" class="poke-icon" (click)="AskForUpdate(item.ID)"><i class="fa fa-hand-o-right" title="Buzz for an update"></i></a>
                                         </div>
-                                        <div class="col s12 leave-action right-align" *ngIf="item.assignedTo != personId || item.status == 6 || item.status == 7 || item.status == 3 || item.status == 1">
-                                            <a class="edit-icon expense-icon disabled " title="Edit" type='button' value="Edit" href="#"><i class="fa fa-pencil disabled "></i></a>
-                                        </div>
-
-                                        <div class="col s12 leave-action right-align padding-zero">
-                                            <a href="/#/my/helpdesk/details/{{item.ID}}/1/{{selectedStatus}}" class="expense-icon"><img src="assets/images/view-icon.svg" height="30px" width="30px" title="View Request"></a>
-                                        </div>
-
-                                        <div *ngIf="item.assignedTo !=personId && item.employeeId == personId && item.status != 6 && item.status != 7 && item.status != 3 && (item.isPokeEnabled == true)">
-                                            <a class="poke-icon" (click)="AskForUpdate(item.ID)"><i class="fa fa-hand-o-right" title="Buzz for an update"></i></a>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>

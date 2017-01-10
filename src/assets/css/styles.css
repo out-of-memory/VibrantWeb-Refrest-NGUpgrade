@@ -2510,7 +2510,7 @@ footer.page-footer {
 }
 .no-data{
   color: red;
-  font-size: 20px;
+  font-size: 14px;
 }
 .leave-approval-first-col{
   width: 100% !important;
@@ -4077,6 +4077,17 @@ margin: 0px!important;
    height: 330px;
    overflow-y: scroll;
 }
+.comments-scrollable::-webkit-scrollbar {
+  width: 6px; 
+}
+.comments-scrollable::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); 
+}
+.comments-scrollable::-webkit-scrollbar-thumb {
+  background: rgba(153, 153, 153, 0.6);
+  outline: 1px solid #ccc;
+  border-radius: 5px; 
+}
  .table-container .generate-report-data table td{
   padding: 15px 5px!important;
 }
@@ -4084,10 +4095,6 @@ margin: 0px!important;
   height:auto;
   overflow:auto; 
   max-height:600px;
-}
-.comments-scrollable{
-  height:330px;
-  overflow-y:auto;
 }
 /*Label*/
 h6.active-select{

@@ -369,7 +369,7 @@ export class DashboardComponent implements OnInit {
     IsBirthday(date: any) {
         var birthday = new Date(date), today = new Date();
         birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
-        if (birthday.getMonth() == 0) {
+        if (birthday.getMonth() == 0 && today.getMonth() == 11) {
             birthday = new Date((today.getFullYear()) + 1, birthday.getMonth(), birthday.getDate());
         }
         var beforBirthday = new Date(birthday.getFullYear(), birthday.getMonth(), birthday.getDate());
