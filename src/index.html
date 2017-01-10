@@ -1,25 +1,57 @@
 <!doctype html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>VibrantWebRefresh</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-  <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link type="text/css" rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css" media="screen,projection">
-	<link rel="stylesheet" href="assets/css/materialize.css">
-	<link rel="stylesheet" href="assets/css/styles.css">
-	<link rel="stylesheet" href="assets/css/splash_screen.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-  	</head>
+	<meta charset="utf-8">
+	<title>VibrantWebRefresh</title>
+	<script>
+
+		window.navigator.geolocation.getCurrentPosition(this.success, this.error, { timeout: 10000 });
+
+		function success(position) {
+
+			// if (localStorage.getItem("geolocation") != null) {
+			//     return false;
+			// }
+
+			let latitude = position.coords.latitude.toFixed(5);
+			let longitude = position.coords.longitude.toFixed(5);
+			let timestamp = Number(String(position.timestamp).substring(0, 7));
+
+			var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI";
+
+			$.getJSON(locationUrl).done(function (location) {
+				if (location.status == "OK") {
+					localStorage.setItem("geolocation", JSON.stringify(location));
+					location.href = "#/my/dashboard";
+				}
+			});
+		}
+
+		function error(err) {
+			location.href = "#/enablelocation";
+			console.log(err);
+		}
+
+	</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+<base href="/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css" media="screen,projection">
+<link rel="stylesheet" href="assets/css/materialize.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/splash_screen.css">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
 <body>
-  <app-root>
-  
-  <div class="splash">
+	<app-root>
+
+		<div class="splash">
 			<div class="motives">
 				<span class="motives-val">EXCELLENCE</span><br>
 				<span class="motives-val">HONESTY</span><br>
@@ -40,9 +72,10 @@
 		</div>
 		<span class="prelodr prelodr-in"><span><span class="prelodr-in">Initializing...<span class="prelodr-progressbar"></span></span>
 		</span>
-		</span>    
-      
-      
-  </app-root>
+		</span>
+
+
+	</app-root>
 </body>
+
 </html>

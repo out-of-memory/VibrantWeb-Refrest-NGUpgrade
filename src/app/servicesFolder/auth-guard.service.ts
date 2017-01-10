@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
 
             PermissionStatus.onchange = function () {
                 if (PermissionStatus.state != 'granted') {
-                    window.location.href = 'http://www.google.com';
+                    window.location.href = '/vibranthelp/404Error.html';
                 }
             }
 
