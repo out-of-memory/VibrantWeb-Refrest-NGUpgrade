@@ -394,9 +394,9 @@ export class DashboardComponent implements OnInit {
 
     showAdministration(roles: any) {
         for (var i = 0; i < roles.length; i++) {
-            if (roles[i].roleId == 24 || roles[i].roleId == 11 || roles[i].roleId == 12 || roles[i].roleId == 7 || roles[i].roleId == 32 || roles[i].roleId == 25 || roles[i].roleId == 32
-                || roles[i].roleId == 23 || roles[i].roleId == 21 || roles[i].roleId == 22 || roles[i].roleId == 1 || roles[i].roleId == 26 || roles[i].roleId == 27 || roles[i].roleId == 28
-                || roles[i].roleId == 29 || roles[i].roleId == 30) {
+            if (roles[i].roleId == 24 || roles[i].roleId == 32 || roles[i].roleId == 25
+                || roles[i].roleId == 23 || roles[i].roleId == 22 || roles[i].roleId == 1 || roles[i].roleId == 26 || roles[i].roleId == 27 ||
+                roles[i].roleId == 28 || roles[i].roleId == 29 || roles[i].roleId == 30 || roles[i].roleId == 31 || roles[i].roleId == 33 || roles[i].roleId == 34 || roles[i].roleId == 35 || roles[i].roleId == 36 || roles[i].roleId == 37 || roles[i].roleId == 38 ) {
                 this.isAdminUser = true;
             }
         }

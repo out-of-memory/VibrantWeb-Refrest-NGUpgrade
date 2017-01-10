@@ -95,19 +95,19 @@ export class HelpDeskAdminComponent {
     getCetagorys(roles: any) {
         var catagory = [], HR = 0, IT = 0, fin = 0, admin = 0, AM = 0, RMG = 0, Internal = 0, CQ = 0, VWR = 0;
         for (var i = 0; i < roles.length; i++) {
-            if ((roles[i].roleId == 24 || roles[i].roleId == 11 || roles[i].roleId == 12 || roles[i].roleId == 7 || roles[i].roleId == 32) && HR == 0) {
+            if ((roles[i].roleId == 24 || roles[i].roleId == 38) && HR == 0) {
                 HR++;
                 catagory.push(24);
             }
-            if ((roles[i].roleId == 25 || roles[i].roleId == 32) && IT == 0) {
+            if ((roles[i].roleId == 25 || roles[i].roleId == 37) && IT == 0) {
                 IT++;
                 catagory.push(25);
             }
-            if ((roles[i].roleId == 23 || roles[i].roleId == 21) && fin == 0) {
+            if ((roles[i].roleId == 23 || roles[i].roleId == 33) && fin == 0) {
                 fin++;
                 catagory.push(23);
             }
-            if ((roles[i].roleId == 22 || roles[i].roleId == 1) && admin == 0) {
+            if ((roles[i].roleId == 22 || roles[i].roleId == 1 || roles[i].roleId == 31) && admin == 0) {
                 admin++;
                 catagory.push(22);
             }
@@ -115,19 +115,19 @@ export class HelpDeskAdminComponent {
                 AM++;
                 catagory.push(26);
             }
-            if ((roles[i].roleId == 27) && RMG == 0) {
+            if ((roles[i].roleId == 27 || roles[i].roleId == 35) && RMG == 0) {
                 RMG++;
                 catagory.push(27);
             }
-            if ((roles[i].roleId == 28) && Internal == 0) {
+            if ((roles[i].roleId == 28 || roles[i].roleId == 34) && Internal == 0) {
                 Internal++;
                 catagory.push(28);
             }
-            if ((roles[i].roleId == 29) && CQ == 0) {
+            if ((roles[i].roleId == 29 || roles[i].roleId == 32) && CQ == 0) {
                 CQ++;
                 catagory.push(29);
             }
-            if ((roles[i].roleId == 30) && VWR == 0) {
+            if ((roles[i].roleId == 30 || roles[i].roleId == 36) && VWR == 0) {
                 VWR++;
                 catagory.push(30);
             }
