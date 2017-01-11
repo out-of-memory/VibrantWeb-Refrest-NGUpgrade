@@ -67,4 +67,12 @@ export class EmployeeSearchComponent {
 
     }
 
+    openDetail(id: any) {
+        this.userService.fetchEmployee(id, data => {
+            var url = "#/employee/details/" + id + "/personal";
+            window.location.href = url;
+        })
+    }
+
 }
+    

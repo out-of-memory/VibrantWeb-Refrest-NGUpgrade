@@ -43,10 +43,10 @@
                                 </div>
                                 <div>
                                     <h5>
-                                        <a routerLink="/employee/details/{{e.id}}/personal">{{e.id}}</a>
+                                        <a class="handPointer" (click)="openDetail(e.id)">{{e.id}}</a>
                                     </h5>
                                     <h5>
-                                        <a routerLink="/employee/details/{{e.id}}/personal"> {{e.firstName}} {{e.middleName}} {{e.lastName}}</a>
+                                        <a class="handPointer" (click)="openDetail(e.id)"> {{e.firstName}} {{e.middleName}} {{e.lastName}}</a>
                                     </h5>
                                 </div>
                             </div>

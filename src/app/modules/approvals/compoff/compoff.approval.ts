@@ -39,7 +39,6 @@ export class CompOffApprovalComponent {
     action: Array<any> = [];
     profile: any;
     isUs: boolean = false;
-
     holiday: boolean = false;
     holidayCollection: Array<any> = [];
 
@@ -56,7 +55,7 @@ export class CompOffApprovalComponent {
         this.approvalModel = new CompoffApprovalModel();
         this.statushub = this.approvalModel["hub"];
         this.GetEmployeeData();
-        this.selectedYear = 0;
+        this.selectedYear = (new Date()).getFullYear();;
         this.populateMonthYearDropDowns();
     }
 

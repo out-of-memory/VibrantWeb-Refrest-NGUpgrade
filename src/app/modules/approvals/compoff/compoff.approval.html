@@ -15,7 +15,7 @@
                 <div class="row margin-zero">
                     <div class="col s6 m4 l2">
                         <div>
-                            <select materialize="material_select" [materializeSelectOptions]="yearCollection" (change)="onYearSelected($event.target.value)">
+                            <select materialize="material_select" [(ngModel)]="selectedYear" [materializeSelectOptions]="yearCollection" (change)="onYearSelected($event.target.value)">
                                 <option *ngFor="let option of yearCollection" [value]="option.value">{{option.label}}</option>
                             </select>
                         </div>

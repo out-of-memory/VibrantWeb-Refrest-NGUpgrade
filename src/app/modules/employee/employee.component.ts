@@ -58,48 +58,24 @@ import { HttpSettings } from "../../servicesFolder/http/http.settings"
 })
 
 export class EmployeeComponent implements OnInit {
-    employee: Employee;
-    emphub: any;
-    selectedId: string;
-    errorMessage: string;
     data: any;
-    formReadonly: boolean;
-    MenuData: any;
-    componentData: any;
     fromserch: boolean = false;
 
     constructor(private _router: Router, private activatedRoute: ActivatedRoute, private _cacheService: CacheService, private userService: UserService) {
-        this.employee = new Employee();
-        this.emphub = this.employee["hub"];
-        this.MenuData = [{ route: "R-Profile-Personal", name: "Personal" }, { route: "R-Profile-Professional", name: "Professional" }];
-    }
-
-    ngOnInit() {
         let rdata = this.activatedRoute;
 
         this.activatedRoute.params.subscribe((param: any) => {
             if (param.id) {
                 this.fromserch = true;
-                if (rdata.snapshot.data["from"] == "profile")
-                    this.data = this._cacheService.getParams("profile");
-                else
-                    this.userService.fetchEmployee(rdata["id"], data => {
-                        this.data = data;
-                    })
+                this.data = this._cacheService.getParams("search");
             }
             else {
-                if (rdata.snapshot.data["from"] == "profile")
-                    this.data = this._cacheService.getParams("profile");
-                else
-                    this.userService.fetchEmployee(rdata["id"], data => {
-                        this.data = data;
-                    })
+                this.data = this._cacheService.getParams("profile");
             }
         });
     }
 
-    ngOnChanges() {
-    }
-    routerOnActivate(curr: any, prev?: any): void {
+    ngOnInit() {
+        
     }
 }

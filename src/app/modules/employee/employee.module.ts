@@ -24,7 +24,7 @@ import { LeavesComponent } from '../leave/leave.component';
       },
       { path: 'employee/details/:id', redirectTo: 'personal', pathMatch: 'full' },
       {
-        path: 'employee/details/:id', component: EmployeeComponent, data: { isViewOnly: true, from: 'profile' },
+        path: 'employee/details/:id', component: EmployeeComponent, data: { isViewOnly: true, from: 'search' },
         children: [
           { path: 'professional', component: ProfessionalComponent },
           { path: 'personal', component: PersonalComponent },

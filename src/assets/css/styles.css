@@ -4524,3 +4524,6 @@ h6.active-select{
 .isRed{
   border-color : red !important;
 }
+.handPointer{
+  cursor: pointer;
+}
