@@ -9,7 +9,7 @@ declare var $: any;
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    providers:[RouteRegistrationService]
+    providers: [RouteRegistrationService]
 
 })
 
@@ -42,7 +42,7 @@ export class AppComponent {
         this.fetchPendingApprovals();
     }
 
-    
+
     OnImpersonate() {
         this._userService.ImpersonateLogout();
         this.Start(this.impersonate);
@@ -84,7 +84,7 @@ export class AppComponent {
                 ];
 
                 if (dis.userProfile.role.length != 0) {
-                    if (dis.userProfile.role[0].roleId == 12 || dis.userProfile.role[0].roleId == 27) {
+                    if (dis.userProfile.role[0].roleId == 12 || dis.userProfile.role[0].roleId == 24 || dis.userProfile.role[0].roleId == 27 || dis.userProfile.role[0].roleId == 35 || dis.userProfile.role[0].roleId == 38) {
                         dis.menu.push({
                             "name": "Employee Search",
                             "title": "Employee Search",

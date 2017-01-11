@@ -38,6 +38,7 @@ export class HelpDeskSubmitComponent {
     action: any;
     formSubmitted: boolean = false;
     helpDeskTicketList: any;
+    assigneTo: any;
     issueStatusCollection: Array<any> = [];
     issueStatus = ["In Progress", "On Hold", "Resolved", "Cancelled"];
     selectedStatus: number;
@@ -157,8 +158,8 @@ export class HelpDeskSubmitComponent {
                     this.otherDepartmentAssigneeCollection.push({ "id": element.id, "text": element.text });
                 });
                 this.dropDownCollection = this.assigneeCollection;
-                this.helpDeskSubmitModel.assignedTo = this.assigneeCollection[0].id;
-
+                this.helpDeskSubmitModel.assignedTo = data.helpDesk.assignedTo;
+                this.assigneTo = data.helpDesk.assignedTo;
                 this.selectedStatus = data.helpDesk.status;
                 this.populateSelectedHelpDeskListModel(data, this.helpDeskSubmitModel);
                 this.helpDeskSubmitModel.durationDisplay = this.helpDeskSubmitModel.duration == 0 ? "NA" : this.helpDeskSubmitModel.duration + " Days";
@@ -259,7 +260,7 @@ export class HelpDeskSubmitComponent {
             this.raisedByMe = true;
         } else {
             this.dropDownCollection = this.assigneeCollection;
-            this.helpDeskSubmitModel.assignedTo = 0;
+            this.helpDeskSubmitModel.assignedTo = this.assigneTo;
             this.raisedByMe = false;
         }
     }

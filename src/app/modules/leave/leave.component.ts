@@ -360,9 +360,7 @@ export class LeavesComponent {
     if (this.searchUser == true) {
       url = HttpSettings.apiBaseUrl + "v1/leave-management/for-search-user/0/0/" + year + '/' + this.searchUserId;
     }
-    this._httpService.get(url)
-      .subscribe
-      (
+    this._httpService.get(url).subscribe(
       data => {
         data.employeeLeaveViewModels.forEach(element => {
           var model = new LeaveModel();
@@ -522,14 +520,7 @@ export class LeavesComponent {
           var beforBirthday = new Date(birthday.getFullYear(), birthday.getMonth(), birthday.getDate());
           beforBirthday.setDate(beforBirthday.getDate() - 30);
           if (today <= birthday && today >= beforBirthday) {
-            for (var i = 0; i < this.holidayCollection.length; i++) {
-              if (new Date(this.holidayCollection[i].holidayDate) == birthday) {
-                this.IsBirthdayApply = false;
-              }
-              else {
-                this.IsBirthdayApply = true;
-              }
-            }
+            this.IsBirthdayApply = this.isBirthdayOnHoliday(this.holidayCollection, birthday);
           }
           else {
             this.IsBirthdayApply = false;
@@ -542,7 +533,7 @@ export class LeavesComponent {
   applyBirthdayLeave() {
     var birthday = new Date(this.data.dateOfBirth), today = new Date();
     birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
-    if (birthday.getMonth() == 0) {
+    if (birthday.getMonth() == 0 && today.getMonth() == 11) {
       birthday = new Date((today.getFullYear()) + 1, birthday.getMonth(), birthday.getDate());
     }
     this.loaderModal = true;
@@ -554,5 +545,26 @@ export class LeavesComponent {
     this.addEditLeaveModel.toDate = date[0] + '/' + date[1] + '/' + birthday.getFullYear();
     this.addEditLeaveModel.narration = "Birthday Leave";
     this.addUpdateLeave(url, this.addEditLeaveModel);
+  }
+
+  isBirthdayOnHoliday(holidaylist, birthday) {
+    var count = 0;
+    var holidayInThisMounth = holidaylist.filter(function (el) {
+      return new Date(el.holidayDate).getMonth() == birthday.getMonth();
+    }.bind(this));
+    if (holidayInThisMounth.length > 0) {
+      for (var i = 0; i < holidayInThisMounth.length; i++) {
+        var day = holidayInThisMounth[i].holidayDate;
+        if ((new Date(day).getDay() == new Date(birthday).getDay()) && (new Date(day).getFullYear() == new Date(birthday).getFullYear()) && (new Date(day).getMonth() == new Date(birthday).getMonth())) {
+          count++;
+        }
+      }
+    }
+    if (count > 0) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 }

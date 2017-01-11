@@ -1,11 +1,15 @@
 <div id="helpdesk-list" class="col s12 tab-content padding-zero" style="display: block;">
 <div class="employee-form helpdesk-emp">
     <div class="row m-bottom0">
+        <div class="col s12 l6 m-top20 m-bottom20">
+            <input type="checkbox" id="showUnassigned" [(ngModel)]="showUnassigned" name='showUnassigned' (ngModelChange)="showUnassignedEvent($event)"/>
+            <label for="showUnassigned"> Show Unassigned Tickets</label>
+        </div>
         <div class="custom-input-field m-bottom0 col s12 l3">
             <h6>Search by Status</h6>
             <select materialize="material_select" [materializeSelectOptions]="issueStatusCollection" [(ngModel)]="selectedStatus" (change)="onIssueStatusChanged($event.target.value)">
                     <option *ngFor="let option of issueStatusCollection" [value]="option.id">{{option.text}}</option>
-                </select>
+            </select>
         </div>
     </div>
 </div>
@@ -35,7 +39,7 @@
                 </div>
             </div>
             <div class="approvals">
-                <basic-grid [(source)]='helpDeskTicketList' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false}'
+                <basic-grid [(source)]='rowData' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":false}'
                     [isHeaderVisible]=false>
                     <basic-cell>
                         <template #bg let-item='row'>

@@ -134,9 +134,8 @@ export class CompOffApprovalComponent {
     //Creation of month array for dropdown
     populateMonthYearDropDowns() {
         var thisYear = (new Date()).getFullYear();
-        for (var i = 0; i < 1; i++) {
-            this.yearCollection.push(new DropdownValue(i, (thisYear).toString()));
-            thisYear = thisYear - 1;
+        for (var i = 2016; i <= thisYear; i++) {
+            this.yearCollection.push(new DropdownValue(i, i.toString()));
         }
     }
 

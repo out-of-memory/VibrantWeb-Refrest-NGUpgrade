@@ -26,6 +26,7 @@ export class HelpDeskAdminComponent {
     raisedByMe: number = 0;
     isPokeEnabled: boolean = false;
     cachedUserDetails: any;
+    showUnassigned: boolean = false;
 
     constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
         this.helpDeskModel = new HelpDeskModel();
@@ -60,6 +61,7 @@ export class HelpDeskAdminComponent {
 
     onIssueStatusChanged(val: any) {
         this.status = +(val);
+        this.showUnassigned = false;
         this.GetHelpDeskTeamTickets(this.status);
     }
 
@@ -140,5 +142,18 @@ export class HelpDeskAdminComponent {
         var localOffset = (-1) * new Date().getTimezoneOffset() * 60000;
         var stamp = Math.round(new Date(currentTime + localOffset).getTime() / 1000);
         return stamp.toString();
+    }
+
+    showUnassignedEvent(val: any) {
+        this.rowData = new Array<any>();
+        var tempData = this.helpDeskTicketList;
+        if (val == true) {
+            tempData = this.helpDeskTicketList.filter(function (el) {
+                return el.assignedTo == null || el.assignedTo == 0;
+            }.bind(this));
+            this.rowData = tempData;
+        } else {
+            this.rowData = this.helpDeskTicketList;
+        }
     }
 }

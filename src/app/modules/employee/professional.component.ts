@@ -299,7 +299,7 @@ export class ProfessionalComponent {
         this.ApprovalData();
         this.oldData = this._cacheService.getParams("profile");
         if (this.oldData.role.length != 0) {
-            if (this.oldData.role[0].roleId == 27) {
+            if (this.oldData.role[0].roleId == 27 || this.oldData.role[0].roleId == 35) {
                 this.deliveryUnitEdit = false;
             }
 
