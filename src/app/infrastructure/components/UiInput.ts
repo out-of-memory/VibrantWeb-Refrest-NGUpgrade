@@ -254,17 +254,20 @@ export class UiInput extends BaseControlValueAccessor {
     }
 
     private setSelected(selectElement) {
-        let str: Array<any> = [];
-        for (var i = 0; i < selectElement.currentTarget.options.length; i++) {
-            var optionElement = selectElement.currentTarget.options[i];
-            if (optionElement.selected == true) {
-            this.slectedvalue = optionElement.value.split(':');
-                str.push(parseInt(this.slectedvalue[1]));
+        if (this.meta.multiple == true) {
+            let str: Array<any> = [];
+            for (var i = 0; i < selectElement.currentTarget.options.length; i++) {
+                var optionElement = selectElement.currentTarget.options[i];
+                if (optionElement.selected == true) {
+                    this.slectedvalue = optionElement.value.split(':');
+                    str.push(parseInt(this.slectedvalue[1]));
+                }
+                else {
+                    optionElement.selected == false;
+                }
             }
-            else {
-                optionElement.selected == false;
-            }
+            this.value = str;
         }
-        this.value = str;
+
     }
 }

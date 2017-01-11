@@ -284,6 +284,7 @@ export class ViewReportsComponent {
     }
 
     showLineChartDetail() {
+
         this.lineChartData = [{ data: [14, 7, 18, 11, 9, 15, 25], label: 'Ticket Reporting Trend' }];
         this.lineChartLabels = ['NOVW1', 'NOVW2', 'NOVW3', 'NOVW4', 'DECW1', 'DECW2', 'DECW3'];
         var time = [], days = [], count = 0;
