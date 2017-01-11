@@ -25,14 +25,14 @@ export class BasicCellC {
   template: `<div>
     <div class="wrap">
       <div *ngIf="gridPagination=='top' || gridPagination=='both'" class="row">
-        <div *ngIf="donePage" class="col s12 m6 l4">
+        <div *ngIf="donePage" class="col s12 m6 l2">
           <select materialize="material_select" [(ngModel)]="pageData" name="pageData" (change)="setPage('dropdownChange',$event.target.value)">
             <option value=20>20</option>
             <option value=50>50</option>
             <option value=100>100</option>
           </select>
         </div>
-        <div *ngIf="donePage" class="col s12 m6 l8 right-align">
+        <div *ngIf="donePage" class="col s12 m6 l10 right-align">
           <ul class="pagination">
             <li [class.disabled]="pager.currentPage == 1" class="waves-effect">
               <a (click)="setPage(1)"><i class="fa fa-angle-double-left" title="First"></i></a>
@@ -84,14 +84,14 @@ export class BasicCellC {
         </div>
       </div>      
       <div *ngIf="gridPagination=='bottom' || gridPagination=='both'" class="row">
-        <div *ngIf="donePage" class="col s12 m6 l4">
+        <div *ngIf="donePage" class="col s12 m6 l2">
           <select materialize="material_select" [(ngModel)]="pageData" name="pageData" (change)="setPage('dropdownChange',$event.target.value)">
             <option value=20>20</option>
             <option value=50>50</option>
             <option value=100>100</option>
           </select>
         </div>
-        <div *ngIf="donePage" class="col s12 m6 l8 right-align">
+        <div *ngIf="donePage" class="col s12 m6 l10 right-align">
           <ul class="pagination">
             <li [class.disabled]="pager.currentPage == 1" class="waves-effect">
               <a (click)="setPage(1)"><i class="fa fa-angle-double-left" title="First"></i></a>
@@ -136,9 +136,6 @@ export class BasicCellC {
     cursor: default;
     color: #999;
     pointer-events: none;
-}
-select{
-  display: block;
 }
 [hidden] {
    display: none !important;    
