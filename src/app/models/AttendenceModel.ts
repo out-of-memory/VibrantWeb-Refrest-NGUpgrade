@@ -39,7 +39,7 @@ export class SISOModel implements IUIMetadata {
     @UIProperty({ hub: "SISOModel", type: "date", label: "Date", placeholder: "", validation: "required", css: "col s6" })
     date: string = '';
 
-    @UIProperty({ hub: "SISOModel", type: "selectMaterialize", options: [{ "id": 1, "text": "Sign In", "selected": true }, { "id": 2, "text": "Sign Out", "selected": false }], label: "IsSignInOut", placeholder: "", validation: "required", multiple: false, css: "col s6" })
+    @UIProperty({ hub: "SISOModel", type: "selectMaterialize", options: [{ "id": 1, "text": "Sign In", "selected": true }, { "id": 2, "text": "Sign Out", "selected": false }], label: "SignIn/SignOut", placeholder: "", validation: "required", multiple: false, css: "col s6" })
     IsSignInOut: string = '1';
 
     IsSignIn: boolean = false;

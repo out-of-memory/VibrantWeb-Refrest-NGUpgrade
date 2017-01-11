@@ -94,9 +94,9 @@ export class LeaveApprovalComponent {
             data => {
                 this.leaveStatus = "Apply For Leaves";
                 if (postData.statusComment == "Approved")
-                    Materialize.toast('Leave Approved Succesfuly', 3000, 'green');
+                    Materialize.toast('Leave Approved Succesfully', 3000, 'green');
                 else
-                    Materialize.toast('Leave Reject Succesfuly', 3000, 'green');
+                    Materialize.toast('Leave Rejected Succesfully', 3000, 'green');
                 this.formSubmitted = false;
                 this.GetLeaveDetails()
             });

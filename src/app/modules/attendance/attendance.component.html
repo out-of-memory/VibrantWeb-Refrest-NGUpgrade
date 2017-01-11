@@ -29,7 +29,8 @@
 		</div>
 		<div class="col s12 m6 l10 list-view-options right-align valign m-top10" *ngIf="!searchUser">
 			<a [class.active]="showChart==false" (click)="showChart=false;hideLineChartDetail()"><i class="fa fa-th" aria-hidden="true" title="Grid View"></i></a>
-			<a [class.active]="showChart==true" (click)="showChart=true;showLineChartDetail()"><i class="fa fa-line-chart" aria-hidden="true" title="Chart View"></i></a>
+			<!--<a [class.active]="showChart==true" (click)="showChart=true;showLineChartDetail()"><i class="fa fa-line-chart" aria-hidden="true" title="Chart View"></i></a>-->
+			<a [class.active]="showChart==true"><i class="fa fa-line-chart" aria-hidden="true" title="Chart View"></i></a>
 			<!--<a href="attendance-us-calender-view.html"><i class="fa fa-calendar" aria-hidden="true" title="Calender View"></i></a>-->
 		</div>
 	</div>
@@ -181,7 +182,7 @@
 								<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.signInTime | slice : 0:-3}}</span>
 								<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true"> | </span>
 								<span [hidden]="item.signOutTime == '00:00:00'" [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true">{{item.signOutTime | slice : 0:-3}}</span>
-								<button class="edit-icon" [hidden]="!isEditeble(item) && !isUs" title="Edit" type='button' value="Edit" (click)="DisplayManualPage(item)"><i class="fa fa-pencil"></i></button>
+								<button class="edit-icon" *ngIf="isEditeble(item) && isUs" title="Edit" type='button' value="Edit" (click)="DisplayManualPage(item)"><i class="fa fa-pencil"></i></button>
 							</td>
 							<td class="col-width-25">
 								<span [class.bold]="GetDays(item.date) == 'Sat' || GetDays(item.date) == 'Sun' || GetHoliday(item.date) == true" [hidden]="item.totalHoursWorked=='0:0'">{{item.totalHoursWorked}}</span>
