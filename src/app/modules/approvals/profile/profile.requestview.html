@@ -115,59 +115,57 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row m-bottom10">
-                                                                            <div class="col s8">
-                                                                                <div class="view-form-info">
-                                                                                    <h5>{{data.AddressLabel}}</h5>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row m-bottom10">
-                                                                            <div class="col s10">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.ID !=0 " class="view-form-info {{p.hub[0].css}}">
-                                                                                    <h5>{{data.CurrentAddress}}</h5>
-                                                                                    <h6>Address</h6>
-                                                                                </div>
-                                                                                <!-- <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.CurrentAddress}}</h5>
-                                                                                    <h6>Address</h6>
-                                                                                </div>-->
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.CurrentAddress}}</h5>
-                                                                                    <h6>Address</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <h5>{{data.CurrentAddress}}</h5>
-                                                                                    <h6>Address</h6>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col s6">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.ID !=0 " class="view-form-info {{p.hub[1].css}}">
-                                                                                    <h5>{{data.CurrentAddressCountry}}</h5>
-                                                                                    <h6>Country</h6>
-                                                                                </div>
-                                                                                <!-- <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.CurrentAddressCountry}}</h5>
-                                                                                    <h6>Country</h6>
-                                                                                </div>-->
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.CurrentAddressCountry}}</h5>
-                                                                                    <h6>Country</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <h5>{{data.CurrentAddressCountry}}</h5>
-                                                                                    <h6>Country</h6>
-                                                                                </div>
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row m-bottom10">
+                                                                        <div class="col s8">
+                                                                            <div class="view-form-info">
+                                                                                <h5>{{data.AddressLabel}}</h5>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                    <div class="row m-bottom10">
+                                                                        <div class="col s10">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.ID !=0 " class="view-form-info {{p.hub[0].css}}">
+                                                                                <h5>{{data.CurrentAddress}}</h5>
+                                                                                <h6>Address</h6>
+                                                                            </div>
+                                                                            <!-- <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                    <h5>{{data.CurrentAddress}}</h5>
+                                                                                    <h6>Address</h6>
+                                                                                </div>-->
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.CurrentAddress}}</h5>
+                                                                                <h6>Address</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <h5>{{data.CurrentAddress}}</h5>
+                                                                                <h6>Address</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col s6">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.ID !=0 " class="view-form-info {{p.hub[1].css}}">
+                                                                                <h5>{{data.CurrentAddressCountry}}</h5>
+                                                                                <h6>Country</h6>
+                                                                            </div>
+                                                                            <!-- <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                    <h5>{{data.CurrentAddressCountry}}</h5>
+                                                                                    <h6>Country</h6>
+                                                                                </div>-->
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.CurrentAddressCountry}}</h5>
+                                                                                <h6>Country</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <h5>{{data.CurrentAddressCountry}}</h5>
+                                                                                <h6>Country</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </card>
                                                     </div>
                                                 </div>
@@ -179,90 +177,88 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row">
-                                                                            <div class="col s7">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[0].css}} {{p.hub[1].css}}">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.Relation'>{{data.ContactPersonName}}<span class="p-left10">{{r.text}}</span></h5>
-                                                                                    </div>
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row">
+                                                                        <div class="col s7">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[0].css}} {{p.hub[1].css}}">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.Relation'>{{data.ContactPersonName}}<span class="p-left10">{{r.text}}</span></h5>
                                                                                 </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.Relation'>{{data.ContactPersonName}}<span class="p-left10">{{r.text}}</span></h5>
-                                                                                    </div>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.Relation'>{{data.ContactPersonName}}<span class="p-left10">{{r.text}}</span></h5>
                                                                                 </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.Relation'>{{data.ContactPersonName}}<span class="p-left10">{{r.text}}</span></h5>
-                                                                                    </div>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.Relation'>{{data.ContactPersonName}}<span class="p-left10">{{r.text}}</span></h5>
                                                                                 </div>
+                                                                            </div>
 
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.Relation'>{{data.ContactPersonName}}<span class="p-left10">{{r.text}}</span></h5>
-                                                                                    </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.Relation'>{{data.ContactPersonName}}<span class="p-left10">{{r.text}}</span></h5>
                                                                                 </div>
+                                                                            </div>
 
-                                                                            </div>
                                                                         </div>
-                                                                        <div class="row">
-                                                                            <div class="col s12">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[2].css}}">
-                                                                                    <h5><i class="fa fa-phone" aria-hidden="true"></i>                                                                                        +91 {{data.EmergencyContactNo}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5><i class="fa fa-phone" aria-hidden="true"></i>                                                                                        +91 {{data.EmergencyContactNo}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5><i class="fa fa-phone" aria-hidden="true"></i>                                                                                        +91 {{data.EmergencyContactNo}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <h5><i class="fa fa-phone" aria-hidden="true"></i>                                                                                        +91 {{data.EmergencyContactNo}}</h5>
-                                                                                </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col s12">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[2].css}}">
+                                                                                <h5><i class="fa fa-phone" aria-hidden="true"></i>                                                                                    +91 {{data.EmergencyContactNo}}</h5>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col s12">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[4].css}}">
-                                                                                    <h5> {{data.ContactAddress}}</h5>
-                                                                                    <h6 *ngIf="data.ContactAddress">Contact Person Address</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5> {{data.ContactAddress}}</h5>
-                                                                                    <h6 *ngIf="data.ContactAddress">Contact Person Address</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5> {{data.ContactAddress}}</h5>
-                                                                                    <h6 *ngIf="data.ContactAddress">Contact Person Address</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <h5>{{data.v}}</h5>
-                                                                                    <h6 *ngIf="data.ContactAddress">Contact Person Address</h6>
-                                                                                </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5><i class="fa fa-phone" aria-hidden="true"></i>                                                                                    +91 {{data.EmergencyContactNo}}</h5>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col s12">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[3].css}}">
-                                                                                    <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{data.EmergencyEmail}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{data.EmergencyEmail}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{data.EmergencyEmail}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{data.EmergencyEmail}}</h5>
-                                                                                </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5><i class="fa fa-phone" aria-hidden="true"></i>                                                                                    +91 {{data.EmergencyContactNo}}</h5>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <h5><i class="fa fa-phone" aria-hidden="true"></i>                                                                                    +91 {{data.EmergencyContactNo}}</h5>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                    <div class="row">
+                                                                        <div class="col s12">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[4].css}}">
+                                                                                <h5> {{data.ContactAddress}}</h5>
+                                                                                <h6 *ngIf="data.ContactAddress">Contact Person Address</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5> {{data.ContactAddress}}</h5>
+                                                                                <h6 *ngIf="data.ContactAddress">Contact Person Address</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5> {{data.ContactAddress}}</h5>
+                                                                                <h6 *ngIf="data.ContactAddress">Contact Person Address</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <h5>{{data.v}}</h5>
+                                                                                <h6 *ngIf="data.ContactAddress">Contact Person Address</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col s12">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[3].css}}">
+                                                                                <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{data.EmergencyEmail}}</h5>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{data.EmergencyEmail}}</h5>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{data.EmergencyEmail}}</h5>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <h5 class="new-line-word"><i class="fa fa-envelope" aria-hidden="true"></i>{{data.EmergencyEmail}}</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </card>
                                                     </div>
                                                 </div>
@@ -274,52 +270,50 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row valign-wrapper">
-                                                                            <div class="col s12">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[1].css}}">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.RelationWithDependent'>{{data.DependentName}}<span class="p-left10">{{r.text}}</span></h5>
-                                                                                    </div>
-                                                                                    <h6 class=" {{p.hub[2].css}}">
-                                                                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>{{data.DateOfBirthOfDependent}}
-                                                                                    </h6>
-
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row valign-wrapper">
+                                                                        <div class="col s12">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[1].css}}">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.RelationWithDependent'>{{data.DependentName}}<span class="p-left10">{{r.text}}</span></h5>
                                                                                 </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.RelationWithDependent'>{{data.DependentName}}<span class="p-left10">{{r.text}}</span></h5>
-                                                                                    </div>
-                                                                                    <h6 class=" deleted-value-content">
-                                                                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>{{data.DateOfBirthOfDependent}}
-                                                                                    </h6>
+                                                                                <h6 class=" {{p.hub[2].css}}">
+                                                                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>{{data.DateOfBirthOfDependent}}
+                                                                                </h6>
 
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.RelationWithDependent'>{{data.DependentName}}<span class="p-left10">{{r.text}}</span></h5>
                                                                                 </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.RelationWithDependent'>{{data.DependentName}}<span class="p-left10">{{r.text}}</span></h5>
-                                                                                    </div>
-                                                                                    <h6 class=" new-value-content">
-                                                                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>{{data.DateOfBirthOfDependent}}
-                                                                                    </h6>
+                                                                                <h6 class=" deleted-value-content">
+                                                                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>{{data.DateOfBirthOfDependent}}
+                                                                                </h6>
 
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.RelationWithDependent'>{{data.DependentName}}<span class="p-left10">{{r.text}}</span></h5>
                                                                                 </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.RelationWithDependent'>{{data.DependentName}}<span class="p-left10">{{r.text}}</span></h5>
-                                                                                    </div>
-                                                                                    <h6 *ngIf="item.changeId.indexOf(data.ID) != -1">
-                                                                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>{{data.DateOfBirthOfDependent}}
-                                                                                    </h6>
+                                                                                <h6 class=" new-value-content">
+                                                                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>{{data.DateOfBirthOfDependent}}
+                                                                                </h6>
 
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.RelationWithDependent'>{{data.DependentName}}<span class="p-left10">{{r.text}}</span></h5>
                                                                                 </div>
+                                                                                <h6 *ngIf="item.changeId.indexOf(data.ID) != -1">
+                                                                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>{{data.DateOfBirthOfDependent}}
+                                                                                </h6>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                </div>
+                                                            </div>
                                                         </card>
                                                     </div>
                                                 </div>
@@ -332,84 +326,82 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row">
-                                                                            <div class="col s8">
-                                                                                <div class="view-form-info">
-                                                                                    <div *ngFor="let r of item.card.hub[0].options">
-                                                                                        <div class="{{p.hub[0].css}}">
-                                                                                            <h5 *ngIf='r.id==data.CertificationID && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 '>{{r.text}}</h5>
-                                                                                        </div>
-                                                                                        <div class="new-value-content">
-                                                                                            <h5 *ngIf='r.id==data.CertificationID && item.changeId.indexOf(data.ID) != -1 && data.ID==0'>{{r.text}}</h5>
-                                                                                        </div>
-                                                                                        <div class="deleted-value-content">
-                                                                                            <h5 *ngIf='r.id==data.CertificationID && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true'>{{r.text}}</h5>
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <h5 *ngIf='r.id==data.CertificationID && item.changeId.indexOf(data.ID) == -1'>{{r.text}}</h5>
-                                                                                        </div>
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row">
+                                                                        <div class="col s8">
+                                                                            <div class="view-form-info">
+                                                                                <div *ngFor="let r of item.card.hub[0].options">
+                                                                                    <div class="{{p.hub[0].css}}">
+                                                                                        <h5 *ngIf='r.id==data.CertificationID && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 '>{{r.text}}</h5>
                                                                                     </div>
-                                                                                    <div class=" {{p.hub[1].css}}">
-                                                                                        <h6 *ngIf='data.Grade && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0'>Grade Class- <span class="small-text">{{data.Grade}}</span></h6>
+                                                                                    <div class="new-value-content">
+                                                                                        <h5 *ngIf='r.id==data.CertificationID && item.changeId.indexOf(data.ID) != -1 && data.ID==0'>{{r.text}}</h5>
                                                                                     </div>
-                                                                                    <div class=" deleted-value-content">
-                                                                                        <h6 *ngIf='data.Grade && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true'>Grade Class- <span class="small-text">{{data.Grade}}</span></h6>
-                                                                                    </div>
-                                                                                    <div class=" new-value-content">
-                                                                                        <h6 *ngIf='data.Grade && item.changeId.indexOf(data.ID) != -1 && data.ID==0'>Grade Class- <span class="small-text">{{data.Grade}}</span></h6>
+                                                                                    <div class="deleted-value-content">
+                                                                                        <h5 *ngIf='r.id==data.CertificationID && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true'>{{r.text}}</h5>
                                                                                     </div>
                                                                                     <div>
-                                                                                        <h6 *ngIf='data.Grade && item.changeId.indexOf(data.ID) == -1'>Grade Class- <span class="small-text">{{data.Grade}}</span></h6>
+                                                                                        <h5 *ngIf='r.id==data.CertificationID && item.changeId.indexOf(data.ID) == -1'>{{r.text}}</h5>
                                                                                     </div>
-
                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col s6">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[3].css}}">
-                                                                                    <h5>{{data.CertificationNumber}}</h5>
-                                                                                    <h6 *ngIf="data.CertificationNumber">Certification Number</h6>
+                                                                                <div class=" {{p.hub[1].css}}">
+                                                                                    <h6 *ngIf='data.Grade && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0'>Grade Class- <span class="small-text">{{data.Grade}}</span></h6>
                                                                                 </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.CertificationNumber}}</h5>
-                                                                                    <h6 *ngIf="data.CertificationNumber">Certification Number</h6>
+                                                                                <div class=" deleted-value-content">
+                                                                                    <h6 *ngIf='data.Grade && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true'>Grade Class- <span class="small-text">{{data.Grade}}</span></h6>
                                                                                 </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.CertificationNumber}}</h5>
-                                                                                    <h6 *ngIf="data.CertificationNumber">Certification Number</h6>
+                                                                                <div class=" new-value-content">
+                                                                                    <h6 *ngIf='data.Grade && item.changeId.indexOf(data.ID) != -1 && data.ID==0'>Grade Class- <span class="small-text">{{data.Grade}}</span></h6>
                                                                                 </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
-                                                                                    <h5>{{data.CertificationNumber}}</h5>
-                                                                                    <h6 *ngIf="data.CertificationNumber">Certification Number</h6>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col s6">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[2].css}}">
-                                                                                    <h5>{{data.CertificationDate}}</h5>
-                                                                                    <h6>Certification Date</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.CertificationDate}}</h5>
-                                                                                    <h6>Certification Date</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.CertificationDate}}</h5>
-                                                                                    <h6>Certification Date</h6>
+                                                                                <div>
+                                                                                    <h6 *ngIf='data.Grade && item.changeId.indexOf(data.ID) == -1'>Grade Class- <span class="small-text">{{data.Grade}}</span></h6>
                                                                                 </div>
 
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <h5>{{data.CertificationDate}}</h5>
-                                                                                    <h6>Certification Date</h6>
-                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                    <div class="row">
+                                                                        <div class="col s6">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[3].css}}">
+                                                                                <h5>{{data.CertificationNumber}}</h5>
+                                                                                <h6 *ngIf="data.CertificationNumber">Certification Number</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5>{{data.CertificationNumber}}</h5>
+                                                                                <h6 *ngIf="data.CertificationNumber">Certification Number</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.CertificationNumber}}</h5>
+                                                                                <h6 *ngIf="data.CertificationNumber">Certification Number</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
+                                                                                <h5>{{data.CertificationNumber}}</h5>
+                                                                                <h6 *ngIf="data.CertificationNumber">Certification Number</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col s6">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0 " class="view-form-info {{p.hub[2].css}}">
+                                                                                <h5>{{data.CertificationDate}}</h5>
+                                                                                <h6>Certification Date</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5>{{data.CertificationDate}}</h5>
+                                                                                <h6>Certification Date</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.CertificationDate}}</h5>
+                                                                                <h6>Certification Date</h6>
+                                                                            </div>
+
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <h5>{{data.CertificationDate}}</h5>
+                                                                                <h6>Certification Date</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </card>
                                                     </div>
                                                 </div>
@@ -421,58 +413,60 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row">
-                                                                            <div class="col s8">
-                                                                                <div class="view-form-info ">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <div class="{{p.hub[1].css}}">
-                                                                                            <h5 *ngIf='r.id==data.VisaTypeID  && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0'>{{r.text}}</h5>
-                                                                                        </div>
-                                                                                        <div class="deleted-value-content">
-                                                                                            <h5 *ngIf='r.id==data.VisaTypeID  && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true'>{{r.text}}</h5>
-                                                                                        </div>
-                                                                                        <div class="new-value-content">
-                                                                                            <h5 *ngIf='r.id==data.VisaTypeID  && item.changeId.indexOf(data.ID) != -1 && data.ID==0'>{{r.text}}</h5>
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <h5 *ngIf='r.id==data.VisaTypeID && item.changeId.indexOf(data.ID) == -1'>{{r.text}}</h5>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div *ngFor="let s of item.card.hub[0].options">
-                                                                                        <div class="{{p.hub[0].css}}">
-                                                                                            <h6 *ngIf='s.id==data.CountryID && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0'>Country<span class="p-left10">{{s.text}}</span></h6>
-                                                                                        </div>
-                                                                                        <div class="deleted-value-content">
-                                                                                            <h6 *ngIf='s.id==data.CountryID && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true'>Country<span class="p-left10">{{s.text}}</span></h6>
-                                                                                        </div>
-                                                                                        <div class="new-value-content">
-                                                                                            <h6 *ngIf='s.id==data.CountryID && item.changeId.indexOf(data.ID) != -1 && data.ID==0'>Country<span class="p-left10">{{s.text}}</span></h6>
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <h6 *ngIf='s.id==data.CountryID && item.changeId.indexOf(data.ID) == -1'>Country><span class="p-left10">{{s.text}}</span></h6>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="{{p.hub[2].css}}">
-                                                                                        <h6 *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0">Valid Till<span class="p-left10">{{data.ValidTill}}</span></h6>
+                                                            <!--<repeater [source]='p.model'>
+                                                                <template let-data='item'>-->
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row">
+                                                                        <div class="col s8">
+                                                                            <div class="view-form-info ">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <div class="{{p.hub[1].css}}">
+                                                                                        <h5 *ngIf='r.id==data.VisaTypeID  && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0'>{{r.text}}</h5>
                                                                                     </div>
                                                                                     <div class="deleted-value-content">
-                                                                                        <h6 *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true">Valid Till<span class="p-left10">{{data.ValidTill}}</span></h6>
+                                                                                        <h5 *ngIf='r.id==data.VisaTypeID  && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true'>{{r.text}}</h5>
                                                                                     </div>
                                                                                     <div class="new-value-content">
-                                                                                        <h6 *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0">Valid Till<span class="p-left10">{{data.ValidTill}}</span></h6>
+                                                                                        <h5 *ngIf='r.id==data.VisaTypeID  && item.changeId.indexOf(data.ID) != -1 && data.ID==0'>{{r.text}}</h5>
                                                                                     </div>
                                                                                     <div>
-                                                                                        <h6 *ngIf="item.changeId.indexOf(data.ID) == -1">Valid Till<span class="p-left10">{{data.ValidTill}}</span></h6>
+                                                                                        <h5 *ngIf='r.id==data.VisaTypeID && item.changeId.indexOf(data.ID) == -1'>{{r.text}}</h5>
                                                                                     </div>
+                                                                                </div>
+                                                                                <div *ngFor="let s of item.card.hub[0].options">
+                                                                                    <div class="{{p.hub[0].css}}">
+                                                                                        <h6 *ngIf='s.id==data.CountryID && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0'>Country<span class="p-left10">{{s.text}}</span></h6>
+                                                                                    </div>
+                                                                                    <div class="deleted-value-content">
+                                                                                        <h6 *ngIf='s.id==data.CountryID && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true'>Country<span class="p-left10">{{s.text}}</span></h6>
+                                                                                    </div>
+                                                                                    <div class="new-value-content">
+                                                                                        <h6 *ngIf='s.id==data.CountryID && item.changeId.indexOf(data.ID) != -1 && data.ID==0'>Country<span class="p-left10">{{s.text}}</span></h6>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h6 *ngIf='s.id==data.CountryID && item.changeId.indexOf(data.ID) == -1'>Country><span class="p-left10">{{s.text}}</span></h6>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="{{p.hub[2].css}}">
+                                                                                    <h6 *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0">Valid Till<span class="p-left10">{{data.ValidTill}}</span></h6>
+                                                                                </div>
+                                                                                <div class="deleted-value-content">
+                                                                                    <h6 *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true">Valid Till<span class="p-left10">{{data.ValidTill}}</span></h6>
+                                                                                </div>
+                                                                                <div class="new-value-content">
+                                                                                    <h6 *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0">Valid Till<span class="p-left10">{{data.ValidTill}}</span></h6>
+                                                                                </div>
+                                                                                <div>
+                                                                                    <h6 *ngIf="item.changeId.indexOf(data.ID) == -1">Valid Till<span class="p-left10">{{data.ValidTill}}</span></h6>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                </div>
+                                                            </div>
+                                                            <!--</template>
+                                                            </repeater>-->
                                                         </card>
                                                     </div>
                                                 </div>
@@ -486,131 +480,129 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row m-bottom10">
-                                                                            <div class="col s7">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info  {{p.hub[1].css}}">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.QualificationID'>{{r.text}}</h5>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.QualificationID'>{{r.text}}</h5>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.QualificationID'>{{r.text}}</h5>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info  ">
-                                                                                    <div *ngFor="let r of item.card.hub[1].options">
-                                                                                        <h5 *ngIf='r.id==data.QualificationID'>{{r.text}}</h5>
-                                                                                    </div>
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row m-bottom10">
+                                                                        <div class="col s7">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info  {{p.hub[1].css}}">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.QualificationID'>{{r.text}}</h5>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row m-bottom10">
-                                                                            <div class="col s10">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[5].css}}">
-                                                                                    <h5>{{data.Institute}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.Institute}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.Institute}}</h5>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
-                                                                                    <h5>{{data.Institute}}</h5>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.QualificationID'>{{r.text}}</h5>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row m-bottom10">
-                                                                            <div class="col s12">
-                                                                                <div class="view-form-info" *ngFor="let r of item.card.hub[6].options">
-                                                                                    <div class="{{p.hub[0].css}} {{p.hub[6].css}}">
-                                                                                        <h6 *ngIf="r.id==data.QualificationType && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0">{{data.University}}
-                                                                                            <span class="small-text {{p.hub[6].css}}"> - {{r.text}}</span></h6>
-                                                                                    </div>
-
-                                                                                    <div class=" deleted-value-content">
-                                                                                        <h6 *ngIf="r.id==data.QualificationType && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true">{{data.University}}
-                                                                                            <span class="small-text "> - {{r.text}}</span></h6>
-                                                                                    </div>
-                                                                                    <div class=" new-value-content">
-                                                                                        <h6 *ngIf="r.id==data.QualificationType && item.changeId.indexOf(data.ID) != -1 && data.ID==0">{{data.University}}
-                                                                                            <span class="small-text "> - {{r.text}}</span></h6>
-                                                                                    </div>
-                                                                                    <div>
-                                                                                        <h6 *ngIf="r.id==data.QualificationType && item.changeId.indexOf(data.ID) == -1">{{data.University}}
-                                                                                            <span class="small-text "> - {{r.text}}</span></h6>
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col s12">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[3].css}}">
-                                                                                    <h6>Grade Class <span class="small-text"> - {{data.Grade_Class}}</span></h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h6>Grade Class <span class="small-text"> - {{data.Grade_Class}}</span></h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h6>Grade Class <span class="small-text"> - {{data.Grade_Class}}</span></h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
-                                                                                    <h6>Grade Class <span class="small-text"> - {{data.Grade_Class}}</span></h6>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.QualificationID'>{{r.text}}</h5>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col s6">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[2].css}}">
-                                                                                    <h5>{{data.PassingYear}}</h5>
-                                                                                    <h6>Year</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.PassingYear}}</h5>
-                                                                                    <h6>Year</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.PassingYear}}</h5>
-                                                                                    <h6>Year</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
-                                                                                    <h5>{{data.PassingYear}}</h5>
-                                                                                    <h6>Year</h6>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col s6">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[4].css}}">
-                                                                                    <h5>{{data.Specialization}}</h5>
-                                                                                    <h6>Specialization</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.Specialization}}</h5>
-                                                                                    <h6>Specialization</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.Specialization}}</h5>
-                                                                                    <h6>Specialization</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
-                                                                                    <h5>{{data.Specialization}}</h5>
-                                                                                    <h6>Specialization</h6>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info  ">
+                                                                                <div *ngFor="let r of item.card.hub[1].options">
+                                                                                    <h5 *ngIf='r.id==data.QualificationID'>{{r.text}}</h5>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                    <div class="row m-bottom10">
+                                                                        <div class="col s10">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[5].css}}">
+                                                                                <h5>{{data.Institute}}</h5>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5>{{data.Institute}}</h5>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.Institute}}</h5>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
+                                                                                <h5>{{data.Institute}}</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row m-bottom10">
+                                                                        <div class="col s12">
+                                                                            <div class="view-form-info" *ngFor="let r of item.card.hub[6].options">
+                                                                                <div class="{{p.hub[0].css}} {{p.hub[6].css}}">
+                                                                                    <h6 *ngIf="r.id==data.QualificationType && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0">{{data.University}}
+                                                                                        <span class="small-text {{p.hub[6].css}}"> - {{r.text}}</span></h6>
+                                                                                </div>
+
+                                                                                <div class=" deleted-value-content">
+                                                                                    <h6 *ngIf="r.id==data.QualificationType && item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true">{{data.University}}
+                                                                                        <span class="small-text "> - {{r.text}}</span></h6>
+                                                                                </div>
+                                                                                <div class=" new-value-content">
+                                                                                    <h6 *ngIf="r.id==data.QualificationType && item.changeId.indexOf(data.ID) != -1 && data.ID==0">{{data.University}}
+                                                                                        <span class="small-text "> - {{r.text}}</span></h6>
+                                                                                </div>
+                                                                                <div>
+                                                                                    <h6 *ngIf="r.id==data.QualificationType && item.changeId.indexOf(data.ID) == -1">{{data.University}}
+                                                                                        <span class="small-text "> - {{r.text}}</span></h6>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col s12">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[3].css}}">
+                                                                                <h6>Grade Class <span class="small-text"> - {{data.Grade_Class}}</span></h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h6>Grade Class <span class="small-text"> - {{data.Grade_Class}}</span></h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h6>Grade Class <span class="small-text"> - {{data.Grade_Class}}</span></h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
+                                                                                <h6>Grade Class <span class="small-text"> - {{data.Grade_Class}}</span></h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col s6">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[2].css}}">
+                                                                                <h5>{{data.PassingYear}}</h5>
+                                                                                <h6>Year</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5>{{data.PassingYear}}</h5>
+                                                                                <h6>Year</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.PassingYear}}</h5>
+                                                                                <h6>Year</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
+                                                                                <h5>{{data.PassingYear}}</h5>
+                                                                                <h6>Year</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col s6">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[4].css}}">
+                                                                                <h5>{{data.Specialization}}</h5>
+                                                                                <h6>Specialization</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5>{{data.Specialization}}</h5>
+                                                                                <h6>Specialization</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.Specialization}}</h5>
+                                                                                <h6>Specialization</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
+                                                                                <h5>{{data.Specialization}}</h5>
+                                                                                <h6>Specialization</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </card>
                                                     </div>
                                                 </div>
@@ -623,36 +615,38 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row">
-                                                                            <div class="col s12">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info ">
-                                                                                    <h5>{{data.LastDesignation}}</h5>
-                                                                                    <h5 class="subheading">{{data.OrganisationName}}, {{data.Location}}</h5>
-                                                                                    <h6>{{data.JoiningDate}} - {{data.WorkedTill}}</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.LastDesignation}}</h5>
-                                                                                    <h5 class="subheading">{{data.OrganisationName}}, {{data.Location}}</h5>
-                                                                                    <h6>{{data.JoiningDate}} - {{data.WorkedTill}}</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.LastDesignation}}</h5>
-                                                                                    <h5 class="subheading">{{data.OrganisationName}}, {{data.Location}}</h5>
-                                                                                    <h6>{{data.JoiningDate}} - {{data.WorkedTill}}</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <h5>{{data.LastDesignation}}</h5>
-                                                                                    <h5 class="subheading">{{data.OrganisationName}}, {{data.Location}}</h5>
-                                                                                    <h6>{{data.JoiningDate}} - {{data.WorkedTill}}</h6>
-                                                                                </div>
+                                                            <!--<repeater [source]='p.model'>
+                                                                <template let-data='item'>-->
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row">
+                                                                        <div class="col s12">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info ">
+                                                                                <h5>{{data.LastDesignation}}</h5>
+                                                                                <h5 class="subheading">{{data.OrganisationName}}, {{data.Location}}</h5>
+                                                                                <h6>{{data.JoiningDate}} - {{data.WorkedTill}}</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5>{{data.LastDesignation}}</h5>
+                                                                                <h5 class="subheading">{{data.OrganisationName}}, {{data.Location}}</h5>
+                                                                                <h6>{{data.JoiningDate}} - {{data.WorkedTill}}</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.LastDesignation}}</h5>
+                                                                                <h5 class="subheading">{{data.OrganisationName}}, {{data.Location}}</h5>
+                                                                                <h6>{{data.JoiningDate}} - {{data.WorkedTill}}</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <h5>{{data.LastDesignation}}</h5>
+                                                                                <h5 class="subheading">{{data.OrganisationName}}, {{data.Location}}</h5>
+                                                                                <h6>{{data.JoiningDate}} - {{data.WorkedTill}}</h6>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                </div>
+                                                            </div>
+                                                            <!--</template>
+                                                            </repeater>-->
                                                         </card>
                                                     </div>
                                                 </div>
@@ -664,54 +658,56 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row">
-                                                                            <div class="col s8" *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0">
-                                                                                <div class="view-form-info {{p.hub[1].css}}" *ngFor="let r of item.card.hub[1].options">
-                                                                                    <h5 *ngIf='r.id==data.RelationType'>{{data.DeclaredPerson}} <span class="p-left10">{{r.text}}</span></h5>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col s8" *ngIf="item.changeId.indexOf(data.ID) != -1  && data.IsDeleted==true">
-                                                                                <div class="view-form-info deleted-value-content" *ngFor="let r of item.card.hub[1].options">
-                                                                                    <h5 *ngIf='r.id==data.RelationType'>{{data.DeclaredPerson}} <span class="p-left10">{{r.text}}</span></h5>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col s8" *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0">
-                                                                                <div class="view-form-info new-value-content" *ngFor="let r of item.card.hub[1].options">
-                                                                                    <h5 *ngIf='r.id==data.RelationType'>{{data.DeclaredPerson}} <span class="p-left10">{{r.text}}</span></h5>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col s8" *ngIf="item.changeId.indexOf(data.ID) == -1">
-                                                                                <div class="view-form-info" *ngFor="let r of item.card.hub[1].options">
-                                                                                    <h5 *ngIf='r.id==data.RelationType'>{{data.DeclaredPerson}} <span class="p-left10">{{r.text}}</span></h5>
-                                                                                </div>
+                                                            <!--<repeater [source]='p.model'>
+                                                                <template let-data='item'>-->
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row">
+                                                                        <div class="col s8" *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0">
+                                                                            <div class="view-form-info {{p.hub[1].css}}" *ngFor="let r of item.card.hub[1].options">
+                                                                                <h5 *ngIf='r.id==data.RelationType'>{{data.DeclaredPerson}} <span class="p-left10">{{r.text}}</span></h5>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row">
-                                                                            <div class="col s12">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[3].css}}">
-                                                                                    <h5>{{data.V2PersonID}}<span class="p-left10">Active</span></h5>
-                                                                                    <h6>V2 Employee Code</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.V2PersonID}}<span class="p-left10">Active</span></h5>
-                                                                                    <h6>V2 Employee Code</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.V2PersonID}}<span class="p-left10">Active</span></h5>
-                                                                                    <h6>V2 Employee Code</h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
-                                                                                    <h5>{{data.V2PersonID}}<span class="p-left10">Active</span></h5>
-                                                                                    <h6>V2 Employee Code</h6>
-                                                                                </div>
+                                                                        <div class="col s8" *ngIf="item.changeId.indexOf(data.ID) != -1  && data.IsDeleted==true">
+                                                                            <div class="view-form-info deleted-value-content" *ngFor="let r of item.card.hub[1].options">
+                                                                                <h5 *ngIf='r.id==data.RelationType'>{{data.DeclaredPerson}} <span class="p-left10">{{r.text}}</span></h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col s8" *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0">
+                                                                            <div class="view-form-info new-value-content" *ngFor="let r of item.card.hub[1].options">
+                                                                                <h5 *ngIf='r.id==data.RelationType'>{{data.DeclaredPerson}} <span class="p-left10">{{r.text}}</span></h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col s8" *ngIf="item.changeId.indexOf(data.ID) == -1">
+                                                                            <div class="view-form-info" *ngFor="let r of item.card.hub[1].options">
+                                                                                <h5 *ngIf='r.id==data.RelationType'>{{data.DeclaredPerson}} <span class="p-left10">{{r.text}}</span></h5>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                    <div class="row">
+                                                                        <div class="col s12">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[3].css}}">
+                                                                                <h5>{{data.V2PersonID}}<span class="p-left10">Active</span></h5>
+                                                                                <h6>V2 Employee Code</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5>{{data.V2PersonID}}<span class="p-left10">Active</span></h5>
+                                                                                <h6>V2 Employee Code</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.V2PersonID}}<span class="p-left10">Active</span></h5>
+                                                                                <h6>V2 Employee Code</h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info ">
+                                                                                <h5>{{data.V2PersonID}}<span class="p-left10">Active</span></h5>
+                                                                                <h6>V2 Employee Code</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--</template>
+                                                            </repeater>-->
                                                         </card>
                                                     </div>
                                                 </div>
@@ -723,40 +719,38 @@
                                                 <div class="row m-bottom0">
                                                     <div class="col s12 l10 m-top20">
                                                         <card [header]='item.name' [formReadonly]='true' [nonEditable]='true'>
-                                                            <repeater [source]='p.model'>
-                                                                <template let-data='item'>
-                                                                    <div class="saved-data">
-                                                                        <div class="row valign-wrapper">
-                                                                            <div class="col s12 valign">
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[0].css}} {{p.hub[2].css}}">
-                                                                                    <h5>{{data.SkillID|option:item.card.hub[0].options}}
-                                                                                        <span>({{data.ExperienceYears}} Years)</span></h5>
-                                                                                    <h6 [innerHTML]='data.SkillRating/2|rating'>
-                                                                                    </h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
-                                                                                    <h5>{{data.SkillID|option:item.card.hub[0].options}}
-                                                                                        <span>({{data.ExperienceYears}} Years)</span></h5>
-                                                                                    <h6 [innerHTML]='data.SkillRating/2|rating'>
-                                                                                    </h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.ID==0" class="view-form-info new-value-content">
-                                                                                    <h5>{{data.SkillID|option:item.card.hub[0].options}}
-                                                                                        <span>({{data.ExperienceYears}} Years)</span></h5>
-                                                                                    <h6 [innerHTML]='data.SkillRating/2|rating'>
-                                                                                    </h6>
-                                                                                </div>
-                                                                                <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
-                                                                                    <h5>{{data.SkillID|option:item.card.hub[0].options}}
-                                                                                        <span>({{data.ExperienceYears}} Years)</span></h5>
-                                                                                    <h6 [innerHTML]='data.SkillRating/2|rating'>
-                                                                                    </h6>
-                                                                                </div>
+                                                            <div *ngFor="let data of p.model">
+                                                                <div class="saved-data">
+                                                                    <div class="row valign-wrapper">
+                                                                        <div class="col s12 valign">
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==false && data.ID !=0" class="view-form-info {{p.hub[0].css}} {{p.hub[2].css}}">
+                                                                                <h5>{{data.SkillID|option:item.card.hub[0].options}}
+                                                                                    <span>({{data.ExperienceYears}} Years)</span></h5>
+                                                                                <h6 [innerHTML]='data.SkillRating/2|rating'>
+                                                                                </h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1 && data.IsDeleted==true" class="view-form-info deleted-value-content">
+                                                                                <h5>{{data.SkillID|option:item.card.hub[0].options}}
+                                                                                    <span>({{data.ExperienceYears}} Years)</span></h5>
+                                                                                <h6 [innerHTML]='data.SkillRating/2|rating'>
+                                                                                </h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) != -1  && data.ID==0" class="view-form-info new-value-content">
+                                                                                <h5>{{data.SkillID|option:item.card.hub[0].options}}
+                                                                                    <span>({{data.ExperienceYears}} Years)</span></h5>
+                                                                                <h6 [innerHTML]='data.SkillRating/2|rating'>
+                                                                                </h6>
+                                                                            </div>
+                                                                            <div *ngIf="item.changeId.indexOf(data.ID) == -1" class="view-form-info">
+                                                                                <h5>{{data.SkillID|option:item.card.hub[0].options}}
+                                                                                    <span>({{data.ExperienceYears}} Years)</span></h5>
+                                                                                <h6 [innerHTML]='data.SkillRating/2|rating'>
+                                                                                </h6>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </template>
-                                                            </repeater>
+                                                                </div>
+                                                            </div>
                                                         </card>
                                                     </div>
                                                 </div>
