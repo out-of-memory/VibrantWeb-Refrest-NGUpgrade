@@ -70,16 +70,6 @@ export class AppComponent {
                         "routerName": "R-my-dashboard",
                         "routerUrl": "my/dashboard",
                         "subNav": []
-                    },
-                    {
-                        "name": "Reports",
-                        "title": "Reports",
-                        "iconCss": "fa fa-file-text",
-                        "css": "third",
-                        "parentRoute": "",
-                        "routerName": "R-Reports",
-                        "routerUrl": "employee/reports/view",
-                        "subNav": []
                     }
                 ];
 
@@ -123,6 +113,16 @@ export class AppComponent {
                         "subNav": subMenuArray
                     });
                 }
+                dis.menu.push({
+                        "name": "Reports",
+                        "title": "Reports",
+                        "iconCss": "fa fa-file-text",
+                        "css": "third",
+                        "parentRoute": "",
+                        "routerName": "R-Reports",
+                        "routerUrl": "employee/reports/view",
+                        "subNav": []
+                    });
                 dis.menu.push({
                     "name": "Expense",
                     "title": "Expense",

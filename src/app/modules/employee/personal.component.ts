@@ -518,7 +518,7 @@ export class PersonalComponent {
         this.oldData = this._cacheService.getParams("profile");
         if (this.isReadOnlyMode) {
             if (this.oldData.role.length != 0) {
-                if (this.oldData.role[0].roleId != 12 && this.oldData.role[0].roleId != 27) {
+                if (this.oldData.role[0].roleId > 12 && this.oldData.role[0].roleId != 27 && this.oldData.role[0].roleId != 35 && this.oldData.role[0].roleId != 38 && this.oldData.role[0].roleId != 24) {
                     this._router.navigateByUrl('/my/dashboard');
                 }
             }
