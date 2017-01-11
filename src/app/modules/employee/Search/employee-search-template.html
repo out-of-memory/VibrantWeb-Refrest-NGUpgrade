@@ -1,0 +1,127 @@
+<div class="top-section">
+    <page-heading heading="Employee Search"></page-heading>
+    <div class="employee-form">
+        <div class="row p-reset m-bottom0 pos-relative">
+            <div class="col s12 padding-zero">
+                <div class="row margin-zero ">
+                    <div class="col s10 m10 l10 search-employee">
+                        <div class="row m-bottom0">
+                            <div class="col s10 m5 l4 padding-zero">
+                                <ui-form #searchForm [controlMetas]="searchBoxViewModelhub" [model]="searchBoxViewModel" [formReadonly]='searchBoxViewModelFormReadonly'
+                                    formCss='view-card' controlCss='view-form-info' labelPosition='top' [errorOnlyOnSubmit]='cardSubmitted'>
+                                </ui-form>
+                            </div>
+                            <div class="col s2 m2 l1 padding-zero">
+                                <a class="btn waves-effect waves-light"><i class="material-icons" (click)="Search(searchForm.mainForm)">search</i></a>
+                            </div>
+                            <div class="col s12 m5 l6 padding-zero">
+                                <input type="checkbox" class="filled-in" id="flattv1" checked="" [(ngModel)]="isActive">
+                                <label for="flattv1">Show Both Active & Inactive Employees</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col s12 m2 l2 list-view-options right-align">
+                        <div *ngIf="results">
+                            <a [class.active]="showList==false" (click)="showList=false;"><i class="fa fa-th" aria-hidden="true" title="Grid View"></i></a>
+                            <a [class.active]="showList==true" (click)="showList=true;"><i class="fa fa-list" aria-hidden="true" title="Chart View"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-container" *ngIf="!showList">
+        <div class="row margin-zero">
+            <div class="col s12">
+                <div class="dashboard-data-container employee-search">
+                    <div class="card white emp-dashboard-data" *ngFor="let e of results" [class.notActiveEmployee]="e.active == false">
+                        <div class="row m-bottom0">
+                            <div class="col s12 blue-bg-section padding15 emp-wrapper right-align" [class.notActiveEmp]="e.active == false">
+                                <div class="emp-img">
+                                    <img src="{{'/images/'+e.imagePath+''}}" alt="" class="circle responsive-img">
+                                </div>
+                                <div>
+                                    <h5>
+                                        <a routerLink="/employee/details/{{e.id}}/personal">{{e.id}}</a>
+                                    </h5>
+                                    <h5>
+                                        <a routerLink="/employee/details/{{e.id}}/personal"> {{e.firstName}} {{e.middleName}} {{e.lastName}}</a>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col s12 right-align padding15">
+                                <h6>
+                                    {{e.currentDesignation}}
+                                </h6>
+                                <h6>
+                                    <span class="location" *ngIf="e.seatingLocation"><i class="fa fa-map-marker"></i>{{e.seatingLocation}}, </span>                                    {{e.olText}}
+                                </h6>
+                                <h6>
+                                    {{e.email}}
+                                </h6>
+                                <h6 *ngIf='e.residenceNumber != 0'>
+                                    t: {{e.residenceNumber}}
+                                </h6>
+                                <h6>
+                                    m: {{e.mobile}}
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showList" class="row main-data-container">
+        <div class="col s12 padding-zero">
+            <div class="reimbursement-wrapper approvals-data">
+                <div class="row m-bottom0 header hide-on-med-and-down">
+                    <div class="col s12 m1">
+                        <h5 class="title">Emp.Code</h5>
+                    </div>
+                    <div class="col s12 m1">
+                        <h5 class="title">Name</h5>
+                    </div>
+                    <div class="col s12 m2">
+                        <h5 class="title">Designation</h5>
+                    </div>
+                    <div class="col s12 m2">
+                        <h5 class="title">Location</h5>
+                    </div>
+                    <div class="col s12 m2">
+                        <h5 class="title">Email ID</h5>
+                    </div>
+                    <div class="col s12 m2">
+                        <h5 class="title">Telephone Number</h5>
+                    </div>
+                    <div class="col s12 m2">
+                        <h5 class="title">Mobile Number</h5>
+                    </div>
+                </div>
+                <div class="approvals">
+                    <basic-grid [(source)]='results' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":true,"isHorizontalScroll":true}'
+                        [isHeaderVisible]=false>
+                        <basic-cell>
+                            <template #bg let-item='row'>
+                                <div class="approvals-wrapper">
+                                    <div class="row m-bottom0 valign-wrapper padding-15-0">
+                                        <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Emp.Code</span>{{item.id}}</div>
+                                        <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Name</span>{{item["firstName"]}} {{item["middleName"]}}
+                                            {{item["lastName"]}}
+                                        </div>
+                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Designation</span> {{item["currentDesignation"]}}</div>
+                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Location</span>{{item["olText"]}}</div>
+                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Email ID</span>{{item["email"]}}</div>
+                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Telephone Number</span>{{item["residenceNumber"]}}</div>
+                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Mobile Number</span>{{item["mobile"]}}</div>
+                                    </div>
+                                </div>
+                            </template>
+                        </basic-cell>
+                    </basic-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

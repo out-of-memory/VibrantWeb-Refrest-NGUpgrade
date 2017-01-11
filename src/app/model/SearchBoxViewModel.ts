@@ -8,7 +8,7 @@ export class SearchBoxViewModel implements IUIMetadata {
         this.hub = new Array<any>();
     }
 
-    @UIProperty({ hub: "SearchBoxViewModel", type: "text", label: "", placeholder: "Search by Employee code/ Name/ Designation/ EmailID", validation: "minLength:2 maxLength:100 required c.CheckEmptystring", css: "col s8" })
+    @UIProperty({ hub: "SearchBoxViewModel", type: "text", label: "", placeholder: "Search by Employee code/ Name/ Designation/ EmailID", validation: "minLength:2 maxLength:100 required c.CheckEmptystring", css: "col s12" })
     value: string;
 
     @UIProperty({ hub: "SearchBoxViewModel", type: "checkbox", label: "Search For Active And In-Active Users",  css: "col s4" })
