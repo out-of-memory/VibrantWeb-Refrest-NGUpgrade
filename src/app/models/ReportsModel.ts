@@ -1,5 +1,5 @@
-import {UIProperty, UIClass} from '../infrastructure/decorators/UIMeta'
-import {IUIMetadata} from "../infrastructure/models/IUIMetadata"
+import { UIProperty, UIClass } from '../infrastructure/decorators/UIMeta'
+import { IUIMetadata } from "../infrastructure/models/IUIMetadata"
 @UIClass("AttendanceReportModel", { fetch: {} })
 export class AttendanceReportModel implements IUIMetadata {
     hub: Array<any> = [];
@@ -67,13 +67,13 @@ export class LeaveSummaryReportModel implements IUIMetadata {
         hub: "LeaveSummaryReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'India-Mumbai' }, { id: '1', text: 'U.S.A-Santa Clara' }, { id: '2', text: 'India-Bengaluru' }], label: "Location", validation: "",
         placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l4"
     })
-    Location: string = 'All';
+    Location: string = null;
 
     @UIProperty({
         hub: "LeaveSummaryReportModel", type: "selectMaterialize-custom", options: "deliveryUnit", label: "Delivery Unit", placeholder: "", validation: "  ", multiple: false,
-         defaultselect: 'All', css: "col s12 m6 l4"
+        defaultselect: 'All', css: "col s12 m6 l4"
     })
-    DeliveryUnit: string = 'All';
+    DeliveryUnit: string = null;
 }
 
 @UIClass("LeaveDetailsReportModel", { fetch: {} })
@@ -94,7 +94,7 @@ export class LeaveDetailsReportModel implements IUIMetadata {
         hub: "LeaveDetailsReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'Compansatory Off' }, { id: '1', text: 'Leave' }, { id: '2', text: 'Leave Wihtout Pay' }, { id: '3', text: 'Maternity Leave' }, { id: '4', text: 'Paternity Leave' }, { id: '5', text: 'Long Leave' }, { id: '6', text: 'Birthday Leave' }],
         label: "Leave Type", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l2"
     })
-LeaveType: string = 'All';
+    LeaveType: string = null;
 }
 @UIClass("LeaveTransactionReportModel", { fetch: {} })
 export class LeaveTransactionReportModel implements IUIMetadata {
@@ -109,14 +109,14 @@ export class LeaveTransactionReportModel implements IUIMetadata {
         hub: "LeaveTransactionReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'India-Mumbai' }, { id: '1', text: 'U.S.A-Santa Clara' }, { id: '2', text: 'India-Bengaluru' }],
         label: "Location", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l2"
     })
-    Location: string = 'All';
+    Location: string = null;
 
- @UIProperty({
+    @UIProperty({
         hub: "LeaveTransactionReportModel", type: "selectMaterialize-custom", options: [{ id: '0', text: 'Compansatory Off' }, { id: '1', text: 'Leave' }, { id: '2', text: 'Leave Wihtout Pay' }, { id: '3', text: 'Maternity Leave' }, { id: '4', text: 'Paternity Leave' }, { id: '5', text: 'Long Leave' }, { id: '6', text: 'Birthday Leave' }],
         label: "Leave Type", validation: "  ", placeholder: "", multiple: false, defaultselect: 'All', css: "col s12 m6 l2"
     })
-LeaveType: string = 'All';
-  @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "Start Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
+    LeaveType: string = null;
+    @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "Start Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
     StartDate: any = '';
 
     @UIProperty({ hub: "LeaveTransactionReportModel", type: "date", label: "End Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
@@ -148,12 +148,12 @@ export class HelpdeskReportModel implements IUIMetadata {
     reportenddate: any = '';
 }
 export class HelpDeskStatus {
-    Open:number=0;
-    OnHold:number=0;
-    PendingForApproval:number=0;
-    InProgress:number=0;
-    Rejected:number=0;
-    Resolved:number=0;
-    Request:number=0;
-    Issue:number=0;
+    Open: number = 0;
+    OnHold: number = 0;
+    PendingForApproval: number = 0;
+    InProgress: number = 0;
+    Rejected: number = 0;
+    Resolved: number = 0;
+    Request: number = 0;
+    Issue: number = 0;
 }
