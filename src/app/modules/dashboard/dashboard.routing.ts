@@ -1,12 +1,13 @@
-import { NgModule }            from '@angular/core';
-import { RouterModule }        from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import { DashboardComponent }    from './dashboard.component';
+import { DashboardComponent } from './dashboard.component';
+import { AuthGuard } from './../../servicesFolder/AuthGuard.service';
 
 @NgModule({
   imports: [RouterModule.forChild([
-    { path: 'my/dashboard', component: DashboardComponent}
+    { path: 'my/dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
   ])],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule {}
+export class DashboardRoutingModule { }
