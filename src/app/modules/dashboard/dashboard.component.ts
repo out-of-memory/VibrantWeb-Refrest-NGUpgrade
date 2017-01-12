@@ -79,15 +79,12 @@ export class DashboardComponent implements OnInit {
     }
 
     success(position) {
-        //console.log(position.coords.latitude)
-        //console.log(position.coords.longitude)
         var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
 
         $.getJSON(GEOCODING).done(function (location) {
             if (location.results[0]) {
                 for (var i = 0; i < location.results[0].address_components.length; i++) {
                     if (location.results[0].address_components[i].types[0] == "country") {
-                        //console.log(location.results[0].address_components[i].long_name);
                     }
                 }
             }
@@ -96,7 +93,6 @@ export class DashboardComponent implements OnInit {
     }
 
     error(err) {
-        console.log(err)
     }
 
     InitializeCards(data) {
@@ -123,9 +119,7 @@ export class DashboardComponent implements OnInit {
                 self.attendanceModel = data.employeeSISOViewModels[0] !== undefined ? data.employeeSISOViewModels[0] : new SISOModel();
                 this.isSignIn = data.todayStatus.isSignIn;
                 this.isSignOut = data.todayStatus.isSignOut;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     //Perform sign in and sign out for auto
@@ -169,9 +163,7 @@ export class DashboardComponent implements OnInit {
                     Materialize.toast('Sign-Out Time should not be less than Sign-In Time', 3000, 'errorTost')
                 }
                 this.GetAttendenceDetails();
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     //Get call to get attendence data for the month and year
@@ -183,9 +175,7 @@ export class DashboardComponent implements OnInit {
             (
             data => {
                 this.noOfLeaves = data.availableLeaves.leavesAvailable;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     //Get upcoming holiday from the current date
@@ -196,9 +186,7 @@ export class DashboardComponent implements OnInit {
             .subscribe(
             data => {
                 self.holidayModel = (data === null) ? new HolidayModel() : data;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     openHolidayList(ol) {
@@ -212,9 +200,7 @@ export class DashboardComponent implements OnInit {
                     this.holidayCollection.push(element);
                 });
                 this.holiday = true;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     onHolidayClose(e) {
@@ -259,9 +245,7 @@ export class DashboardComponent implements OnInit {
                     this.helpDeskTicketList.push(model);
                 });
                 this.rowData = this.helpDeskTicketList;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     getCurrentDateTime() {
@@ -336,9 +320,7 @@ export class DashboardComponent implements OnInit {
                         self.myTeamList2Count.push(data[i]);
                     }
                 }
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     ShowLessMyTeam(e: any) {

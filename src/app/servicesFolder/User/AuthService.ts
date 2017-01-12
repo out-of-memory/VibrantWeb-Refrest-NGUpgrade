@@ -13,10 +13,8 @@ export class AuthService {
     
     login(model:LoginModel)
     {
-       // console.log(JSON.stringify(model));
         window.localStorage.setItem("key", JSON.stringify(model));
         window.onstorage=function(e){
-          //  console.log(JSON.stringify(e));
         }
     }
     

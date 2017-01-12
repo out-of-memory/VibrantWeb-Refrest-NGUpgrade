@@ -91,7 +91,6 @@ export class UiFormExtended implements OnInit {
     }
     
     ngOnChanges(changes){
-      //  console.log(changes)
         //if(typeof(this.model)===''
         var actions=changes["actions"];
         if(actions)
@@ -145,7 +144,6 @@ export class UiFormExtended implements OnInit {
     }
 
     doLogin(event) {
-       // console.log(this.mainForm);
         event.preventDefault();
     }
     

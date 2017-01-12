@@ -109,8 +109,7 @@ export class TravelHistory implements OnInit {
 
                 this.loadStatus = true;
                 this.loaderModal = false;
-            },
-            error => console.log(error));
+            });
     }
 
     OpenTravelExtension(event, model) {
@@ -145,10 +144,6 @@ export class TravelHistory implements OnInit {
                     this.isTravelExtension = false;
                 }
 
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
     }
 }

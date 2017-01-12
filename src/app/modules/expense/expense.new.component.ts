@@ -88,9 +88,7 @@ export class ExpenseNewComponent implements OnInit {
                     this.expenseDetailCollection.push(model);
                 }
                 this.expenseDetail = this.expenseDetailCollection;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     Component_Initialization() {
@@ -170,9 +168,7 @@ export class ExpenseNewComponent implements OnInit {
                 }
 
                 this.expenseDetail = this.expenseDetailCollection;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     ValidateRows(element: ExpenseDetails) {
@@ -235,8 +231,7 @@ export class ExpenseNewComponent implements OnInit {
                 Materialize.toast('Draft Saved successfully', 3000, 'successTost');
                 this.Cancel(event);
             },
-            error => console.log(error),
-            () => {
+            error => {
                 this.loaderModal = false;
             }
         );
@@ -314,9 +309,7 @@ export class ExpenseNewComponent implements OnInit {
 
                 this.GetExpenseDetails(data.details.length);
 
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     FileUploaded(data: any, item: any) {
@@ -481,8 +474,7 @@ export class ExpenseNewComponent implements OnInit {
                 this.showModal = false;
                 this.Cancel(event);
             },
-            error => console.log(error),
-            () => {
+            error => {
                 this.loaderModal = false;
             }
         );

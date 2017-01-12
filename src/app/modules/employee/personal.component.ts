@@ -499,7 +499,6 @@ export class PersonalComponent {
     isDeleteCard: boolean = false;
     approvalStatus: Array<number>;
     constructor(private _cacheService: CacheService, private _activatedRoute: ActivatedRoute,private _router:Router, private _httpService: HttpService, private _autoMapperService: AutoMapperService, private userService: UserService) {
-        //console.log(this._activatedRoute.root.currentInstruction.component.routeData.data);
         this.loaderModal = true;
         this.rdata = this._activatedRoute.parent;
         if (this.rdata)
@@ -526,7 +525,6 @@ export class PersonalComponent {
     }
 
     routerOnActivate(curr: any, prev?: any): void {
-        //console.log(curr);
     }
 
 
@@ -556,7 +554,6 @@ export class PersonalComponent {
     }
     InitializeDropdownsForModels() {
         let dropdowns = this._cacheService.getParams("dropdowns");
-        //console.log(dropdowns);
         if (dropdowns == null) {
             this.userService.pullDropDowns(() => {
                 dropdowns = this._cacheService.getParams("dropdowns");
@@ -841,7 +838,6 @@ export class PersonalComponent {
                 }
             },
             error => {
-                console.log(error)
                 self.loaderModalText = "Error occurred !";
                 self.loaderModalMsg = true;
                 //TimerWrapper.setTimeout(() => {
@@ -853,7 +849,6 @@ export class PersonalComponent {
                     self.isDeleteCard = false;
                 //}, 2000);
             }
-            //() => console.log('Post request has Completed')
             );
     }
 

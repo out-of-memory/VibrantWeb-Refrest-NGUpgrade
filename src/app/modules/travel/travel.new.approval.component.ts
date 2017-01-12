@@ -91,8 +91,7 @@ export class TravelNewRequestComponent {
                 });
 
                 this.loaderModal = false;
-            },
-            error => console.log(error));
+            });
     }
 
 }

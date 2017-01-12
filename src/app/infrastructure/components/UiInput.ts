@@ -229,7 +229,6 @@ export class UiInput extends BaseControlValueAccessor {
         let materializedParams = [{ format: 'mm/dd/yyyy', today: '', selectYears: 30 }];
         if (this.attrs && this.attrs.forEach) {
             this.attrs.forEach(item => {
-                //console.log(item);
                 materializedParams[0][item.name] = this.TransForms(this.meta.type, item);
                 if (item.name == "default")
                     this.value = new Date();

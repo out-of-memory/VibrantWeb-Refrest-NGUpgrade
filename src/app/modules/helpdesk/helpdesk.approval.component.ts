@@ -91,9 +91,7 @@ export class HelpDeskApprovalComponent {
         });
         this.rowData = this.helpDeskTicketList;
         this.loaderModal = false;
-      },
-      error => console.log(error)
-      );
+      });
   }
 
   addUpdateTicket(postData, callBack = null) {
@@ -110,10 +108,7 @@ export class HelpDeskApprovalComponent {
         this.GetHelpDeskTickets();
         this.loaderModal = false;
         Materialize.toast('Help desk ticket has been ' + isApproveOrReject, 5000, 'green')
-      },
-      error => console.log(error),
-      () => console.log('Post request has Completed')
-      );
+      });
   }
 
   getCurrentDateTime() {
@@ -124,7 +119,6 @@ export class HelpDeskApprovalComponent {
   }
 
   onDurationChanged(val: any) {
-    console.log(val);
   }
 
 }

@@ -49,8 +49,6 @@ export class LeaveApprovalHistory {
                 });
                 this.rowData = this.leaveModelCollection;
                 this.loaderModal = false;
-            },
-            error => console.log(error)
-        );
+            });
     }
 }

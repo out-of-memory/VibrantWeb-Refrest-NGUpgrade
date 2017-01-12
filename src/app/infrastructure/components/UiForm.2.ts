@@ -94,7 +94,6 @@ export class UiForm implements OnInit {
     }
 
     ngOnChanges(changes) {
-       /// console.log(changes)
         //if(typeof(this.model)===''
         var actions = changes["actions"];
         if (actions) {
@@ -146,7 +145,6 @@ export class UiForm implements OnInit {
     }
 
     doLogin(event) {
-       // console.log(this.mainForm);
         event.preventDefault();
     }
     identifyValidator(validation) {

@@ -246,9 +246,7 @@ export class HelpDeskSubmitComponent {
             data => {
                 Materialize.toast('You have successfully buzzed for the status.', 5000, 'green');
                 this.getTicketDetails(this.id);
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     departmentChanged(val: any) {

@@ -218,8 +218,7 @@ export class ViewMyHistoryComponent implements OnInit {
 
                 this.loadStatus = true;
                 this.loaderModal = false;
-            },
-            error => console.log(error));
+            });
     }
 
     FillOrganizationDetails(employeeOrganizationdetails) {
@@ -283,11 +282,7 @@ export class ViewMyHistoryComponent implements OnInit {
                     Materialize.toast('Travel Extension Saved Successfully', 3000, 'successTost');
                     this.isTravelExtension = false;
                 }
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
     }
 
     ConfirmClose($event) {
@@ -310,11 +305,7 @@ export class ViewMyHistoryComponent implements OnInit {
                     Materialize.toast('Travel Request Closed Successfully', 3000, 'successTost');
                     window.location.href = "#/my/travel/history";
                 }
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
     }
 }
 

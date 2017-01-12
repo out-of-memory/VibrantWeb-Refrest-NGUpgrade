@@ -430,9 +430,7 @@ export class LeavesComponent {
           this.holidayCollection.push(element);
         });
         this.holiday = true;
-      },
-      error => console.log(error)
-      );
+      });
   }
 
   onHolidayClose(e) {

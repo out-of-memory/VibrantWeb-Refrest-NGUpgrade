@@ -139,8 +139,7 @@ export class ExpenseApprovalComponent {
                     this.submittedExpenseCollection.push(model);
                 });
                 this.submittedExpense = this.submittedExpenseCollection;
-            },
-            error => console.log(error));
+            });
     }
 
     Hide(event, item: any) {
@@ -195,10 +194,8 @@ export class ExpenseApprovalComponent {
                 this.Component_Initialization();
                 this.GetExpenseApprovalList();
             },
-            error => console.log(error),
-            () => {
+            error => {
                 this.loaderModal = false;
-                console.log('Reject request has an error');
             }
         );
     }
@@ -223,8 +220,7 @@ export class ExpenseApprovalComponent {
                     this.Component_Initialization();
                     this.GetExpenseApprovalList();
                 },
-                error => console.log(error),
-                () => {
+                error => {
                     this.loaderModal = false;
                 }
             );
@@ -303,12 +299,7 @@ export class ExpenseApprovalComponent {
                 Materialize.toast('Expense is On-Hold.', 3000, 'successTost');
                 this.Component_Initialization();
                 this.GetExpenseApprovalList();
-            },
-            error => console.log(error),
-            () => {
-                // console.log('Post request has Completed');
-            }
-        );
+            });
     }
 
     confirmDelete(event, item: SubmittedExpense) {

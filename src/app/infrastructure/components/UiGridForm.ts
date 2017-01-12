@@ -77,7 +77,7 @@ export class UiGirdForm implements OnInit {
     dataModel: string = "";
     @ContentChildren(UiFormControl) itemTemplateList: QueryList<UiFormControl>;
 
-    noop = (evnt) => { console.log('no action') };
+    noop = (evnt) => {  };
     actionsArray: Array<any> = [];
     eventArray: Array<any> = [];
     dataModelControl: { [id: string]: AbstractControl } = {};
@@ -117,7 +117,6 @@ export class UiGirdForm implements OnInit {
     // }
 
     // ngOnChanges(changes) {
-    //     console.log(changes)
     //     //if(typeof(this.model)===''
     //     var actions = changes["actions"];
     //     if (actions) {
@@ -169,7 +168,6 @@ export class UiGirdForm implements OnInit {
     // }
 
     // doLogin(event) {
-    //     console.log(this.mainForm);
     //     event.preventDefault();
     // }
     // identifyValidator(validation) {
@@ -211,7 +209,6 @@ export class UiGirdForm implements OnInit {
     ngOnChanges(changes) {
         if (this.itemTemplateList) {
             this.registerVisibility();
-            // console.log(this.controlMetas);
         }
     }
 
@@ -321,7 +318,6 @@ export class UiGirdForm implements OnInit {
         for (var i = 0; i < attrArr.length; i++) {
             meta.show = true;
             if (attrArr[i].toString() == data) {
-                // console.log("it actually happened")
                 meta.show = false;
                 meta.validation = undefined;
                 break;
@@ -374,7 +370,6 @@ export class UiGirdForm implements OnInit {
     }
 
     doLogin(event) {
-        // console.log(this.mainForm);
         event.preventDefault();
     }
 

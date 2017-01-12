@@ -43,6 +43,5 @@ export class LocationserviceService {
 
   private error(err) {
     location.href = "#/enablelocation";
-    console.log(err);
   }
 }

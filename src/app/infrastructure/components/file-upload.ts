@@ -65,7 +65,6 @@ export class FileUpload {
     }
 
     onFileChange(event) {
-        //  console.log("ModuleType: " + this.ModuleType);
 
         let files = event.target.files;
         this.progress = 0;
@@ -91,7 +90,6 @@ export class FileUpload {
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    // console.log("Status Code: " + 200);
                 }
                 else {
                 }
@@ -100,7 +98,6 @@ export class FileUpload {
 
         xhr.upload.onprogress = (event) => {
             this.progress = Math.round(event.loaded / event.total * 100);
-            // console.log(this.progress);
             if (this.progress < 1) {
                 this.uploadStatus = this.uploadStatus + 'Uploading';
             }
@@ -128,7 +125,6 @@ export class FileUpload {
         }
 
         xhr.upload.onerror = (event) => {
-            // console.log(xhr.responseText);
         }
 
 

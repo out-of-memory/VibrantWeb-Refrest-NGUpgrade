@@ -17,10 +17,8 @@ export class ExpenseService {
                 this._cacheService.setParams('expenseDropdowns', data);
             },
             error => {
-                console.log("expenseDropdowns : Check if Api Url is working properly");
 
             }
-           // () => console.log('expenseDropdowns : Get request has Completed')
         );
     }
 }

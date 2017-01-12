@@ -194,8 +194,7 @@ export class TravelApprovalHistoryView implements OnInit {
 
                 this.loadStatus = true;
                 this.loaderModal = false;
-            },
-            error => console.log(error));
+            });
     }
 
     FillOrganizationDetails(employeeOrganizationdetails) {

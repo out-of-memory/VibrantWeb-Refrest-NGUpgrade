@@ -87,7 +87,6 @@ export class TravelApprovalHistory implements OnInit {
 
                 this.loadStatus = true;
                 this.loaderModal = false;
-            },
-            error => console.log(error));
+            });
     }
 }

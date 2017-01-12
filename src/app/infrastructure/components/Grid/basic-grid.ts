@@ -14,7 +14,6 @@ export class BasicCellC {
   @ContentChild(TemplateRef)
   template: TemplateRef<any>
   ngAfterViewInit() {
-    // console.log(this.template);
   }
 }
 
@@ -57,7 +56,7 @@ export class BasicCellC {
           </th>
         </tr>
       </table>
-      <div class="inner_table" id='aa' onscroll='console.log(document.getElementById("aa"))'>
+      <div class="inner_table" id='aa'>
         <table *ngIf=' source && cells && currentPage'>
           <tr *ngFor='let rowData of currentPage'>
             <td *ngFor='let cell of cells'>

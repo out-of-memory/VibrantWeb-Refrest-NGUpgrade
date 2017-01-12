@@ -100,7 +100,6 @@ export class LocationPipe implements PipeTransform {
 @Pipe({ name: 'restrict' })
 export class RestrictPipe implements PipeTransform {
     transform(value: any, args: any): any {
-        //  console.log(args)
         return value;
     }
 }

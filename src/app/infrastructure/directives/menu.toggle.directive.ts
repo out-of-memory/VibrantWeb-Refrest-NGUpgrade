@@ -11,7 +11,6 @@ export class MenuToggleDirective {
        
         //this.renderer.setElementClass(this.el, this.isToggleOn?'active':'',true);
            // $("#slide-out").removeClass("active");
-           console.log("directive fired");
   }
     
 }

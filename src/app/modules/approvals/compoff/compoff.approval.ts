@@ -74,7 +74,6 @@ export class CompOffApprovalComponent {
 
             },
             error => { alert(error); this.loaderModal = false; }
-            // () => console.log('Get request has Completed')
             );
 
     }
@@ -156,9 +155,7 @@ export class CompOffApprovalComponent {
                     this.holidayCollection.push(element);
                 });
                 this.holiday = true;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     onHolidayClose(e) {

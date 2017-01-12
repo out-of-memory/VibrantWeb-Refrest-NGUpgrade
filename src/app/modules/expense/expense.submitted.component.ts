@@ -134,8 +134,7 @@ export class ExpenseSubmittedComponent {
                     this.submittedExpenseCollection.push(model);
                 });
                 this.submittedExpense = this.submittedExpenseCollection;
-            },
-            error => console.log(error));
+            });
     }
 
     Component_Initialization() {
@@ -188,7 +187,6 @@ export class ExpenseSubmittedComponent {
 
     RemoveExpense(event, expense) {
         event.preventDefault();
-        // console.log(expense);
         //let url = "http://localhost:55555/" + "v1/expense/delete-expense/" + expense.expenseId;
         let url = HttpSettings.apiBaseUrl + "v1/delete-expense/" + expense.expenseId;
 
@@ -198,8 +196,7 @@ export class ExpenseSubmittedComponent {
 
         this._httpService.get(url).subscribe(
             data => {
-                //console.log("Deleted Successfully" + data);
-            }, error => console.log(error));
+            });
     }
 
     RemoveDetail(event, detail) {

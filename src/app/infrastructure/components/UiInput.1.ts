@@ -95,7 +95,6 @@ export class UiInput extends BaseControlValueAccessor {
     ngOnInit() {
         this.control = this.addValidations(this.meta);
         this.form.group(this.control.name, this.control.control as AbstractControl);
-        // console.log(this.form);
     }
 
     private addValidations(meta: ControlMeta): any {

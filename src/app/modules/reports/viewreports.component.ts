@@ -180,11 +180,7 @@ export class ViewReportsComponent {
             (
             data => {
                 callback(data.categories)
-            },
-            error => {
-                console.log(error)
-            }
-            );
+            });
     }
 
     DisableUserIDEdit(model: any) {
@@ -392,7 +388,6 @@ export class ViewReportsComponent {
                 if (data.length == 0) {
                     Materialize.toast("No data available.", 3000, 'successTost');
                 }
-                // console.log(JSON.stringify(data));
                 if (typeof callBack === 'function') {
                     callBack();
                 }

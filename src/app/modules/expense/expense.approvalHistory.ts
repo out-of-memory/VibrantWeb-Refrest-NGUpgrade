@@ -167,8 +167,7 @@ export class ExpenseApprovalHistoryComponent {
                     this.submittedExpenseCollection.push(model);
                 });
                 this.submittedExpense = this.submittedExpenseCollection;
-            },
-            error => console.log(error));
+            });
     }
 
     Hide(event, item: any) {

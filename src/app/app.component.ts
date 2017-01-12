@@ -51,14 +51,12 @@ export class AppComponent {
     Start(imprsonate: number) {
         var dis = this;
         this._userService.challengeLogin(data => {
-            // console.log("User Logged IN ");
             this._userService.pullDropDowns(() => { });
             this.expenseService.getDropdowns();
             this._userService.profile(data => {
 
                 dis.userProfile = data;
 
-                //  console.log(data);
                 dis.menu = [
                     {
                         "name": "Dashboard",

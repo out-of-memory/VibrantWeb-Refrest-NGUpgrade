@@ -43,7 +43,6 @@ ngOnInit(){
         {
             
             let current=validations[i].split(":");
-           // console.log(current[0]);
             if(current.length>1)
             arr.push(Validators[current[0]](current[1]));
             else

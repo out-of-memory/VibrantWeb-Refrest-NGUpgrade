@@ -54,9 +54,7 @@ export class UiFormMessage implements OnInit {
             this.cssClass = this.errorCss;
 
             var keys = this.getErrorCodes(data);
-           // console.log(keys);
             this.errorMessages = this.GetErrorMessages(keys);
-           // console.log(this.errorMessages);
         }
         else {
             this.cssClass = this.successCss;
@@ -80,7 +78,6 @@ export class UiFormMessage implements OnInit {
                       validateEmptyString:"Please enter value." }
 
         for (var key in keys){
-          ///  console.log(keys[key]);
             errorMessages.push(data[keys[key]]);
         }
         return errorMessages;

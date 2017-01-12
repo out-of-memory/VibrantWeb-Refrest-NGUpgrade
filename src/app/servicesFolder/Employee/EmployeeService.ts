@@ -15,7 +15,6 @@ export class EmployeeService {
                 callback(data);
             },
             error => alert(error)
-            //  () => console.log('Get request has Completed')
             );
 
 
@@ -30,7 +29,6 @@ export class EmployeeService {
                     callback(data);
                 },
                 error => alert(error)
-                // () => console.log('Get request has Completed')
                 );
         }
 

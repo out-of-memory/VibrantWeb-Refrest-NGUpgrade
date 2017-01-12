@@ -305,8 +305,7 @@ export class TravelViewRequestComponent implements OnInit {
                 this.loadStatus = true;
                 this.loaderModal = false;
 
-            },
-            error => console.log(error));
+            });
     }
 
     FillOrganizationDetails(employeeOrganizationdetails) {
@@ -345,11 +344,7 @@ export class TravelViewRequestComponent implements OnInit {
                 });
 
                 this.moneyTransactionsModel = new TravelMoneyTransactions();
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
     }
 
     ValidateMoneyTransactions(model) {
@@ -386,11 +381,7 @@ export class TravelViewRequestComponent implements OnInit {
             data => {
                 if (data)
                     this.travelModel.documentUploads.push(data);
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
     }
 
     ConfirmDeleteDocument(event, item) {
@@ -413,11 +404,7 @@ export class TravelViewRequestComponent implements OnInit {
                     this.isDeleteImage = false;
 
                 }
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
     }
 
     AddNewDocument(event) {
@@ -454,11 +441,7 @@ export class TravelViewRequestComponent implements OnInit {
                     Materialize.toast('Hotel Booking Saved Successfully', 3000, 'successTost');
                 }
 
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
 
         this.EditOrReadOnly();
     }
@@ -644,7 +627,6 @@ export class TravelViewRequestComponent implements OnInit {
             },
             error => {
                 this.loaderModal = false;
-                console.log(error)
             },
             () => {
                 this.loaderModal = false;
@@ -720,8 +702,7 @@ export class TravelViewRequestComponent implements OnInit {
 
                     }
                 },
-                error => console.log(error),
-                () => {
+                error => {
                     this.loaderModal = false;
                 }
             );
@@ -755,8 +736,7 @@ export class TravelViewRequestComponent implements OnInit {
                     this.travelModel.lastcomments = this.actionComments;
                 }
             },
-            error => console.log(error),
-            () => {
+            error => {
                 this.loaderModal = false;
             }
         );
@@ -782,8 +762,7 @@ export class TravelViewRequestComponent implements OnInit {
                     this.ResetApproval();
                 }
             },
-            error => console.log(error),
-            () => {
+            error => {
                 this.loaderModal = false;
             }
         );

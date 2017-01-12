@@ -27,5 +27,5 @@ function success(position) {
 function error(err) {
     // location.href = "/vibranthelp/404Error.html";
     location.href = "#/enablelocation";
-    console.log(err);
+    //console.log(err);
 }

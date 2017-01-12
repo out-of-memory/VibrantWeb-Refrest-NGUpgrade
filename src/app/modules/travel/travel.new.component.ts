@@ -179,7 +179,6 @@ export class TravelNewComponent implements OnInit {
                 Materialize.toast('Travel request saved successfully.', 3000, 'successTost');
             },
             error => {
-                console.log(error);
                 this.pageLoaderModal = false;
             },
             () => {
@@ -362,11 +361,7 @@ export class TravelNewComponent implements OnInit {
 
                     this._cacheService.setParams("profile", this.profileData);
                 }
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
     }
 
     updateCacheData(model, moduleType) {
@@ -511,11 +506,7 @@ export class TravelNewComponent implements OnInit {
 
                     this._cacheService.setParams("profile", this.profileData);
                 }
-            },
-            error => console.log(error),
-            () => {
-            }
-        );
+            });
     }
 
     ResetForm() {

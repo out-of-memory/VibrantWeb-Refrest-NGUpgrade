@@ -16,7 +16,6 @@ export class BasicCellC {
   @ContentChild("bg")
   template: TemplateRef<any>
   ngAfterViewInit() {
-    // console.log(this.template);
   }
 }
 
@@ -64,7 +63,7 @@ export class BasicCellC {
           </thead>
         </table>
       </div>
-      <div class="inner_table" id='aa' onscroll='console.log(document.getElementById("aa"))'>
+      <div class="inner_table" id='aa'>
 
         <table *ngIf=' source && cells && currentPage' class='striped responsive-table scroll' [class.scroll]="gridOptions.useScroll">
         <tbody>
@@ -184,7 +183,6 @@ export class BasicGrid {
   }
 
   SetDefaultGridOptions() {
-    //  console.log("called");
     if (!this.gridOptions) {
       this.gridOptions = {
         widthType: "%",
@@ -292,7 +290,6 @@ export class BasicCellC1 {
   @ContentChild("bg1")
   template: TemplateRef<any>
   ngAfterViewInit() {
-    // console.log(this.template);
   }
 }
 
@@ -340,7 +337,7 @@ export class BasicCellC1 {
           </thead>
         </table>
       </div>
-      <div class="inner_table" id='aa' onscroll='console.log(document.getElementById("aa"))'>
+      <div class="inner_table" id='aa'>
 
         <table *ngIf=' source && cells && currentPage' class='striped responsive-table scroll' [class.scroll]="gridOptions.useScroll">
         <tbody>
@@ -467,7 +464,6 @@ export class BasicGrid1 {
   }
 
   SetDefaultGridOptions() {
-    //  console.log("called");
     if (!this.gridOptions) {
       this.gridOptions = {
         widthType: "%",

@@ -348,8 +348,7 @@ export class EmployeeDetailsRequestComponent {
                 self.InitializeCards(self.EmployeeData["employeeApprovalViewModelList"], self.cards);
                 self.loaderModal = false;
             },
-            error => alert(error),
-            () => console.log('')
+            error => alert(error)
             );
     }
 

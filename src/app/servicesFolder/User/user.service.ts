@@ -23,20 +23,13 @@ export class UserService {
                 .subscribe(
                 data => {
                     if (!data.error) {
-                       // console.log(data);
                         data.timestamp = (new Date()).getTime();
                         this._cacheService.setParams('auth_token', data);
                         this.callBackAndScheduleNextCycyle(() => { callBack(data) },impersonate, interval)
                     }
                     else
                         this.forceLogin();
-                },
-                error => {
-                    console.log(error);
-
-                }
-               // () => console.log('Get request has Completed')
-                );
+                });
         }
         else {
             this.callBackAndScheduleNextCycyle(callBack ? () => { callBack(token) } : undefined, impersonate,interval)
@@ -71,13 +64,7 @@ export class UserService {
                 data => {
                     this._cacheService.setParams('profile', data);
                     callback(data);
-                },
-                error => {
-                    console.log("Check if Api Url is working properly");
-
-                }
-               // () => console.log('Get request has Completed')
-                );
+                });
         }
         else {
             callback(profile);
@@ -87,7 +74,6 @@ export class UserService {
 
     fetchEmployee(id: any, callback) {
         this._employeeService.Profile(id, data => {
-            //console.log(data);
             this._cacheService.setParams("search", data);
             callback(data);
 
@@ -109,13 +95,7 @@ export class UserService {
                     data = this._menuService.CreateMenu(data, '');
                     this._cacheService.setParams('menu', data);
                     callback(data);
-                },
-                error => {
-                    console.log("Check if Api Url is working properly");
-
-                }
-               // () => console.log('Get request has Completed')
-                );
+                });
         }
 
     }
@@ -129,13 +109,7 @@ export class UserService {
                 //RS:this need to refactored so that it can cater data for more dropdowns from any point/
                 this._cacheService.setParams('dropdowns', data);
                 callback();
-            },
-            error => {
-                console.log("Check if Api Url is working properly");
-
-            }
-           // () => console.log('Get request has Completed')
-            );
+            });
     }
 
     getApprovalStatus(isMyrecord:boolean,callback){
@@ -144,13 +118,7 @@ export class UserService {
             .subscribe(
             data => {
                 callback(data);
-            },
-            error => {
-                console.log("Check if Api Url is working properly");
-
-            }
-           // () => console.log('Get request has Completed')
-            );
+            });
 
     }
 

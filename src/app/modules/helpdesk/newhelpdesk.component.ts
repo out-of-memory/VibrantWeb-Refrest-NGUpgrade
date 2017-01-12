@@ -87,9 +87,7 @@ export class NewHelpDeskComponent {
                     this.subCategoryCollection = data.subCategories;
                     this.helpDeskModel.subCategoryID = this.subCategoryCollection[0].id;
                     this.loaderModal = false;
-                },
-                error => console.log(error)
-                );
+                });
         }
     }
 
@@ -113,7 +111,6 @@ export class NewHelpDeskComponent {
                 this.loaderModal = false;
             },
             error => {
-                console.log(error)
                 this.loaderModal = false;
             }
             );
@@ -161,10 +158,7 @@ export class NewHelpDeskComponent {
                     Materialize.toast('Issue in creating help desk ticket.Please contact System Administrator', 5000, 'red');
                     this.formSubmitted = true;
                 }
-            },
-            error => console.log(error),
-            () => console.log('Post request has Completed')
-            );
+            });
     }
 
     ResetDropdownData() {//RS: 05/12/2016 while upgrading .. .find function was missing so chnaged it with filter()[0], check if this doesn;t work

@@ -50,7 +50,6 @@ export class HelpDeskListComponent {
     }
 
     routerOnActivate(curr: any, prev?: any): void {
-        //console.log(curr);
     }
 
     populateHelpDeskList() {
@@ -108,9 +107,7 @@ export class HelpDeskListComponent {
                 });
                 this.rowData = this.helpDeskTicketList;
                 this.loaderModal = false;
-            },
-            error => console.log(error)
-            );
+            });
     }
 
     AskForUpdate(ticketId: number) {
@@ -122,9 +119,7 @@ export class HelpDeskListComponent {
             data => {
                 this.GetHelpDeskTickets(this.raisedByMe);
                 Materialize.toast('You have successfully buzzed for the status.', 5000, 'green');
-            },
-            error => console.log(error)
-            );
+            });
     }
 
      getCurrentDateTime() {
