@@ -9,7 +9,7 @@ declare var $: any;
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    providers:[RouteRegistrationService]
+    providers: [RouteRegistrationService]
 
 })
 
@@ -40,9 +40,10 @@ export class AppComponent {
         // timer.subscribe(this.GetDateTime);
         this.dateObj = new Date().toISOString();
         this.fetchPendingApprovals();
+        this.PromptLoactionAccess();
     }
 
-    
+
     OnImpersonate() {
         this._userService.ImpersonateLogout();
         this.Start(this.impersonate);
@@ -148,9 +149,10 @@ export class AppComponent {
 
                 if (imprsonate > 0)
                     window.location.href = window.location.href.split("#")[0];
-
             });
         }, imprsonate, 0);
+
+
     }
 
     Logout() {
@@ -171,7 +173,7 @@ export class AppComponent {
 
     ngOnInit() {
         //this.fetchPendingApprovals();
-        this.Start(0);
+        //this.Start(0);
     }
 
     toggle(e) {
@@ -219,6 +221,39 @@ export class AppComponent {
                 }
                 this.Start(this.impersonate);
             });
+    }
+
+    PromptLoactionAccess() {
+        window.navigator.geolocation.getCurrentPosition(this.success, this.error, { timeout: 10000 });
+    }
+
+    success(position) {
+
+        if (localStorage.getItem("geolocation") != null) {
+            var location = JSON.parse(localStorage.getItem("geolocation"));
+            var diff = location.hours - (new Date()).getHours();
+            if (diff <= 4)
+                return false;
+        }
+
+        let latitude = position.coords.latitude.toFixed(5);
+        let longitude = position.coords.longitude.toFixed(5);
+        let timestamp = Number(String(position.timestamp).substring(0, 7));
+
+        var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI";
+
+        $.getJSON(locationUrl).done(function (location) {
+            if (location.status == "OK") {
+                location.hours = (new Date()).getHours();
+                localStorage.setItem("geolocation", JSON.stringify(location));
+                window.location.href = "#/my/dashboard";
+            }
+        });
+    }
+
+    error(err) {
+        location.href = "/vibranthelp/help-location.html";
+        console.log(err);
     }
 
 }
