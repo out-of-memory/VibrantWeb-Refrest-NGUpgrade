@@ -75,24 +75,6 @@ export class DashboardComponent implements OnInit {
         this.GetUpcomingHoliday(data["ol"]);
         this.fetchPendingApprovals();
         this.GetMyTeamList();
-        window.navigator.geolocation.getCurrentPosition(this.success, this.error);
-    }
-
-    success(position) {
-        var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
-
-        $.getJSON(GEOCODING).done(function (location) {
-            if (location.results[0]) {
-                for (var i = 0; i < location.results[0].address_components.length; i++) {
-                    if (location.results[0].address_components[i].types[0] == "country") {
-                    }
-                }
-            }
-        });
-
-    }
-
-    error(err) {
     }
 
     InitializeCards(data) {
@@ -126,6 +108,8 @@ export class DashboardComponent implements OnInit {
     PerformAutoSignIn(e: any, status) {
         let url = HttpSettings.apiBaseUrl + 'v1/attendance/add';
         this.attendanceModel = new SISOModel();
+        let timeZone = this._cacheService.getParams('geolocation');
+        
         var model = new SISOModel();
         if (status == 'SignIn') {
             this.attendanceModel.IsSignIn = true;
@@ -139,6 +123,7 @@ export class DashboardComponent implements OnInit {
         this.attendanceModel.Time = stamp.toString();
         this.attendanceModel.Narration = "Auto Approved";
         this.attendanceModel.IsManual = "false";
+        this.attendanceModel.TimeZoneName = timeZone.timeZoneName;
 
         this._autoMapperService.Map(this.attendanceModel, model);
         this._httpService.post(url, model)
@@ -378,7 +363,7 @@ export class DashboardComponent implements OnInit {
         for (var i = 0; i < roles.length; i++) {
             if (roles[i].roleId == 24 || roles[i].roleId == 32 || roles[i].roleId == 25
                 || roles[i].roleId == 23 || roles[i].roleId == 22 || roles[i].roleId == 1 || roles[i].roleId == 26 || roles[i].roleId == 27 ||
-                roles[i].roleId == 28 || roles[i].roleId == 29 || roles[i].roleId == 30 || roles[i].roleId == 31 || roles[i].roleId == 33 || roles[i].roleId == 34 || roles[i].roleId == 35 || roles[i].roleId == 36 || roles[i].roleId == 37 || roles[i].roleId == 38 ) {
+                roles[i].roleId == 28 || roles[i].roleId == 29 || roles[i].roleId == 30 || roles[i].roleId == 31 || roles[i].roleId == 33 || roles[i].roleId == 34 || roles[i].roleId == 35 || roles[i].roleId == 36 || roles[i].roleId == 37 || roles[i].roleId == 38) {
                 this.isAdminUser = true;
             }
         }

@@ -474,6 +474,8 @@ export class AttendanceComponent {
     this.loaderModal = true;
     let url = HttpSettings.apiBaseUrl + 'v1/attendance/add';
     this.currentSiSOModel = new SISOModel();
+    let timeZone = this._cacheService.getParams('geolocation');
+
     var model = new SISOModel();
     if (status == "SignIn") {
       this.currentSiSOModel.IsSignIn = true;
@@ -487,6 +489,7 @@ export class AttendanceComponent {
     this.currentSiSOModel.Time = stamp.toString();
     this.currentSiSOModel.Narration = "Auto Approved";
     this.currentSiSOModel.IsManual = "false";
+    this.currentSiSOModel.TimeZoneName = timeZone.timeZoneName;
 
     this._autoMapperService.Map(this.currentSiSOModel, model);
     this._httpService.post(url, model)

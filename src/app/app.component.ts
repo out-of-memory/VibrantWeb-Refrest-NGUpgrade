@@ -40,6 +40,7 @@ export class AppComponent {
         // timer.subscribe(this.GetDateTime);
         this.dateObj = new Date().toISOString();
         this.fetchPendingApprovals();
+        this.PromptLoactionAccess();
     }
 
 
@@ -112,15 +113,15 @@ export class AppComponent {
                     });
                 }
                 dis.menu.push({
-                        "name": "Reports",
-                        "title": "Reports",
-                        "iconCss": "fa fa-file-text",
-                        "css": "third",
-                        "parentRoute": "",
-                        "routerName": "R-Reports",
-                        "routerUrl": "employee/reports/view",
-                        "subNav": []
-                    });
+                    "name": "Reports",
+                    "title": "Reports",
+                    "iconCss": "fa fa-file-text",
+                    "css": "third",
+                    "parentRoute": "",
+                    "routerName": "R-Reports",
+                    "routerUrl": "employee/reports/view",
+                    "subNav": []
+                });
                 dis.menu.push({
                     "name": "Expense",
                     "title": "Expense",
@@ -217,6 +218,43 @@ export class AppComponent {
                 }
                 this.Start(this.impersonate);
             });
+    }
+
+    PromptLoactionAccess() {
+        let profileLocation = JSON.parse(localStorage.getItem("profile")).ol;
+
+        if (profileLocation == 2)
+            window.navigator.geolocation.getCurrentPosition(this.success, this.error, { timeout: 10000 });
+    }
+
+    success(position) {
+
+        if (localStorage.getItem("geolocation") != null) {
+            var location = JSON.parse(localStorage.getItem("geolocation"));
+            var diff = Math.abs(location.hours - (new Date()).getHours());
+            if (diff <= 4) {
+                window.location.href = "#/my/dashboard";
+                return false;
+            }
+        }
+
+        let latitude = position.coords.latitude.toFixed(5);
+        let longitude = position.coords.longitude.toFixed(5);
+        let timestamp = Number(String(position.timestamp).substring(0, 7));
+
+        var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI";
+
+        $.getJSON(locationUrl).done(function (location) {
+            if (location.status == "OK") {
+                location.hours = (new Date()).getHours();
+                localStorage.setItem("geolocation", JSON.stringify(location));
+                window.location.href = "#/my/dashboard";
+            }
+        });
+    }
+
+    error(err) {
+        location.href = "/vibranthelp/help-location.html";
     }
 
 }
