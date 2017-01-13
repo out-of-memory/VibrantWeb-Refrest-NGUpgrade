@@ -40,7 +40,6 @@ export class AppComponent {
         // timer.subscribe(this.GetDateTime);
         this.dateObj = new Date().toISOString();
         this.fetchPendingApprovals();
-        this.PromptLoactionAccess();
     }
 
 
@@ -147,6 +146,8 @@ export class AppComponent {
 
                 if (imprsonate > 0)
                     window.location.href = window.location.href.split("#")[0];
+
+                this.PromptLoactionAccess();
 
             });
         }, imprsonate, 0);

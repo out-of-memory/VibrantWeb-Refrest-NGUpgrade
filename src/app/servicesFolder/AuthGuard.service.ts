@@ -10,25 +10,29 @@ export class AuthGuard implements CanActivate {
 
         return navigator.permissions.query({ name: 'geolocation' }).then(function (PermissionStatus) {
             PermissionStatus.state == 'granted' ? true : false; // prompt, granted, denied
-            let profileLocation = JSON.parse(localStorage.getItem("profile")).ol;
+            let profileLocation = JSON.parse(localStorage.getItem("profile"));
 
-            PermissionStatus.onchange = function () {
-                if (profileLocation == 2) {
-                    if (PermissionStatus.state != 'granted') {
-                        window.location.href = '/vibranthelp/help-location.html';
+            if (profileLocation != null) {
+
+                PermissionStatus.onchange = function () {
+                    if (profileLocation.ol == 2) {
+                        if (PermissionStatus.state != 'granted') {
+                            window.location.href = '/vibranthelp/help-location.html';
+                        }
                     }
                 }
-            }
-            if (profileLocation == 2) {
-                if (PermissionStatus.state == 'granted') {
-                    return true;
+
+                if (profileLocation.ol == 2) {
+                    if (PermissionStatus.state == 'granted') {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
                 else {
-                    return false;
+                    return true;
                 }
-            }
-            else {
-                return true;
             }
         })
     }
