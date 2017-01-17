@@ -4,6 +4,7 @@ import { ExpenseService } from './servicesFolder/Expense/ExpenseService';
 import { RouteRegistrationService, DashboardService } from './services';
 import { Decorator } from './Helper/Decorator';
 declare var $: any;
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -29,7 +30,7 @@ export class AppComponent {
     isConformationModal: boolean = false;
     approvals: Array<any> = [];
 
-    constructor(private _userService: UserService, rrs: RouteRegistrationService, private expenseService: ExpenseService, private approvalService: DashboardService) {
+    constructor(private _userService: UserService, rrs: RouteRegistrationService, private expenseService: ExpenseService, private approvalService: DashboardService, private _router: Router) {
         this.Start(0);
         rrs.addRoutes(AppComponent, Decorator.App.Routes());
         this.title = "VibrantWeb-Refresh (Phoenix)";
@@ -42,7 +43,7 @@ export class AppComponent {
         this.fetchPendingApprovals();
     }
 
-
+    
     OnImpersonate() {
         this._userService.ImpersonateLogout();
         this.Start(this.impersonate);
@@ -143,11 +144,14 @@ export class AppComponent {
                 });
 
                 dis.isUserLoggedIn = true;
-
+                
                 if (imprsonate > 0)
                     window.location.href = window.location.href.split("#")[0];
 
                 this.PromptLoactionAccess();
+                
+                /// VS: This need to refactored .. as this is not a suggestive approach....
+                this._router.navigate(['my/dashboard']);
 
             });
         }, imprsonate, 0);
