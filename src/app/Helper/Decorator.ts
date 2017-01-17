@@ -20,15 +20,15 @@ export module Decorator {
     export class App {
         static Routes(): Array<any> {
             return [
-                {
-                    path: '/my/dashboard',
-                    name: 'R-my-dashboard',
-                    component: DashboardComponent,
-                    useAsDefault: true,
-                },
-                {
-                    path: '', redirectTo: 'my/dashboard', pathMatch: 'full'
-                },
+                // {
+                //     path: 'my/dashboard',
+                //     name: 'R-my-dashboard',
+                //     component: DashboardComponent,
+                //     useAsDefault: true,
+                // },
+                // {
+                //     path: '', redirectTo: 'my/dashboard', pathMatch: 'full'
+                // },
                 {
                     path: '/my/profile/...',
                     name: 'R-my-profile',
