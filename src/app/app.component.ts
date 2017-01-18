@@ -148,7 +148,7 @@ export class AppComponent {
                 if (imprsonate > 0)
                     window.location.href = window.location.href.split("#")[0];
 
-                this.PromptLoactionAccess();
+                // this.PromptLoactionAccess();
                 
                 /// VS: This need to refactored .. as this is not a suggestive approach....
                 this._router.navigate(['my/dashboard']);

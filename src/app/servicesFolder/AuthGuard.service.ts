@@ -8,32 +8,39 @@ declare var navigator: any;
 export class AuthGuard implements CanActivate {
     canActivate(): boolean {
 
-        return navigator.permissions.query({ name: 'geolocation' }).then(function (PermissionStatus) {
-            PermissionStatus.state == 'granted' ? true : false; // prompt, granted, denied
-            let profileLocation = JSON.parse(localStorage.getItem("profile"));
+        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        if (!isSafari) {
 
-            if (profileLocation != null) {
+            return navigator.permissions.query({ name: 'geolocation' }).then(function (PermissionStatus) {
+                PermissionStatus.state == 'granted' ? true : false; // prompt, granted, denied
+                let profileLocation = JSON.parse(localStorage.getItem("profile"));
 
-                PermissionStatus.onchange = function () {
-                    if (profileLocation.ol == 2) {
-                        if (PermissionStatus.state != 'granted') {
-                            window.location.href = '/vibranthelp/help-location.html';
+                if (profileLocation != null) {
+
+                    PermissionStatus.onchange = function () {
+                        if (profileLocation.ol == 2) {
+                            if (PermissionStatus.state != 'granted') {
+                                window.location.href = '/vibranthelp/help-location.html';
+                            }
                         }
                     }
-                }
 
-                if (profileLocation.ol == 2) {
-                    if (PermissionStatus.state == 'granted') {
-                        return true;
+                    if (profileLocation.ol == 2) {
+                        if (PermissionStatus.state == 'granted') {
+                            return true;
+                        }
+                        else {
+                            return true;
+                        }
                     }
                     else {
-                        return false;
+                        return true;
                     }
                 }
-                else {
-                    return true;
-                }
-            }
-        })
+            })
+        }
+        else {
+            return true;
+        }
     }
 }
