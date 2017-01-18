@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MaterializeDirective } from "angular2-materialize";
 import { HttpSettings } from "../../servicesFolder/http/http.settings"
 import {
-    AttendanceReportModel, EmployeeDetailsReportModel, LeaveSummaryReportModel, LeaveDetailsReportModel,
+    AttendanceReportModel, sisoReportModel, EmployeeDetailsReportModel, LeaveSummaryReportModel, LeaveDetailsReportModel,
     LeaveTransactionReportModel, HelpdeskReportModel, HelpDeskStatus
 } from "../../models/ReportsModel"
 import { BasicCellC, BasicGrid } from '../../infrastructure/components/basic-grid';
@@ -30,12 +30,14 @@ export class ViewReportsComponent {
     selectedId: string;
     selectedReport: string;
     attendanceModel: AttendanceReportModel;
+    sisoModel:sisoReportModel;
     empDetailReportModel: EmployeeDetailsReportModel;
     leaveSummary: LeaveSummaryReportModel;
     leaveDetails: LeaveDetailsReportModel;
     leavetrans: LeaveTransactionReportModel;
     helpdesk: HelpdeskReportModel;
     attendanceHub: any;
+    sisoHub: any;
     empDetailHub: any;
     leavesummaryHub: any;
     leaveDetailHub: any;
@@ -87,6 +89,8 @@ export class ViewReportsComponent {
     InitializeModels() {
         this.attendanceModel = new AttendanceReportModel();
         this.attendanceHub = this.attendanceModel["hub"];
+        this.sisoModel = new sisoReportModel();
+        this.sisoHub = this.sisoModel["hub"];
         this.empDetailReportModel = new EmployeeDetailsReportModel();
         this.empDetailHub = this.empDetailReportModel["hub"];
         this.leaveSummary = new LeaveSummaryReportModel();
@@ -99,11 +103,13 @@ export class ViewReportsComponent {
         this.hlpdeskhub = this.helpdesk["hub"];
         this.dropdowncard.push(this.empDetailReportModel);
         this.dropdowncard.push(this.attendanceModel);
+        this.dropdowncard.push(this.sisoModel);
         this.dropdowncard.push(this.leaveSummary);
         this.dropdowncard.push(this.leaveDetails);
         this.dropdowncard.push(this.leavetrans);
         if (!this.isHR) {
             this.attendanceModel.Employeecode = this.data.id;
+             this.sisoModel.Employeecode = this.data.id;
             this.leaveSummary.UserID = this.data.id;
             this.leaveDetails.UserID = this.data.id;
             this.leavetrans.UserID = this.data.id;
@@ -111,6 +117,7 @@ export class ViewReportsComponent {
         }
         if (this.isHR) {
             this.attendanceModel.Employeecode = 'All';
+            this.sisoModel.Employeecode = 'All';
             this.empDetailReportModel.EmployeeName = 'All';
             this.leaveSummary.UserID = 'All';
             this.leaveDetails.UserID = 'All';
@@ -211,6 +218,22 @@ export class ViewReportsComponent {
             this.leaveSummary.UserID = this.data.id;
             this.leaveDetails.UserID = this.data.id;
             this.leavetrans.UserID = this.data.id;
+        }
+    }
+
+    BackToAttendanceReport(e: any) {
+        this.selectedReport = "AttendanceDetail";
+        this.reportData = [];
+        this.showCriteria = false;
+        this.attendanceModel = new AttendanceReportModel();
+        this.sisoModel = new sisoReportModel();
+        if (this.isHR) {
+            this.attendanceModel.Employeecode = 'All';
+            this.sisoModel.Employeecode = 'All';
+        }
+        else {
+            this.attendanceModel.Employeecode  = this.data.id;
+            this.sisoModel.Employeecode = this.data.id;
         }
     }
 
