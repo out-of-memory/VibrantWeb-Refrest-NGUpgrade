@@ -17,6 +17,23 @@ export class AttendanceReportModel implements IUIMetadata {
     Employeecode: string = '';
 }
 
+@UIClass("sisoReportModel", { fetch: {} })
+export class sisoReportModel implements IUIMetadata {
+    hub: Array<any> = [];
+    constructuor() {
+        this.hub = new Array<any>();
+    }
+
+    @UIProperty({ hub: "sisoReportModel", type: "date", label: "Start Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
+    StartDate: any = '';
+
+    @UIProperty({ hub: "sisoReportModel", type: "date", label: "End Date", placeholder: "", validation: "required", css: "col s12 m6 l4" })
+    EndDate: any = '';
+
+    @UIProperty({ hub: "sisoReportModel", type: "text", label: "Employee Code", placeholder: "", validation: " maxLength:4 c.empCodeForReport", css: "col s12 m6 l4 " })
+    Employeecode: string = '';
+}
+
 
 @UIClass("EmployeeDetailsReportModel", { fetch: {} })
 export class EmployeeDetailsReportModel implements IUIMetadata {
