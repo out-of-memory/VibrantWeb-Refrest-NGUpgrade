@@ -225,41 +225,41 @@ export class AppComponent {
             });
     }
 
-    PromptLoactionAccess() {
-        let profileLocation = JSON.parse(localStorage.getItem("profile")).ol;
+    // PromptLoactionAccess() {
+    //     let profileLocation = JSON.parse(localStorage.getItem("profile")).ol;
 
-        if (profileLocation == 2)
-            window.navigator.geolocation.getCurrentPosition(this.success, this.error, { timeout: 10000 });
-    }
+    //     if (profileLocation == 2)
+    //         window.navigator.geolocation.getCurrentPosition(this.success, this.error, { timeout: 10000 });
+    // }
 
-    success(position) {
+    // success(position) {
 
-        if (localStorage.getItem("geolocation") != null) {
-            var location = JSON.parse(localStorage.getItem("geolocation"));
-            var diff = Math.abs(location.hours - (new Date()).getHours());
-            if (diff <= 4) {
-                window.location.href = "#/my/dashboard";
-                return false;
-            }
-        }
+    //     if (localStorage.getItem("geolocation") != null) {
+    //         var location = JSON.parse(localStorage.getItem("geolocation"));
+    //         var diff = Math.abs(location.hours - (new Date()).getHours());
+    //         if (diff <= 4) {
+    //             window.location.href = "#/my/dashboard";
+    //             return false;
+    //         }
+    //     }
 
-        let latitude = position.coords.latitude.toFixed(5);
-        let longitude = position.coords.longitude.toFixed(5);
-        let timestamp = Number(String(position.timestamp).substring(0, 7));
+    //     let latitude = position.coords.latitude.toFixed(5);
+    //     let longitude = position.coords.longitude.toFixed(5);
+    //     let timestamp = Number(String(position.timestamp).substring(0, 7));
 
-        var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI";
+    //     var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI";
 
-        $.getJSON(locationUrl).done(function (location) {
-            if (location.status == "OK") {
-                location.hours = (new Date()).getHours();
-                localStorage.setItem("geolocation", JSON.stringify(location));
-                window.location.href = "#/my/dashboard";
-            }
-        });
-    }
+    //     $.getJSON(locationUrl).done(function (location) {
+    //         if (location.status == "OK") {
+    //             location.hours = (new Date()).getHours();
+    //             localStorage.setItem("geolocation", JSON.stringify(location));
+    //             window.location.href = "#/my/dashboard";
+    //         }
+    //     });
+    // }
 
-    error(err) {
-        location.href = "/vibranthelp/help-location.html";
-    }
+    // error(err) {
+    //     location.href = "/vibranthelp/help-location.html";
+    // }
 
 }
