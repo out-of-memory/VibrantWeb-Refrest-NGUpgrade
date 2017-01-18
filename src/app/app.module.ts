@@ -35,7 +35,7 @@ import { LeavesComponent } from './modules/leave/leave.component';
 import { EnablelocationModule } from './modules/enablelocation/enablelocation.module';
 import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service';
 import { TravelModule } from './modules/travel/travel.module';
-// import { AuthGuard } from './servicesFolder/AuthGuard.service';
+import { AuthGuard } from './servicesFolder/AuthGuard.service';
 
 
 
@@ -67,7 +67,7 @@ import { TravelModule } from './modules/travel/travel.module';
     TravelModule
   ],
   providers: [CacheService, { provide: LocationStrategy, useClass: HashLocationStrategy },
-    HttpService, MenuService, ExpenseService, EmployeeService, UserService, LocationserviceService],
+    HttpService, MenuService, ExpenseService, EmployeeService, UserService, LocationserviceService, AuthGuard],
 
   bootstrap: [AppComponent]
 })

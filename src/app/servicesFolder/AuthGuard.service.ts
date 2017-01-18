@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 declare var $: any;
 declare var navigator: any;
 
 @Injectable()
 
 export class AuthGuard implements CanActivate {
-    canActivate(): boolean {
+    canActivate(route: ActivatedRouteSnapshot): boolean {
+
+        debugger;
 
         var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        var isMozilla = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         if (!isSafari) {
 
             return navigator.permissions.query({ name: 'geolocation' }).then(function (PermissionStatus) {
@@ -27,10 +30,11 @@ export class AuthGuard implements CanActivate {
 
                     if (profileLocation.ol == 2) {
                         if (PermissionStatus.state == 'granted') {
+                            
                             return true;
                         }
                         else {
-                            return true;
+                            return false;
                         }
                     }
                     else {
