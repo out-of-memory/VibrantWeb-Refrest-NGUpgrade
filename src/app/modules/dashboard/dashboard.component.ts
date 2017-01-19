@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit {
         let url = HttpSettings.apiBaseUrl + 'v1/attendance/add';
         this.attendanceModel = new SISOModel();
         let timeZone = this._cacheService.getParams('geolocation');
-        
+
         var model = new SISOModel();
         if (status == 'SignIn') {
             this.attendanceModel.IsSignIn = true;
@@ -123,7 +123,7 @@ export class DashboardComponent implements OnInit {
         this.attendanceModel.Time = stamp.toString();
         this.attendanceModel.Narration = "Auto Approved";
         this.attendanceModel.IsManual = "false";
-        this.attendanceModel.TimeZoneName = timeZone.timeZoneName;
+        this.attendanceModel.TimeZoneName = timeZone != null ? timeZone.timeZoneName : null;
 
         this._autoMapperService.Map(this.attendanceModel, model);
         this._httpService.post(url, model)

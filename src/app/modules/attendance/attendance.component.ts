@@ -489,7 +489,7 @@ export class AttendanceComponent {
     this.currentSiSOModel.Time = stamp.toString();
     this.currentSiSOModel.Narration = "Auto Approved";
     this.currentSiSOModel.IsManual = "false";
-    this.currentSiSOModel.TimeZoneName = timeZone.timeZoneName;
+    this.currentSiSOModel.TimeZoneName = timeZone != null ? timeZone.timeZoneName : null;
 
     this._autoMapperService.Map(this.currentSiSOModel, model);
     this._httpService.post(url, model)

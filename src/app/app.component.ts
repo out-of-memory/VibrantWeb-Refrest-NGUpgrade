@@ -43,7 +43,7 @@ export class AppComponent {
         this.fetchPendingApprovals();
     }
 
-    
+
     OnImpersonate() {
         this._userService.ImpersonateLogout();
         this.Start(this.impersonate);
@@ -144,12 +144,12 @@ export class AppComponent {
                 });
 
                 dis.isUserLoggedIn = true;
-                
+
                 if (imprsonate > 0)
                     window.location.href = window.location.href.split("#")[0];
 
-                // this.PromptLoactionAccess();
-                
+                this.PromptLoactionAccess();
+
                 /// VS: This need to refactored .. as this is not a suggestive approach....
                 this._router.navigate(['my/dashboard']);
 
@@ -226,6 +226,8 @@ export class AppComponent {
     }
 
     PromptLoactionAccess() {
+        
+
         let profileLocation = JSON.parse(localStorage.getItem("profile")).ol;
 
         if (profileLocation == 2)
@@ -233,8 +235,9 @@ export class AppComponent {
     }
 
     success(position) {
+        
 
-        if (localStorage.getItem("geolocation") != null) {
+        if (localStorage.getItem("geolocation") != null && localStorage.getItem("geolocation") != "") {
             var location = JSON.parse(localStorage.getItem("geolocation"));
             var diff = Math.abs(location.hours - (new Date()).getHours());
             if (diff <= 4) {
@@ -250,6 +253,7 @@ export class AppComponent {
         var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI";
 
         $.getJSON(locationUrl).done(function (location) {
+            
             if (location.status == "OK") {
                 location.hours = (new Date()).getHours();
                 localStorage.setItem("geolocation", JSON.stringify(location));
@@ -259,7 +263,10 @@ export class AppComponent {
     }
 
     error(err) {
-        location.href = "/vibranthelp/help-location.html";
+        var isMozilla = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+        if (!isMozilla)
+            location.href = "/vibranthelp/help-location.html";
     }
 
 }
