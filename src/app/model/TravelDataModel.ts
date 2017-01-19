@@ -61,11 +61,11 @@ export class TravelRequirements implements IUIMetadata {
     @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'textarea', label: 'Additional Information', 'labelPosition': 'top', placeholder: '', validation: 'required', maxlength: '100' })
     additionalInformation: string = '';
 
-    // @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Meal Preference', multiple: false, options: [{ 'id': '1', text: 'Vegetarian' }, { 'id': '2', text: 'Non-Vegetarian' }], validation: 'required' })
-    // meal: string = '';
+    @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Meal Preference', multiple: false, options: [{ 'id': '1', text: 'Vegetarian' }, { 'id': '2', text: 'Non-Vegetarian' }], validation: 'required' })
+    meal: string = '';
 
-    // @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Seat Location Preference', multiple: false, options: [{ 'id': '1', text: 'Window' }, { 'id': '2', text: 'Middle' }, { 'id': '3', text: 'Option 3' }], validation: 'required' })
-    // seatLocation: string = '';
+    @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Seat Location Preference', multiple: false, options: [{ 'id': '1', text: 'Window' }, { 'id': '2', text: 'Middle' }, { 'id': '3', text: 'Option 3' }], validation: 'required' })
+    seatLocation: string = '';
 
     comments: string = '';
 
