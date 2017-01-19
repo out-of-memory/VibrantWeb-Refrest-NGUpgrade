@@ -23,6 +23,10 @@ export class AuthGuard implements CanActivate {
                             if (PermissionStatus.state != 'granted') {
                                 window.location.href = '/vibranthelp/help-location.html';
                             }
+                            else {
+                                window.location.href = "/#/my/dashboard";
+                                return true;
+                            }
                         }
                     }
 

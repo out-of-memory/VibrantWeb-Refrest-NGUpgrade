@@ -151,7 +151,7 @@ export class AppComponent {
                 this.PromptLoactionAccess();
 
                 /// VS: This need to refactored .. as this is not a suggestive approach....
-                this._router.navigate(['my/dashboard']);
+                // this._router.navigate(['my/dashboard']);
 
             });
         }, imprsonate, 0);
@@ -226,25 +226,28 @@ export class AppComponent {
     }
 
     PromptLoactionAccess() {
-        
+
 
         let profileLocation = JSON.parse(localStorage.getItem("profile")).ol;
 
         if (profileLocation == 2)
             window.navigator.geolocation.getCurrentPosition(this.success, this.error, { timeout: 10000 });
+        else {
+            this._router.navigate(['my/dashboard']);
+        }
     }
 
     success(position) {
-        
 
-        if (localStorage.getItem("geolocation") != null && localStorage.getItem("geolocation") != "") {
-            var location = JSON.parse(localStorage.getItem("geolocation"));
-            var diff = Math.abs(location.hours - (new Date()).getHours());
-            if (diff <= 4) {
-                window.location.href = "#/my/dashboard";
-                return false;
-            }
-        }
+
+        // if (localStorage.getItem("geolocation") != null && localStorage.getItem("geolocation") != "") {
+        //     var location = JSON.parse(localStorage.getItem("geolocation"));
+        //     var diff = Math.abs(location.hours - (new Date()).getHours());
+        //     if (diff <= 4) {
+        //         // window.location.href = "/#/my/dashboard";
+        //         // return false;
+        //     }
+        // }
 
         let latitude = position.coords.latitude.toFixed(5);
         let longitude = position.coords.longitude.toFixed(5);
@@ -253,20 +256,22 @@ export class AppComponent {
         var locationUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=" + latitude + "," + longitude + "&timestamp=" + timestamp + "&key=AIzaSyACjdU4Ktfz70yFgVAPAS2loH2HcFiY2KI";
 
         $.getJSON(locationUrl).done(function (location) {
-            
+
             if (location.status == "OK") {
                 location.hours = (new Date()).getHours();
                 localStorage.setItem("geolocation", JSON.stringify(location));
-                window.location.href = "#/my/dashboard";
+                // window.location.href = "/#/my/dashboard";
             }
         });
     }
 
     error(err) {
-        var isMozilla = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        // var isMozilla = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
-        if (!isMozilla)
-            location.href = "/vibranthelp/help-location.html";
+        // if (!isMozilla) {
+        location.href = "/vibranthelp/help-location.html";
+        console.log(err);
+        // }
     }
 
 }
