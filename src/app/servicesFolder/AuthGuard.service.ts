@@ -8,8 +8,6 @@ declare var navigator: any;
 export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot): boolean {
 
-        debugger;
-
         var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         var isMozilla = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         if (!isSafari) {
@@ -30,7 +28,7 @@ export class AuthGuard implements CanActivate {
 
                     if (profileLocation.ol == 2) {
                         if (PermissionStatus.state == 'granted') {
-                            
+
                             return true;
                         }
                         else {
