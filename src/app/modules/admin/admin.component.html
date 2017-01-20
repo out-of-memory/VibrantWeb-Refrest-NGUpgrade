@@ -1,0 +1,109 @@
+`
+<div class="top-section">
+        <page-heading heading="Employee Search"></page-heading>
+        <div class="employee-form">
+            <div class="row p-reset m-bottom0 pos-relative">
+                <div class="col s12">
+                    <div class="row margin-zero valign-wrapper">
+                        <div class="input-field col s9 m7 l5 search-employee">
+                            <search-box [form]=searchForm.mainForm (search)="Search($event)">
+                                <ui-form #searchForm [controlMetas]="searchBoxViewModelhub" [model]="searchBoxViewModel" [formReadonly]='searchBoxViewModelFormReadonly'
+                                    formCss='view-card' controlCss='view-form-info' labelPosition='top'  [errorOnlyOnSubmit]='cardSubmitted'>
+                                </ui-form>
+                                <!--<div class="col s12 l6 search-employee m-top20 m-bottom20">
+                                    <input type="checkbox" id="raisedByMe" [ngModel]="raisedByMe" (ngModelChange)="raisedCheckboxChanged($event)" />
+                                    <label for="raisedByMe"> Show Tickets raised only by me</label>
+                                </div>-->
+                            </search-box>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-container" *ngIf="!showList">
+            <div class="row margin-zero">
+                <div class="col s12">
+                    <div class="dashboard-data-container employee-search">
+                        <div class="card white emp-dashboard-data" *ngFor="let e of results">
+                            <div class="row m-bottom0">
+                                <div class="col s12 blue-bg-section padding15 emp-wrapper right-align">
+                                    <div class="emp-img">
+                                        <img src="{{'/images/'+e.imagePath+''}}" alt="" class="circle responsive-img">
+                                        <h5>
+                                            <a [routerLink]="['R-employee-details', {id :e.id}]">{{e.id}}</a>
+                                        </h5>
+                                    </div>
+                                    <div>
+                                        <h5>
+                                            {{e.id}}
+                                        </h5>
+                                        <h5>
+                                            {{e.firstName}} {{e.middleName}} {{e.lastName}}
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col s12 right-align padding15">
+                                        <h6>
+                                            {{e.currentDesignation}}
+                                        </h6>
+                                       <h6>
+                                       <span class="location" *ngIf="e.seatingLocation"><i class="fa fa-map-marker"></i>{{e.seatingLocation}}, </span>
+                                       {{e.olText}}
+                                        </h6>
+                                        <h6>
+                                            {{e.email}}
+                                        </h6>
+                                        <h6 *ngIf='e.residenceNumber != 0'>
+                                            t: {{e.residenceNumber}}
+                                        </h6>
+                                        <h6>
+                                            m: {{e.mobile}}
+                                        </h6>
+                                </div>
+                            </div>
+                        <select style="display:block" (change)='onTaskChange($event.target.value)'>
+                          <option value="-1">-----Select-----</option>
+                          <option value="1">Sign In</option>
+                          <option value="2">Leave</option>
+                          <option value="3">Comp-Off</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf='taskType>0'>
+
+              <div >
+                  Sign In Template
+
+                      <ui-form #signInForm [controlMetas]="adminModelHub" [model]="adminModel" [formReadonly]='false' [errorOnlyOnSubmit]='formSubmitted'
+									formCss='' controlCss='' columnOrientation='3'>
+
+									<ui-control-item for='fromDate' behaviours='[ {"name":"disable","value":[1,7]},{"name":"max","value":"{{adminModel.toDate}}:mm/dd/yyyy:1"},
+                                        {"name":"min","value":"18/10/2016"}]' depends='["toDate:changeattrs"]' changeattrs='["max"]'>
+									</ui-control-item>
+
+									<ui-control-item for='toDate' behaviours='[ {"name":"disable","value":[1,7]},{"name":"min","value":"{{adminModel.fromDate}}:mm/dd/yyyy"},{"name":"max","value":"today:mm/dd/yyyy:1"}]'
+										depends='["fromDate:changeattrs"]' changeattrs='["min"]' readonlyValue="[3,4]">
+									</ui-control-item>
+
+								</ui-form>
+
+              </div>
+              <div class="row m-bottom0">
+								
+								<div class="col s12 m6 leave-action right-align">
+									<a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='performAdminAction(signInForm)'>Submit</a>
+									<a class="waves-effect waves-light btn custom-btn reset" title="Cancel" (click)='resetForm(signInForm)'>Cancel</a>
+								</div>
+							</div>
+             
+
+        </div>
+        
+    </div>
+    

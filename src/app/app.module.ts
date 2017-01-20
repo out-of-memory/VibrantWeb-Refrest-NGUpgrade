@@ -30,12 +30,14 @@ import { ExpenseModule } from './modules/expense/expense.module';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { MaintainenceModule } from './modules/maintainence/maintainence.module';
 import { EnablelocationModule } from './modules/enablelocation/enablelocation.module';
-import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service'
+import { LocationserviceService } from './servicesFolder/Enablelocation/locationservice.service';
+import { AdminModule } from './modules/admin/admin.module'
 
 
 @NgModule({
   declarations: [
     AppComponent,
+   
 
   ],
   imports: [
@@ -55,7 +57,8 @@ import { LocationserviceService } from './servicesFolder/Enablelocation/location
     EmployeeModule,
     ReportsModule,
     MaintainenceModule,
-    EnablelocationModule
+    EnablelocationModule,
+    AdminModule
 
   ],
   providers: [CacheService, { provide: LocationStrategy, useClass: HashLocationStrategy },
