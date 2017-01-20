@@ -14,7 +14,7 @@ import { ExpenseApprovalHistoryComponent } from './expense.approvalHistory'
         CommonModule,
         ControlsModule,
         RouterModule.forChild([
-            { path: 'my/expense', redirectTo: 'new', pathMatch: 'full' },
+            { path: 'my/expense', redirectTo: 'my/expense/new', pathMatch: 'full' },
             {
                 path: 'my/expense', component: ExpenseComponent,
                 children: [

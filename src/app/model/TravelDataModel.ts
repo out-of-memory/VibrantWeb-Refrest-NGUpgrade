@@ -62,10 +62,10 @@ export class TravelRequirements implements IUIMetadata {
     additionalInformation: string = '';
 
     @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Meal Preference', multiple: false, options: [{ 'id': '1', text: 'Vegetarian' }, { 'id': '2', text: 'Non-Vegetarian' }], validation: 'required' })
-    meal: string = '';
+    mealPreference: string = '';
 
     @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Seat Location Preference', multiple: false, options: [{ 'id': '1', text: 'Window' }, { 'id': '2', text: 'Middle' }, { 'id': '3', text: 'Option 3' }], validation: 'required' })
-    seatLocation: string = '';
+    seatLocationPreference: string = '';
 
     comments: string = '';
 
