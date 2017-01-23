@@ -193,7 +193,7 @@ export class HotelBooking implements IUIMetadata {
     @UIProperty({ hub: 'HotelBooking', css: "col s12 m6 l4 p-bottom5", type: 'date', label: 'Check Out Date', placeholder: '', validation: 'required' })
     checkOut: string = '';
 
-    @UIProperty({ hub: 'HotelBooking', css: "col s12 m6 l4 p-bottom5", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Room Type', multiple: false, options: [{ 'id': '1', text: 'Luxury' }, { 'id': '2', text: 'Normal' }], validation: 'required' })
+    @UIProperty({ hub: 'HotelBooking', css: "col s12 m6 l4 p-bottom5", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Room Type', multiple: false, options: 'hotelRoom', validation: 'required' })
     roomType: string = '';
 
     @UIProperty({ hub: 'HotelBooking', css: "col s12 m6 l4 p-bottom5", type: 'textmaxlength', label: 'Hotel Name', 'labelPosition': 'top', placeholder: '', validation: 'required', maxlength: '100' })
@@ -279,7 +279,7 @@ export class Flight implements IUIMetadata {
     @UIProperty({ hub: 'FlightOptions', css: "custom-input-field input-field col s12 m3", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Trip Type', multiple: false, options: [{ 'id': '1', text: 'One Way Trip' }, { 'id': '2', text: 'Round Trip' }], validation: 'required' })
     tripType: string = '';
 
-    @UIProperty({ hub: 'FlightOptions', css: "custom-input-field input-field col s12 m3", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Booking From', multiple: false, options: [{ 'id': '1', text: 'WorldSpin Holidays' }, { 'id': '2', text: 'Booking 1' }, { 'id': '3', text: 'Other Agency' }], validation: 'required' })
+    @UIProperty({ hub: 'FlightOptions', css: "custom-input-field input-field col s12 m3", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Booking From', multiple: false, options: 'travelBookingAgency', validation: 'required' })
     bookingFrom: string = '';
 
     @UIProperty({ hub: 'FlightOptions', css: "custom-input-field input-field col s12 m3", type: 'text', 'labelPosition': 'top', label: 'Agency Name', validation: 'required', maxlength: '50', show: true })
@@ -293,10 +293,10 @@ export class FlightDetails implements IUIMetadata {
         this.hub = new Array<any>();
     }
 
-    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Travel From', multiple: false, validation: 'required', maxlength: '50' })
+    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Source', multiple: false, validation: 'required', maxlength: '50' })
     travelFrom: string = '';
 
-    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Travel To', multiple: false, validation: 'required', maxlength: '50' })
+    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Destination', multiple: false, validation: 'required', maxlength: '50' })
     travelTo: string = '';
 
     @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'date', 'labelPosition': 'top', label: 'Departure Date', multiple: false, validation: 'required', maxlength: '100' })
@@ -311,10 +311,10 @@ export class FlightDetails implements IUIMetadata {
     @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'time', 'labelPosition': 'top', label: 'Arrival Time', multiple: false, validation: 'required', maxlength: '100', options: [{ 'id': '1', text: '1' }, { 'id': '2', text: '2' }, { 'id': '3', text: '3' }] })
     arrivalTime: string = '';
 
-    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Airlines', multiple: false, options: [{ 'id': '1', text: 'Emirates' }, { 'id': '2', text: 'Booking 1' }, { 'id': '3', text: 'Booking 2' }], validation: 'required' })
+    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Airlines', multiple: false, options: 'travelFlightAirlines', validation: 'required' })
     airlines: string = '';
 
-    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Flight Class', multiple: false, options: [{ 'id': '1', text: 'Economy' }, { 'id': '2', text: 'First Class' }, { 'id': '3', text: 'Business Class' }], validation: 'required' })
+    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Flight Class', multiple: false, options: 'flightClass', validation: 'required' })
     flightClassId: string = '';
 
     @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Layover', multiple: false, options: [{ 'id': '1', text: '1' }, { 'id': '2', text: '2' }, { 'id': '3', text: '3' }], validation: '' })
@@ -326,7 +326,7 @@ export class FlightDetails implements IUIMetadata {
     @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Layover Duration (hrs)', multiple: false, validation: '', maxlength: '5' })
     layOverDuration: string = '';
 
-    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Total Travel Duration (hrs)', multiple: false, validation: 'required c.numbers', maxlength: '5' })
+    @UIProperty({ hub: 'FlightDetailOptions', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Total Travel Duration (hrs)', multiple: false, validation: '', maxlength: '5' })
     totalTravelDuration: string = '';
 
 }
@@ -338,22 +338,22 @@ export class FlightCostDetail implements IUIMetadata {
         this.hub = new Array<any>();
     }
 
-    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Base Fare', multiple: false, validation: 'required c.numbers', maxlength: '6' })
+    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Base Fare', multiple: false, validation: '', maxlength: '6' })
     baseFare: string = '';
 
-    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Taxes', multiple: false, validation: 'required c.numbers', maxlength: '6' })
+    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Taxes', multiple: false, validation: '', maxlength: '6' })
     taxes: string = '';
 
-    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Grand Total', multiple: false, validation: 'required c.numbers', maxlength: '6' })
+    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Grand Total', multiple: false, validation: '', maxlength: '6' })
     grandTotal: string = '';
 
-    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Change Penalty', multiple: false, validation: 'required c.numbers', maxlength: '6' })
+    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Change Penalty', multiple: false, validation: '', maxlength: '6' })
     changePenalty: string = '';
 
-    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Cancellation Charges', multiple: false, validation: 'required c.numbers', maxlength: '6' })
+    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Cancellation Charges', multiple: false, validation: '', maxlength: '6' })
     cancellationCharges: string = '';
 
-    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Baggage', multiple: false, validation: 'required c.numbers', maxlength: '3' })
+    @UIProperty({ hub: 'FlightCostDetail', css: "custom-input-field input-field col s12 m6", type: 'textmaxlength', 'labelPosition': 'top', label: 'Baggage', multiple: false, validation: '', maxlength: '3' })
     baggage: string = '';
 
     comments: string = '';
@@ -429,6 +429,12 @@ export class TravelExtension implements IUIMetadata {
     travelFrom: string = '';
     travelTo: string = '';
     isChanged: string = 'changed-value';
+
+    @UIProperty({ hub: 'TravelExtension', type: 'date', label: '', placeholder: 'Visa Date', validation: 'required' })
+    visaDate: string = '';
+
+    @UIProperty({ hub: 'TravelExtension', type: 'date', label: '', placeholder: 'I94 Date', validation: 'required' })
+    I94Date: string = '';    
 }
 
 @UIClass('TravelClosingComments', { fetch: {} })

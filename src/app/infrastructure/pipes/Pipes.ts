@@ -65,8 +65,8 @@ export class AlphabetPipe implements PipeTransform {
 })
 export class ModulePipe implements PipeTransform {
     transform(value: number, args: any): any {
-        let capModules: Array<string> = ["Leave", "Profile", "Expense", "Compensatory Off", "HelpDesk","Travel","Appraisals"];
-        let smallModules: Array<string> = ["leave", "profile", "expense", "compoff", "helpdesk","travel","appraisals"];
+        let capModules: Array<string> = ["Leave", "Profile", "Expense", "Compensatory Off", "HelpDesk", "Travel", "Appraisals"];
+        let smallModules: Array<string> = ["leave", "profile", "expense", "compoff", "helpdesk", "travel", "appraisals"];
         let shortModules: Array<string> = ["L", "P", "E", "CO", "HD", "T", "A"];
         if (args == "cap") {
             return capModules[value - 1];
@@ -289,20 +289,17 @@ export class TripType implements PipeTransform {
 }
 @Pipe({ name: 'flightClass' })
 export class FlightClass implements PipeTransform {
+    constructor(private _cacheService: CacheService) {
+    }
     transform(value: any, args: any): any {
-        if (value == 1) {
-            return args = 'Economy';
-        }
-        if (value == 2) {
-            return args = 'First Class';
-        }
-        if (value == 3) {
-            return args = 'Business Class';
-        }
+        let flightClass = this._cacheService.getParams('travelDropdowns').flightClass
+        return args = flightClass.find(x => x.id == value).text;
     }
 }
 @Pipe({ name: 'bookingFrom' })
 export class BookingFrom implements PipeTransform {
+    constructor(private _cacheService: CacheService) {
+    }
     transform(value: any, args: any): any {
         if (value == 1) {
             return args = 'WorldSpin Holidays';
@@ -317,27 +314,23 @@ export class BookingFrom implements PipeTransform {
 }
 @Pipe({ name: 'airline' })
 export class Airlines implements PipeTransform {
+    constructor(private _cacheService: CacheService) {
+    }
     transform(value: any, args: any): any {
-        if (value == 1) {
-            return args = 'Emirates';
-        }
-        if (value == 2) {
-            return args = 'Airline 1';
-        }
-        if (value == 3) {
-            return args = 'Airline 2';
-        }
+        let travelFlightAirlines = this._cacheService.getParams('travelDropdowns').travelFlightAirlines
+        return args = travelFlightAirlines.find(x => x.id == value).text;
     }
 }
 // Room Type
 @Pipe({ name: 'roomType' })
 export class RoomType implements PipeTransform {
+    constructor(private _cacheService: CacheService) {
+    }
     transform(value: any, args: any): any {
-        if (value == 1) {
-            return args = 'Normal';
+        if (value != '') {
+            let hotelRoom = this._cacheService.getParams('travelDropdowns').hotelRoom
+            return args = hotelRoom.find(x => x.id == value).text;
         }
-        if (value == 2) {
-            return args = 'Luxury';
-        }
+        else { return args = ''; }
     }
 }

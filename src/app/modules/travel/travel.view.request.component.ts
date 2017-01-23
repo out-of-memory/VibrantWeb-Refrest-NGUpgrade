@@ -108,7 +108,7 @@ export class TravelViewRequestComponent implements OnInit {
         this.moneyTransactionsModel = new TravelMoneyTransactions();
         this.moneyTransactionsHub = this.moneyTransactionsModel['hub'];
 
-        this.FillDropdowns();
+
 
         this.hotelBookingModel = new HotelBooking();
         this.hotelBookingHub = this.hotelBookingModel['hub'];
@@ -132,7 +132,7 @@ export class TravelViewRequestComponent implements OnInit {
         this.extensionDetails = new Array<TravelExtension>();
 
         this.EditOrReadOnly();
-
+        this.FillDropdowns();
         this.deleteItem = {};
     }
 
@@ -448,11 +448,34 @@ export class TravelViewRequestComponent implements OnInit {
 
     FillDropdowns() {
         let dropdowns = this._cacheService.getParams('expenseDropdowns');
+        let traveldropdowns = this._cacheService.getParams('travelDropdowns');
 
         for (let index = 0; index < this.moneyTransactionsHub.length; index++) {
             let element = this.moneyTransactionsHub[index];
             if (typeof (element.options) === 'string') {
                 this.moneyTransactionsHub[index].options = dropdowns[element.options];
+            }
+        }
+
+        for (let index = 0; index < this.flightHub.length; index++) {
+            let element = this.flightHub[index];
+            if (typeof (element.options) === 'string') {
+                this.flightHub[index].options = traveldropdowns[element.options];
+            }
+        }
+
+        for (let index = 0; index < this.hotelBookingHub.length; index++) {
+            let element = this.hotelBookingHub[index];
+            if (typeof (element.options) === 'string') {
+                this.hotelBookingHub[index].options = traveldropdowns[element.options];
+            }
+        }
+
+        for (let index = 0; index < this.flightDetailsHubOne.length; index++) {
+            let element = this.flightDetailsHubOne[index];
+            if (typeof (element.options) === 'string') {
+                this.flightDetailsHubOne[index].options = traveldropdowns[element.options];
+                // this.flightDetailsHubTwo[index].options = traveldropdowns[element.options];
             }
         }
     }
@@ -593,7 +616,8 @@ export class TravelViewRequestComponent implements OnInit {
             }
         }
         else {
-            if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightDetailFormTwo.mainForm.valid && !flightCostForm.mainForm.valid) {
+            // if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightDetailFormTwo.mainForm.valid && !flightCostForm.mainForm.valid) {
+            if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightDetailFormTwo.mainForm.valid) {
                 this.flightFormSubmit = true;
                 this.flightFormTwoSubmit = true;
                 return false;
@@ -697,7 +721,7 @@ export class TravelViewRequestComponent implements OnInit {
 
                         this.hideApproval = true;
                         this.travelModel.lastcomments = "Approved";
-                        
+
                         this.loaderModal = false;
 
                     }

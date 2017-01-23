@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../servicesFolder/http/http.service';
 import { HttpSettings } from '../../servicesFolder/http/http.settings';
 import * as Materialize from "angular2-materialize";
-import { TravelExtension } from '../../model/TravelDataModel';
+import { TravelExtension, TravelRequirements } from '../../model/TravelDataModel';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AutoMapperService } from '../../servicesFolder/AutoMapperService'
 
 @Component({
     selector: 'travel-extension',
@@ -21,39 +23,70 @@ import { TravelExtension } from '../../model/TravelDataModel';
 export class TravelExtensionComponent implements OnInit {
 
     extensionItem: TravelExtension = new TravelExtension();
+    traveldetails: TravelRequirements = new TravelRequirements();
 
     loaderModal: boolean = false;
     loaderModalMsg: boolean = false;
     loaderModalText: any;
     isConformationModal: boolean = false;
+    isSubmit: boolean = false;
+    dateFormat: any;
 
-    constructor(private _httpService: HttpService) { }
+    travelId: any;
 
-    ngOnInit() { }
+    constructor(private _httpService: HttpService, private activatedRoute: ActivatedRoute, private _router: Router, private _autoMapperService: AutoMapperService) {
+
+        this.extensionItem = new TravelExtension()
+        this.extensionItem.departure = "1/23/2017";
+
+        let date = new Date();
+        this.dateFormat = [{ "format": "mm/dd/yyyy", "today": "", "selectYears": 30 }];
+    }
+
+    ngOnInit() {
+
+
+
+        this.activatedRoute.params.subscribe(
+            (param: any) => {
+                this.travelId = Number(param['id']);
+            });
+
+        if (this.travelId <= 0)
+            this._router.navigate(['my/dashboard']);
+
+        let url = HttpSettings.apiBaseUrl + 'v1/travel/travel-details/' + this.travelId;
+
+
+        this._httpService.get(url).subscribe(
+            data => {
+
+                console.log(data);
+                this._autoMapperService.Map(data, this.traveldetails);
+
+            });
+    }
 
     SubmitTravelExtension(event, form) {
         event.preventDefault();
 
-        if (!form.valid)
-            return false;
+        // if (!form.valid) {
+        //     this.isSubmit = true;
+        //     return false;
+        // }
 
-        console.log(form);
 
-        // let url = HttpSettings.apiBaseUrl + 'v1/travel/add-travel-extension';
 
-        // this._httpService.post(url, this.extensionItem).subscribe(
-        //     data => {
-        //         if (data == true) {
-        //             // var traveldata = this.travelsModel.find(x => Number(x.id) == this.extensionItem.travelId);
-        //             // traveldata.arrival = this.extensionItem.arrival;
-        //             // traveldata.travelExtensionImageUrl = "assets/images/trip-extension-red.svg";
+        let url = HttpSettings.apiBaseUrl + 'v1/travel/add-travel-extension';
+        this.extensionItem.travelId = this.travelId;
+        this.extensionItem.departure = this.traveldetails.departure;
 
-        //             // this.travelsModel = JSON.parse(JSON.stringify(this.travelsModel));
-
-        //             Materialize.toast('Travel Extension Saved Successfully', 3000, 'successTost');
-        //             // this.isTravelExtension = false;
-        //         }
-
-        //     });
+        this._httpService.post(url, this.extensionItem).subscribe(
+            data => {
+                if (data == true) {
+                    Materialize.toast('Travel Extension Saved Successfully', 3000, 'successTost');
+                    window.location.href = "/#/my/travel/history";
+                }
+            });
     }
 }

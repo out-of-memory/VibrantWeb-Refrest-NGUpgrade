@@ -18,43 +18,54 @@
         <div class="col s12 padding-zero tab-content">
             <div class="row main-data-container">
                 <div class="col s12 padding-zero">
-                    <form #myForm="ngForm">
+                    <!--<form #myForm="ngForm">-->
                         <div class="card white approvals-card margin-zero padding-20">
                             <div class="row margin-zero valign-wrapper ">
                                 <div class="col s5 padding-zero">
-                                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">Mumbai</h5>
+                                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{traveldetails.travelFrom}}</h5>
                                     <div class="input-field">
-                                        <input required="required" id="time" type="text" class="" name="time" #name="ngModel" [(ngModel)]="extensionItem.arrival">
-                                        <label for="time" class="active">Arrival</label>
-                                        <div [hidden]="name.valid || name.pristine" class="">Arrival is required </div>
+                                        <span>{{traveldetails.departure}}</span>
+                                        <label class="active">Departure</label>
+                                        <div [hidden]="!isSubmit || name.valid" class="">Departure is required </div>
                                     </div>
                                 </div>
-                                <!--<div class="col s2 padding-zero center-align">
+                                <div class="col s2 padding-zero center-align">
                                     <div>
                                         <img src="assets/images/arrow-inout.svg" title="Travel-trip">
                                     </div>
                                 </div>
                                 <div class="col s5 padding-zero">
-                                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">                                        New York
-                                    </h5>
+                                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{traveldetails.travelTo}}</h5>
                                     <div class="input-field">
-                                        <input value="23/02/2017" id="time" type="text" class="validate">
+                                        <input style='position:relative' placeholder="Arrival" type='text' [(ngModel)]="extensionItem.arrival" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams class="" />
                                         <label for="time" class="active">Arrival</label>
                                     </div>
-                                </div>-->
+                                </div>
+                                <div class="col s5 padding-zero">
+                                    <div class="input-field">
+                                        <input value="23/02/2017" id="time" type="text" class="validate" [(ngModel)]="extensionItem.visaDate" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                        <label for="time" class="active">Visa Date</label>
+                                    </div>
+                                </div>
+                                <div class="col s5 padding-zero">
+                                    <div class="input-field">
+                                        <input value="23/02/2017" id="time" type="text" class="validate" [(ngModel)]="extensionItem.I94Date" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                        <label for="time" class="active">I94 Date</label>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row margin-zero">
-                                <!--<div class="input-field col s12 padding-zero">
-                                    <input value="Lorem Ipsum is simply dummy text of the printing and typesetting industry." id="comments" type="text" class="validate">
+                                <div class="input-field col s12 padding-zero">
+                                    <input [(ngModel)]="extensionItem.comments" id="comments" type="text" class="validate">
                                     <label for="comments" class="active">Comments</label>
-                                </div>-->
+                                </div>
                             </div>
                             <div class="row margin-zero right">
                                 <a (click)="SubmitTravelExtension($event, myForm)" class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit">Submit</a>
                             </div>
                         </div>
-                    </form>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
