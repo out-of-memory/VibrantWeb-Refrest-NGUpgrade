@@ -1,16 +1,16 @@
-import { Component} from '@angular/core';
-import {HttpService} from '../../servicesFolder/http/http.service';
-import {AutoMapperService} from '../../servicesFolder/AutoMapperService';
-import {HelpDeskModel, HelpDeskList} from '../../models/HelpDeskModel';
-import {UiForm, UiFormControl} from '../../infrastructure/components/UiForm';
-import {CacheService} from '../../servicesFolder/CacheService';
-import {BasicCellC, BasicGrid} from '../../infrastructure/components/basic-grid';
-import {List, Map} from 'immutable';
-import {MaterializeDirective} from "angular2-materialize";
-import {HttpSettings} from "../../servicesFolder/http/http.settings"
-import {LoaderComponent} from  '../../infrastructure/components/loader.component';
-import { FileUpload } from  '../../infrastructure/components/file-upload';
-import {ActivatedRoute} from '@angular/router';
+import { Component } from '@angular/core';
+import { HttpService } from '../../servicesFolder/http/http.service';
+import { AutoMapperService } from '../../servicesFolder/AutoMapperService';
+import { HelpDeskModel, HelpDeskList } from '../../models/HelpDeskModel';
+import { UiForm, UiFormControl } from '../../infrastructure/components/UiForm';
+import { CacheService } from '../../servicesFolder/CacheService';
+import { BasicCellC, BasicGrid } from '../../infrastructure/components/basic-grid';
+import { List, Map } from 'immutable';
+import { MaterializeDirective } from "angular2-materialize";
+import { HttpSettings } from "../../servicesFolder/http/http.settings"
+import { LoaderComponent } from '../../infrastructure/components/loader.component';
+import { FileUpload } from '../../infrastructure/components/file-upload';
+import { ActivatedRoute } from '@angular/router';
 import { LocationPipe } from '../../infrastructure/pipes/pipes'
 import * as Materialize from "angular2-materialize";
 @Component({
@@ -18,7 +18,7 @@ import * as Materialize from "angular2-materialize";
     templateUrl: './helpdesklist.component.html',
     //directives: [UiForm, UiFormControl, MaterializeDirective, LoaderComponent, BasicGrid, BasicCellC, ROUTER_DIRECTIVES],
     providers: [HttpService],
-   // pipes: [LocationPipe]
+    // pipes: [LocationPipe]
 
 })
 
@@ -34,8 +34,16 @@ export class HelpDeskListComponent {
     rowData: any;
     personId: number;
     status: any = 0;
-    issueStatusCollection: Array<any> = [];
-    issueStatus = ["All", "Pending For Approval", "Open", "Rejected", "In Progress", "On Hold", "Resolved", "Cancelled"];
+    // Status in alphabetical order
+    issueStatusCollection: Array<any> = [{ "id": 0, "text": "All" },
+    { "id": 7, "text": "Cancelled" },
+    { "id": 4, "text": "In Progress" },
+    { "id": 5, "text": "On Hold" },
+    { "id": 2, "text": "Open" },
+    { "id": 1, "text": "Pending For Approval" },
+    { "id": 3, "text": "Rejected" },
+    { "id": 6, "text": "Resolved"}
+    ];
     selectedStatus: number;
     raisedByMe: number = 0;
     isPokeEnabled: boolean = false;
@@ -46,7 +54,6 @@ export class HelpDeskListComponent {
         var cachedUserDetails = this._cacheService.getParams('profile');
         this.personId = cachedUserDetails.id;
         this.populateHelpDeskList();
-        this.populateIssueStatusDropDown();
     }
 
     routerOnActivate(curr: any, prev?: any): void {
@@ -71,13 +78,6 @@ export class HelpDeskListComponent {
         else
             this.raisedByMe = 0;
         this.GetHelpDeskTickets(this.raisedByMe);
-    }
-
-    populateIssueStatusDropDown() {
-        this.issueStatusCollection = new Array();
-        for (var i = 0; i < this.issueStatus.length; i++) {
-            this.issueStatusCollection.push({ "id": i, "text": this.issueStatus[i] });
-        }
     }
 
     onIssueStatusChanged(val: any) {
@@ -122,7 +122,7 @@ export class HelpDeskListComponent {
             });
     }
 
-     getCurrentDateTime() {
+    getCurrentDateTime() {
         var currentTime = new Date().getTime();
         var localOffset = (-1) * new Date().getTimezoneOffset() * 60000;
         var stamp = Math.round(new Date(currentTime + localOffset).getTime() / 1000);

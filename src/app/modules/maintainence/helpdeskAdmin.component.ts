@@ -20,8 +20,13 @@ export class HelpDeskAdminComponent {
     rowData: any;
     personId: number;
     status: any = 0;
-    issueStatusCollection: Array<any> = [];
-    issueStatus = ["All", "Pending For Approval", "Open", "In Progress", "On Hold"];
+    // Status in alphabetical order
+    issueStatusCollection: Array<any> = [{ "id": 0, "text": "All" },
+    { "id": 4, "text": "In Progress" },
+    { "id": 5, "text": "On Hold" },
+    { "id": 2, "text": "Open" },
+    { "id": 1, "text": "Pending For Approval" }];
+
     selectedStatus: number;
     raisedByMe: number = 0;
     isPokeEnabled: boolean = false;
@@ -34,7 +39,6 @@ export class HelpDeskAdminComponent {
         this.cachedUserDetails = this._cacheService.getParams('profile');
         this.personId = this.cachedUserDetails.id;
         this.populateHelpDeskList();
-        this.populateIssueStatusDropDown();
     }
 
     populateHelpDeskList() {
@@ -43,20 +47,6 @@ export class HelpDeskAdminComponent {
         this.helpDeskTicketList = new Array<HelpDeskList>();
         this.rowData = new Array<any>();
         this.GetHelpDeskTeamTickets(this.status);
-    }
-
-    populateIssueStatusDropDown() {
-        this.issueStatusCollection = new Array();
-        var count = this.issueStatus.length, j = 0;
-        for (var i = 0; i < count; i++) {
-            if (i == 3) {
-                count++
-            }
-            else {
-                this.issueStatusCollection.push({ "id": i, "text": this.issueStatus[j] });
-                j++;
-            }
-        }
     }
 
     onIssueStatusChanged(val: any) {
