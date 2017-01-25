@@ -65,6 +65,7 @@ export class EmployeeComponent implements OnInit {
         let rdata = this.activatedRoute;
 
         this.activatedRoute.params.subscribe((param: any) => {
+            debugger
             if (param.id) {
                 this.fromserch = true;
                 this.data = this._cacheService.getParams("search");

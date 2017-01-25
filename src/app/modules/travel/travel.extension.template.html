@@ -18,68 +18,72 @@
         <div class="col s12 padding-zero tab-content">
             <div class="row main-data-container">
                 <div class="col s12 padding-zero">
-                    <!--<form #myForm="ngForm">-->
-                    <div class="card white approvals-card margin-zero padding-20">
-                        <!--<div class="row margin-zero valign-wrapper ">
-                                <div class="col s5 padding-zero">
-                                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{traveldetails.travelFrom}}</h5>
-                                    <div class="input-field">
-                                        <span>{{traveldetails.departure}}</span>
-                                        <label class="active">Departure</label>
-                                        <div [hidden]="!isSubmit || name.valid" class="">Departure is required </div>
+                    <form #myForm="ngForm" novalidate="novalidate">
+                        <div class="card white approvals-card margin-zero padding-20">
+                            <div class="row margin-zero valign-wrapper ">
+                                    <div class="col s5 padding-zero">
+                                        <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{traveldetails.travelFrom}}</h5>
+                                        <div class="input-field">
+                                            <input placeholder="Departure" type='text' readonly="readonly" [(ngModel)]="extensionItem.departure" name="name" #name="ngModel" required="required"/>
+                                            <label for="name" class="active">Departure</label>
+                                            <div *ngIf="formSubmit && !name.valid" class="alert alert-danger">Departure is required </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s2 padding-zero center-align">
+                                        <div>
+                                            <img src="assets/images/arrow-inout.svg" title="Travel-trip">
+                                        </div>
+                                    </div>
+                                    <div class="col s5 padding-zero">
+                                        <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{traveldetails.travelTo}}</h5>
+                                        <div class="input-field">
+                                            <input  required="required" style='position:relative' type='text' name="arrivalDate" #arrivalDate="ngModel" [(ngModel)]="extensionItem.arrival" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams class="" />
+                                            <label for="arrivalDate" class="active">Arrival</label>
+                                            <div *ngIf="formSubmit && !arrivalDate.valid" class="alert alert-danger">Departure is required </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s5 padding-zero">
+                                        <div class="input-field">
+                                            <input required="required" name="visaDate" #visaDate="ngModel" value="23/02/2017" type="text" class="" [(ngModel)]="extensionItem.visaDate" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                            <label for="visaDate" class="active">Visa Date</label>
+                                            <div *ngIf="formSubmit && !visaDate.valid" class="alert alert-danger">Visa Date is required </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s5 padding-zero">
+                                        <div class="input-field">
+                                            <input value="23/02/2017" type="text"  required="required" name="i94date" #i94date="ngModel" class="" [(ngModel)]="extensionItem.I94Date" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                            <label for="i94date" class="active">I94 Date</label>
+                                            <div *ngIf="formSubmit && !i94date.valid" class="alert alert-danger">I94 Date is required </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col s2 padding-zero center-align">
-                                    <div>
-                                        <img src="assets/images/arrow-inout.svg" title="Travel-trip">
-                                    </div>
-                                </div>
-                                <div class="col s5 padding-zero">
-                                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{traveldetails.travelTo}}</h5>
-                                    <div class="input-field">
-                                        <input style='position:relative' placeholder="Arrival" type='text' [(ngModel)]="extensionItem.arrival" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams class="" />
-                                        <label for="time" class="active">Arrival</label>
-                                    </div>
-                                </div>
-                                <div class="col s5 padding-zero">
-                                    <div class="input-field">
-                                        <input value="23/02/2017" id="time" type="text" class="validate" [(ngModel)]="extensionItem.visaDate" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
-                                        <label for="time" class="active">Visa Date</label>
-                                    </div>
-                                </div>
-                                <div class="col s5 padding-zero">
-                                    <div class="input-field">
-                                        <input value="23/02/2017" id="time" type="text" class="validate" [(ngModel)]="extensionItem.I94Date" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
-                                        <label for="time" class="active">I94 Date</label>
-                                    </div>
-                                </div>
-                            </div>-->
 
-                        <ui-form #extensionForm [controlMetas]="extensionHub" [model]="extensionItem" [errorOnlyOnSubmit]='formSubmit' [formReadonly]='false' formCss='view-card'
-                            columnOrientation='2' inputLabelPosition='top' controlCss='view-form-info'>
-                            
-                            <ui-control-item for='departure' behaviours='[ {"value":""}]'>
-                            </ui-control-item>
-                            <ui-control-item for='arrival' behaviours='[ {"value":""}]'>
-                            </ui-control-item>
-                            <ui-control-item for='visaDate' behaviours='[ {"value":""}]'>
-                            </ui-control-item>
-                            <ui-control-item for='I94Date' behaviours='[ {"value":""}]'>
-                            </ui-control-item>
+                            <!--<ui-form #extensionForm [controlMetas]="extensionHub" [model]="extensionItem" [errorOnlyOnSubmit]='formSubmit' [formReadonly]='false' formCss='view-card'
+                                columnOrientation='2' inputLabelPosition='top' controlCss='view-form-info'>
+                                
+                                <ui-control-item for='departure' behaviours='[ {"value":""}]'>
+                                </ui-control-item>
+                                <ui-control-item for='arrival' behaviours='[ {"value":""}]'>
+                                </ui-control-item>
+                                <ui-control-item for='visaDate' behaviours='[ {"value":""}]'>
+                                </ui-control-item>
+                                <ui-control-item for='I94Date' behaviours='[ {"value":""}]'>
+                                </ui-control-item>
 
-                        </ui-form>
+                            </ui-form>-->
 
-                        <!--<div class="row margin-zero">
-                            <div class="input-field col s12 padding-zero">
-                                <input [(ngModel)]="extensionItem.comments" id="comments" type="text" class="validate">
-                                <label for="comments" class="active">Comments</label>
+                            <div class="row margin-zero">
+                                <div class="input-field col s12 padding-zero">
+                                    <input [(ngModel)]="extensionItem.comments" type="text" class="" required="required" name="comments" #comments="ngModel">
+                                    <label for="comments" class="active">Comments</label>
+                                    <div *ngIf="formSubmit && !comments.valid" class="alert alert-danger">Comments is required </div>
+                                </div>
                             </div>
-                        </div>-->
-                        <div class="row margin-zero right">
-                            <a (click)="SubmitTravelExtension($event, extensionForm)" class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit">Submit</a>
+                            <div class="row margin-zero right">
+                                <a (click)="SubmitTravelExtension($event, myForm)" class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit">Submit</a>
+                            </div>
                         </div>
-                    </div>
-                    <!--</form>-->
+                    </form>
                 </div>
             </div>
         </div>

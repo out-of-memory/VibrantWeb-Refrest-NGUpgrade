@@ -14,8 +14,13 @@ import { AutoMapperService } from '../../servicesFolder/AutoMapperService'
         .ng-valid[required], .ng-valid.required  {
   border-bottom: 1px solid #42A948; /* green */
 }
-.ng-invalid:not(form)  {
-  border-bottom: 1px solid #a94442; /* red */
+.alert {
+    border: 1px solid transparent;
+}
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
 }
 `
     ]
@@ -62,17 +67,14 @@ export class TravelExtensionComponent implements OnInit {
 
         this._httpService.get(url).subscribe(
             data => {
-
-                console.log(data);
                 this._autoMapperService.Map(data, this.traveldetails);
-
             });
     }
 
     SubmitTravelExtension(event, form) {
         event.preventDefault();
 
-        if (!form.mainForm.valid) {
+        if (!form.valid) {
             this.formSubmit = true;
             return false;
         }
