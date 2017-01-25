@@ -4,9 +4,9 @@
         <div class="row m-bottom0 header">
             <div class="col s12 m12">
                 <div class="row margin-zero">
-                    <div class="col s12 m6 l2">
+                    <div class="col s12 m6 l3">
                         <div class="row margin-zero">
-                            <div class="custom-input-field col s12">
+                            <div class="custom-input-field col s9">
                                 <h6>List</h6>
                                 <select materialize="material_select" [materializeSelectOptions]="listCollection" [(ngModel)]="selectedList" (change)="populatelist($event.target.value)">
                                     <option value="" disabled="" selected="">Select</option>
@@ -16,79 +16,93 @@
                                     <option value="freeze">Freezed List</option>
                                 </select>
                             </div>
+                            <a id="filter" (click)="showFilterOption=!showFilterOption" *ngIf="rowData.length>0" class="waves-effect waves-light m-bottom10"><i class="fa fa-filter fa-2x" aria-hidden="true"></i></a>
                         </div>
                     </div>
-                    <div class="col s12 m6 l2">
+                    <div class="col s12 m6 l2" *ngIf="showFilterOption==true && rowData.length>0">
                         <div class="row margin-zero">
                             <div class="custom-input-field col s12">
                                 <h6>Grade</h6>
-                                <select materialize="material_select" [materializeSelectOptions]="levelCollection" [(ngModel)]="selectedLevel" (change)="onLevelSelected($event.target.value)">
+                                <select materialize="material_select" [materializeSelectOptions]="levelCollection" [(ngModel)]="selectedLevel">
                                     <option value="" disabled="" selected="">Select</option>
                                     <option value="0">All</option>
                                     <option value="1">Level 1</option>
                                     <option value="2">Level 2</option>
                                     <option value="3">Level 3</option>
-                                    <option value="3">Level 4</option>
-                                    <option value="3">Level 5</option>
-                                    <option value="3">Level 6</option>
+                                    <option value="4">Level 4</option>
+                                    <option value="5">Level 5</option>
+                                    <option value="6">Level 6</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m6 l3">
+                    <div class="col s12 m6 l2" *ngIf="showFilterOption==true && rowData.length>0">
                         <div class="row margin-zero">
                             <div class="custom-input-field input-field col s12">
                                 <h6>Employee Search</h6>
-                                <input placeholder="" id="title" type="text" class="validate">
+                                <input placeholder="" id="title" type="text" [(ngModel)]="searchEmp" (keyup)=filterName() class="validate">
+                            </div>
+                            <div class="row m-bottom0 emp-search-drop" *ngIf="employeeList.length>0 && searchEmp!=''">
+                                <div class="col s9 m5 l2 search-dropdown" style="display: block;">
+                                    <ul class="collection search-list">
+                                        <li class="collection-item avatar" *ngFor="let item of employeeList">
+                                            <a (click)="selectEmployee(item.empID,item.empName)">
+                                                <img src="/images/{{item.empID}}.jpg" class="circle">
+                                                <span class="title">{{item.empName}}</span>
+                                                <p>{{item.empID}}</p><h6>{{item.designation}}</h6>
+                                                </a><a class="secondary-content"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>                                        
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m6 l2">
+                    <div class="col s12 m6 l2" *ngIf="showFilterOption==true && rowData.length>0">
                         <div class="row margin-zero">
                             <div class="custom-input-field col s12">
                                 <h6>Location</h6>
-                                <select materialize="material_select" [materializeSelectOptions]="locationCollection" [(ngModel)]="selectedLocation" (change)="onLevelSelected($event.target.value)">
+                                <select materialize="material_select" [materializeSelectOptions]="locationCollection" [(ngModel)]="selectedLocation">
                                     <option value="" disabled="" selected="">Select</option>
                                     <option value="0">All</option>
-                                    <option value="1">Mumbai, India</option>
-                                    <option value="2">Bangalore, India</option>
-                                    <option value="3">USA</option>
+                                    <option value="Mumbai">Mumbai, India</option>
+                                    <option value="Bangalore">Bangalore, India</option>
+                                    <option value="US">USA</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m6 l3 padding-zero">
-                        <a class="waves-effect waves-light btn custom-btn save-as-draft m-bottom10">Show</a>
-                        <a class="waves-effect waves-light btn custom-btn save-as-draft m-bottom10">Reset</a>
+                    <div class="col s12 m6 l3 padding-zero" *ngIf="showFilterOption==true && rowData.length>0">
+                        <a class="waves-effect waves-light btn custom-btn save-as-draft m-bottom10" (click)="filtterEmp()">Show</a>
+                        <a class="waves-effect waves-light btn custom-btn save-as-draft m-bottom10" (click)="resetFiltterEmp()">Reset</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="reimbursement-wrapper approvals-data eligibility box" *ngIf="isShow">
+        <div class="reimbursement-wrapper approvals-data eligibility box" *ngIf="isShow" [hidden]="rowData.length == 0">
             <div class="row">
                 <div class="row margin-zero list-emp">
                     <div class="col s12 tab-content padding-zero">
-                        <div class="reimbursement-wrapper approvals-data" [hidden]="rowData.length == 0">
+                        <div class="reimbursement-wrapper approvals-data">
                             <div class="row m-bottom0 header hide-on-med-and-down">
-                                <!--<div class="col-width-8 p-left10 content-none">
-                                        <p class="margin-zero">
+                                <div class="col-width-8 p-left10 content-none">
+                                        <!--<p class="margin-zero">
                                             <input type="checkbox" class="filled-in" id="selectAll">
                                             <label for="selectAll">All</label>
-                                        </p>
-                                    </div>-->
-                                <div class="col s12 m1">
+                                        </p>-->
+                                </div>
+                                <div class="col s12 m1 offset-m1">
                                     <h5 class="title">Grade</h5>
                                 </div>
                                 <div class="col s12 m1">
                                     <h5 class="title">Emp.Code</h5>
                                 </div>
-                                <div class="col s12 m1">
+                                <div class="col s12 m2">
                                     <h5 class="title">Employee Name</h5>
                                 </div>
-                                <div class="col s12 m1">
+                                <div class="col s12 m2">
                                     <h5 class="title">Appraiser</h5>
                                 </div>
-                                <div class="col s12 m1">
+                                <div class="col s12 m2">
                                     <h5 class="title">Reviewer</h5>
                                 </div>
                                 <div class="col s12 m1">
@@ -108,18 +122,18 @@
                                         <template #bg let-item='row'>
                                             <div class="approvals-wrapper">
                                                 <div class="row m-bottom0">
-                                                    <div class="col s12 m10 offset-m1 l3">
+                                                    <div class="col s12 m10 offset-m1 l1">
                                                         <p class="margin-zero">
                                                             <input type="checkbox" [(ngModel)]="item.isSelect" class="filled-in" id="#{{item.id}}">
                                                             <label for="#{{item.id}}"></label>
                                                         </p>
                                                     </div>
-                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Grade</span>{{item.grade}}
+                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Grade</span>Level {{item.grade}}
                                                     </div>
                                                     <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Emp.Code</span>
                                                         <span>{{item.empID}}</span>
                                                     </div>
-                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Employee Name</span>{{item.empName}}</div>
+                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Employee Name</span>{{item.empName}}</div>
                                                     <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Appraiser</span>
                                                         <span *ngIf="selectedList!='eligibility' && selectedList!='activeemployee'">{{item.appraiserName}}</span>
                                                         <div class="p-right20" *ngIf="selectedList=='eligibility'  || selectedList=='activeemployee'">
@@ -138,13 +152,13 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Location</span>
+                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Location</span>
                                                         <span>{{item.location}}</span>
                                                     </div>
-                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Designation</span>
+                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Designation</span>
                                                         <span>{{item.designation}}</span>
                                                     </div>
-                                                    <div class="col s12 m6 l2" *ngIf="selectedList=='freeze'"><span class="expense-label hide-on-large-only">Comment</span>
+                                                    <div class="col s12 m6 l1" *ngIf="selectedList=='freeze'"><span class="expense-label hide-on-large-only">Comment</span>
                                                         <span [innerHtml]="item.freezedComment"></span>
                                                     </div>
                                                 </div>

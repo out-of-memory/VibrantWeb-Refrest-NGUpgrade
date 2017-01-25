@@ -4722,3 +4722,32 @@ h6.active-select{
 .handPointer{
   cursor: pointer;
 }
+#filter {
+    padding: 10px;
+    color: gray;
+}
+.emp-search-drop .search-dropdown{
+  display: block;
+  margin-top: 185px;
+  z-index: 2;
+}
+.dashboard-data-container .dashboard-view-content .dashboard-view-appraisal {
+    border-radius: 2px;
+    background-color: rgba(232, 231, 227, 0.25);
+    padding: 10px;
+}
+img.responsive-img.appraise{
+	max-width: 45%;
+}
+.appraiser-name{
+	font-family: 'Lato-Bold';
+}
+.appraisee-note{
+	margin: 0;
+    padding: 0px 8px;
+    font-size: 13px;
+    background: rgb(246, 245, 243);
+}
+.appraisee-note a{
+	color: #64a2c4;
+}

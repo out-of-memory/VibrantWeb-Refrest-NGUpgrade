@@ -25,6 +25,12 @@ export class AppraisalInitiationComponent {
     freezedComment: any = "";
     selectedList: any = "";
     allManagers: any = "";
+    selectedLocation: any = 0;
+    selectedLevel: any = 0;
+    employeeList: Array<any> = [];
+    searchEmp: any = "";
+    showFilterOption: boolean = false;
+    searchEmpShow: any = "";
 
     constructor(private routeParams: ActivatedRoute, private _cacheService: CacheService, private _httpService: HttpService) {
 
@@ -32,6 +38,7 @@ export class AppraisalInitiationComponent {
 
     populatelist(val) {
         this.loaderModal = true;
+        this.resetFiltter();
         var url = HttpSettings.apiBaseUrl + "v1/appraisal/get-all-employess/" + val;
         this._httpService.get(url).subscribe(
             data => {
@@ -159,5 +166,56 @@ export class AppraisalInitiationComponent {
         this.confirmUnfreezed = false;
         this.unfreezedComment = "";
         this.freezedComment = "";
+    }
+
+    filtterEmp() {
+        var tempData = Object.assign([], this.mainEmpList);
+        if (+(this.selectedLevel) != 0) {
+            tempData = tempData.filter(function (el) {
+                if (+(this.selectedLevel) != 0)
+                    return el.grade == +(this.selectedLevel)
+            }.bind(this));
+        }
+        if (this.searchEmp != "") {
+            tempData = tempData.filter(function (el) {
+                return String(el.empID).indexOf(String(this.searchEmp)) > -1;
+            }.bind(this));
+        }
+        if (+(this.selectedLocation) != 0) {
+            tempData = tempData.filter(function (el) {
+                return el.location == this.selectedLocation
+            }.bind(this));
+        }
+        this.rowData = new Array<any>();
+        this.filterEmpList = new Array();
+        this.filterEmpList = tempData;
+        this.rowData = this.filterEmpList;
+    }
+
+    filterName() {
+        this.employeeList = this.mainEmpList.filter(function (el) {
+            return el.empName.toLowerCase().indexOf(this.searchEmp.toLowerCase()) > -1 || String(el.empID).indexOf(String(this.searchEmp)) > -1;
+        }.bind(this));
+    }
+
+    resetFiltterEmp() {
+        this.rowData = new Array<any>();
+        this.filterEmpList = new Array();
+        this.filterEmpList = Object.assign([], this.mainEmpList);
+        this.rowData = this.filterEmpList;
+    }
+
+    selectEmployee(id, name) {
+        this.employeeList = new Array<any>();
+        this.searchEmp = id;
+        this.searchEmpShow = name + ' (' + id + ')';
+    }
+
+    resetFiltter() {
+        this.selectedLocation = 0;
+        this.selectedLevel = 0;
+        this.searchEmp = "";
+        this.searchEmpShow = "";
+        this.showFilterOption = false;
     }
 }
