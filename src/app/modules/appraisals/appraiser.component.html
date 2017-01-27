@@ -1,0 +1,101 @@
+<div class="breadcrumb-nav">
+    <div class="row margin-zero">
+        <div class="col s12">
+            <h5>Appraisal
+                <a href="vibrant_web_help/help-landing-page.html" target="_blank" title="Help" class="help-btn">
+                    <i class="right fa fa-question-circle" aria-hidden="true"></i></a>
+                <a href="approvals-reviewer-rating.html" target="_blank" title="Reviewer" class="help-btn">
+                    <i class="right fa fa-dot-circle-o" aria-hidden="true"></i></a>
+            </h5>
+        </div>
+    </div>
+</div>
+<div class="tab-container">
+    <div class="row">
+        <div class="col s12 tab-control padding-zero">
+            <div class="col s12 m5 l2 padding-zero">
+                <ul class="tabs app-tabs">
+                    <li class="tab col s12"><a class="active" href="#appraisal">APPRAISAL</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="appraisal" class="col s12 padding-zero tab-content">
+            <div class="row main-data-container">
+                <div class="col s12 padding-zero">
+                    <div class="reimbursement-wrapper appraisals">
+                        <div class="rating-container">
+                            <div class="row rating-content-appraiser">
+                                <div class="row emp-details-panel">
+                                    <div class="col s6 m6 l6 offset-l6 padding-zero">
+                                        <div class="employ-img-appraiser">
+                                            <a href="employee-details.html"><img src="assets/images/3463.jpg" alt="" class="circle responsive-img"></a>
+                                            <span class="employ-details">
+                                                                        <p class="name-details">{{appraiseeDetails.ID}} | <span>{{appraiseeDetails.appraiseeName}}</span></p>
+                                            <p class="raters-details">Appraiser: {{appraiseeDetails.appraiserName}} | <span>Reviewer: {{appraiseeDetails.reviewerName}}</span></p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s10 m10 l10 offset-l1">
+                                    <div class="row content-rater">
+                                        <div class="col s6 m6 l6 left-bar padding-zero">
+                                            <div class="left-bar-content" *ngFor="let questions of appraiseeAnswerCollection">
+                                                <div class="appraisee-quest quest-1">
+                                                    <p>{{questions.question}}</p>
+                                                </div>
+                                                <div class="timeline-panel-appraiser ans-1">
+                                                    <p class="rating-content">{{questions.answer}} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s6 m6 l6 right-bar right-bar-appraiser">
+                                            <div class="rating-panel">
+                                                <div class="overall-rating appraiser-rate">
+                                                    <div class="overall-rate-circle">
+                                                        <select materialize="material_select" [(ngModel)]="averageRating">
+                                                                                        <option value="3">3</option>
+                                                                                        <option value="2">2</option>
+                                                                                        <option value="1">1</option>
+                                                                                        <option value="4">4</option>
+                                                                                        <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="parameter-1" *ngFor="let parameter of appraiserParameterCollection">
+                                                    <span class="parameter-heading">{{parameter.parameter}}</span>
+                                                    <div class="param-rating">
+                                                        <select materialize="material_select" [(ngModel)]="parameter.score">
+                                                                                        <option value="3">3</option>
+                                                                                        <option value="2">2</option>
+                                                                                        <option value="1">1</option>
+                                                                                        <option value="4">4</option>
+                                                                                        <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     <textarea class="materialize-textarea m-btm" style="height: 44px;" [(ngModel)]= "appraiserComments"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer padding-15-0 top-divider">
+                        <div class="row valign-wrapper margin-zero">
+                            <div class="col s12 m12 l6 right-align" *ngIf="!isApplied">
+                                <a href="#" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
+                                <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='applyAppraiseeForm()'>Apply</a>
+                            </div>
+                            <div class="col s12 m12 l6 right-align" *ngIf="isApplied">
+                                <a href="#" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
+                                <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='submitAppraiseeForm()'>Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

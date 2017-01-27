@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
     isUs: boolean = false;
     appraisalAssignedTo: boolean = false;
     isAdminUser: boolean = false;
+    appraisalDetail: any;
 
     constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService) {
         this.date = new Date().toISOString();
@@ -333,6 +334,18 @@ export class DashboardComponent implements OnInit {
         return weekday[d.getDay()];
     }
 
+    GetAppraisalAssignedTo() {
+        var self = this;
+        var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
+        this._httpService.get(url).subscribe(
+            data => {
+                if (data.empID == this.results.id) {
+                    self.appraisalAssignedTo = true;
+                }
+                self.appraisalDetail = data;
+            });
+    }
+
     IsBirthday(date: any) {
         var birthday = new Date(date), today = new Date();
         birthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
@@ -347,16 +360,6 @@ export class DashboardComponent implements OnInit {
         else {
             return { date: birthday, isDisplay: false };
         }
-    }
-
-    GetAppraisalAssignedTo() {
-        // var self = this;
-        // var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
-        // this._httpService.get(url).subscribe(
-        //     data => {
-        //         if (data == this.results.id)
-        //             self.appraisalAssignedTo = true;
-        //     });
     }
 
     showAdministration(roles: any) {
