@@ -203,12 +203,26 @@ export class AppraisalInitiationComponent {
         this.filterEmpList = new Array();
         this.filterEmpList = Object.assign([], this.mainEmpList);
         this.rowData = this.filterEmpList;
+        this.selectedLocation = 0;
+        this.selectedLevel = 0;
+        this.searchEmp = "";
     }
 
     selectEmployee(id, name) {
         this.employeeList = new Array<any>();
         this.searchEmp = id;
         this.searchEmpShow = name + ' (' + id + ')';
+    }
+
+    filtterbyLeLo() {
+        this.searchEmp = "";
+        this.filtterEmp();
+    }
+
+    filterByEmp() {
+        this.selectedLocation = 0;
+        this.selectedLevel = 0;
+        this.filtterEmp();
     }
 
     resetFiltter() {
