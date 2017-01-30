@@ -418,6 +418,18 @@ declare var $: any;
                                 </span>
                             </div>
                         </div>
+                        <div class="row ">
+                                <div class="col s7">
+                                    <div class="view-form-info">
+                                        <h6>Visa Copy</h6>
+                                        <h5>{{item.visaFileUrl|filename}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col s5 valign right-align">
+                                    <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="item.visaFileUrl" [download]="item.visaFileUrl"></a>
+                                    
+                                </div>
+                            </div>
                          <div class="approval-data-msg" *ngIf='item.stageStatusID==1' >Data sent for approval. Cannot update data.</div>
                        </div>
                       </template>

@@ -6,7 +6,7 @@
                     <div class="row margin-zero">
                         <div class="col s12 bottom-divider p-left10">
                             <div class="col s12 m12 l3 padding-zero">
-                                <ul class="tabs approvals-tabs" style="width: 100%;">
+                                <ul class="tabs approvals-tabs travel-tabs" style="width: 100%;">
                                     <li class="tab col s3"><a class="active">TRAVELLER DETAILS</a></li>
                                     <div class="indicator" style="right: 0px; left: 0px;"></div>
                                     <div class="indicator" style="right: 0px; left: 0px;"></div>
@@ -14,8 +14,8 @@
                             </div>
                         </div>
                         <div id="traveller-details" class="col s12 tab-content padding-zero">
-                            <div class="card-container padding-20 travel-cards">
-                                <div *ngIf="travelRequirementsModel.travelType != 1" class="card white approvals-card">
+                            <div class="card-container padding-20">
+                                <div *ngIf="travelRequirementsModel.travelType != 1" class="card white approvals-card-blue">
                                     <div class="card-edit">
                                         <div class="row heading-content">
                                             <div class="col s12 card-heading">
@@ -54,6 +54,18 @@
                                                         <span><i class="fa fa-trash icon-btn remove" aria-hidden="true" title="Remove" (click)="DeleteVisa($event, item)"></i></span>
                                                     </div>
                                                 </div>
+                                                <div class="row ">
+                                                    <div class="col s7">
+                                                        <div class="view-form-info">
+                                                            <h6>Visa Copy</h6>
+                                                            <h5>{{item.visaFileUrl|filename}}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s5 valign right-align">
+                                                        <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="item.visaFileUrl" [download]="item.visaFileUrl"></a>
+                                                        
+                                                    </div>
+                                                </div>
                                             </div>
                                         </template>
                                     </repeater>
@@ -72,7 +84,7 @@
                                     </loader-component>
                                 </grid-card>
 
-                                <div class="card white approvals-card">
+                                <div class="card white approvals-card-blue">
                                     <div class="card-edit">
                                         <div class="row heading-content">
                                             <div class="col s12 card-heading">
@@ -179,7 +191,7 @@
                                     </loader-component>
 
                                 </grid-card>
-                                <div class="card white approvals-card">
+                                <div class="card white approvals-card-blue">
                                     <div class="card-edit">
                                         <div class="row heading-content">
                                             <div class="col s12 card-heading">
@@ -193,7 +205,7 @@
 
                                     </div>
                                 </div>
-                                <div class="card white approvals-card">
+                                <div class="card white approvals-card-blue">
                                     <div class="card-edit">
                                         <div class="row heading-content">
                                             <div class="col s12 card-heading">

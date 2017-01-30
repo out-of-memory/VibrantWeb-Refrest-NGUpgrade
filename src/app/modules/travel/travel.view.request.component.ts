@@ -97,6 +97,7 @@ export class TravelViewRequestComponent implements OnInit {
     documentArray: Array<any> = [{ "description": "Air Tickets" }, { "description": "Invitation Letter" }, { "description": "Hotel Reservation" }, { "description": "Insurance Details" }, { "description": "Currency Letter" },
     { "description": "Calling Card" }];
     dllApprovalStatus: any = [{ value: '1', label: 'Approved' }, { value: '2', label: 'Rejected' }, { value: '3', label: 'On Hold' }];
+    ddlTravelCardType: any = [{ 'id': '1', text: 'Master' }, { 'id': '2', text: 'Visa' }];
 
     constructor(private activatedRoute: ActivatedRoute, private _router: Router, private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
         this.ComponentInitialization();

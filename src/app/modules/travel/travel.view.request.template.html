@@ -15,7 +15,7 @@
                 <a href="/#/my/travel/newapproval" class="waves-effect waves-light btn back-btn"><i class="fa fa-angle-left left" title="Back to List" aria-hidden="true"></i>Back</a>
             </div>
         </div>
-        <div class="reimbursement-wrapper travel-data">
+        <div class="reimbursement-wrapper approvals-data-blue">
             <div class="row m-bottom0 header hide-on-med-and-down">
                 <div class="col s12 m1 offset-m3">
                     <h5 class="title">Req ID</h5>
@@ -149,7 +149,7 @@
                     <div class="row margin-zero">
                         <div class="col s12 bottom-divider p-left10 m-top20">
                             <div class="col s12 m12 l8 padding-zero">
-                                <ul materialize="tabs" class="tabs approvals-tabs" style="width: 100%;">
+                                <ul materialize="tabs" class="tabs approvals-tabs travel-tabs" style="width: 100%;">
                                     <li class="tab col s3"><a class="active" href="#traveller-details">TRAVELLER DETAILS</a></li>
                                     <li class="tab col s3"><a href="#flight-options">FLIGHT  OPTIONS</a></li>
                                     <li class="tab col s3"><a href="#hotel-booking">HOTEL BOOKING</a></li>
@@ -1341,18 +1341,52 @@
                                 <div class="row margin-zero">
                                     <div class="col s12 l6 m-bottom20">
                                         <div class="card white travel-card margin-zero manual-box">
-                                            <div class="card-edit">
+                                            <!--<div class="card-edit">
                                                 <h6 class="right-text right-align">{{todaysDate}}</h6>
                                                 <ui-form #moneyTransaction [controlMetas]="moneyTransactionsHub" [(model)]="moneyTransactionsModel" [errorOnlyOnSubmit]='moneyFormSubmitted'
                                                     [formReadonly]='false' formCss='' columnOrientation='2' inputLabelPosition='top'
                                                     controlCss='view-form-info'>
                                                 </ui-form>
+                                            </div>-->
+                                            <div class="card-edit">
+                                                <h6 class="right-text right-align">{{todaysDate}}</h6>
+                                                <form #moneyTransactionForm="ngForm" novalidate="novalidate">
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s6">
+                                                            <h6>Travel Card Type</h6>
+                                                            <select required="required" name="cardType" #cardType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlTravelCardType" [(ngModel)]='moneyTransactionsModel.cardType'>
+                                                                <option value="0" disabled class="disabled">Select</option>
+                                                                <option *ngFor="let option of ddlTravelCardType" [value]="option.id">{{option.text}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s6">
+                                                            <h6>Travel Card Details</h6>
+                                                            <input required="required"  type="number" name="cardDetails" #cardDetails="ngModel" class="" [(ngModel)]="moneyTransactionsModel.cardDetails">
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s6">
+                                                            <h6>Cash</h6>
+                                                            <input value="$ 8000" type="text" class="validate">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s6">
+                                                            <h6>Card Reloaded</h6>
+                                                            <input value="$ 6000" type="text" class="validate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12">
+                                                            <h6>Comments</h6>
+                                                            <input value="Lorem Ipsum is simply dummy text of the printing and typesetting industry." type="text" class="validate">
+                                                        </div>
+                                                    </div>-->
+                                                </form>
                                             </div>
                                             <div class="card-footer padding-15-0 m-bottom5 top-divider">
                                                 <div class="row valign-wrapper margin-zero">
                                                     <div class="col s12 right-align">
                                                         <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel" (click)="ResetTransaction()">Cancel</a>
-                                                        <a class="waves-effect waves-light btn custom-btn submit" title="Reload" (click)="ReloadMoney($event, moneyTransaction.mainForm, moneyTransactionsModel)">Reload</a>
+                                                        <a class="waves-effect waves-light btn custom-btn submit" title="Reload" (click)="ReloadMoney($event, moneyTransactionForm, moneyTransactionsModel)">Reload</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1375,7 +1409,7 @@
                                                 <div class="col s12 padding-zero">
                                                     <div class="table-responsive">
                                                         <table class="striped responsive-table scroll">
-                                                            <thead class="thead-custom-style travel-card">
+                                                            <thead class="thead-custom-style travel-blue">
                                                                 <tr>
                                                                     <th class="col-width-20" data-field="date">Date</th>
                                                                     <th class="col-width-20" data-field="transaction-details">Transaction Details</th>

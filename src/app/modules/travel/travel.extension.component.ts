@@ -11,18 +11,8 @@ import { AutoMapperService } from '../../servicesFolder/AutoMapperService'
     templateUrl: './travel.extension.template.html',
     styles: [
         `
-        .ng-valid[required], .ng-valid.required  {
-  border-bottom: 1px solid #42A948; /* green */
-}
-.alert {
-    border: 1px solid transparent;
-}
-.alert-danger {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-}
-`
+        
+        `
     ]
 })
 export class TravelExtensionComponent implements OnInit {
