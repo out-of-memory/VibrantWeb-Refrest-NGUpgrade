@@ -164,7 +164,7 @@
                                 <div *ngIf="flightDetailsReadOnly" class="row">
                                     <div class="col s12 padding-zero">
                                         <div class="card white travel-card margin-zero padding-zero">
-                                            <div class="row valign-wrapper margin-zero m-top20">
+                                            <!--<div class="row valign-wrapper margin-zero m-top20">
                                                 <div class="col s12">
                                                     <div class="row margin-zero">
                                                         <ui-form #flightForm [controlMetas]="flightHub" [(model)]="flightModel" [errorOnlyOnSubmit]='flightFormSubmit' [formReadonly]='false'
@@ -175,8 +175,51 @@
                                                         </ui-form>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row valign-wrapper margin-zero flight-data">
+                                            </div>-->
+                                            <form novalidate="novalidate" #flightForm="ngForm">
+                                                <div class="row valign-wrapper margin-zero m-top20">
+                                                    <div class="col s12 l5">
+                                                        <div class="row margin-zero">
+                                                            <div class="custom-input-field input-field col s12 m6">
+                                                                <h6>Travel Type</h6>
+                                                                <select [ngClass]="{borderbottom: !travelType.valid && flightFormSubmit}" required="required" name="travelType" #travelType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlFlightTravelType" [(ngModel)]='flightModel.travelType'>
+                                                                    <option value="0" disabled class="disabled">Select</option>
+                                                                    <option *ngFor="let option of ddlFlightTravelType" [value]="option.id">{{option.text}}</option>
+                                                                </select>
+                                                                <div *ngIf="flightFormSubmit && !travelType.valid" class="alert alert-danger">Travel Type is required </div>                              
+                                                            </div>                                                        
+                                                            <div class="custom-input-field input-field col s12 m6">
+                                                                <h6>Trip Type</h6>
+                                                                <select [ngClass]="{borderbottom: !tripType.valid && flightFormSubmit}" required="required" name="tripType" #tripType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlFlightType" [(ngModel)]='flightModel.tripType'>
+                                                                    <option value="0" disabled class="disabled">Select</option>
+                                                                    <option *ngFor="let option of ddlFlightType" [value]="option.id">{{option.text}}</option>
+                                                                </select>
+                                                                <div *ngIf="flightFormSubmit && !tripType.valid" class="alert alert-danger">Trip Type is required </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s12 m2 padding-zero center-align">
+                                                    </div>
+                                                    <div class="col s12 l5">
+                                                        <div class="row margin-zero">
+                                                            <div class="custom-input-field input-field col s12 m6">
+                                                                <h6>Booking From</h6>
+                                                                <select [ngClass]="{borderbottom: !bookingFrom.valid && flightFormSubmit}" required="required" name="bookingFrom" #bookingFrom="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.travelBookingAgency" [(ngModel)]='flightModel.bookingFrom'>
+                                                                    <option value="0" disabled class="disabled">Select</option>
+                                                                    <option *ngFor="let option of traveldropdowns.travelBookingAgency" [value]="option.id">{{option.text}}</option>
+                                                                </select>
+                                                                <div *ngIf="flightFormSubmit && !bookingFrom.valid" class="alert alert-danger">Booking From is required </div>
+                                                            </div>
+                                                            <div class="custom-input-field input-field col s12 m6">
+                                                                <h6>Agency Name</h6>
+                                                                <input type="text" required="required" name="agencyName" #agencyName="ngModel" [(ngModel)]="flightModel.agencyName" [ngClass]="{borderbottom: !agencyName.valid && flightFormSubmit}"/>
+                                                                <div *ngIf="flightFormSubmit && !agencyName.valid" class="alert alert-danger">Agency Name is required </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!--<div class="row valign-wrapper margin-zero flight-data">
                                                 <div class="col s12 l5">
                                                     <ui-form #flightDetailFormOne [controlMetas]="flightDetailsHubOne" [(model)]="flightDetailsModelOne" [errorOnlyOnSubmit]='flightFormSubmit'
                                                         [formReadonly]='false' formCss='' columnOrientation='2' inputLabelPosition='top'
@@ -212,20 +255,222 @@
 
                                                     </ui-form>
                                                 </div>
+                                            </div>-->
+                                            <div class="row valign-wrapper margin-zero flight-data">
+                                                <div class="col s12 l5">
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>From</h6>
+                                                            <input value="Mumbai" type="text" class="validate">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>To</h6>
+                                                            <input value="New York" type="text" class="validate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Departure</h6>
+                                                            <input value="23/09/2016 01:00 AM" type="text" class="validate">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Arrival</h6>
+                                                            <input value="18/01/2017 20:15 PM" type="text" class="validate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Airlines</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-10713428-770b-f240-7129-f5de5d2b999a" value="Emirates"><ul id="select-options-10713428-770b-f240-7129-f5de5d2b999a" class="dropdown-content select-dropdown "><li class=""><span>Emirates</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">Emirates</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Class</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-095ce5c3-3e95-5b24-26c7-9bb11b04c761" value="Business"><ul id="select-options-095ce5c3-3e95-5b24-26c7-9bb11b04c761" class="dropdown-content select-dropdown "><li class=""><span>Business</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">Business</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>No of Layover</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-22258241-5d59-cc25-20ef-dcfa304f8973" value="1"><ul id="select-options-22258241-5d59-cc25-20ef-dcfa304f8973" class="dropdown-content select-dropdown "><li class=""><span>1</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">1</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Layover Location</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-48a1cf34-111d-71f5-6bd3-237cc12b32ca" value="Dubai"><ul id="select-options-48a1cf34-111d-71f5-6bd3-237cc12b32ca" class="dropdown-content select-dropdown "><li class=""><span>Dubai</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">Dubai</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Layover Duration</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-ea6dc1d2-984f-08e6-ffac-5d0261dfe197" value="4:00"><ul id="select-options-ea6dc1d2-984f-08e6-ffac-5d0261dfe197" class="dropdown-content select-dropdown "><li class=""><span>4:00</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">4:00</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Total Travel Duration</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-26888707-1bcb-9f03-734a-f92fa5ed8d1f" value="26:15"><ul id="select-options-26888707-1bcb-9f03-734a-f92fa5ed8d1f" class="dropdown-content select-dropdown "><li class=""><span>26:15</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">26:15</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col s12 l2 padding-zero center-align">
+                                                    <div><div class="padding-0-30"><img src="assets/images/arrow-inout.svg" title="Travel-trip" height="35px" width="35px"></div></div>
+                                                </div>
+                                                <div class="col s12 l5">
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>From</h6>
+                                                            <input value="New York" type="text" class="validate">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>To</h6>
+                                                            <input value="Mumbai" type="text" class="validate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Departure</h6>
+                                                            <input value="17/01/2016 01:00 AM" type="text" class="validate">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Arrival</h6>
+                                                            <input value="18/01/2017 20:15 PM" type="text" class="validate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Airlines</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-b8ed3578-ee05-09fd-62d6-091357f17896" value="Emirates"><ul id="select-options-b8ed3578-ee05-09fd-62d6-091357f17896" class="dropdown-content select-dropdown "><li class=""><span>Emirates</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">Emirates</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Class</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-f4da8b3e-db2d-a25d-f009-269439c897db" value="Business"><ul id="select-options-f4da8b3e-db2d-a25d-f009-269439c897db" class="dropdown-content select-dropdown "><li class=""><span>Business</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">Business</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>No of Layover</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-2c4ca122-6e9c-c854-0e0d-002767680a8f" value="1"><ul id="select-options-2c4ca122-6e9c-c854-0e0d-002767680a8f" class="dropdown-content select-dropdown "><li class=""><span>1</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">1</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Layover Location</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-5945250c-7470-d4e1-6463-5f249cf1229e" value="Dubai"><ul id="select-options-5945250c-7470-d4e1-6463-5f249cf1229e" class="dropdown-content select-dropdown "><li class=""><span>Dubai</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">Dubai</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Layover Duration</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-48e38b2a-e237-be34-e22c-3acc64f82b46" value="4:00"><ul id="select-options-48e38b2a-e237-be34-e22c-3acc64f82b46" class="dropdown-content select-dropdown "><li class=""><span>4:00</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">4:00</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Total Travel Duration</h6>
+                                                            <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-3da1fd07-8246-e7c7-141c-b36ec0b537a1" value="26:15"><ul id="select-options-3da1fd07-8246-e7c7-141c-b36ec0b537a1" class="dropdown-content select-dropdown "><li class=""><span>26:15</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                                                                <option value="" selected="">26:15</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row display-flex m-top20">
-                                                <div class="col s12 l6">
+                                                <!--<div class="col s12 l6">
                                                     <ui-form #flightCostForm [controlMetas]="flightCostDetailHub" [(model)]="flightCostDetail" [errorOnlyOnSubmit]=''
                                                         [formReadonly]='false' formCss='' columnOrientation='2' inputLabelPosition='top'
                                                         controlCss='view-form-info'>
                                                     </ui-form>
+                                                </div>-->
+                                                
+                                                <div class="col s12 l6">
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Base Fare</h6>
+                                                            <input type="text" name="baseFare" [(ngModel)]="flightCostDetail.baseFare">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Taxes</h6>
+                                                            <input type="text" name="taxes" [(ngModel)]="flightCostDetail.taxes">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Grand Total</h6>
+                                                            <input type="text" name="grandTotal" [(ngModel)]="flightCostDetail.grandTotal">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Change Penalty</h6>
+                                                            <input type="text" name="changePenalty" [(ngModel)]="flightCostDetail.changePenalty">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Cancellation Charges</h6>
+                                                            <input type="text" name="cancellationCharges" [(ngModel)]="flightCostDetail.cancellationCharges">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Baggage</h6>
+                                                            <input type="text" name="baggage" [(ngModel)]="flightCostDetail.baggage">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col s12 l6 comments-section">
                                                     <div class="">
                                                         <h5 class="margin-zero p-left10">Comments</h5>
                                                         <div class="">
                                                             <div class="input-field col s12">
-                                                                <input placeholder="Enter comments" type="text" class="validate" [(ngModel)]="flightCostDetail.comments">
+                                                                <input placeholder="Enter comments" type="text" [(ngModel)]="flightCostDetail.comments">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -625,7 +870,7 @@
                                             <div class="row heading-content m-bottom0 padding-15-0">
                                                 <div class="col s12 card-heading">
                                                     <div class="right-align card-activity card-status">
-                                                        <i *ngIf="hotelBookingReadOnly" class="fa fa-floppy-o icon-btn save" aria-hidden="true" title="Save" (click)="SaveHotelBooking(hotelBookingForm.mainForm,hotelBookingModel)"></i>
+                                                        <i *ngIf="hotelBookingReadOnly" class="fa fa-floppy-o icon-btn save" aria-hidden="true" title="Save" (click)="SaveHotelBooking(hotelBookingForm,hotelBookingModel)"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -633,7 +878,7 @@
                                                 <div class="col s12">
                                                     <div class="">
                                                         <div class="card-edit">
-                                                            <ui-form #hotelBookingForm [controlMetas]="hotelBookingHub" [(model)]="hotelBookingModel" [formReadonly]='false' formCss='row margin-zero'
+                                                            <!--<ui-form #hotelBookingForm [controlMetas]="hotelBookingHub" [(model)]="hotelBookingModel" [formReadonly]='false' formCss='row margin-zero'
                                                                 controlCss='custom-input-field input-field col s12' columnOrientation='8'
                                                                 inputLabelPosition='top' [errorOnlyOnSubmit]='formHotelBookingSubmitted'>
 
@@ -642,7 +887,54 @@
                                                                     changeattrs='["min"]'>
                                                                 </ui-control-item>
 
-                                                            </ui-form>
+                                                            </ui-form>-->
+                                                            <form novalidate="novalidate" #hotelBookingForm="ngForm">
+                                                                <div class="row margin-zero">
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Check in Date</h6>
+                                                                        <input type="text" required="required" name="checkIn" [(ngModel)]="hotelBookingModel.checkIn" #checkIn="ngModel" [ngClass]="{borderbottom: !checkIn.valid && formHotelBookingSubmitted}" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                                        <div *ngIf="formHotelBookingSubmitted && !checkIn.valid" class="alert alert-danger">Check in Date is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Check out Date</h6>
+                                                                        <input type="text" required="required" name="checkOut" [(ngModel)]="hotelBookingModel.checkOut" #checkOut="ngModel" [ngClass]="{borderbottom: !checkOut.valid && formHotelBookingSubmitted}" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                                        <div *ngIf="formHotelBookingSubmitted && !checkOut.valid" class="alert alert-danger">Check out Date is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field col s12 m6 l4">
+                                                                        <h6>Room Type</h6>
+                                                                        <select [ngClass]="{borderbottom: !roomType.valid && formHotelBookingSubmitted}" id="roomType" required="required" name="roomType" #roomType="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.hotelRoom" [(ngModel)]='hotelBookingModel.roomType'>
+                                                                            <option value="0" disabled class="disabled">Select</option>
+                                                                            <option *ngFor="let option of traveldropdowns.hotelRoom" [value]="option.id">{{option.text}}</option>
+                                                                        </select>
+                                                                        <div *ngIf="formHotelBookingSubmitted && !roomType.valid" class="alert alert-danger">Room Type is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Hotel Name</h6>
+                                                                        <input type="text" required="required" name="hotelName" [(ngModel)]="hotelBookingModel.hotelName" #hotelName="ngModel" [ngClass]="{borderbottom: !hotelName.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !hotelName.valid" class="alert alert-danger">Hotel name is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 l8">
+                                                                        <h6>Address</h6>
+                                                                        <input type="text" required="required" name="address" [(ngModel)]="hotelBookingModel.address" #address="ngModel" [ngClass]="{borderbottom: !address.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !address.valid" class="alert alert-danger">Address is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Phone</h6>
+                                                                        <input type="number" required="required" name="phone" [(ngModel)]="hotelBookingModel.phone" #phone="ngModel" [ngClass]="{borderbottom: !phone.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !phone.valid" class="alert alert-danger">Phone is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Fax</h6>
+                                                                        <input type="text" required="required" name="fax" [(ngModel)]="hotelBookingModel.fax" #fax="ngModel" [ngClass]="{borderbottom: !fax.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !fax.valid" class="alert alert-danger">Fax is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Email ID</h6>
+                                                                        <input type="text" required="required" name="emailId" [(ngModel)]="hotelBookingModel.emailId" #emailId="ngModel" [ngClass]="{borderbottom: !emailId.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !emailId.valid" class="alert alert-danger">Email-Id is required </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1354,32 +1646,36 @@
                                                     <div class="row margin-zero">
                                                         <div class="custom-input-field input-field col s6">
                                                             <h6>Travel Card Type</h6>
-                                                            <select required="required" name="cardType" #cardType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlTravelCardType" [(ngModel)]='moneyTransactionsModel.cardType'>
+                                                            <select [ngClass]="{borderbottom: !cardType.valid && moneyFormSubmitted}" required="required" name="cardType" #cardType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlTravelCardType" [(ngModel)]='moneyTransactionsModel.cardType'>
                                                                 <option value="0" disabled class="disabled">Select</option>
                                                                 <option *ngFor="let option of ddlTravelCardType" [value]="option.id">{{option.text}}</option>
                                                             </select>
+                                                            <div *ngIf="moneyFormSubmitted && !cardType.valid" class="alert alert-danger">Departure is required </div>
                                                         </div>
                                                         <div class="custom-input-field input-field col s6">
-                                                            <h6>Travel Card Details</h6>
-                                                            <input required="required"  type="number" name="cardDetails" #cardDetails="ngModel" class="" [(ngModel)]="moneyTransactionsModel.cardDetails">
+                                                            <h6>Departure</h6>
+                                                            <input required="required" type="text" name="cardDetails" #cardDetails="ngModel" class="" [(ngModel)]="moneyTransactionsModel.cardDetails" [ngClass]="{borderbottom: !cardDetails.valid && moneyFormSubmitted}">
+                                                            <div *ngIf="moneyFormSubmitted && !cardDetails.valid" class="alert alert-danger">Departure is required </div>
                                                         </div>
                                                     </div>
-                                                    <!--<div class="row margin-zero">
+                                                    <div class="row margin-zero">
                                                         <div class="custom-input-field input-field col s6">
                                                             <h6>Cash</h6>
-                                                            <input value="$ 8000" type="text" class="validate">
+                                                            <input type="text" name="cash" [(ngModel)]="moneyTransactionsModel.cash" #cash="ngModel">
                                                         </div>
                                                         <div class="custom-input-field input-field col s6">
-                                                            <h6>Card Reloaded</h6>
-                                                            <input value="$ 6000" type="text" class="validate">
+                                                            <h6>Card Amount</h6>
+                                                            <input type="text" required="required" [(ngModel)]="moneyTransactionsModel.cardAmount" name="cardAmount" #cardAmount="ngModel" [ngClass]="{borderbottom: !cardAmount.valid && moneyFormSubmitted}">
+                                                            <div *ngIf="moneyFormSubmitted && !cardAmount.valid" class="alert alert-danger">Card amount is required</div>
                                                         </div>
                                                     </div>
                                                     <div class="row margin-zero">
                                                         <div class="custom-input-field input-field col s12">
                                                             <h6>Comments</h6>
-                                                            <input value="Lorem Ipsum is simply dummy text of the printing and typesetting industry." type="text" class="validate">
+                                                            <input type="text" required="required" name="comments" [(ngModel)]="moneyTransactionsModel.comments" #comments="ngModel" [ngClass]="{borderbottom: !cardAmount.valid && moneyFormSubmitted}"> 
+                                                            <div *ngIf="moneyFormSubmitted && !comments.valid" class="alert alert-danger">Comments is required</div>
                                                         </div>
-                                                    </div>-->
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer padding-15-0 m-bottom5 top-divider">
