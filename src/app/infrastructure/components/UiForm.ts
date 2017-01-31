@@ -6,6 +6,7 @@ import { ControlMeta } from '../../infrastructure/models/ControlMeta';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { ControlValidator } from "../Validators/ControlValidator"
 //import {UiFormControl} from "./app/infrastructure/components/ui.form.control"
+import { CacheService } from '../../services';
 
 
 @Component({
@@ -81,15 +82,15 @@ export class UiForm implements OnInit {
     dataModel: string = "";
     @ContentChildren(UiFormControl) itemTemplateList: QueryList<UiFormControl>;
 
-    noop = (evnt) => {  };
+    noop = (evnt) => { };
     actionsArray: Array<any> = [];
     eventArray: Array<any> = [];
     dataModelControl: { [id: string]: AbstractControl } = {};
     mainForm: FormGroup;
     modelTypeObject: boolean = true;
     private orientationArray: Array<Array<ControlMeta>>;
-    bookingArray: Array<any> = [{ 'id': '1', text: 'WorldSpin Holidays' }, { 'id': '2', text: 'Booking 1' }, { 'id': '3', text: 'Other Agency' }];
-    constructor(private fb: FormBuilder, private viewContainerRef: ViewContainerRef) {
+    bookingArray: Array<any>;
+    constructor(private fb: FormBuilder, private viewContainerRef: ViewContainerRef, private _cacheService: CacheService) {
         this.orientationArray = new Array<Array<ControlMeta>>();
     }
 
@@ -225,8 +226,9 @@ export class UiForm implements OnInit {
 
 
         let thisModel = this;
+        this.bookingArray = this._cacheService.getParams('travelDropdowns').travelBookingAgency
 
-        if (Number(thisModel.model.bookingFrom) != 3)
+        if (Number(thisModel.model.bookingFrom) != 2)
             thisModel.model.agencyName = this.bookingArray.find(x => x.id == thisModel.model.bookingFrom).text;
         else
             thisModel.model.agencyName = "";

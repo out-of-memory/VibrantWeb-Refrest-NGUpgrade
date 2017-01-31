@@ -97,6 +97,7 @@ export class TravelViewRequestComponent implements OnInit {
     documentArray: Array<any> = [{ "description": "Air Tickets" }, { "description": "Invitation Letter" }, { "description": "Hotel Reservation" }, { "description": "Insurance Details" }, { "description": "Currency Letter" },
     { "description": "Calling Card" }];
     dllApprovalStatus: any = [{ value: '1', label: 'Approved' }, { value: '2', label: 'Rejected' }, { value: '3', label: 'On Hold' }];
+    ddlTravelCardType: any = [{ 'id': '1', text: 'Master' }, { 'id': '2', text: 'Visa' }];
 
     constructor(private activatedRoute: ActivatedRoute, private _router: Router, private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
         this.ComponentInitialization();
@@ -108,7 +109,7 @@ export class TravelViewRequestComponent implements OnInit {
         this.moneyTransactionsModel = new TravelMoneyTransactions();
         this.moneyTransactionsHub = this.moneyTransactionsModel['hub'];
 
-        this.FillDropdowns();
+
 
         this.hotelBookingModel = new HotelBooking();
         this.hotelBookingHub = this.hotelBookingModel['hub'];
@@ -132,7 +133,7 @@ export class TravelViewRequestComponent implements OnInit {
         this.extensionDetails = new Array<TravelExtension>();
 
         this.EditOrReadOnly();
-
+        this.FillDropdowns();
         this.deleteItem = {};
     }
 
@@ -249,6 +250,9 @@ export class TravelViewRequestComponent implements OnInit {
                 // Travel Requirements
                 this.travelModel.travelTitle = dataModel.travelTitle;
                 this._autoMapperService.Map(dataModel.travelDetails, this.travelModel.travelDetails);
+                this.travelModel.travelDetails.meal = dataModel.travelDetails.mealPreference.description;
+                this.travelModel.travelDetails.seatlocation = dataModel.travelDetails.seatLocationPreference.description;
+
 
                 this._autoMapperService.Map(dataModel.hotelBooking, this.hotelBookingModel);
                 if (Number(this.hotelBookingModel.internetPreferences.amount) > 0 && this.hotelBookingModel.internetPreferences.paidInternet) {
@@ -448,11 +452,34 @@ export class TravelViewRequestComponent implements OnInit {
 
     FillDropdowns() {
         let dropdowns = this._cacheService.getParams('expenseDropdowns');
+        let traveldropdowns = this._cacheService.getParams('travelDropdowns');
 
         for (let index = 0; index < this.moneyTransactionsHub.length; index++) {
             let element = this.moneyTransactionsHub[index];
             if (typeof (element.options) === 'string') {
                 this.moneyTransactionsHub[index].options = dropdowns[element.options];
+            }
+        }
+
+        for (let index = 0; index < this.flightHub.length; index++) {
+            let element = this.flightHub[index];
+            if (typeof (element.options) === 'string') {
+                this.flightHub[index].options = traveldropdowns[element.options];
+            }
+        }
+
+        for (let index = 0; index < this.hotelBookingHub.length; index++) {
+            let element = this.hotelBookingHub[index];
+            if (typeof (element.options) === 'string') {
+                this.hotelBookingHub[index].options = traveldropdowns[element.options];
+            }
+        }
+
+        for (let index = 0; index < this.flightDetailsHubOne.length; index++) {
+            let element = this.flightDetailsHubOne[index];
+            if (typeof (element.options) === 'string') {
+                this.flightDetailsHubOne[index].options = traveldropdowns[element.options];
+                // this.flightDetailsHubTwo[index].options = traveldropdowns[element.options];
             }
         }
     }
@@ -593,7 +620,8 @@ export class TravelViewRequestComponent implements OnInit {
             }
         }
         else {
-            if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightDetailFormTwo.mainForm.valid && !flightCostForm.mainForm.valid) {
+            // if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightDetailFormTwo.mainForm.valid && !flightCostForm.mainForm.valid) {
+            if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightDetailFormTwo.mainForm.valid) {
                 this.flightFormSubmit = true;
                 this.flightFormTwoSubmit = true;
                 return false;
@@ -697,7 +725,7 @@ export class TravelViewRequestComponent implements OnInit {
 
                         this.hideApproval = true;
                         this.travelModel.lastcomments = "Approved";
-                        
+
                         this.loaderModal = false;
 
                     }

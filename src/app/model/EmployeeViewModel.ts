@@ -1,5 +1,5 @@
-import {UIProperty, UIClass} from '../infrastructure/decorators/UIMeta'
-import {IUIMetadata} from "../infrastructure/models/IUIMetadata"
+import { UIProperty, UIClass } from '../infrastructure/decorators/UIMeta'
+import { IUIMetadata } from "../infrastructure/models/IUIMetadata"
 
 @UIClass("Employee", { fetch: {} })
 export class Employee implements IUIMetadata {
@@ -340,16 +340,16 @@ export class DeliveryUnitDetailsModel implements IUIMetadata {
     @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", options: "deliveryTeam", label: "Delivery Team", validation: " required c.select ", multiple: false, css: "col s6" })
     deliveryTeam: string = '';
 
-    @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select",options:"resourcePool", label: "Resource Pool Name", placeholder: "", multiple: false, validation: "required c.select", css: "col s6" })
+    @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", options: "resourcePool", label: "Resource Pool Name", placeholder: "", multiple: false, validation: "required c.select", css: "col s6" })
     resourcePool: string = '';
 
-    @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", label: "Reporting To",options:"reportingManager", multiple: false, validation: "required c.select", css: "col s6" })
+    @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", label: "Reporting To", options: "reportingManager", multiple: false, validation: "required c.select", css: "col s6" })
     reportingTo: string = '';
 
-    @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", label: "Exit Process Manager",options:"exitProcessManager",  multiple: false, validation: "required c.select", css: "col s6" })
+    @UIProperty({ hub: "DeliveryUnitDetailsModel", type: "select", label: "Exit Process Manager", options: "exitProcessManager", multiple: false, validation: "required c.select", css: "col s6" })
     exitProcessManager: string = '';
-    reportingManager:string='';
-    ID:string='';
+    reportingManager: string = '';
+    ID: string = '';
 
 }
 
@@ -443,6 +443,8 @@ export class PassportDetailsModel implements IUIMetadata {
     //@UIProperty({ hub: "PassportDetailsModel", type: "text", label: "Passport Copy", placeholder: "", validation: "" })
     //PassportCopy: string = '';
 
+    @UIProperty({ hub: "PassportDetailsModel", type: "file", label: "Passport upload", placeholder: "Upload Passport", moduletype: "passport", validation: "", css: "col s12 padding-top-10" })
+    passportFileUrl: string = '';
 
 }
 
@@ -558,6 +560,9 @@ export class VisaDetailsModel implements IUIMetadata {
 
     @UIProperty({ hub: "VisaDetailsModel", type: "date", label: "Valid Till", placeholder: "", min: true, max: false, validation: "required", css: "col s12" })
     validTill: string = '';
+
+    @UIProperty({ hub: "VisaDetailsModel", type: "file", label: "File upload", placeholder: "Upload Visa", moduletype: "visa", validation: "", css: "col s12" })
+    visaFileUrl: string = '';
 
     visaName: string = '';
     countryName: string = '';
