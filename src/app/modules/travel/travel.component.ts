@@ -17,8 +17,6 @@ export class TravelComponent implements OnInit {
   constructor(private router: Router, private _httpService: HttpService, private _cacheService: CacheService) {
     this.MenuData = [{ "routerName": "new", "routerPara": "", "title": "New Request" }, { "routerName": "history", "routerPara": "", "title": "Travel History" }];
 
-    this.getDropdowns();
-    
     var url = HttpSettings.apiBaseUrl + 'v1/travel/isApprovalAdmin';
     this._httpService.get(url).subscribe(
       data => {
@@ -33,13 +31,4 @@ export class TravelComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getDropdowns() {
-    var url = HttpSettings.apiBaseUrl + 'v1/travel/dropdowns';
-    this._httpService.get(url).subscribe(
-      data => {
-        this._cacheService.setParams('travelDropdowns', data);
-      });
-  }
-
 }

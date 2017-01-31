@@ -24,6 +24,7 @@ export class TravelExtensionComponent implements OnInit {
 
     extensionItem: TravelExtension = new TravelExtension();
     traveldetails: TravelRequirements = new TravelRequirements();
+    extensionHub: any;
 
     loaderModal: boolean = false;
     loaderModalMsg: boolean = false;
@@ -31,12 +32,15 @@ export class TravelExtensionComponent implements OnInit {
     isConformationModal: boolean = false;
     isSubmit: boolean = false;
     dateFormat: any;
+    formSubmit = false;
+
 
     travelId: any;
 
     constructor(private _httpService: HttpService, private activatedRoute: ActivatedRoute, private _router: Router, private _autoMapperService: AutoMapperService) {
 
-        this.extensionItem = new TravelExtension()
+        this.extensionItem = new TravelExtension();
+        this.extensionHub = this.extensionItem['hub'];
         this.extensionItem.departure = "1/23/2017";
 
         let date = new Date();
@@ -44,8 +48,6 @@ export class TravelExtensionComponent implements OnInit {
     }
 
     ngOnInit() {
-
-
 
         this.activatedRoute.params.subscribe(
             (param: any) => {
@@ -70,12 +72,10 @@ export class TravelExtensionComponent implements OnInit {
     SubmitTravelExtension(event, form) {
         event.preventDefault();
 
-        // if (!form.valid) {
-        //     this.isSubmit = true;
-        //     return false;
-        // }
-
-
+        if (!form.mainForm.valid) {
+            this.formSubmit = true;
+            return false;
+        }
 
         let url = HttpSettings.apiBaseUrl + 'v1/travel/add-travel-extension';
         this.extensionItem.travelId = this.travelId;

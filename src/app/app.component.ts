@@ -5,6 +5,9 @@ import { RouteRegistrationService, DashboardService } from './services';
 import { Decorator } from './Helper/Decorator';
 declare var $: any;
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpSettings } from './servicesFolder/http/http.settings';
+import { HttpService } from './servicesFolder/http/http.service';
+import { CacheService } from './servicesFolder/CacheService'
 
 @Component({
     selector: 'app-root',
@@ -30,7 +33,7 @@ export class AppComponent {
     isConformationModal: boolean = false;
     approvals: Array<any> = [];
 
-    constructor(private _userService: UserService, rrs: RouteRegistrationService, private expenseService: ExpenseService, private approvalService: DashboardService, private _router: Router) {
+    constructor(private _userService: UserService, rrs: RouteRegistrationService, private expenseService: ExpenseService, private approvalService: DashboardService, private _router: Router, private _httpService: HttpService, private _cacheService: CacheService) {
         this.Start(0);
         rrs.addRoutes(AppComponent, Decorator.App.Routes());
         this.title = "VibrantWeb-Refresh (Phoenix)";
@@ -54,6 +57,7 @@ export class AppComponent {
         this._userService.challengeLogin(data => {
             this._userService.pullDropDowns(() => { });
             this.expenseService.getDropdowns();
+            this.getTravelDropdowns();
             this._userService.profile(data => {
 
                 dis.userProfile = data;
@@ -272,6 +276,14 @@ export class AppComponent {
         location.href = "/vibranthelp/help-location.html";
         console.log(err);
         // }
+    }
+
+    getTravelDropdowns() {
+        var url = HttpSettings.apiBaseUrl + 'v1/travel/dropdowns';
+        this._httpService.get(url).subscribe(
+            data => {
+                this._cacheService.setParams('travelDropdowns', data);
+            });
     }
 
 }

@@ -55,7 +55,9 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
                         [type]='"time"' 
                         [attr.placeholder]='meta.placeholder' 
                         [(ngModel)]="value" />
-                
+
+                <file-upload *ngIf='!readonly && meta.type=="file"' [PlaceHolder]='meta.placeholder' [fileurl]="value" [ModuleType]='meta.moduletype' (Uploaded)='FileUploaded($event,item)'></file-upload>
+
                 <textarea #textarea
                         style='position:relative' 
                         class='materialize-textarea custom-textarea'
@@ -276,5 +278,9 @@ export class UiInput extends BaseControlValueAccessor {
             this.value = str;
         }
 
+    }
+
+    FileUploaded(item, $event) {
+        this.value = JSON.parse(item).name;
     }
 }

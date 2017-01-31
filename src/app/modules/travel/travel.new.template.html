@@ -15,7 +15,7 @@
                         </div>
                         <div id="traveller-details" class="col s12 tab-content padding-zero">
                             <div class="card-container padding-20 travel-cards">
-                                <div [ngClass]="{toDisplay: travelRequirementsModel.travelType == 1 , toDisplayBlock : travelRequirementsModel.travelType == ''}" class="card white approvals-card">
+                                <div *ngIf="travelRequirementsModel.travelType != 1" class="card white approvals-card">
                                     <div class="card-edit">
                                         <div class="row heading-content">
                                             <div class="col s12 card-heading">

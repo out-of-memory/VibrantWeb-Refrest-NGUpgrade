@@ -19,8 +19,8 @@
             <div class="row main-data-container">
                 <div class="col s12 padding-zero">
                     <!--<form #myForm="ngForm">-->
-                        <div class="card white approvals-card margin-zero padding-20">
-                            <div class="row margin-zero valign-wrapper ">
+                    <div class="card white approvals-card margin-zero padding-20">
+                        <!--<div class="row margin-zero valign-wrapper ">
                                 <div class="col s5 padding-zero">
                                     <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{traveldetails.travelFrom}}</h5>
                                     <div class="input-field">
@@ -53,18 +53,32 @@
                                         <label for="time" class="active">I94 Date</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
-                            <div class="row margin-zero">
-                                <div class="input-field col s12 padding-zero">
-                                    <input [(ngModel)]="extensionItem.comments" id="comments" type="text" class="validate">
-                                    <label for="comments" class="active">Comments</label>
-                                </div>
+                        <ui-form #extensionForm [controlMetas]="extensionHub" [model]="extensionItem" [errorOnlyOnSubmit]='formSubmit' [formReadonly]='false' formCss='view-card'
+                            columnOrientation='2' inputLabelPosition='top' controlCss='view-form-info'>
+                            
+                            <ui-control-item for='departure' behaviours='[ {"value":""}]'>
+                            </ui-control-item>
+                            <ui-control-item for='arrival' behaviours='[ {"value":""}]'>
+                            </ui-control-item>
+                            <ui-control-item for='visaDate' behaviours='[ {"value":""}]'>
+                            </ui-control-item>
+                            <ui-control-item for='I94Date' behaviours='[ {"value":""}]'>
+                            </ui-control-item>
+
+                        </ui-form>
+
+                        <!--<div class="row margin-zero">
+                            <div class="input-field col s12 padding-zero">
+                                <input [(ngModel)]="extensionItem.comments" id="comments" type="text" class="validate">
+                                <label for="comments" class="active">Comments</label>
                             </div>
-                            <div class="row margin-zero right">
-                                <a (click)="SubmitTravelExtension($event, myForm)" class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit">Submit</a>
-                            </div>
+                        </div>-->
+                        <div class="row margin-zero right">
+                            <a (click)="SubmitTravelExtension($event, extensionForm)" class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit">Submit</a>
                         </div>
+                    </div>
                     <!--</form>-->
                 </div>
             </div>

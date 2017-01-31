@@ -62,10 +62,10 @@ export class TravelRequirements implements IUIMetadata {
     additionalInformation: string = '';
 
     @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Meal Preference', multiple: false, options: [{ 'id': '1', text: 'Vegetarian' }, { 'id': '2', text: 'Non-Vegetarian' }], validation: 'required' })
-    mealPreference: string = '';
+    meal: string = '';
 
     @UIProperty({ hub: 'TravelRequirements', css: "col s12", type: 'selectMaterialize', 'labelPosition': 'top', label: 'Seat Location Preference', multiple: false, options: [{ 'id': '1', text: 'Window' }, { 'id': '2', text: 'Middle' }, { 'id': '3', text: 'Option 3' }], validation: 'required' })
-    seatLocationPreference: string = '';
+    seatlocation: string = '';
 
     comments: string = '';
 
@@ -420,21 +420,25 @@ export class TravelExtension implements IUIMetadata {
         this.hub = new Array<any>();
     }
 
+    @UIProperty({ hub: 'TravelExtension', type: 'date', label: 'Departure Date', placeholder: '', validation: 'required', readonly: 'true' })
     departure: string = '';
 
-    @UIProperty({ hub: 'TravelExtension', type: 'date', label: '', placeholder: 'Arrival Date', validation: 'required' })
+    @UIProperty({ hub: 'TravelExtension', type: 'date', label: 'Arrival Date', placeholder: '', validation: 'required' })
     arrival: string = '';
-    comments: string = '';
+    
     travelId: number = 0;
     travelFrom: string = '';
     travelTo: string = '';
     isChanged: string = 'changed-value';
 
-    @UIProperty({ hub: 'TravelExtension', type: 'date', label: '', placeholder: 'Visa Date', validation: 'required' })
+    @UIProperty({ hub: 'TravelExtension', type: 'date', label: 'Visa Date', placeholder: '', validation: 'required' })
     visaDate: string = '';
 
-    @UIProperty({ hub: 'TravelExtension', type: 'date', label: '', placeholder: 'I94 Date', validation: 'required' })
-    I94Date: string = '';    
+    @UIProperty({ hub: 'TravelExtension', type: 'date', label: 'I94 Date', placeholder: '', validation: 'required' })
+    I94Date: string = '';
+
+    @UIProperty({ hub: 'TravelExtension', type: 'text', label: 'Comments', placeholder: '', validation: 'required' })
+    comments: string = '';
 }
 
 @UIClass('TravelClosingComments', { fetch: {} })

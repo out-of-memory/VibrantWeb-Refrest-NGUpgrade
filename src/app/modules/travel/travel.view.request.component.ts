@@ -249,6 +249,9 @@ export class TravelViewRequestComponent implements OnInit {
                 // Travel Requirements
                 this.travelModel.travelTitle = dataModel.travelTitle;
                 this._autoMapperService.Map(dataModel.travelDetails, this.travelModel.travelDetails);
+                this.travelModel.travelDetails.meal = dataModel.travelDetails.mealPreference.description;
+                this.travelModel.travelDetails.seatlocation = dataModel.travelDetails.seatLocationPreference.description;
+
 
                 this._autoMapperService.Map(dataModel.hotelBooking, this.hotelBookingModel);
                 if (Number(this.hotelBookingModel.internetPreferences.amount) > 0 && this.hotelBookingModel.internetPreferences.paidInternet) {
