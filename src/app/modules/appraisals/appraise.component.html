@@ -93,9 +93,9 @@
                     <div class="card-footer padding-15-0 top-divider">
                         <div class="row valign-wrapper margin-zero">
                             <div class="col s12 m12 l6 right-align">
-                                <a href="#" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
-                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="!isApplied" title="Submit" (click)='ApplyAppraiseeForm(answerForm)'>Apply</a>
-                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="isApplied" title="Submit" (click)='submitAppraiseeForm()'>Submit</a>
+                                <a href="#" class="waves-effect waves-light btn custom-btn cancel" *ngIf="!isSubmitted" title="Cancel">Cancel</a>
+                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="!isApplied && !isSubmitted" title="Submit" (click)='ApplyAppraiseeForm(answerForm)'>Apply</a>
+                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="isApplied && !isSubmitted" title="Submit" (click)='submitAppraiseeForm()'>Submit</a>
                             </div>
                         </div>
                     </div>
@@ -104,3 +104,5 @@
         </div>
     </div>
 </div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

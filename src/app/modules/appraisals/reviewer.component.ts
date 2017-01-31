@@ -1,15 +1,15 @@
 
-import { Component} from '@angular/core';
-import {HttpService} from '../../servicesFolder/http/http.service';
-import {UiForm, UiFormControl} from '../../infrastructure/components/UiForm';
-import {BasicCellC, BasicGrid} from '../../infrastructure/components/basic-grid';
-import {List, Map} from 'immutable';
-import {MaterializeDirective} from "angular2-materialize";
-import {HttpSettings} from "../../servicesFolder/http/http.settings"
-import {LoaderComponent} from  '../../infrastructure/components/loader.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { HttpService } from '../../servicesFolder/http/http.service';
+import { UiForm, UiFormControl } from '../../infrastructure/components/UiForm';
+import { BasicCellC, BasicGrid } from '../../infrastructure/components/basic-grid';
+import { List, Map } from 'immutable';
+import { MaterializeDirective } from "angular2-materialize";
+import { HttpSettings } from "../../servicesFolder/http/http.settings"
+import { LoaderComponent } from '../../infrastructure/components/loader.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Materialize from "angular2-materialize";
-import {AppraisalQuestionModel, AppraisalParameterModel, AppraisalReviewerModel, AppraiseeDetails} from  '../../models/AppraisalModel';
+import { AppraisalQuestionModel, AppraisalParameterModel, AppraisalReviewerModel, AppraiseeDetails } from '../../models/AppraisalModel';
 
 @Component({
   selector: 'app-reviewer',
@@ -21,20 +21,40 @@ export class ReviewerComponent {
   appraiseeAnswerCollection: Array<AppraisalQuestionModel>;
   appraiserParameterCollection: Array<AppraisalParameterModel>;
   reviewerParameterCollection: Array<AppraisalParameterModel>;
-  averageRating: number = 0;
+  averageRating: number = 3;
   isApplied = false;
   appraiseAverageRating: number = 0;
-  finalAverageRating: number = 0;
+  finalAverageRating: number = 3;
   appraiserComments: string = '';
   reviewerComments: string = '';
+  loaderModal: boolean = false;
+  loaderModalMsg: boolean = false;
+  loaderModalText: any;
+  isConformationModal: boolean = false;
 
   constructor(private _httpService: HttpService, private routeParams: ActivatedRoute, private router: Router) {
     this.appraiseeDetails = new AppraiseeDetails();
-    this.appraiseeDetails.ID = +(this.routeParams.snapshot.params['id']);
-    this.appraiseeDetails.appraiseeName = this.routeParams.snapshot.params['name'];
-    this.appraiseeDetails.appraiserName = this.routeParams.snapshot.params['appraiser'];
-    this.appraiseeDetails.reviewerName = this.routeParams.snapshot.params['reviewer'];
-    this.GetParametersForAppraiser();
+    this.GetAppraiseeDetail();
+
+  }
+
+  GetAppraiseeDetail() {
+    this.loaderModal = true;
+    var self = this;
+    var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisee-details/" + +(this.routeParams.snapshot.params['id']);
+    this._httpService.get(url).subscribe(
+      data => {
+        if (data) {
+          this.appraiseeDetails.ID = data.empID;
+          this.appraiseeDetails.appraiseeName = data.empName;
+          this.appraiseeDetails.appraiserName = data.appraiserName;
+          this.appraiseeDetails.reviewerName = data.reviewerName;
+          this.GetParametersForAppraiser();
+        }
+      },
+      error => {
+        this.loaderModal = false;
+      });
   }
 
   GetParametersForAppraiser() {
@@ -43,18 +63,20 @@ export class ReviewerComponent {
     this.reviewerParameterCollection = new Array<AppraisalParameterModel>();
 
     var url = HttpSettings.apiBaseUrl + "v1/appraisal/get-reviewer-parameters/" + this.appraiseeDetails.ID;
-    this._httpService.get(url)
-      .subscribe
-      (
+    this._httpService.get(url).subscribe(
       data => {
         this.reviewerParameterCollection = data.appraiserParameters;
         this.appraiseeAnswerCollection = data.appraiseForm;
-        this.appraiserParameterCollection = data.appraiserParameters;
+        this.appraiserParameterCollection = data.appraiserParameters;        
+        for (var i = 0; i < this.appraiserParameterCollection.length; i++) {
+          this.appraiserParameterCollection[i].appraiserScore = data.appraiserParameters[i].score;
+        }
         this.appraiserComments = data.comments;
         this.calculateAppraiserRating();
+        this.calculateReviewerRating();
       },
       error => console.log(error)
-      );
+    );
   }
 
   SaveReviewerQuestions() {
@@ -98,7 +120,7 @@ export class ReviewerComponent {
   calculateReviewerRating() {
     this.averageRating = 0;
     this.appraiserParameterCollection.forEach(element => {
-      this.averageRating = this.averageRating + +(element.score)
+      this.averageRating = this.averageRating + ((+(element.score) * element.weightage) / 100)
     });
     this.averageRating = Math.round(this.averageRating / this.appraiserParameterCollection.length);
     this.finalAverageRating = this.averageRating;
@@ -107,7 +129,7 @@ export class ReviewerComponent {
   calculateAppraiserRating() {
     this.appraiseAverageRating = 0;
     this.appraiserParameterCollection.forEach(element => {
-      this.appraiseAverageRating = this.appraiseAverageRating + (element.score)
+      this.appraiseAverageRating = this.appraiseAverageRating + ((+(element.appraiserScore) * element.weightage) / 100)
     });
     this.appraiseAverageRating = Math.round(this.appraiseAverageRating / this.appraiserParameterCollection.length);
   }

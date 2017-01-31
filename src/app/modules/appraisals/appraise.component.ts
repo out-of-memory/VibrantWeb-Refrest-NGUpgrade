@@ -31,8 +31,32 @@ export class AppraiseComponent {
   isApplied = false;
   isSubmitted: boolean = false;
   formSubmit: boolean = false;
+  loaderModal: boolean = false;
+  loaderModalMsg: boolean = false;
+  loaderModalText: any;
+  isConformationModal: boolean = false;
+
   constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private routeParams: ActivatedRoute, private _cacheService: CacheService) {
-    this.GetAppraiseQuestions();
+    this.loaderModal = true;
+    this.GetAppraiseDetail();
+  }
+
+  GetAppraiseDetail() {
+    var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
+    this._httpService.get(url).subscribe(
+      data => {
+        if (data) {
+          this.appraiserName = data.appraiserName;
+          this.reviewerName = data.reviewerName;
+          if (data.status != 0) {
+            this.isSubmitted = true;
+            this.GetAppraiseForm();
+          }
+          else {
+            this.GetAppraiseQuestions();
+          }
+        }
+      }, error => { this.loaderModal = false; });
   }
 
   GetAppraiseQuestions() {
@@ -48,7 +72,22 @@ export class AppraiseComponent {
           model.answer = "";
           this.appraisalQuestionCollection.push(model);
         });
-      });
+        this.loaderModal = false;
+      }, error => { this.loaderModal = false; });
+  }
+
+  GetAppraiseForm() {
+    var url = HttpSettings.apiBaseUrl + "v1/appraisal/get-form-detail/";
+    this.appraisalQuestionCollection = new Array<AppraisalQuestionModel>();
+    this._httpService.get(url).subscribe(
+      data => {
+        data.forEach(element => {
+          var model = new AppraisalQuestionModel();
+          this._autoMapperService.Map(element, model);
+          this.appraisalQuestionCollection.push(model);
+        });
+        this.loaderModal = false;
+      }, error => { this.loaderModal = false; });
   }
 
   SaveAppraiseQuestions() {
@@ -79,15 +118,15 @@ export class AppraiseComponent {
             Materialize.toast('Issue in submitting appraisal form.Please contact System Administrator', 5000, 'red');
             this.formSubmitted = true;
           }
+          this.loaderModal = false;
         },
-        error => console.log(error),
-        () => console.log('Post request has Completed')
-        );
+        error => { this.loaderModal = false; });
     }
 
   }
 
   submitAppraiseeForm() {
+    this.loaderModal = true;
     this.SaveAppraiseQuestions();
   }
 
@@ -95,6 +134,7 @@ export class AppraiseComponent {
     if (form.valid) {
       Materialize.toast('Kindly recheck.Once submitted can not be changed', 5000, 'green')
       this.isApplied = true;
+      this.isSubmitted=true;
     }
     else {
       this.formSubmit = true;

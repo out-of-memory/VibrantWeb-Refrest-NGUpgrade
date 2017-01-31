@@ -210,6 +210,9 @@ export class DashboardComponent implements OnInit {
                 else if (data[i].module == '6') {
                     this.approvals[i].url = 'my/travel/newapproval';
                 }
+                else if (data[i].module == '7') {
+                    this.approvals[i].url = 'approvals/appraisal/approval';
+                }
                 else {
                     this.approvals[i].url = 'approvals/' + smallModules[(+(data[i].module) - 1)]
                 }
@@ -339,10 +342,12 @@ export class DashboardComponent implements OnInit {
         var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
         this._httpService.get(url).subscribe(
             data => {
-                if (data.empID == this.results.id) {
-                    self.appraisalAssignedTo = true;
+                if (data) {
+                    if (data.empID == this.results.id) {
+                        self.appraisalAssignedTo = true;
+                    }
+                    self.appraisalDetail = data;
                 }
-                self.appraisalDetail = data;
             });
     }
 
