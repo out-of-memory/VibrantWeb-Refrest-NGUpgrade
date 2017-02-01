@@ -44,14 +44,14 @@
                                     </div>
                                     <div class="col s5 padding-zero m-bottom10" id="visa-date">
                                         <div class="input-field">
-                                            <input required="required" name="visaDate" #visaDate="ngModel" value="23/02/2017" type="text" class="" [ngClass]="{borderbottom: !visaDate.valid && formSubmit}" [(ngModel)]="extensionItem.visaDate" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                            <input required="required" name="visaDate" #visaDate="ngModel" type="text" class="" [ngClass]="{borderbottom: !visaDate.valid && formSubmit}" [(ngModel)]="extensionItem.visaDate" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
                                             <label for="visaDate" class="active">Visa Date</label>
                                             <div *ngIf="formSubmit && !visaDate.valid" class="alert alert-danger">Visa Date is required </div>
                                         </div>
                                     </div>
                                     <div class="col s5 offset-s2 padding-zero m-bottom10">
                                         <div class="input-field">
-                                            <input value="23/02/2017" type="text" [ngClass]="{borderbottom: !i94date.valid && formSubmit}" required="required" name="i94date" #i94date="ngModel" class="" [(ngModel)]="extensionItem.I94Date" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                            <input type="text" [ngClass]="{borderbottom: !i94date.valid && formSubmit}" required="required" name="i94date" #i94date="ngModel" class="" [(ngModel)]="extensionItem.I94Date" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
                                             <label for="i94date" class="active">I94 Date</label>
                                             <div *ngIf="formSubmit && !i94date.valid" class="alert alert-danger">I94 Date is required </div>
                                         </div>

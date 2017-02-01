@@ -418,7 +418,7 @@ declare var $: any;
                                 </span>
                             </div>
                         </div>
-                        <div class="row ">
+                        <div *ngIf="item.visaFileUrl!=''" class="row ">
                                 <div class="col s7">
                                     <div class="view-form-info">
                                         <h6>Visa Copy</h6>

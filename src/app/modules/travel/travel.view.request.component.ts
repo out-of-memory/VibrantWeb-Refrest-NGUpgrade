@@ -847,6 +847,12 @@ export class TravelViewRequestComponent implements OnInit {
             }, 1000);
         }
     }
+    SetAgencyName(bookingFrom) {
 
+        if (bookingFrom == 1) {
+            this.flightModel.agencyName = this.traveldropdowns.travelBookingAgency.find(x => x.id == bookingFrom).text;
+        }
+        else { this.flightModel.agencyName = ''; }
+    }
 
 }
