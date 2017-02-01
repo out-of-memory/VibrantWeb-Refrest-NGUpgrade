@@ -790,7 +790,19 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        
+                                            <div *ngIf="travelModel.employeePassport.passportFileUrl!=''" class="saved-data">
+                                                <div class="row valign-wrapper">
+                                                    <div class="col s7">
+                                                        <div class="view-form-info">
+                                                            <h6>Passport Copy</h6>
+                                                            <h5>{{travelModel.employeePassport.passportFileUrl|filename}}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div  class="col s5 valign right-align">
+                                                        <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="travelModel.employeePassport.passportFileUrl" [download]="travelModel.employeePassport.passportFileUrl"></a>
+                                                    </div>
+                                                </div>
+                                            </div>                                        
                                     </div>
                                 </div>
                                 <div *ngIf="travelModel.travelDetails.travelType==2" class="card white">
@@ -804,12 +816,15 @@
                                             <template #tmplRepeater let-visa="item">
                                                 <div class="saved-data">
                                                     <div class="row valign-wrapper">
-                                                        <div class="col s12">
+                                                        <div class="col s7">
                                                             <div class="view-form-info">
                                                                 <h5>{{visa.visaTypeID|visaType}}</h5>
                                                                 <h6>Country<span class="p-left10">{{visa.countryID|countryName}}</span></h6>
                                                                 <h6>Valid Till<span class="p-left10">{{visa.validTill}}</span></h6>
                                                             </div>
+                                                        </div>
+                                                        <div [ngClass]="{toDisplay: visa.visaFileUrl==''}" class="col s5 valign right-align">
+                                                            <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="visa.visaFileUrl" [download]="visa.visaFileUrl"></a>
                                                         </div>
                                                     </div>
                                                 </div>

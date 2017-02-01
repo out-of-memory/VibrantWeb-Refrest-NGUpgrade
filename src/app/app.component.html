@@ -23,11 +23,27 @@
     <router-outlet></router-outlet>
 </main>
 <footer class="page-footer">
-    <div class="footer-copyright">
-        <div class="center-align">
-            © 2016 V2Solutions, Inc.
+        <div class="row footer-copyright m-bottom0">
+            <div class="col s6 m6 l6 right-align m-top20 branding">
+                © 2016 V2Solutions, Inc.
+            </div>
+            <div class="col s6 m6 l6 right-align" id="browsers">
+                    <ul class="right">
+                        <li>
+                            <i class="fa fa-chrome" aria-hidden="true"></i>
+                            <h6 class="margin-zero">Ver 50+</h6>
+                        </li>
+                        <li>
+                            <i class="fa fa-firefox" aria-hidden="true"></i>
+                            <h6 class="margin-zero">Ver 46+ -64-bit</h6>
+                        </li>
+                        <li>
+                            <i class="fa fa-safari" aria-hidden="true"></i>
+                            <h6 class="margin-zero">Ver 10+</h6>
+                        </li>                
+                    </ul>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 <loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
     [isConformationModal]="isConformationModal"></loader-component>

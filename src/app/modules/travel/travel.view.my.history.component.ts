@@ -293,7 +293,7 @@ export class ViewMyHistoryComponent implements OnInit {
 
     CloseTravelRequest(form) {
 
-        if (!form.mainForm.valid) {
+        if (!form.valid) {
             this.commentSubmit = true;
             return false;
         }

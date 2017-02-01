@@ -127,6 +127,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div *ngIf="travelModel.employeePassport.passportFileUrl!=''"  class="saved-data">
+                                                    <div class="row valign-wrapper">
+                                                        <div class="col s7">
+                                                            <div class="view-form-info">
+                                                                <h6>Passport Copy</h6>
+                                                                <h5>{{travelModel.employeePassport.passportFileUrl|filename}}</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s5 valign right-align">
+                                                            <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="travelModel.employeePassport.passportFileUrl" [download]="travelModel.employeePassport.passportFileUrl"></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -141,12 +154,15 @@
                                                 <template #tmplRepeater let-visa="item">
                                                     <div class="saved-data">
                                                         <div class="row valign-wrapper">
-                                                            <div class="col s12">
+                                                            <div class="col s7">
                                                                 <div class="view-form-info">
                                                                     <h5>{{visa.visaTypeID|visaType}}</h5>
                                                                     <h6>Country<span class="p-left10">{{visa.countryID|countryName}}</span></h6>
                                                                     <h6>Valid Till<span class="p-left10">{{visa.validTill}}</span></h6>
                                                                 </div>
+                                                            </div>
+                                                            <div [ngClass]="{toDisplay: visa.visaFileUrl==''}" class="col s5 valign right-align">
+                                                                <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="visa.visaFileUrl" [download]="visa.visaFileUrl"></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -489,17 +505,18 @@
                                                     <div class="col s12 right-align">
                                                         <a class="waves-effect waves-light btn back-btn" title="Submit" (click)="CloseTravelRequest(commentForm)">Close Travel Request</a>
                                                     </div>
-                                                    <!--<form>
+                                                    <form #commentForm="ngForm" novalidate="novalidate">
                                                         <div class="row margin-zero">
                                                             <div class="custom-input-field input-field col s12">
-                                                                <h6>Feedback</h6>
-                                                                <input placeholder="Enter Comments" type="text" class="validate">
+                                                                <h6>Enter Closing Comments</h6>
+                                                                <input [ngClass]="{borderbottom: !comments.valid && commentSubmit}" required="required" name="comments" type="text" [(ngModel)]="commentModel.closingComments" #comments="ngModel">
+                                                                <div *ngIf="commentSubmit && !comments.valid" class="alert alert-danger">Closing comments is required</div>
                                                             </div>
                                                         </div>
-                                                    </form>-->
-                                                    <ui-form #commentForm [controlMetas]="commentHub" [(model)]="commentModel" [errorOnlyOnSubmit]='commentSubmit' [formReadonly]='false'
+                                                    </form>
+                                                    <!--<ui-form #commentForm [controlMetas]="commentHub" [(model)]="commentModel" [errorOnlyOnSubmit]='commentSubmit' [formReadonly]='false'
                                                         formCss='' columnOrientation='1' inputLabelPosition='top' controlCss='view-form-info'>
-                                                    </ui-form>
+                                                    </ui-form>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -558,7 +575,7 @@
         <a class="modal-action modal-close btn" (click)="SubmitTravelExtension($event)">Submit</a>
     </div>
 </div>-->
-<div *ngIf="isCloseTravel" (click)="CloseTravelExtension()" class="lean-overlay" id="materialize-lean-overlay-2"
+<!--<div *ngIf="isCloseTravel" (click)="CloseTravelExtension()" class="lean-overlay" id="materialize-lean-overlay-2"
     style="z-index: 1002; display: block; opacity: 0.5;"></div>
 
 <div *ngIf='isCloseTravel' class="modal modal-custom modal-confirm-full" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
@@ -570,4 +587,4 @@
         <a class=" modal-action modal-close waves-effect waves-green btn cancel" (click)="CloseTravelExtension()">Cancel</a>
         <a class=" modal-action modal-close waves-effect waves-green btn submit" (click)="CloseTravelRequest()">OK</a>
     </div>
-</div>
+</div>-->

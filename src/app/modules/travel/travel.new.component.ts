@@ -11,9 +11,20 @@ import * as Materialize from "angular2-materialize";
 
 @Component({
     selector: 'app-travel',
-    templateUrl: './travel.new.template.html'
+    templateUrl: './travel.new.template.html',
+    styles:
+    [`
+        .toDisplay
+        {
+            visibility:hidden;
+        }
+        .toDisplayNone
+        {
+            display:none;
+        }        
+    `]
 })
-    
+
 export class TravelNewComponent implements OnInit {
 
     clientInformationHub: any;
@@ -61,6 +72,11 @@ export class TravelNewComponent implements OnInit {
     visaCardShow: boolean = false;
     loading: boolean = false;
 
+    ddlclientReimbursment: any = [{ 'id': 'true', text: 'Yes' }, { 'id': 'false', text: 'No' }];
+    ddlTravelType: any = [{ 'id': '1', text: 'Domestic' }, { 'id': '2', text: 'International' }];
+    dateFormat: any;
+    traveldropdowns: any;
+    
     constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
         this.pageLoaderModal = true;
 
@@ -95,6 +111,9 @@ export class TravelNewComponent implements OnInit {
         this.expensedropdowns = this._cacheService.getParams('expenseDropdowns');
         this.dropdowns = this._cacheService.getParams('dropdowns');
         this.profileData = this._cacheService.getParams('profile');
+        this.traveldropdowns = this._cacheService.getParams('travelDropdowns');
+
+        this.dateFormat = [{ "format": "mm/dd/yyyy", "today": "", "selectYears": 30 }];
     }
 
     ngOnInit() { }
@@ -138,7 +157,7 @@ export class TravelNewComponent implements OnInit {
                 return false;
             }
 
-            if (!clientForm.mainForm.valid || !travelRequirementForm.mainForm.valid) {
+            if (!clientForm.valid || !travelRequirementForm.valid) {
                 this.formSubmitted = true;
                 return false;
             }
@@ -147,7 +166,7 @@ export class TravelNewComponent implements OnInit {
             this.validateVisaDetails();
             this.validateEmergencyContacts();
 
-            if (!clientForm.mainForm.valid || !travelRequirementForm.mainForm.valid || !passportForm.mainForm.valid) {
+            if (!clientForm.valid || !travelRequirementForm.valid || !passportForm.mainForm.valid) {
                 this.formSubmitted = true;
                 this.passportSubmitted = true;
                 return false;

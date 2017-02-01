@@ -15,7 +15,7 @@
                         </div>
                         <div id="traveller-details" class="col s12 tab-content padding-zero">
                             <div class="card-container padding-20">
-                                <div *ngIf="travelRequirementsModel.travelType != 1" class="card white approvals-card-blue">
+                                <div [ngClass]="{toDisplayNone: travelRequirementsModel.travelType == 1}" class="card white approvals-card-blue">
                                     <div class="card-edit">
                                         <div class="row heading-content">
                                             <div class="col s12 card-heading">
@@ -30,6 +30,20 @@
                                                 changeattrs='["min"]'>
                                             </ui-control-item>
                                         </ui-form>
+                                        <!--<form novalidate="novalidate" #passportForm123="ngForm">
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s6">
+                                                    <h6>Full Name as in Passport</h6>
+                                                    <input type="text" required="required" name="nameAsInPassport" #nameAsInPassport="ngModel" [(ngModel)]="passportModel.nameAsInPassport" [ngClass]="{borderbottom: !nameAsInPassport.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !nameAsInPassport.valid" class="alert alert-danger">Full name required</div>
+                                                </div>
+                                                <div class="custom-input-field input-field col s6">
+                                                    <h6>Date of Issue</h6>
+                                                    <input type="text" required="required" name="dateOfIssue" #dateOfIssue="ngModel" [(ngModel)]="travelRequirementsModel.dateOfIssue" [ngClass]="{borderbottom: !dateOfIssue.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !dateOfIssue.valid" class="alert alert-danger">Date of Issue is required</div>
+                                                </div>
+                                            </div>
+                                        </form>-->
                                     </div>
                                 </div>
                                 <grid-card *ngIf="travelRequirementsModel.travelType != 1" header="Visa Details" [formReadonly]='true' [nonEditable]='false'
@@ -54,7 +68,7 @@
                                                         <span><i class="fa fa-trash icon-btn remove" aria-hidden="true" title="Remove" (click)="DeleteVisa($event, item)"></i></span>
                                                     </div>
                                                 </div>
-                                                <div class="row ">
+                                                <div *ngIf="item.visaFileUrl!=''" class="row ">
                                                     <div class="col s7">
                                                         <div class="view-form-info">
                                                             <h6>Visa Copy</h6>
@@ -198,11 +212,67 @@
                                                 <span class="card-title">Client Information</span>
                                             </div>
                                         </div>
-                                        <ui-form #clientForm [controlMetas]="clientInformationHub" [model]="clientInformationModel" [errorOnlyOnSubmit]='formSubmitted'
+                                        <!--<ui-form #clientForm [controlMetas]="clientInformationHub" [model]="clientInformationModel" [errorOnlyOnSubmit]='formSubmitted'
                                             [formReadonly]='false' formCss='view-card' columnOrientation='1' inputLabelPosition='top'
                                             controlCss='view-form-info'>
-                                        </ui-form>
-
+                                        </ui-form>-->
+                                        <form novalidate="novalidate" #clientForm="ngForm">
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field col s12">
+                                                    <h6>Client Name</h6>
+                                                    <select [ngClass]="{borderbottom: !clientName.valid && formSubmitted}" required="required" name="clientName" #clientName="ngModel" materialize="material_select" [materializeSelectOptions]="expensedropdowns.clientName" [(ngModel)]='clientInformationModel.clientId'>
+                                                        <option value="0" disabled class="disabled">Select</option>
+                                                        <option *ngFor="let option of expensedropdowns.clientName" [value]="option.id">{{option.text}}</option>
+                                                    </select>
+                                                    <div *ngIf="formSubmitted && !clientName.valid" class="alert alert-danger">Client Name is required </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s12">
+                                                    <h6>Business Prospect</h6>
+                                                    <input type="text" required="required" name="businessProspect" #businessProspect="ngModel" [(ngModel)]="clientInformationModel.businessProspect" [ngClass]="{borderbottom: !businessProspect.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !businessProspect.valid" class="alert alert-danger">Business Prospect is required </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field col s12">
+                                                    <h6>Client-Reimbursment</h6>
+                                                    <select [ngClass]="{borderbottom: !clientReimbursment.valid && formSubmitted}" required="required" name="clientReimbursment" #clientReimbursment="ngModel" materialize="material_select" [materializeSelectOptions]="ddlclientReimbursment" [(ngModel)]='clientInformationModel.isClientReimbursment'>
+                                                        <option value="0" disabled class="disabled">Select</option>
+                                                        <option *ngFor="let option of ddlclientReimbursment" [value]="option.id">{{option.text}}</option>
+                                                    </select>
+                                                    <div *ngIf="formSubmitted && !clientReimbursment.valid" class="alert alert-danger">Client-Reimbursment is required </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s12">
+                                                    <h6>Purpose of Visit</h6>
+                                                    <input type="text" required="required" name="purposeOfVisit" #purposeOfVisit="ngModel" [(ngModel)]="clientInformationModel.purposeOfVisit" [ngClass]="{borderbottom: !purposeOfVisit.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !purposeOfVisit.valid" class="alert alert-danger">Purpose of Visit is required </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s12">
+                                                    <h6>Client Contact Number</h6>
+                                                    <input type="number" required="required" name="contactNumber" #contactNumber="ngModel" [(ngModel)]="clientInformationModel.contactNumber" [ngClass]="{borderbottom: !contactNumber.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !contactNumber.valid" class="alert alert-danger">Client Contact Number is required </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s12">
+                                                    <h6>Client Address</h6>
+                                                    <input type="text" required="required" name="adddress" #adddress="ngModel" [(ngModel)]="clientInformationModel.adddress" [ngClass]="{borderbottom: !adddress.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !adddress.valid" class="alert alert-danger">Client Adddress is required </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s12">
+                                                    <h6>Client Email Id</h6>
+                                                    <input type="text" required="required" name="emailId" #emailId="ngModel" [(ngModel)]="clientInformationModel.emailId" [ngClass]="{borderbottom: !emailId.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !emailId.valid" class="alert alert-danger">Email-Id is required</div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="card white approvals-card-blue">
@@ -212,14 +282,82 @@
                                                 <span class="card-title">Travel Requirements</span>
                                             </div>
                                         </div>
-                                        <ui-form #travelRequirementsForm [controlMetas]="travelRequirementsHub" [model]="travelRequirementsModel" [errorOnlyOnSubmit]='formSubmitted'
+                                        <!--<ui-form #travelRequirementsForm [controlMetas]="travelRequirementsHub" [model]="travelRequirementsModel" [errorOnlyOnSubmit]='formSubmitted'
                                             [formReadonly]='false' formCss='view-card' columnOrientation='1' inputLabelPosition='top'
                                             controlCss='view-form-info'>
                                             <ui-control-item for='departure' behaviours='[{"name":"min","value":"Today"}]'></ui-control-item>
                                             <ui-control-item for='arrival' behaviours='[{"name":"min","value":"{{departure}}:mm/dd/yyyy"}]' depends='["departure:changeattrs"]'
                                                 changeattrs='["min"]'>
                                             </ui-control-item>
-                                        </ui-form>
+                                        </ui-form>-->
+                                        <form novalidate="novalidate" #travelRequirementsForm="ngForm">
+
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field col s12">
+                                                    <h6>Travel title</h6>
+                                                    <input type="text" required="required" name="travelTitle" #travelTitle="ngModel" [(ngModel)]="travelRequirementsModel.travelTitle" [ngClass]="{borderbottom: !travelTitle.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !travelTitle.valid" class="alert alert-danger">Travel title is required </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field col s12">
+                                                    <h6>Travel Type</h6>
+                                                    <select [ngClass]="{borderbottom: !travelType.valid && formSubmitted}" required="required" name="travelType" #travelType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlclientReimbursment" [(ngModel)]='travelRequirementsModel.travelType'>
+                                                        <option value="0" disabled class="disabled">Select</option>
+                                                        <option *ngFor="let option of ddlTravelType" [value]="option.id">{{option.text}}</option>
+                                                    </select>
+                                                    <div *ngIf="formSubmitted && !travelType.valid" class="alert alert-danger">Client-Reimbursment is required </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s6">
+                                                    <h6>Source</h6>
+                                                    <input type="text" required="required" name="travelFrom" #travelFrom="ngModel" [(ngModel)]="travelRequirementsModel.travelFrom" [ngClass]="{borderbottom: !travelFrom.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !travelFrom.valid" class="alert alert-danger">Source is required</div>
+                                                </div>
+                                                <div class="custom-input-field input-field col s6">
+                                                    <h6>Destination</h6>
+                                                    <input type="text" required="required" name="travelTo" #travelTo="ngModel" [(ngModel)]="travelRequirementsModel.travelTo" [ngClass]="{borderbottom: !travelTo.valid && formSubmitted}" >
+                                                    <div *ngIf="formSubmitted && !travelTo.valid" class="alert alert-danger">Destination is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s6">
+                                                    <h6>Departure</h6>
+                                                    <input required="required" name="departure" #departure="ngModel" type="text" [ngClass]="{borderbottom: !departure.valid && formSubmitted}" [(ngModel)]="travelRequirementsModel.departure" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                    <div *ngIf="formSubmitted && !departure.valid" class="alert alert-danger">Destination is required</div>
+                                                </div>
+                                                <div class="custom-input-field input-field col s6">
+                                                    <h6>Arrival</h6>
+                                                    <input required="required" name="arrival" #arrival="ngModel" type="text" [ngClass]="{borderbottom: !arrival.valid && formSubmitted}" [(ngModel)]="travelRequirementsModel.arrival" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                    <div *ngIf="formSubmitted && !arrival.valid" class="alert alert-danger">Destination is required</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s6">
+                                                    <h6>Meal Preferences</h6>
+                                                    <select name="meal" materialize="material_select" [materializeSelectOptions]="traveldropdowns.meal" [(ngModel)]='travelRequirementsModel.meal'>
+                                                        <option value="0" disabled class="disabled">Select</option>
+                                                        <option *ngFor="let option of traveldropdowns.meal" [value]="option.id">{{option.text}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="custom-input-field input-field col s6">
+                                                    <h6>Seat Location Preferences</h6>
+                                                    <select name="seatlocation" materialize="material_select" [materializeSelectOptions]="traveldropdowns.seatLocation" [(ngModel)]='travelRequirementsModel.seatlocation'>
+                                                        <option value="0" disabled class="disabled">Select</option>
+                                                        <option *ngFor="let option of traveldropdowns.seatLocation" [value]="option.id">{{option.text}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-zero">
+                                                <div class="custom-input-field input-field col s12">
+                                                    <h6>Additional Information</h6>
+                                                    <textarea required="required" class="materialize-textarea custom-textarea" style="height: 68px;" name="additionalInformation" #additionalInformation="ngModel" [(ngModel)]="travelRequirementsModel.additionalInformation" [ngClass]="{borderbottom: !additionalInformation.valid && formSubmitted}" [ngClass]="{borderbottom: !additionalInformation.valid && formSubmitted}"></textarea>
+                                                    <div *ngIf="formSubmitted && !additionalInformation.valid" class="alert alert-danger">Destination is required</div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +365,9 @@
                                 <div class="row valign-wrapper margin-zero">
                                     <div class="col s12 m12 l6 right-align">
                                         <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel" (click)="ResetForm()">Cancel</a>
-                                        <i class="waves-effect waves-light btn custom-btn submit waves-input-wrapper"><input (click)="SaveTravel($event,clientForm,travelRequirementsForm,passportForm,clientInformationModel,travelRequirementsModel,passportModel)" class="waves-button-input" type="submit" title="Submit" value="Submit" name="action"></i>
+                                        <i class="waves-effect waves-light btn custom-btn submit waves-input-wrapper">
+                                            <input (click)="SaveTravel($event,clientForm,travelRequirementsForm,passportForm,clientInformationModel,travelRequirementsModel,passportModel)" class="waves-button-input" type="submit" title="Submit" value="Submit" name="action">
+                                        </i>
                                     </div>
                                 </div>
                             </div>

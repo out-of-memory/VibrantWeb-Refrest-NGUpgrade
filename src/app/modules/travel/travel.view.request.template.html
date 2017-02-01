@@ -164,7 +164,7 @@
                                 <div *ngIf="flightDetailsReadOnly" class="row">
                                     <div class="col s12 padding-zero">
                                         <div class="card white travel-card margin-zero padding-zero">
-                                            <div class="row valign-wrapper margin-zero m-top20">
+                                            <!--<div class="row valign-wrapper margin-zero m-top20">
                                                 <div class="col s12">
                                                     <div class="row margin-zero">
                                                         <ui-form #flightForm [controlMetas]="flightHub" [(model)]="flightModel" [errorOnlyOnSubmit]='flightFormSubmit' [formReadonly]='false'
@@ -175,8 +175,51 @@
                                                         </ui-form>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row valign-wrapper margin-zero flight-data">
+                                            </div>-->
+                                            <form novalidate="novalidate" #flightForm="ngForm">
+                                                <div class="row valign-wrapper margin-zero m-top20">
+                                                    <div class="col s12 l5">
+                                                        <div class="row margin-zero">
+                                                            <div class="custom-input-field input-field col s12 m6">
+                                                                <h6>Travel Type</h6>
+                                                                <select [ngClass]="{borderbottom: !travelType.valid && flightFormSubmit}" required="required" name="travelType" #travelType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlFlightTravelType" [(ngModel)]='flightModel.travelType'>
+                                                                    <option value="0" disabled class="disabled">Select</option>
+                                                                    <option *ngFor="let option of ddlFlightTravelType" [value]="option.id">{{option.text}}</option>
+                                                                </select>
+                                                                <div *ngIf="flightFormSubmit && !travelType.valid" class="alert alert-danger">Travel Type is required </div>                              
+                                                            </div>                                                        
+                                                            <div class="custom-input-field input-field col s12 m6">
+                                                                <h6>Trip Type</h6>
+                                                                <select [ngClass]="{borderbottom: !tripType.valid && flightFormSubmit}" required="required" name="tripType" #tripType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlFlightType" [(ngModel)]='flightModel.tripType'>
+                                                                    <option value="0" disabled class="disabled">Select</option>
+                                                                    <option *ngFor="let option of ddlFlightType" [value]="option.id">{{option.text}}</option>
+                                                                </select>
+                                                                <div *ngIf="flightFormSubmit && !tripType.valid" class="alert alert-danger">Trip Type is required </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s12 m2 padding-zero center-align">
+                                                    </div>
+                                                    <div class="col s12 l5">
+                                                        <div class="row margin-zero">
+                                                            <div class="custom-input-field input-field col s12 m6">
+                                                                <h6>Booking From</h6>
+                                                                <select (change)="SetAgencyName(flightModel.bookingFrom)" [ngClass]="{borderbottom: !bookingFrom.valid && flightFormSubmit}" required="required" name="bookingFrom" #bookingFrom="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.travelBookingAgency" [(ngModel)]='flightModel.bookingFrom'>
+                                                                    <option value="0" disabled class="disabled">Select</option>
+                                                                    <option *ngFor="let option of traveldropdowns.travelBookingAgency" [value]="option.id">{{option.text}}</option>
+                                                                </select>
+                                                                <div *ngIf="flightFormSubmit && !bookingFrom.valid" class="alert alert-danger">Booking From is required </div>
+                                                            </div>
+                                                            <div class="custom-input-field input-field col s12 m6">
+                                                                <h6>Agency Name</h6>
+                                                                <input type="text" required="required" name="agencyName" #agencyName="ngModel" [(ngModel)]="flightModel.agencyName" [ngClass]="{borderbottom: !agencyName.valid && flightFormSubmit}"/>
+                                                                <div *ngIf="flightFormSubmit && !agencyName.valid" class="alert alert-danger">Agency Name is required </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!--<div class="row valign-wrapper margin-zero flight-data">
                                                 <div class="col s12 l5">
                                                     <ui-form #flightDetailFormOne [controlMetas]="flightDetailsHubOne" [(model)]="flightDetailsModelOne" [errorOnlyOnSubmit]='flightFormSubmit'
                                                         [formReadonly]='false' formCss='' columnOrientation='2' inputLabelPosition='top'
@@ -212,20 +255,224 @@
 
                                                     </ui-form>
                                                 </div>
+                                            </div>-->
+                                            <div class="row valign-wrapper margin-zero flight-data">
+                                                <div class="col s12 m6 l5 padding-zero">
+                                                    <form #flightDetailFormOne="ngForm" novalidate="novalidate">
+                                                        <div class="col s12 l12">
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Source</h6>
+                                                                    <input type="text" required="required" name="travelFrom" #travelFrom="ngModel" [(ngModel)]="flightDetailsModelOne.travelFrom" [ngClass]="{borderbottom: !travelFrom.valid && flightFormSubmit}">
+                                                                    <div *ngIf="flightFormSubmit && !travelFrom.valid" class="alert alert-danger">Source is required </div>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Destination</h6>
+                                                                    <input type="text" required="required" name="travelTo" #travelTo="ngModel" [(ngModel)]="flightDetailsModelOne.travelTo" [ngClass]="{borderbottom: !travelTo.valid && flightFormSubmit}">
+                                                                    <div *ngIf="flightFormSubmit && !travelTo.valid" class="alert alert-danger">Destination is required </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Departure</h6>
+                                                                    <input type="text" required="required" name="departure" [(ngModel)]="flightDetailsModelOne.departure" #departure="ngModel" [ngClass]="{borderbottom: !departure.valid && flightFormSubmit}" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                                    <div *ngIf="flightFormSubmit && !departure.valid" class="alert alert-danger">Departure Date is required </div>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Arrival</h6>
+                                                                    <input type="text" required="required" name="arrival" [(ngModel)]="flightDetailsModelOne.arrival" #arrival="ngModel" [ngClass]="{borderbottom: !arrival.valid && flightFormSubmit}" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                                    <div *ngIf="flightFormSubmit && !arrival.valid" class="alert alert-danger">Departure Date is required </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Destination</h6>
+                                                                    <input type="time" required="required" name="departureTime" #departureTime="ngModel" [(ngModel)]="flightDetailsModelOne.departureTime" [ngClass]="{borderbottom: !departureTime.valid && flightFormSubmit}">
+                                                                    <div *ngIf="flightFormSubmit && !departureTime.valid" class="alert alert-danger">Departure Time is required </div>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Source</h6>
+                                                                    <input type="time" required="required" name="arrivalTime" #arrivalTime="ngModel" [(ngModel)]="flightDetailsModelOne.arrivalTime" [ngClass]="{borderbottom: !arrivalTime.valid && flightFormSubmit}">
+                                                                    <div *ngIf="flightFormSubmit && !arrivalTime.valid" class="alert alert-danger">Arrival Time is required </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Airlines</h6>
+                                                                    <select [ngClass]="{borderbottom: !airlines.valid && flightFormSubmit}" required="required" name="airlines" #airlines="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.travelFlightAirlines" [(ngModel)]='flightDetailsModelOne.airlines'>
+                                                                        <option value="0" disabled class="disabled">Select</option>
+                                                                        <option *ngFor="let option of traveldropdowns.travelFlightAirlines" [value]="option.id">{{option.text}}</option>
+                                                                    </select>
+                                                                    <div *ngIf="flightFormSubmit && !airlines.valid" class="alert alert-danger">Airlines is required </div>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Class</h6>
+                                                                    <select [ngClass]="{borderbottom: !flightClassId.valid && flightFormSubmit}" required="required" name="flightClassId" #flightClassId="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.flightClass" [(ngModel)]='flightDetailsModelOne.flightClassId'>
+                                                                        <option value="0" disabled class="disabled">Select</option>
+                                                                        <option *ngFor="let option of traveldropdowns.flightClass" [value]="option.id">{{option.text}}</option>
+                                                                    </select>
+                                                                    <div *ngIf="flightFormSubmit && !flightClassId.valid" class="alert alert-danger">Airlines Class is required </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>No of Layover</h6>
+                                                                    <input type="text" required="required" name="layOver" [(ngModel)]="flightDetailsModelOne.layOver"/>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Layover Location</h6>
+                                                                    <input type="text" required="required" name="layOverLocation" [(ngModel)]="flightDetailsModelOne.layOverLocation"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Layover Duration</h6>
+                                                                    <input type="text" required="required" name="layOverDuration" [(ngModel)]="flightDetailsModelOne.layOverDuration"/>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Total Travel Duration</h6>
+                                                                    <input type="text" required="required" name="totalTravelDuration" [(ngModel)]="flightDetailsModelOne.totalTravelDuration"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col s12 l2 padding-zero center-align">
+                                                    <div>
+                                                        <div class="padding-0-30">
+                                                            <img *ngIf="flightModel.tripType == 2 || flightModel.tripType == ''" src="assets/images/arrow-inout.svg" title="Travel-trip"
+                                                                height="35px" width="35px">
+                                                            <img *ngIf="flightModel.tripType == 1" src="assets/images/single trip-icon.svg" title="Travel-trip" height="35px" width="35px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col s12 m6 l5 padding-zero">
+                                                    <form [ngClass]="{toDisplayNone : flightModel.tripType == 1, toDisplayBlock : flightModel.tripType == '' }" #flightDetailFormTwo="ngForm" novalidate="novalidate">
+                                                        <div class="col s12 l12">
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Source</h6>
+                                                                    <input type="text" required="required" name="travelFrom1" #travelFrom1="ngModel" [(ngModel)]="flightDetailsModelTwo.travelFrom" [ngClass]="{borderbottom: !travelFrom1.valid && flightFormTwoSubmit}">
+                                                                    <div *ngIf="flightFormTwoSubmit && !travelFrom1.valid" class="alert alert-danger">Source is required </div>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Destination</h6>
+                                                                    <input type="text" required="required" name="travelTo1" #travelTo1="ngModel" [(ngModel)]="flightDetailsModelTwo.travelTo" [ngClass]="{borderbottom: !travelTo1.valid && flightFormTwoSubmit}">
+                                                                    <div *ngIf="flightFormTwoSubmit && !travelTo1.valid" class="alert alert-danger">Destination is required </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Departure</h6>
+                                                                    <input type="text" required="required" name="departure1" [(ngModel)]="flightDetailsModelTwo.departure" #departure1="ngModel" [ngClass]="{borderbottom: !departure1.valid && flightFormTwoSubmit}" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                                    <div *ngIf="flightFormTwoSubmit && !departure1.valid" class="alert alert-danger">Departure Date is required </div>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Arrival</h6>
+                                                                    <input type="text" required="required" name="arrival1" [(ngModel)]="flightDetailsModelTwo.arrival" #arrival1="ngModel" [ngClass]="{borderbottom: !arrival1.valid && flightFormTwoSubmit}" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                                    <div *ngIf="flightFormTwoSubmit && !arrival1.valid" class="alert alert-danger">Departure Date is required </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Destination</h6>
+                                                                    <input type="time" required="required" name="departureTime1" #departureTime1="ngModel" [(ngModel)]="flightDetailsModelTwo.departureTime" [ngClass]="{borderbottom: !departureTime1.valid && flightFormTwoSubmit}">
+                                                                    <div *ngIf="flightFormTwoSubmit && !departureTime1.valid" class="alert alert-danger">Departure Time is required </div>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Source</h6>
+                                                                    <input type="time" required="required" name="arrivalTime1" #arrivalTime1="ngModel" [(ngModel)]="flightDetailsModelTwo.arrivalTime" [ngClass]="{borderbottom: !arrivalTime1.valid && flightFormTwoSubmit}">
+                                                                    <div *ngIf="flightFormTwoSubmit && !arrivalTime1.valid" class="alert alert-danger">Arrival Time is required </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Airlines</h6>
+                                                                    <select [ngClass]="{borderbottom: !airlines1.valid && flightFormTwoSubmit}" required="required" name="airlines1" #airlines1="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.travelFlightAirlines" [(ngModel)]='flightDetailsModelTwo.airlines'>
+                                                                        <option value="0" disabled class="disabled">Select</option>
+                                                                        <option *ngFor="let option of traveldropdowns.travelFlightAirlines" [value]="option.id">{{option.text}}</option>
+                                                                    </select>
+                                                                    <div *ngIf="flightFormTwoSubmit && !airlines1.valid" class="alert alert-danger">Airlines is required </div>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Class</h6>
+                                                                    <select [ngClass]="{borderbottom: !flightClassId1.valid && flightFormTwoSubmit}" required="required" name="flightClassId1" #flightClassId1="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.flightClass" [(ngModel)]='flightDetailsModelTwo.flightClassId'>
+                                                                        <option value="0" disabled class="disabled">Select</option>
+                                                                        <option *ngFor="let option of traveldropdowns.flightClass" [value]="option.id">{{option.text}}</option>
+                                                                    </select>
+                                                                    <div *ngIf="flightFormTwoSubmit && !flightClassId1.valid" class="alert alert-danger">Airlines Class is required </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>No of Layover</h6>
+                                                                    <input type="text" required="required" name="layOver" [(ngModel)]="flightDetailsModelTwo.layOver"/>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Layover Location</h6>
+                                                                    <input type="text" required="required" name="layOverLocation" [(ngModel)]="flightDetailsModelTwo.layOverLocation"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-zero">
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Layover Duration</h6>
+                                                                    <input type="text" required="required" name="layOverDuration" [(ngModel)]="flightDetailsModelTwo.layOverDuration"/>
+                                                                </div>
+                                                                <div class="custom-input-field input-field col s12 m6">
+                                                                    <h6>Total Travel Duration</h6>
+                                                                    <input type="text" required="required" name="totalTravelDuration" [(ngModel)]="flightDetailsModelTwo.totalTravelDuration"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                             <div class="row display-flex m-top20">
-                                                <div class="col s12 l6">
+                                                <!--<div class="col s12 l6">
                                                     <ui-form #flightCostForm [controlMetas]="flightCostDetailHub" [(model)]="flightCostDetail" [errorOnlyOnSubmit]=''
                                                         [formReadonly]='false' formCss='' columnOrientation='2' inputLabelPosition='top'
                                                         controlCss='view-form-info'>
                                                     </ui-form>
+                                                </div>-->
+                                                
+                                                <div class="col s12 l6">
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Base Fare</h6>
+                                                            <input type="text" name="baseFare" [(ngModel)]="flightCostDetail.baseFare">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Taxes</h6>
+                                                            <input type="text" name="taxes" [(ngModel)]="flightCostDetail.taxes">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Grand Total</h6>
+                                                            <input type="text" name="grandTotal" [(ngModel)]="flightCostDetail.grandTotal">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Change Penalty</h6>
+                                                            <input type="text" name="changePenalty" [(ngModel)]="flightCostDetail.changePenalty">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-zero">
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Cancellation Charges</h6>
+                                                            <input type="text" name="cancellationCharges" [(ngModel)]="flightCostDetail.cancellationCharges">
+                                                        </div>
+                                                        <div class="custom-input-field input-field col s12 m6">
+                                                            <h6>Baggage</h6>
+                                                            <input type="text" name="baggage" [(ngModel)]="flightCostDetail.baggage">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col s12 l6 comments-section">
                                                     <div class="">
                                                         <h5 class="margin-zero p-left10">Comments</h5>
                                                         <div class="">
                                                             <div class="input-field col s12">
-                                                                <input placeholder="Enter comments" type="text" class="validate" [(ngModel)]="flightCostDetail.comments">
+                                                                <input placeholder="Enter comments" type="text" [(ngModel)]="flightCostDetail.comments">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -625,7 +872,7 @@
                                             <div class="row heading-content m-bottom0 padding-15-0">
                                                 <div class="col s12 card-heading">
                                                     <div class="right-align card-activity card-status">
-                                                        <i *ngIf="hotelBookingReadOnly" class="fa fa-floppy-o icon-btn save" aria-hidden="true" title="Save" (click)="SaveHotelBooking(hotelBookingForm.mainForm,hotelBookingModel)"></i>
+                                                        <i *ngIf="hotelBookingReadOnly" class="fa fa-floppy-o icon-btn save" aria-hidden="true" title="Save" (click)="SaveHotelBooking(hotelBookingForm,hotelBookingModel)"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -633,7 +880,7 @@
                                                 <div class="col s12">
                                                     <div class="">
                                                         <div class="card-edit">
-                                                            <ui-form #hotelBookingForm [controlMetas]="hotelBookingHub" [(model)]="hotelBookingModel" [formReadonly]='false' formCss='row margin-zero'
+                                                            <!--<ui-form #hotelBookingForm [controlMetas]="hotelBookingHub" [(model)]="hotelBookingModel" [formReadonly]='false' formCss='row margin-zero'
                                                                 controlCss='custom-input-field input-field col s12' columnOrientation='8'
                                                                 inputLabelPosition='top' [errorOnlyOnSubmit]='formHotelBookingSubmitted'>
 
@@ -642,7 +889,54 @@
                                                                     changeattrs='["min"]'>
                                                                 </ui-control-item>
 
-                                                            </ui-form>
+                                                            </ui-form>-->
+                                                            <form novalidate="novalidate" #hotelBookingForm="ngForm">
+                                                                <div class="row margin-zero">
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Check in Date</h6>
+                                                                        <input type="text" required="required" name="checkIn" [(ngModel)]="hotelBookingModel.checkIn" #checkIn="ngModel" [ngClass]="{borderbottom: !checkIn.valid && formHotelBookingSubmitted}" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                                        <div *ngIf="formHotelBookingSubmitted && !checkIn.valid" class="alert alert-danger">Check in Date is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Check out Date</h6>
+                                                                        <input type="text" required="required" name="checkOut" [(ngModel)]="hotelBookingModel.checkOut" #checkOut="ngModel" [ngClass]="{borderbottom: !checkOut.valid && formHotelBookingSubmitted}" materialize="pickadate" [materializeParams]='dateFormat' updateMaterializeParams>
+                                                                        <div *ngIf="formHotelBookingSubmitted && !checkOut.valid" class="alert alert-danger">Check out Date is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field col s12 m6 l4">
+                                                                        <h6>Room Type</h6>
+                                                                        <select [ngClass]="{borderbottom: !roomType.valid && formHotelBookingSubmitted}" id="roomType" required="required" name="roomType" #roomType="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.hotelRoom" [(ngModel)]='hotelBookingModel.roomType'>
+                                                                            <option value="0" disabled class="disabled">Select</option>
+                                                                            <option *ngFor="let option of traveldropdowns.hotelRoom" [value]="option.id">{{option.text}}</option>
+                                                                        </select>
+                                                                        <div *ngIf="formHotelBookingSubmitted && !roomType.valid" class="alert alert-danger">Room Type is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Hotel Name</h6>
+                                                                        <input type="text" required="required" name="hotelName" [(ngModel)]="hotelBookingModel.hotelName" #hotelName="ngModel" [ngClass]="{borderbottom: !hotelName.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !hotelName.valid" class="alert alert-danger">Hotel name is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 l8">
+                                                                        <h6>Address</h6>
+                                                                        <input type="text" required="required" name="address" [(ngModel)]="hotelBookingModel.address" #address="ngModel" [ngClass]="{borderbottom: !address.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !address.valid" class="alert alert-danger">Address is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Phone</h6>
+                                                                        <input type="number" required="required" name="phone" [(ngModel)]="hotelBookingModel.phone" #phone="ngModel" [ngClass]="{borderbottom: !phone.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !phone.valid" class="alert alert-danger">Phone is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Fax</h6>
+                                                                        <input type="text" required="required" name="fax" [(ngModel)]="hotelBookingModel.fax" #fax="ngModel" [ngClass]="{borderbottom: !fax.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !fax.valid" class="alert alert-danger">Fax is required </div>
+                                                                    </div>
+                                                                    <div class="custom-input-field input-field col s12 m6 l4">
+                                                                        <h6>Email ID</h6>
+                                                                        <input type="text" required="required" name="emailId" [(ngModel)]="hotelBookingModel.emailId" #emailId="ngModel" [ngClass]="{borderbottom: !emailId.valid && formHotelBookingSubmitted}">
+                                                                        <div *ngIf="formHotelBookingSubmitted && !emailId.valid" class="alert alert-danger">Email-Id is required </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1012,8 +1306,8 @@
                                                     <div class="row">
                                                         <div class="col s12">
                                                             <div class="view-form-info">
-                                                                <h6>Travel Preferences (if any)</h6>
                                                                 <p>{{hotelBookingModel.travelPreferences}}</p>
+                                                                <h6>Travel Preferences (if any)</h6>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1072,6 +1366,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div *ngIf="travelModel.employeePassport.passportFileUrl!=''" class="saved-data">
+                                                <div class="row valign-wrapper">
+                                                    <div class="col s7">
+                                                        <div class="view-form-info">
+                                                            <h6>Passport Copy</h6>
+                                                            <h5>{{travelModel.employeePassport.passportFileUrl|filename}}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s5 valign right-align">
+                                                        <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="travelModel.employeePassport.passportFileUrl" [download]="travelModel.employeePassport.passportFileUrl"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                                 <div *ngIf="travelModel.travelDetails.travelType==2" class="card white">
@@ -1085,13 +1392,16 @@
                                             <template #tmplRepeater let-visa="item">
                                                 <div class="saved-data">
                                                     <div class="row valign-wrapper">
-                                                        <div class="col s12">
+                                                        <div class="col s7">
                                                             <div class="view-form-info">
                                                                 <h5>{{visa.visaTypeID|visaType}}</h5>
                                                                 <h6>Country<span class="p-left10">{{visa.countryID|countryName}}</span></h6>
                                                                 <h6>Valid Till<span class="p-left10">{{visa.validTill}}</span></h6>
                                                             </div>
-                                                        </div>                                                        
+                                                        </div>
+                                                        <div [ngClass]="{toDisplay: visa.visaFileUrl==''}" class="col s5 valign right-align">
+                                                            <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="visa.visaFileUrl" [download]="visa.visaFileUrl"></a>
+                                                        </div>                                                     
                                                     </div>
                                                 </div>
                                             </template>
@@ -1313,8 +1623,8 @@
                                             <div class="row">
                                                 <div class="col s12">
                                                     <div class="view-form-info">
-                                                        <h6>Travel Preferences (if any)</h6>
                                                         <p>{{travelModel.travelDetails.additionalInformation}}</p>
+                                                        <h6>Travel Preferences (if any)</h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1354,32 +1664,36 @@
                                                     <div class="row margin-zero">
                                                         <div class="custom-input-field input-field col s6">
                                                             <h6>Travel Card Type</h6>
-                                                            <select required="required" name="cardType" #cardType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlTravelCardType" [(ngModel)]='moneyTransactionsModel.cardType'>
+                                                            <select [ngClass]="{borderbottom: !cardType.valid && moneyFormSubmitted}" required="required" name="cardType" #cardType="ngModel" materialize="material_select" [materializeSelectOptions]="traveldropdowns.travelCard" [(ngModel)]='moneyTransactionsModel.cardType'>
                                                                 <option value="0" disabled class="disabled">Select</option>
-                                                                <option *ngFor="let option of ddlTravelCardType" [value]="option.id">{{option.text}}</option>
+                                                                <option *ngFor="let option of traveldropdowns.travelCard" [value]="option.id">{{option.text}}</option>
                                                             </select>
+                                                            <div *ngIf="moneyFormSubmitted && !cardType.valid" class="alert alert-danger">Departure is required </div>
                                                         </div>
                                                         <div class="custom-input-field input-field col s6">
-                                                            <h6>Travel Card Details</h6>
-                                                            <input required="required"  type="number" name="cardDetails" #cardDetails="ngModel" class="" [(ngModel)]="moneyTransactionsModel.cardDetails">
+                                                            <h6>Card Details</h6>
+                                                            <input required="required" type="text" name="cardDetails" #cardDetails="ngModel" class="" [(ngModel)]="moneyTransactionsModel.cardDetails" [ngClass]="{borderbottom: !cardDetails.valid && moneyFormSubmitted}">
+                                                            <div *ngIf="moneyFormSubmitted && !cardDetails.valid" class="alert alert-danger">Departure is required </div>
                                                         </div>
                                                     </div>
-                                                    <!--<div class="row margin-zero">
+                                                    <div class="row margin-zero">
                                                         <div class="custom-input-field input-field col s6">
                                                             <h6>Cash</h6>
-                                                            <input value="$ 8000" type="text" class="validate">
+                                                            <input type="text" name="cash" [(ngModel)]="moneyTransactionsModel.cash" #cash="ngModel">
                                                         </div>
                                                         <div class="custom-input-field input-field col s6">
-                                                            <h6>Card Reloaded</h6>
-                                                            <input value="$ 6000" type="text" class="validate">
+                                                            <h6>Card Amount</h6>
+                                                            <input type="text" required="required" [(ngModel)]="moneyTransactionsModel.cardAmount" name="cardAmount" #cardAmount="ngModel" [ngClass]="{borderbottom: !cardAmount.valid && moneyFormSubmitted}">
+                                                            <div *ngIf="moneyFormSubmitted && !cardAmount.valid" class="alert alert-danger">Card amount is required</div>
                                                         </div>
                                                     </div>
                                                     <div class="row margin-zero">
                                                         <div class="custom-input-field input-field col s12">
                                                             <h6>Comments</h6>
-                                                            <input value="Lorem Ipsum is simply dummy text of the printing and typesetting industry." type="text" class="validate">
+                                                            <input type="text" required="required" name="comments" [(ngModel)]="moneyTransactionsModel.comments" #comments="ngModel" [ngClass]="{borderbottom: !cardAmount.valid && moneyFormSubmitted}"> 
+                                                            <div *ngIf="moneyFormSubmitted && !comments.valid" class="alert alert-danger">Comments is required</div>
                                                         </div>
-                                                    </div>-->
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer padding-15-0 m-bottom5 top-divider">

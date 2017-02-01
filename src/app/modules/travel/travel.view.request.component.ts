@@ -94,10 +94,17 @@ export class TravelViewRequestComponent implements OnInit {
     flightDetailsReadOnly: boolean = false;
     moneyTransactionsReadOnly: boolean = false;
 
+    traveldropdowns: any;
+    expensedropdowns: any;
+    dateFormat: any;
+
     documentArray: Array<any> = [{ "description": "Air Tickets" }, { "description": "Invitation Letter" }, { "description": "Hotel Reservation" }, { "description": "Insurance Details" }, { "description": "Currency Letter" },
     { "description": "Calling Card" }];
     dllApprovalStatus: any = [{ value: '1', label: 'Approved' }, { value: '2', label: 'Rejected' }, { value: '3', label: 'On Hold' }];
     ddlTravelCardType: any = [{ 'id': '1', text: 'Master' }, { 'id': '2', text: 'Visa' }];
+    ddlFlightTravelType: any = [{ 'id': '1', text: 'Domestic' }, { 'id': '2', text: 'International' }];
+    ddlFlightType: any = [{ 'id': '1', text: 'One Way Trip' }, { 'id': '2', text: 'Round Trip' }];
+
 
     constructor(private activatedRoute: ActivatedRoute, private _router: Router, private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
         this.ComponentInitialization();
@@ -129,12 +136,15 @@ export class TravelViewRequestComponent implements OnInit {
         this.flightCostDetailHub = this.flightCostDetail['hub'];
 
         this.dropdowns = this._cacheService.getParams('dropdowns');
+        this.expensedropdowns = this._cacheService.getParams('expenseDropdowns');
+        this.traveldropdowns = this._cacheService.getParams('travelDropdowns');
 
         this.extensionDetails = new Array<TravelExtension>();
 
         this.EditOrReadOnly();
         this.FillDropdowns();
         this.deleteItem = {};
+        this.dateFormat = [{ "format": "mm/dd/yyyy", "today": "", "selectYears": 30 }];
     }
 
     ngOnInit() {
@@ -451,34 +461,34 @@ export class TravelViewRequestComponent implements OnInit {
     }
 
     FillDropdowns() {
-        let dropdowns = this._cacheService.getParams('expenseDropdowns');
-        let traveldropdowns = this._cacheService.getParams('travelDropdowns');
+        //  this.expensedropdowns = this._cacheService.getParams('expenseDropdowns');
+        // this.traveldropdowns = this._cacheService.getParams('travelDropdowns');
 
         for (let index = 0; index < this.moneyTransactionsHub.length; index++) {
             let element = this.moneyTransactionsHub[index];
             if (typeof (element.options) === 'string') {
-                this.moneyTransactionsHub[index].options = dropdowns[element.options];
+                this.moneyTransactionsHub[index].options = this.expensedropdowns[element.options];
             }
         }
 
         for (let index = 0; index < this.flightHub.length; index++) {
             let element = this.flightHub[index];
             if (typeof (element.options) === 'string') {
-                this.flightHub[index].options = traveldropdowns[element.options];
+                this.flightHub[index].options = this.traveldropdowns[element.options];
             }
         }
 
         for (let index = 0; index < this.hotelBookingHub.length; index++) {
             let element = this.hotelBookingHub[index];
             if (typeof (element.options) === 'string') {
-                this.hotelBookingHub[index].options = traveldropdowns[element.options];
+                this.hotelBookingHub[index].options = this.traveldropdowns[element.options];
             }
         }
 
         for (let index = 0; index < this.flightDetailsHubOne.length; index++) {
             let element = this.flightDetailsHubOne[index];
             if (typeof (element.options) === 'string') {
-                this.flightDetailsHubOne[index].options = traveldropdowns[element.options];
+                this.flightDetailsHubOne[index].options = this.traveldropdowns[element.options];
                 // this.flightDetailsHubTwo[index].options = traveldropdowns[element.options];
             }
         }
@@ -614,14 +624,14 @@ export class TravelViewRequestComponent implements OnInit {
         let url = HttpSettings.apiBaseUrl + 'v1/travel/save-flight-booking';
 
         if (Number(this.flightModel.tripType) == 1) {
-            if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightCostForm.mainForm.valid) {
+            if (!flightForm.valid && !flightDetailFormOne.valid && !flightCostForm.valid) {
                 this.flightFormSubmit = true;
                 return false;
             }
         }
         else {
             // if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightDetailFormTwo.mainForm.valid && !flightCostForm.mainForm.valid) {
-            if (!flightForm.mainForm.valid && !flightDetailFormOne.mainForm.valid && !flightDetailFormTwo.mainForm.valid) {
+            if (!flightForm.valid) {
                 this.flightFormSubmit = true;
                 this.flightFormTwoSubmit = true;
                 return false;
@@ -837,6 +847,12 @@ export class TravelViewRequestComponent implements OnInit {
             }, 1000);
         }
     }
+    SetAgencyName(bookingFrom) {
 
+        if (bookingFrom == 1) {
+            this.flightModel.agencyName = this.traveldropdowns.travelBookingAgency.find(x => x.id == bookingFrom).text;
+        }
+        else { this.flightModel.agencyName = ''; }
+    }
 
 }
