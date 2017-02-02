@@ -48,7 +48,7 @@ export class EmployeeSearchComponent {
             var isInActiveUser = this.isActive;
             this.headers = [];
 
-            this._employeeService.Search(value, isInActiveUser, (data) => {
+            this._employeeService.Search(value, isInActiveUser,false, (data) => {
                 this.results = data;
                 if (this.results.length > 0) {
                     var keys = Object.keys(this.results[0]);

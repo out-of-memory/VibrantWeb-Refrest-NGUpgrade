@@ -29,17 +29,17 @@
                                         </div>
                                     </div>
                                     <div class="col s12 m12 l9 p-left20 p-right0 padding-left0">
-                                        <div class="row margin-zero">
+                                        <div class="row margin-zero" >
                                             <div class="input-field col s12 m6 l4 admin-search-employee padding-zero m-top0">
-                                                <input id="input-text" type="text" class="validate left">
-                                                <label for="input-text">Search by Emp code/ Name</label>
-                                                <a  id="filter1" class="btn waves-effect waves-light search-emp-btn"><i class="material-icons">search</i></a>
+                                                <input id="input-text" type="text" class="validate left" [(ngModel)]="employeeCode" (ngModelChange)='resetSearch($event)' name='code'>
+                                                <label for="input-text">Search by Emp code</label>
+                                                <a  id="filter1" class="btn waves-effect waves-light search-emp-btn" (click)='Search()'><i class="material-icons">search</i></a>
                                             </div>
-                                            <div class="col s6 m6 l2 custom-input-field show-hide center-align" trigger = "0">
-                                                <h5 class="leaves-avail m-top0">10</h5>
+                                            <div class="col s6 m6 l2 custom-input-field show-hide center-align" trigger = "0" *ngIf='employee!=null'>
+                                                <h5 class="leaves-avail m-top0">{{employee.leavesRemaining}}</h5>
                                                 <h6>Available Leaves</h6>
                                             </div>
-                                            <div class=" col s8 m6 l5 show-hide padding-zero" trigger = "0" >
+                                            <div class=" col s8 m6 l5 show-hide padding-zero" trigger = "0" *ngIf='employee!=null'>
                                                 <div class="custom-input-field m-top0 col s10 m8 l6 padding-zero">
                                                 <h6 class="m-bottom0">Select Module Type</h6>
                                                     <select materialize="material_select" id="module-select">
@@ -52,26 +52,33 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col s12 m12 l9 p-left20 p-right0 padding-left0">
+                                    <div class="col s12 m12 l9 p-left20 p-right0 padding-left0" *ngIf='employee!=null'>
                                         <div class="col s12 m8 l4 show-hide padding-zero">
                                             <div class="dashboard-data-container employee-search">
                                                 <div class="card white emp-dashboard-data margin-zero">
                                                     <div class="row m-bottom0">
                                                         <div class="col s12 blue-bg-section padding15 emp-wrapper right-align">
                                                             <div>
-                                                                <h5>3893</h5>
-                                                                <h5><a href="employee-details.html">Chetan Jain</a></h5>
+                                                                <h5>{{employee.id}}</h5>
+                                                                <h5><a href="employee-details.html">{{employee.firstName}} {{employee.middleName}} {{employee.lastName}}</a></h5>
                                                             </div>
                                                             <div class="emp-img">
-                                                                <a href="employee-details.html"><img src="img/profile.jpg" alt="" class="circle responsive-img"></a>
+                                                                <a href="employee-details.html"><img src="{{'/images/'+employee.imagePath+''}}" alt="" class="circle responsive-img"></a>
                                                             </div>
                                                         </div>
                                                         <div class="col s12 right-align padding15">
-                                                            <h6>Project Head</h6>
-                                                            <h6><span class="location"></span> Mumbai, India</h6>
-                                                            <h6><a class="email-id" href="mailto:johndeo@v2solutions.com">johndeo@v2solutions.com</a></h6>
-                                                            <h6><a href="tel:+91 22 4153.0200 x 000"> t : +91 22 4153.0200 x 000</a></h6>
-                                                            <h6><a href="tel:+91 9900000000 ">m : +91 9900000000 </a></h6>
+                                                            <h6>{{employee.currentDesignation}}</h6>
+                                                            <h6><span class="location" *ngIf="employee.seatingLocation"><i class="fa fa-map-marker"></i>{{employee.seatingLocation}}, </span>
+                                       {{employee.olText}}</h6>
+                                                            <h6>
+                                            {{employee.email}}
+                                        </h6>
+                                        <h6 *ngIf='employee.residenceNumber != 0'>
+                                            t: {{employee.residenceNumber}}
+                                        </h6>
+                                        <h6>
+                                            m: {{employee.mobile}}
+                                        </h6>
                                                         </div>
                                                     </div>
                                                 </div>

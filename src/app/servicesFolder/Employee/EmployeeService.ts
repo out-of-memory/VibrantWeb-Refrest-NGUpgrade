@@ -20,8 +20,8 @@ export class EmployeeService {
 
     }
 
-    Search(query, isInActiveUser, callback: Function) {
-        var url = HttpSettings.apiBaseUrl + 'v1/employee/search/' + query + '?showInActive=' + isInActiveUser;
+    Search(query, isInActiveUser,adminSearch, callback: Function) {
+        var url = HttpSettings.apiBaseUrl + 'v1/employee/'+(adminSearch?'search-for-admin/':'search/') + query + '?showInActive=' + isInActiveUser;
         if (query != undefined && query != "") {
             this._httpService.get(url)
                 .subscribe(
@@ -31,6 +31,9 @@ export class EmployeeService {
                 error => alert(error)
                 );
         }
+
+
+
 
     }
 
