@@ -77,7 +77,7 @@ export class AppComponent {
                 ];
 
                 if (dis.userProfile.role.length != 0) {
-                    if (dis.userProfile.role[0].roleId == 12 || dis.userProfile.role[0].roleId == 24 || dis.userProfile.role[0].roleId == 27 || dis.userProfile.role[0].roleId == 35 || dis.userProfile.role[0].roleId == 38) {
+                    if (this.hasRole()) {
                         dis.menu.push({
                             "name": "Employee Search",
                             "title": "Employee Search",
@@ -287,6 +287,18 @@ export class AppComponent {
             data => {
                 this._cacheService.setParams('travelDropdowns', data);
             });
+    }
+
+    hasRole() {
+        var count = 0;
+        this.userProfile.role.filter(function (el) {
+            if (el.roleId == 12 || el.roleId == 24 || el.roleId == 27 || el.roleId == 35 || el.roleId == 38) {
+                count++;
+            }
+        }.bind(this));
+        if (count > 0) {
+            return true
+        }
     }
 
 }
