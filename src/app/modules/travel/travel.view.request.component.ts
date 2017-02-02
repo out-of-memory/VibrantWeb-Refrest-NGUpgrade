@@ -217,9 +217,9 @@ export class TravelViewRequestComponent implements OnInit {
 
                 });
 
-                this.totalAmount = Number(this.totalAmount.toFixed(2));
-                this.cashAmount = Number(this.cashAmount.toFixed(2));
-                this.wireAmount = Number(this.wireAmount.toFixed(2));
+                this.totalAmount = (this.totalAmount);
+                this.cashAmount = (this.cashAmount);
+                this.wireAmount = (this.wireAmount);
 
                 // travel Uploaded documents                
                 dataModel.uploadedDocuments.forEach(element => {
@@ -354,7 +354,7 @@ export class TravelViewRequestComponent implements OnInit {
 
                 Materialize.toast('Money Reloaded Successfully', 3000, 'successTost');
                 data.forEach(element => {
-                    this.travelModel.moneyTransactions.push(this.ValidateMoneyTransactions(element));
+                    this.travelModel.moneyTransactions.push(element);
                 });
 
                 this.moneyTransactionsModel = new TravelMoneyTransactions();
@@ -368,17 +368,17 @@ export class TravelViewRequestComponent implements OnInit {
 
         this._autoMapperService.Map(model, transactionModel);
 
-        if (model.cash > 0) {
+        if (model.cash != '') {
             transactionModel.transactionType = "Cash"
             this.cashAmount = this.cashAmount + model.cash;
-            transactionModel.amount = model.cash.toFixed(2)
+            transactionModel.amount = model.cash
         }
         else {
             transactionModel.transactionType = "Card"
             this.wireAmount = this.wireAmount + model.cardAmount;
-            transactionModel.amount = model.cardAmount.toFixed(2);
+            transactionModel.amount = model.cardAmount
         }
-        this.totalAmount = this.wireAmount + this.cashAmount;
+        //this.totalAmount = this.wireAmount + this.cashAmount;
         return transactionModel;
     }
 

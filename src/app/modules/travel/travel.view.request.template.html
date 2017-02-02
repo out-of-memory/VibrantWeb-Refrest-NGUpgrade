@@ -922,7 +922,7 @@
                                                                     </div>
                                                                     <div class="custom-input-field input-field col s12 m6 l4">
                                                                         <h6>Phone</h6>
-                                                                        <input type="number" required="required" name="phone" [(ngModel)]="hotelBookingModel.phone" #phone="ngModel" [ngClass]="{borderbottom: !phone.valid && formHotelBookingSubmitted}">
+                                                                        <input type="text" pattern="\d*" minlength="10" maxlength="10" required="required" name="phone" [(ngModel)]="hotelBookingModel.phone" #phone="ngModel" [ngClass]="{borderbottom: !phone.valid && formHotelBookingSubmitted}">
                                                                         <div *ngIf="formHotelBookingSubmitted && !phone.valid" class="alert alert-danger">Phone is required </div>
                                                                     </div>
                                                                     <div class="custom-input-field input-field col s12 m6 l4">
@@ -932,7 +932,7 @@
                                                                     </div>
                                                                     <div class="custom-input-field input-field col s12 m6 l4">
                                                                         <h6>Email ID</h6>
-                                                                        <input type="text" required="required" name="emailId" [(ngModel)]="hotelBookingModel.emailId" #emailId="ngModel" [ngClass]="{borderbottom: !emailId.valid && formHotelBookingSubmitted}">
+                                                                        <input type="text" required="required" name="emailId" [(ngModel)]="hotelBookingModel.emailId" #emailId="ngModel" [ngClass]="{borderbottom: !emailId.valid && formHotelBookingSubmitted}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                                                                         <div *ngIf="formHotelBookingSubmitted && !emailId.valid" class="alert alert-danger">Email-Id is required </div>
                                                                     </div>
                                                                 </div>
@@ -1014,7 +1014,7 @@
                                                                                 <input type="checkbox" class="filled-in" id="perhour1" [(ngModel)]="hotelBookingModel.internetPreferences.paidInternet" (ngModelChange)="CheckInternet()">
                                                                                 <label for="perhour1">Paid @ $
                                                                                     <span class="custom-input-field input-field">
-                                                                                        <input type="number" (ngModelChange)="CheckInternet()" (change)="CheckInternet()" [ngClass]="{isGray : isPaidInternet, isRed: !isPaidInternet}" [(ngModel)]="hotelBookingModel.internetPreferences.amount" class=" width35"/>
+                                                                                        <input type="text" pattern="\d*" maxlength="5" (ngModelChange)="CheckInternet()" (change)="CheckInternet()" [ngClass]="{isGray : isPaidInternet, isRed: !isPaidInternet}" [(ngModel)]="hotelBookingModel.internetPreferences.amount" class=" width35"/>
                                                                                     </span>per hour</label>
                                                                             </p>
                                                                         </div>
