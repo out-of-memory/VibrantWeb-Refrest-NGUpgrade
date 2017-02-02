@@ -139,7 +139,7 @@ export class ViewMyHistoryComponent implements OnInit {
                 // // Travel Money transactions                
                 dataModel.moneyTransactions.forEach(element => {
 
-                    this.travelModel.moneyTransactions.push(this.ValidateMoneyTransactions(element));
+                    this.travelModel.moneyTransactions.push(element);
                     this.currencyId = element.currencyId;
 
                 });
