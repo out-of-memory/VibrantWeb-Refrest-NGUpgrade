@@ -24,7 +24,7 @@
                                     <div class="col s5 padding-zero m-bottom10">
                                         <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{traveldetails.travelFrom}}</h5>
                                         <div class="input-field">
-                                            <input placeholder="Departure" type='text' readonly="readonly" [(ngModel)]="extensionItem.departure" name="name" #name="ngModel" required="required"/>
+                                            <input type='text' readonly="readonly" [(ngModel)]="traveldetails.departure" name="name" #name="ngModel" required="required"/>
                                             <label for="name" class="active">Departure</label>
                                             <div *ngIf="formSubmit && !name.valid" class="alert alert-danger">Departure is required </div>
                                         </div>
