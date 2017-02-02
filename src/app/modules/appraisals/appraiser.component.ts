@@ -1,20 +1,14 @@
-
 import { Component } from '@angular/core';
 import { HttpService } from '../../servicesFolder/http/http.service';
-import { AutoMapperService } from '../../servicesFolder/AutoMapperService';
-import { UiForm, UiFormControl } from '../../infrastructure/components/UiForm';
-import { CacheService } from '../../servicesFolder/CacheService';
 import { BasicCellC, BasicGrid } from '../../infrastructure/components/basic-grid';
-import { List, Map } from 'immutable';
 import { MaterializeDirective } from "angular2-materialize";
 import { HttpSettings } from "../../servicesFolder/http/http.settings"
 import { LoaderComponent } from '../../infrastructure/components/loader.component';
-import { FileUpload } from '../../infrastructure/components/file-upload';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocationPipe } from '../../infrastructure/pipes/pipes'
 import * as Materialize from "angular2-materialize";
 import { NgModule } from '@angular/core';
 import { AppraisalQuestionModel, AppraisalParameterModel, AppraisalReviewerModel, AppraiseeDetails } from '../../models/AppraisalModel';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-appraiser',
@@ -33,11 +27,11 @@ export class AppraiserComponent {
     loaderModalMsg: boolean = false;
     loaderModalText: any;
     isConformationModal: boolean = false;
+    formSubmit: boolean = false;
 
-    constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private router: Router, private routeParams: ActivatedRoute, private _cacheService: CacheService) {
+    constructor(private _httpService: HttpService, private router: Router, private routeParams: ActivatedRoute, private _location: Location) {
         this.appraiseeDetails = new AppraiseeDetails();
         this.GetAppraiseeDetail();
-
     }
 
     GetAppraiseeDetail() {
@@ -86,38 +80,33 @@ export class AppraiserComponent {
         this.averageRating = Math.round(this.averageRating / this.appraiserParameterCollection.length);
     }
 
-    SaveAppraiseQuestions() {
-        if (this.appraiserComments != "") {
-            var appraisalReviewerModel = new AppraisalReviewerModel();
-            appraisalReviewerModel.Parameters = this.appraiserParameterCollection;
-            appraisalReviewerModel.AppraiseeId = this.appraiseeDetails.ID;
-            appraisalReviewerModel.Comments = this.appraiserComments;
-            var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/0";
-            this._httpService.post(url, appraisalReviewerModel).subscribe(
-                data => {
-                    if (data == 4) {
-                        Materialize.toast('Your appraisal form has been successfully submitted', 5000, 'green');
-                        this.router.navigate(['my/dashboard']);
+    submitAppraiseeForm() {
+        this.loaderModal = true;
+        var appraisalReviewerModel = new AppraisalReviewerModel();
+        appraisalReviewerModel.Parameters = this.appraiserParameterCollection;
+        appraisalReviewerModel.AppraiseeId = this.appraiseeDetails.ID;
+        appraisalReviewerModel.Comments = this.appraiserComments;
+        var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/0";
+        this._httpService.post(url, appraisalReviewerModel).subscribe(
+            data => {
+                if (data == 4) {
+                    Materialize.toast('Your appraisal form has been successfully submitted', 5000, 'green');
+                    this._location.back();
+                }
+                else {
+                    Materialize.toast('Issue in submitting appraisal form.Please contact System Administrator', 5000, 'red');
+                }
+            });
+    }
 
-                    }
-                    else {
-                        Materialize.toast('Issue in submitting appraisal form.Please contact System Administrator', 5000, 'red');
-                    }
-                });
+    applyAppraiseeForm(comments) {
+        if (comments.valid == true) {
+            this.calculateAppraiserRating();
+            Materialize.toast('Kindly recheck.Once submitted can not be changed', 5000, 'green')
+            this.isApplied = true;
         }
         else {
-            Materialize.toast('Please fill all the required fields', 5000, 'red');
+            this.formSubmit = true;
         }
-    }
-
-
-    submitAppraiseeForm() {
-        this.SaveAppraiseQuestions();
-    }
-
-    applyAppraiseeForm() {
-        this.calculateAppraiserRating();
-        Materialize.toast('Kindly recheck.Once submitted can not be changed', 5000, 'green')
-        this.isApplied = true;
     }
 }

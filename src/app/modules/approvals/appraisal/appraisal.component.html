@@ -7,29 +7,28 @@
                         <div class="reimbursement-wrapper approvals-data" *ngIf="rowData.length > 0">
                             <div class="row m-bottom0 header hide-on-med-and-down">
                                 <div class="col s12 m2 offset-m3">
-                                    <h5 class="title"></h5>
-                                </div>
-                                <div class="col s12 m2 offset-m3">
                                     <h5 class="title">Appraiser</h5>
                                 </div>
                                 <div class="col s12 m2">
                                     <h5 class="title">Reviewer</h5>
                                 </div>
-                                <div class="col s12 m4">
+                                <div class="col s12 m1">
                                     <h5 class="title">Grade</h5>
                                 </div>
-                                <div class="col s12 m4">
+                                <div class="col s12 m1">
                                     <h5 class="title">Status</h5>
                                 </div>
-                                <div class="col s12 m4">
+                                <div class="col s12 m1 center-align">
                                     <h5 class="title">Appraiser Rating</h5>
                                 </div>
-                                <div class="col s12 m4">
+                                <div class="col s12 m1 center-align">
                                     <h5 class="title">Reviewer Rating</h5>
+                                </div>
+                                <div class="col s12 m1">
                                 </div>
                             </div>
                             <div class="approvals">
-                                <basic-grid [(source)]='rowData' gridPagination='bottom' gridOptions='{"colWidths":[30,15,15,10,10,5,5,10],"widthType":"%","useScroll":true}'
+                                <basic-grid [(source)]='rowData' gridPagination='bottom' gridOptions='{"colWidths":[100],"widthType":"%","useScroll":true}'
                                     [isHeaderVisible]=false>
                                     <basic-cell>
                                         <template #bg let-item='row'>
@@ -66,36 +65,37 @@
                                                     <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Reviewer</span>
                                                         <span>{{item.appraiser}}</span>
                                                     </div>
-                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Grade</span>
+                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Grade</span>
                                                         <span>{{item.grade}}</span>
                                                     </div>
-                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Status</span>
-                                                        <span *ngIf="item.status == 1">Initiated</span>
-                                                        <span *ngIf="item.status == 2">Submitted</span>
-                                                        <span *ngIf="item.status == 3">Appraised</span>
-                                                        <span *ngIf="item.status == 4">Reviewed</span>
+                                                    <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Status</span>
+                                                        <span *ngIf="item.status == 0">Initiated</span>
+                                                        <span *ngIf="item.status == 1">Submitted</span>
+                                                        <span *ngIf="item.status == 2">Appraised</span>
+                                                        <span *ngIf="item.status == 3">Reviewed</span>
+                                                        <span *ngIf="item.status == 4">One-To-One</span>
                                                         <span *ngIf="item.status == 5">Closed</span>
                                                     </div>
-                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Appraiser Rating</span>
+                                                    <div class="col s12 m6 l1 center-align"><span class="expense-label hide-on-large-only">Appraiser Rating</span>
+                                                        <span *ngIf="item.status == 2">
+                                                            <span class="expense-label hide-on-large-only">Rating</span>
+                                                            <img src="images/rate-star-{{item.appraiserScore}}.png" alt="" class="rating-star-circle responsive-img">                                                            
+                                                        </span>
+                                                    </div>
+                                                    <div class="col s12 m6 l1 center-align"><span class="expense-label hide-on-large-only">Reviewer Rating</span>
                                                         <span *ngIf="item.status == 3">
                                                             <span class="expense-label hide-on-large-only">Rating</span>
-                                                            <img src="img/rate-star-{{item.appraiserScore}}.png" alt="" class="rating-star-circle responsive-img">                                                            
+                                                            <img src="images/rate-star-{{item.reviewerScore}}.png" alt="" class="rating-star-circle responsive-img">                                                               
                                                         </span>
                                                     </div>
-                                                    <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Reviewer Rating</span>
-                                                        <span *ngIf="item.status == 4">
-                                                            <span class="expense-label hide-on-large-only">Rating</span>
-                                                            <img src="img/rate-star-{{item.reviewerScore}}.png" alt="" class="rating-star-circle responsive-img">                                                               
-                                                        </span>
-                                                    </div>
-                                                    <div class="col s12 m12 l4 align-bottom padding-zero">
+                                                    <div class="col s12 m12 l1 align-bottom padding-zero">
                                                         <div class="padding-10">
                                                             <div class="row">
-                                                                <div class="col s12 leave-action right-align padding-zero" *ngIf="item.assignedTo == item.appraiser">
-                                                                    <a class="edit-icon expense-icon" title="Edit" type='button' value="Edit" href="/#/my/appraiser/{{item.employeeId}}"><i class="fa fa-pencil"></i></a>
+                                                                <div class="col s12 leave-action right-align padding-zero" *ngIf="item.assignedTo == item.appraiser && item.status == 1">
+                                                                    <a href="/#/my/appraiser/{{item.employeeId}}" class="right expense-icon"><img src="images/view-icon.svg" height="30px" width="30px"></a>
                                                                 </div>
-                                                                <div class="col s12 leave-action right-align padding-zero" *ngIf="item.assignedTo == item.reviewer">
-                                                                    <a class="edit-icon expense-icon" title="Edit" type='button' value="Edit" href="/#/my/reviewer/{{item.employeeId}}"><i class="fa fa-pencil"></i></a>
+                                                                <div class="col s12 leave-action right-align padding-zero" *ngIf="item.assignedTo == item.reviewer && item.status == 2">
+                                                                    <a href="/#/my/reviewer/{{item.employeeId}}" class="right expense-icon"><img src="images/view-icon.svg" height="30px" width="30px"></a>
                                                                 </div>
                                                             </div>
                                                         </div>

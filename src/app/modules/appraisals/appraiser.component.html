@@ -84,7 +84,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <textarea class="materialize-textarea m-btm" style="height: 44px;" [(ngModel)]= "appraiserComments"></textarea>
+                                        <textarea class="materialize-textarea m-btm" style="height: 44px;" [(ngModel)]="appraiserComments" name="comments" id="comments" #comments="ngModel" required></textarea>
+                                        <div *ngIf="comments.errors && formSubmit==true" class="red">
+                                            <div [hidden]="!comments.errors.required">
+                                                Comment is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +99,7 @@
                         <div class="row valign-wrapper margin-zero">
                             <div class="col s12 m12 l6 right-align" *ngIf="!isApplied">
                                 <a href="#" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
-                                <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='applyAppraiseeForm()'>Apply</a>
+                                <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='applyAppraiseeForm(comments)'>Apply</a>
                             </div>
                             <div class="col s12 m12 l6 right-align" *ngIf="isApplied">
                                 <a href="#" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
