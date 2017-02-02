@@ -36,7 +36,6 @@ export class TravelExtensionComponent implements OnInit {
 
         this.extensionItem = new TravelExtension();
         this.extensionHub = this.extensionItem['hub'];
-        this.extensionItem.departure = "1/23/2017";
 
         let date = new Date();
         this.dateFormat = [{ "format": "mm/dd/yyyy", "today": "", "selectYears": 30 }];
