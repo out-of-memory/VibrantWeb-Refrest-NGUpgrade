@@ -3578,419 +3578,6 @@ a {
   background: rgba(205, 118, 118, 0.4) !important;
 }
 
-/*Appraisal-Appraiser-Module*/
-.appraisee-quest{
-    padding: 13px 30px;
-    font-size: 16px;
-    color: #000;
-    min-height: 50px;
-    text-align: left;
-    border-top-left-radius: 100px;
-    border-bottom-left-radius: 100px;
-  }
-.appraisee-quest.quest-1{
-   background: #fbb03b;
-}
-.appraisee-quest.quest-2{
-   background: #dbc970;
-}
-.appraisee-quest.quest-3{
-   background: #b29c7f;
-}
-.appraisee-quest.quest-4{
-   background: #c8b661;
-}
-.appraisee-quest.quest-5{
-   background: #7bb5c7;
-}
-.appraisee-quest.quest-6{
-   background: #a7c7b6;
-}
-.appraisee-quest.quest-7{
-   background: #63a29f;
-}
-
-.appraisee-quest p{
-  margin: 0;
-}
-.timeline-panel-appraiser{
-    width: 95%;
-    margin-left: 5%;
-    margin-top: -3px;
-}
-.left-bar-content{
-  margin-bottom: 40px;
-}
-.rating-panel{
-  border-left: 8px solid #76b1cd;
-  margin-top: 20px;
-  min-height: 220px;
-}
-.rating-panel.sub-rating-panel{
-  border-left: 6px solid #76b1cd;
-  margin-top: 50px;
-  min-height: 200px;
-}
-.overall-rating.appraiser-rate{
-  position: relative;
-  height: 30px;
-  background: #76b1cd;
-  width: 98%;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-}
-.overall-rating{
-  position: relative;
-  height: 30px;
-  background: #76b1cd;
-  width: 95%;
-}
-
-.overall-rate-circle{
-  position: absolute;
-  text-align: center;
-  color: #fff;
-  width: 90px;
-  height: 90px;
-  border-top-right-radius: 50%;
-  border-top-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 50%;
-  background: #76b1cd;
-  left: 40%;
-  top: -34px;
-  border: 5px solid #fff;
-  box-shadow: 0 2px 5px 0 rgba(4, 4, 4, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
-}
-.overall-rate-circle h5{
-  position: relative;
-  top: 15px;
-  font-size: 24px;
-}
-.parameter-1 h5, .parameter-2 h5{
-  display: inline-block;
-  font-size: 20px;
-  float: right;
-  padding: 0 40px;
-  color: #fff;
-}
-.overall-rate-circle .select-wrapper span.caret {
-    color: #fff;
-    position: absolute;
-    right: 8px;
-    top: 33px;
-    font-size: 10px;
-}
-.overall-rate-circle .select-wrapper input.select-dropdown {
-    position: relative;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 2rem;
-    padding: 18px 30px;
-    display: block;
-}
-.overall-rate-circle .select-wrapper ul.dropdown-content{
-  max-height: 250px;
-  width: 50px;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  opacity: 1;
-  display: none;
-}
-  .select-wrapper.rating-input span.caret {
-    color: #fff;
-    position: absolute;
-    right: 20px;
-    top: 24px;
-    font-size: 10px;
-}
- .select-wrapper.rating-input input.select-dropdown {
-    position: relative;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    float: right;
-    width: 24%;
-    border: none;
-    font-size: 22px;
-    color: #fff;
-    top: 8px;
-}
-.select-wrapper.rating-input.content-breadth input.select-dropdown {
-    position: relative;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    float: right;
-    width: 27%;
-    border: none;
-    font-size: 22px;
-    color: #fff;
-    top: 8px;
-}
- .select-wrapper.rating-input ul.dropdown-content{
-  max-height: 250px;
-  width: 50px;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  opacity: 1;
-  display: none;
-}
-.parameter-1{
-  height: 60px;
-  background: #76b1cd;
-  margin-top: 40px;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-  border-right: 4px solid #FFF;
-}
-.parameter-heading{
-    margin: 0px 10px;
-    position: relative;
-    top: 15px;
-    font-size: 19px;
-    color: #fff;
-}
-.param-rating{
-  position: relative;
-  color:#fff;
-  float: right;
-  display: inline-block;
-  width:40%;
-}
-.param-rating-1{
-  position: relative;
-  color:#fff;
-  float: right;
-  display: inline-block;
-}
-.param-rating.param-rating-appraisee{
-  bottom: 22px;
-}
-.appraiser-rating-val{
-  float: right;
-    color: #fff;
-    position: relative;
-    top: 13px;
-    font-size: 22px;
-    right: 40px;
-}
-.overall-rate-appraiser{
-    position: relative;
-    top: 23px;
-    font-size: 26px;
-  }
-.rating-comment{
-  margin:20px;
-  z-index: 2;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.rating-content{
-  overflow-y: auto; 
-  margin: 20px 15px;
-  }
-.rating-content::-webkit-scrollbar {
-        width: 6px; }
-      .rating-content::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
-      .rating.content::-webkit-scrollbar-thumb {
-        background: rgba(153, 153, 153, 0.6);
-        outline: 1px solid #ccc;
-        border-radius: 5px; }
-
-/*Reviewer*/
-.small-quest{
-  font-size: 13px;
-}
- .row .col.l3.right-bar.right-bar-reviewer {
-    z-index: 0;
-  }
-.rating-panel-reviewer {
-    border:none;
-    margin-top: 20px;
-    min-height: 220px;
-    margin-left: -30px;
-}
-.overall-rating.overall-reviewer{
-  position: relative;
-  height: 30px;
-  background: #e0784e;
-  width: 100%;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-}
-.overall-rate-circle.rate-circle-reviewer {
-    background: #e0784e;
-    left: 40%;
-}
-.parameter-1-1 {
-    height: 60px;
-    background: #e0784e;
-    margin-top: 40px;
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-}
-
-.parameter-1-1 .param-rating.param-rating-appraisee {
-    bottom: 0;
-}
-.overall-rating.overall-average{
-  position: relative;
-  height: 30px;
-  background: #8da408;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-}
-.rating-panel-reviewer.average {
-    margin-left: 0px;
-}
-.hexagon {
-  position: relative;
-  width: 120px; 
-  height: 69.28px;
-  background-color: #8da408;
-  left: 29%;
-  top: -90px;
-  border-left: solid 5px #ffffff;
-  border-right: solid 5px #ffffff;
-  color: #fff;
-  text-align: center;
-  display: inline-block;
-}
-
-.hexagon:before,
-.hexagon:after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  width: 84.85px;
-  height: 84.85px;
-  -webkit-transform: scaleY(0.5774) rotate(-45deg);
-  -ms-transform: scaleY(0.5774) rotate(-45deg);
-  transform: scaleY(0.5774) rotate(-45deg);
-  background-color: inherit;
-  left: 12.5736px;
-}
-
-.hexagon:before {
-  top: -42.4264px;
-  border-top: solid 7.0711px #ffffff;
-  border-right: solid 7.0711px #ffffff;
-}
-
-.hexagon:after {
-  bottom: -42.4264px;
-  border-bottom: solid 7.0711px #ffffff;
-  border-left: solid 7.0711px #ffffff;
-}
-.select-wrapper.average-rating span.caret {
-    color: #fff;
-    position: absolute;
-    right: 15px;
-    top: 25px;
-    font-size: 14px;
-}
-.hexagon .select-wrapper input.select-dropdown {
-    position: relative;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 2rem;
-    padding: 10px 45px;
-    display: block;
-    z-index: 3;
-}
-.overall-rate-hexagon{
-  position: relative;
-  top: 20px;
-  z-index: 2;
-  font-size: 1.5rem;
-}
-
-
-@media all and (max-width: 1450px) and (min-width: 1320px){
-  .note-help-icon {
-    left: 76%;
-    bottom: 91.3%;
-}
-  .employ-img-appraiser {
-    display: inline-block;
-    position: relative;
-    left: -8.5%;
-}
-  .employ-img {
-    display: inline-block;
-    position: relative;
-    left: -6.5%;
-  }
-  .small-quest{
-  font-size: 12px;
-  }
-  .timeline-panel-appraiser {
-    margin-top: -5px;
-  }
-}
-/*Idf Appraisal Rating*/
-.idf-appraiser-rating{
-  font-size: 14px;
-  font-family: 'Lato-Bold';
-}
-.comment-status-appraisal{
-  font-size: 16px;
-}
-.progress{
-  height: 8px!important;
-  border-radius: 5px!important;
-}
-.rate-circle-1{
-    position: relative;
-    text-align: center;
-    color: #fff;
-    width: 70px;
-    height: 70px;
-    border-top-right-radius: 50%;
-    border-top-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    background: #76b1cd;
-    left: 25%;
-    top: -6px;
-    border: 5px solid #fff;
-    box-shadow: 0 2px 5px 0 rgba(4, 4, 4, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
-}
-.rate-circle-2{
-    position: relative;
-    text-align: center;
-    color: #fff;
-    width: 70px;
-    height: 70px;
-    border-top-right-radius: 50%;
-    border-top-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    background: #8da408;
-    left: 25%;
-    top: -6px;
-    border: 5px solid #fff;
-    box-shadow: 0 2px 5px 0 rgba(4, 4, 4, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
-}
-.rate-circle-content{
-    position: absolute;
-    top: 17px;
-    right: 26px;
-    font-size: 18px;
-}
-
 .isGray{
    border-color : gray !important;
 }
@@ -4103,8 +3690,28 @@ h6.active-select{
     margin-bottom: 0;
     margin-top: 5px;
 }
+.isGray{
+   border-color : gray !important;
+}
 
-/*Appraisal-Appraiser-Module*/
+.isRed{
+  border-color : red !important;
+}
+.handPointer{
+  cursor: pointer;
+}
+#filter {
+    padding: 10px;
+    color: gray;
+}
+.emp-search-drop .search-dropdown{
+  display: block;
+  margin-top: 185px;
+  z-index: 2;
+}
+
+/*New Appraisal Module Design*/
+/*Appraisee Module*/
 .raters-details-appraisee{
   font-size: 16px;
   font-family: 'Lato-Bold';
@@ -4130,7 +3737,8 @@ h6.active-select{
 .employ-img-appraiser{
   display: inline-block;
   position: relative;
-  left: -5.5%;
+  left: -32.5%;
+  margin-bottom: 20px;
 }
 .row.rating-content-reviewer{
   position: relative;
@@ -4201,7 +3809,7 @@ h6.active-select{
 .employ-img{
   display: inline-block;
   position: relative;
-  left: -4%;
+  left: -35%;
 }
 .employ-details{
     position: relative;
@@ -4247,6 +3855,18 @@ h6.active-select{
   font-style: normal;
   font-stretch: normal;
   color: #d0021b;
+}
+.app {
+    width: 24%;
+    display: inline-block;
+    text-align: center;
+    border-right: 1px solid #ddd;
+}
+.app:last-child{
+  border: none;
+}
+form p.rating-content:last-child{
+  margin-bottom:20px;
 }
 /*Appraisal-Appraiser-Module*/
 .appraisee-quest{
@@ -4336,7 +3956,6 @@ h6.active-select{
     color: #fff;
     position: absolute;
     right: 8px;
-    top: 33px;
     font-size: 10px;
 }
 .overall-rate-circle .select-wrapper input.select-dropdown {
@@ -4362,7 +3981,7 @@ h6.active-select{
     color: #fff;
     position: absolute;
     right: 20px;
-    top: 24px;
+    top: 66px;
     font-size: 10px;
 }
  .select-wrapper.rating-input input.select-dropdown {
@@ -4499,6 +4118,7 @@ h6.active-select{
     margin-top: 40px;
     border-top-right-radius: 100px;
     border-bottom-right-radius: 100px;
+	margin-left: 4px;
 }
 
 .parameter-1-1 .param-rating.param-rating-appraisee {
@@ -4556,27 +4176,10 @@ h6.active-select{
 .select-wrapper.average-rating span.caret {
     color: #fff;
     position: absolute;
-    right: 15px;
-    top: 25px;
+    right: 5px;
     font-size: 14px;
 }
-.hexagon .select-wrapper input.select-dropdown {
-    position: relative;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 2rem;
-    padding: 10px 45px;
-    display: block;
-    z-index: 3;
-}
-.overall-rate-hexagon{
-  position: relative;
-  top: 20px;
-  z-index: 2;
-  font-size: 1.5rem;
-}
+
 
 .reviwer-comment-1 {
     margin-top: -5px;
@@ -4592,12 +4195,12 @@ h6.active-select{
   .employ-img-appraiser {
     display: inline-block;
     position: relative;
-    left: -8.5%;
+    left: -49.5%;
 }
   .employ-img {
     display: inline-block;
     position: relative;
-    left: -6.5%;
+    left: -49.5%;
   }
   .small-quest{
   font-size: 12px;
@@ -4606,56 +4209,7 @@ h6.active-select{
     margin-top: -5px;
   }
 }
-/*Idf Appraisal Rating*/
-.idf-appraiser-rating{
-  font-size: 14px;
-  font-family: 'Lato-Bold';
-}
-.comment-status-appraisal{
-  font-size: 16px;
-}
-.progress{
-  height: 8px!important;
-  border-radius: 5px!important;
-}
-.rate-circle-1{
-    position: relative;
-    text-align: center;
-    color: #fff;
-    width: 70px;
-    height: 70px;
-    border-top-right-radius: 50%;
-    border-top-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    background: #76b1cd;
-    left: 25%;
-    top: -6px;
-    border: 5px solid #fff;
-    box-shadow: 0 2px 5px 0 rgba(4, 4, 4, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
-}
-.rate-circle-2{
-    position: relative;
-    text-align: center;
-    color: #fff;
-    width: 70px;
-    height: 70px;
-    border-top-right-radius: 50%;
-    border-top-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    background: #8da408;
-    left: 25%;
-    top: -6px;
-    border: 5px solid #fff;
-    box-shadow: 0 2px 5px 0 rgba(4, 4, 4, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
-}
-.rate-circle-content{
-    position: absolute;
-    top: 17px;
-    right: 26px;
-    font-size: 18px;
-}
+
 /*Appraisee Status*/
 .status-progresbar{
   margin-bottom: 20px;
@@ -4699,37 +4253,136 @@ h6.active-select{
 .rating-panel-stat .overall-rating.overall-reviewer{
   margin-left: 4px;
 }
-.hexagon.progress-rating{
+.hexagon1.progress-rating{
   left: 90%;
-  top: -25px;
 }
-.progress.appraisal-progress{
-  width: 50%;
-  height: 12px!important;
-}
+
 .progress.appraisal-progress .determinate{
-  width: 70%;
+  width: 25%;
   background-color: #8da408;
 }
 
-.isGray{
-   border-color : gray !important;
+/*Appraisee Status View*/
+.hexagon1{
+  position: relative;
+  width: 80px; 
+  height: 46.19px;
+  background-color: #90a108;
+  margin: 23.09px 0;
+  border-left: solid 2px #ffffff;
+  border-right: solid 2px #ffffff;
+  color: #fff;
+  text-align: center;
 }
 
-.isRed{
-  border-color : red !important;
+.hexagon1:before,
+.hexagon1:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 56.57px;
+  height: 56.57px;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background-color: inherit;
+  left: 9.7157px;
 }
-.handPointer{
-  cursor: pointer;
+
+.hexagon1:before {
+  top: -28.2843px;
+  border-top: solid 2.8284px #ffffff;
+  border-right: solid 2.8284px #ffffff;
 }
-#filter {
-    padding: 10px;
-    color: gray;
+
+.hexagon1:after {
+  bottom: -28.2843px;
+  border-bottom: solid 2.8284px #ffffff;
+  border-left: solid 2.8284px #ffffff;
 }
-.emp-search-drop .search-dropdown{
-  display: block;
-  margin-top: 185px;
+.hexagon1 .select-wrapper input.select-dropdown {
+    position: relative;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    padding: 0px 20px;
+    display: block;
+    z-index: 3;
+}
+.overall-rate-hexagon{
+  position: relative;
+  top: 5px;
   z-index: 2;
+  font-size: 1.5rem;
+}
+.overall-rate-hexagon1{
+  position: relative;
+  top: -45px;
+  z-index: 2;
+  font-size: 1.5rem;
+}
+.status-progresbar1{
+  margin-bottom: 7px;
+  position: relative;
+}
+.progress.appraisal-progress1 .determinate {
+    width: 25%;
+    background-color: #8da408;
+}
+.progress {
+    border-radius: 5px!important;
+}
+.progress.appraisal-progress{
+  width: 75%;
+  height: 12px!important;
+}
+.progress.appraisal-progress1{
+  width: 85%;
+  height: 12px!important;
+}
+.raters-details.length{
+    width: 75%;
+}
+.raters-details.length1{
+    width: 85%;
+}
+.parameter-1-1.one2one{
+  background-color: #90a108;
+}
+.reviwer-comment-1-2.one-to-one{
+  border: 3px solid #90a108;
+}
+.right-bar1{
+	width: 95%
+}
+.parameter-1-2.one2one{
+	height: 60px;
+    background: #90a108;
+    margin-top: 40px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+.one-to-one-border{
+	border: 3px solid #90a108;
+	width: 95%;
+	margin: -5px 0 0 5px;
+}
+.progress.appraisal-progress .determinate.appraiser-history {
+    width: 48%;
+}
+.progress.appraisal-progress .determinate.reviewer-history {
+    width: 73%;
+}
+.progress.appraisal-progress .determinate.onetoone-history {
+    width: 100%;
+}
+.progress.appraisal-progress1 .determinate.onetoone-history {
+    width: 100%;
+}
+.progress.appraisal-progress1 .determinate.appraisee-initiate {
+    width: 0%;
 }
 .dashboard-data-container .dashboard-view-content .dashboard-view-appraisal {
     border-radius: 2px;

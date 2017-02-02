@@ -16,8 +16,8 @@ import { AppraisalInitiationComponent } from './appraisalinitiation.component';
     FormsModule,
     RouterModule.forChild([
       { path: 'my/appraisal', component: AppraiseComponent },
-      { path: 'my/appraiser/:id/:name/:appraiser/:reviewer', component: AppraiserComponent },
-      { path: 'my/reviewer/:id/:name/:appraiser/:reviewer', component: ReviewerComponent },
+      { path: 'my/appraiser/:id', component: AppraiserComponent },
+      { path: 'my/reviewer/:id', component: ReviewerComponent },
       {
         path: 'appraisal/admin', component: AppraisalAdminComponent,
         children: [

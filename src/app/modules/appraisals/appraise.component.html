@@ -24,11 +24,6 @@
                     <div class="reimbursement-wrapper appraisals">
                         <div class="rating-container">
                             <div class="row rating-content-1">
-                                <div class="row">
-                                    <div class="col s5 m5 l5 offset-l6">
-                                        <p class="raters-details-appraisee">Appraiser: {{appraiserName}} | <span>Reviewer: {{reviewerName}}</span></p>
-                                    </div>
-                                </div>
                                 <div class="col s3 m3 l3">
                                     <div class="help-content">
                                         <div class="note-help-icon">
@@ -60,7 +55,20 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col s8 m8 l8 rating-questions">
+                                <div class="col s8 m8 l8 status-progresbar" *ngIf="isLoad==true">
+                                            <div class="col l10">
+                                                <div class="progress appraisal-progress1">
+                                                    <div class="determinate" [class.appraisee-initiate]="appraiseDetails.status == 0" [class.appraiser-history]="appraiseDetails.status == 2" [class.reviewer-history]="appraiseDetails.status == 3" [class.onetoone-history]="appraiseDetails.status > 3"></div>
+                                                </div>
+                                                <div class="raters-details length1">
+                                                    <div class="app">Appraisee<br>{{appraiseDetails.empName}}</div>
+                                                <div class="app">Appraiser<br>{{appraiseDetails.appraiserName}} </div>
+                                                <div class="app">Reviewer<br>{{appraiseDetails.reviewerName}}</div>
+                                                    <div class="app">One-To-One<br> Chetan Jain</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <div class="col s8 m8 l8">
                                     <form #answerForm="ngForm">
                                         <div class="col s12 m12 l12 rating-questions" *ngFor="let questions of appraisalQuestionCollection; let i=index">
                                             <div class="row content-rater">
@@ -71,16 +79,16 @@
                                                 </div>
                                                 <div class="col s6 m6 l6 right-bar">
                                                     <div class="timeline-panel-appraisee ans-1">
-                                                        <div class="rating-comment">
-                                                            <textarea *ngIf="!isSubmitted" id="answer" name="answer-{{i}}" class="materialize-textarea m-btm validate" rows="2" [(ngModel)]="questions.answer" required minlength="25"
+                                                        <div class="rating-comment" *ngIf="!isSubmitted">
+                                                            <textarea id="answer" name="answer-{{i}}" class="materialize-textarea m-btm validate" rows="2" [(ngModel)]="questions.answer" required minlength="25"
                                                                 maxlength="250" ngModel></textarea>
                                                             <span *ngIf="formSubmit">
                                                                 <div *ngIf="answer" class="alert alert-danger">
                                                                     answer is required.
                                                                 </div>
                                                             </span>
-                                                            <p *ngIf="isSubmitted">{{questions.answer}}</p>
                                                         </div>
+                                                        <p *ngIf="isSubmitted" class="rating-content">{{questions.answer}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -93,9 +101,9 @@
                     <div class="card-footer padding-15-0 top-divider">
                         <div class="row valign-wrapper margin-zero">
                             <div class="col s12 m12 l6 right-align">
-                                <a href="#" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
-                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="!isApplied" title="Submit" (click)='ApplyAppraiseeForm(answerForm)'>Apply</a>
-                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="isApplied" title="Submit" (click)='submitAppraiseeForm()'>Submit</a>
+                                <a href="#" class="waves-effect waves-light btn custom-btn cancel" *ngIf="!isSubmitted" title="Cancel">Cancel</a>
+                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="!isApplied && !isSubmitted" title="Submit" (click)='ApplyAppraiseeForm(answerForm)'>Apply</a>
+                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="isApplied && !isSubmitted" title="Submit" (click)='submitAppraiseeForm()'>Submit</a>
                             </div>
                         </div>
                     </div>
@@ -104,3 +112,5 @@
         </div>
     </div>
 </div>
+<loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
+    [isConformationModal]="isConformationModal"></loader-component>

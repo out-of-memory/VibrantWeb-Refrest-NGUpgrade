@@ -10,13 +10,6 @@
 </div>
 <div class="tab-container">
     <div class="row">
-        <div class="col s12 tab-control padding-zero">
-            <div class="col s12 m5 l2 padding-zero">
-                <ul class="tabs app-tabs">
-                    <li class="tab col s12"><a class="active" href="#appraisal">APPRAISAL</a></li>
-                </ul>
-            </div>
-        </div>
         <div id="appraisal" class="col s12 padding-zero tab-content">
             <div class="row main-data-container">
                 <div class="col s12 padding-zero">
@@ -24,22 +17,32 @@
                         <div class="rating-container">
                             <div class="row rating-content-reviewer">
                                 <div class="col s12 m12 l12">
-                                    <div class="row emp-details-panel">
-                                        <div class="col s8 m8 l8 offset-l4 padding-zero">
+                                    <div class="row">
+                                        <div class="col s8 m8 l1 offset-l4 padding-zero m-bottom20">
                                             <div class="employ-img">
-                                                <a href="employee-details.html"><img src="assets/images/3463.jpg" alt="" class="circle responsive-img"></a>
-                                                <span class="employ-details">
-                                                                          <p class="name-details">{{appraiseeDetails.ID}} | <span>{{appraiseeDetails.appraiseeName}}</span></p>
-                                                <p class="raters-details">Appraiser: {{appraiseeDetails.appraiserName}} | <span>Reviewer: {{appraiseeDetails.reviewerName}}</span></p>
-                                                </span>
+                                                <a><img src="assets/images/{{appraiseeDetails.ID}}.jpg" alt="" class="circle responsive-img"></a>
                                             </div>
+                                        </div>
+                                        <div class="col s8 m8 l5 status-progresbar1 padding-zero m-top20 ">
+                                            <div class="progress appraisal-progress">
+                                                <div class="determinate appraiser-history"></div>
+                                            </div>
+                                            <div class="raters-details length">
+                                                <div class="app">Appraisee<br>{{appraiseeDetails.appraiseeName}}</div>
+                                                <div class="app">Appraiser<br>{{appraiseeDetails.appraiserName}} </div>
+                                                <div class="app">Reviewer<br>{{appraiseeDetails.reviewerName}}</div>
+                                                <div class="app">One-To-One<br>Chetan Jain</div>
+                                            </div>
+                                        </div>
+                                        <div class="col l1">
                                             <div class="hexagon">
                                                 <select materialize="material_select" [(ngModel)]="finalAverageRating">
-                                                                                        <option value="3">3</option>
-                                                                                        <option value="2">2</option>
-                                                                                        <option value="1">1</option>
-                                                                                        <option value="4">4</option>
-                                                                                        <option value="5">5</option>
+                                                    <option value="" disabled="" selected="">Select</option>                                  
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -55,7 +58,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col s4 m4 l4 right-bar right-bar-appraiser">
                                             <div class="rating-panel">
                                                 <div class="overall-rating appraiser-rate">
@@ -66,39 +68,45 @@
                                                 <div class="parameter-1" *ngFor="let parameter of appraiserParameterCollection">
                                                     <span class="parameter-heading">{{parameter.parameter}}</span>
                                                     <div class="param-rating-1">
-                                                        <span class="appraiser-rating-val">{{parameter.score}}</span>
+                                                        <span class="appraiser-rating-val">{{parameter.appraiserScore}}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <textarea class="materialize-textarea m-btm" style="height: 44px;">{{appraiserComments}}</textarea>
+                                            <textarea class="materialize-textarea m-btm" style="height: 44px;" [(ngModel)]="reviewerComments" name="comments" id="comments" #comments="ngModel" required></textarea>
+                                            <div *ngIf="comments.errors && formSubmit==true" class="red">
+                                                <div [hidden]="!comments.errors.required">
+                                                    Comment is required
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col s3 m3 l3 right-bar right-bar-reviewer padding-zero">
                                             <div class="rating-panel-reviewer">
                                                 <div class="overall-rating overall-reviewer" *ngIf="appraisalStatus != 4">
                                                     <div class="overall-rate-circle rate-circle-reviewer">
                                                         <select materialize="material_select" [(ngModel)]="averageRating">
-                                                                                        <option value="3">3</option>
-                                                                                        <option value="2">2</option>
-                                                                                        <option value="1">1</option>
-                                                                                        <option value="4">4</option>
-                                                                                        <option value="5">5</option>
+                                                            <option value="" disabled="" selected="">Select</option>                                  
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="parameter-1-1" *ngFor="let parameter of reviewerParameterCollection">
                                                     <div class="param-rating-1 param-rating-appraisee">
                                                         <select materialize="material_select" [(ngModel)]="parameter.score">
-                                                                                        <option value="3">3</option>
-                                                                                        <option value="2">2</option>
-                                                                                        <option value="1">1</option>
-                                                                                        <option value="4">4</option>
-                                                                                        <option value="5">5</option>
+                                                            <option value="" disabled="" selected="">Select</option>                                  
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                      <textarea class="materialize-textarea m-btm" style="height: 44px;"  [(ngModel)]= "reviewerComments"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +116,7 @@
                         <div class="row valign-wrapper margin-zero">
                             <div class="col s12 m12 l6 right-align" *ngIf="!isApplied">
                                 <a href="#" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
-                                <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='applyReveiwerForm()'>Apply</a>
+                                <a class="waves-effect waves-light btn custom-btn submit" title="Submit" (click)='applyReveiwerForm(comments)'>Apply</a>
                             </div>
                             <div class="col s12 m12 l6 right-align" *ngIf="isApplied">
                                 <a href="#" class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>

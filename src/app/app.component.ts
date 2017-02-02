@@ -221,6 +221,9 @@ export class AppComponent {
                     else if (data[i].module == '6') {
                         this.approvals[i].url = 'my/travel/newapproval';
                     }
+                    else if (data[i].module == '7') {
+                        this.approvals[i].url = 'approvals/appraisal/approval';
+                    }
                     else {
                         this.approvals[i].url = 'approvals/' + smallModules[+(data[i].module) - 1]
                     }

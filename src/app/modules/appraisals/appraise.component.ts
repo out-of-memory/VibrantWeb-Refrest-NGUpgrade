@@ -25,14 +25,40 @@ export class AppraiseComponent {
   appraisalQuestionModel: AppraisalQuestionModel;
   appraisalQuestionCollection: Array<AppraisalQuestionModel>;
   formSubmitted: boolean = true;
-  appraiserName: string = "";
-  reviewerName: string = "";
   isFormInvalid: boolean = false
   isApplied = false;
   isSubmitted: boolean = false;
   formSubmit: boolean = false;
+  loaderModal: boolean = false;
+  loaderModalMsg: boolean = false;
+  loaderModalText: any;
+  isConformationModal: boolean = false;
+  appraiseDetails: any;
+  isLoad: boolean = false;
+  appraiserComments: any;
+  reviewerComments: any;
+
   constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private routeParams: ActivatedRoute, private _cacheService: CacheService) {
-    this.GetAppraiseQuestions();
+    this.loaderModal = true;
+    this.GetAppraiseDetail();
+  }
+
+  GetAppraiseDetail() {
+    var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisal-assigned-to";
+    this._httpService.get(url).subscribe(
+      data => {
+        if (data) {
+          this.appraiseDetails = data;
+          this.isLoad = true;
+          if (data.status != 0) {
+            this.isSubmitted = true;
+            this.GetAppraiseForm();
+          }
+          else {
+            this.GetAppraiseQuestions();
+          }
+        }
+      }, error => { this.loaderModal = false; });
   }
 
   GetAppraiseQuestions() {
@@ -40,15 +66,30 @@ export class AppraiseComponent {
     this.appraisalQuestionCollection = new Array<AppraisalQuestionModel>();
     this._httpService.get(url).subscribe(
       data => {
-        this.appraiserName = data.appraiser;
-        this.reviewerName = data.reviewer;
         data.appraiseeQuestions.forEach(element => {
           var model = new AppraisalQuestionModel();
           this._autoMapperService.Map(element, model);
           model.answer = "";
           this.appraisalQuestionCollection.push(model);
         });
-      });
+        this.loaderModal = false;
+      }, error => { this.loaderModal = false; });
+  }
+
+  GetAppraiseForm() {
+    var url = HttpSettings.apiBaseUrl + "v1/appraisal/get-form-detail/";
+    this.appraisalQuestionCollection = new Array<AppraisalQuestionModel>();
+    this._httpService.get(url).subscribe(
+      data => {
+        data.appraiseForm.forEach(element => {
+          var model = new AppraisalQuestionModel();
+          this._autoMapperService.Map(element, model);
+          this.appraisalQuestionCollection.push(model);
+        });
+        this.appraiserComments = data.appraiserComments;
+        this.reviewerComments = data.reviewerComments;
+        this.loaderModal = false;
+      }, error => { this.loaderModal = false; });
   }
 
   SaveAppraiseQuestions() {
@@ -71,23 +112,28 @@ export class AppraiseComponent {
       this._httpService.post(url, appraiseeAnswerCollection).subscribe(
         data => {
           if (data == true) {
-            this.isSubmitted = true;
             Materialize.toast('Your appraisal form has been successfully submitted', 5000, 'green');
+            this.appraiseDetails.status = 1;
             this.formSubmitted = false;
           }
           else {
             Materialize.toast('Issue in submitting appraisal form.Please contact System Administrator', 5000, 'red');
+            this.isSubmitted = false;
             this.formSubmitted = true;
           }
+          this.loaderModal = false;
         },
-        error => console.log(error),
-        () => console.log('Post request has Completed')
-        );
+        error => {
+          this.isSubmitted = false;
+          this.loaderModal = false;
+        });
     }
 
   }
 
   submitAppraiseeForm() {
+    this.loaderModal = true;
+    this.isSubmitted = true;
     this.SaveAppraiseQuestions();
   }
 

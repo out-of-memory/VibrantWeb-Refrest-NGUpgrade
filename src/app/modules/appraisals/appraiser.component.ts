@@ -1,20 +1,14 @@
-
-import { Component} from '@angular/core';
-import {HttpService} from '../../servicesFolder/http/http.service';
-import {AutoMapperService} from '../../servicesFolder/AutoMapperService';
-import {UiForm, UiFormControl} from '../../infrastructure/components/UiForm';
-import {CacheService} from '../../servicesFolder/CacheService';
-import {BasicCellC, BasicGrid} from '../../infrastructure/components/basic-grid';
-import {List, Map} from 'immutable';
-import {MaterializeDirective} from "angular2-materialize";
-import {HttpSettings} from "../../servicesFolder/http/http.settings"
-import {LoaderComponent} from  '../../infrastructure/components/loader.component';
-import { FileUpload } from  '../../infrastructure/components/file-upload';
-import {ActivatedRoute, Router} from '@angular/router';
-import { LocationPipe } from '../../infrastructure/pipes/pipes'
+import { Component } from '@angular/core';
+import { HttpService } from '../../servicesFolder/http/http.service';
+import { BasicCellC, BasicGrid } from '../../infrastructure/components/basic-grid';
+import { MaterializeDirective } from "angular2-materialize";
+import { HttpSettings } from "../../servicesFolder/http/http.settings"
+import { LoaderComponent } from '../../infrastructure/components/loader.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Materialize from "angular2-materialize";
-import { NgModule }            from '@angular/core';
-import {AppraisalQuestionModel, AppraisalParameterModel, AppraisalReviewerModel, AppraiseeDetails} from  '../../models/AppraisalModel';
+import { NgModule } from '@angular/core';
+import { AppraisalQuestionModel, AppraisalParameterModel, AppraisalReviewerModel, AppraiseeDetails } from '../../models/AppraisalModel';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-appraiser',
@@ -29,77 +23,90 @@ export class AppraiserComponent {
     isApplied = false;
     isSubmitted: boolean = false;
     appraiserComments: string = '';
+    loaderModal: boolean = false;
+    loaderModalMsg: boolean = false;
+    loaderModalText: any;
+    isConformationModal: boolean = false;
+    formSubmit: boolean = false;
 
-    constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private router: Router, private routeParams: ActivatedRoute, private _cacheService: CacheService) {
+    constructor(private _httpService: HttpService, private router: Router, private routeParams: ActivatedRoute, private _location: Location) {
         this.appraiseeDetails = new AppraiseeDetails();
-        this.appraiseeDetails.ID = +(this.routeParams.snapshot.params['id']);
-        this.appraiseeDetails.appraiseeName = this.routeParams.snapshot.params['name'];
-        this.appraiseeDetails.appraiserName = this.routeParams.snapshot.params['appraiser'];
-        this.appraiseeDetails.reviewerName = this.routeParams.snapshot.params['reviewer'];
-        this.GetParametersForAppraiser();
+        this.GetAppraiseeDetail();
+    }
 
+    GetAppraiseeDetail() {
+        this.loaderModal = true;
+        var self = this;
+        var url = HttpSettings.apiBaseUrl + "v1/appraisal/appraisee-details/" + +(this.routeParams.snapshot.params['id']);
+        this._httpService.get(url).subscribe(
+            data => {
+                if (data) {
+                    this.appraiseeDetails.ID = data.empID;
+                    this.appraiseeDetails.appraiseeName = data.empName;
+                    this.appraiseeDetails.appraiserName = data.appraiserName;
+                    this.appraiseeDetails.reviewerName = data.reviewerName;
+                    this.GetParametersForAppraiser();
+                }
+            },
+            error => {
+                this.loaderModal = false;
+            });
     }
 
     GetParametersForAppraiser() {
         this.appraiseeAnswerCollection = new Array<AppraisalQuestionModel>();
         this.appraiserParameterCollection = new Array<AppraisalParameterModel>();
         var url = HttpSettings.apiBaseUrl + "v1/appraisal/get-appraiser-parameters/" + this.appraiseeDetails.ID;
-        this._httpService.get(url)
-            .subscribe
-            (
+        this._httpService.get(url).subscribe(
             data => {
                 this.appraiseeAnswerCollection = data.appraiseForm;
                 this.appraiserParameterCollection = data.appraiserParameters;
+                for (var i = 0; i < this.appraiserParameterCollection.length; i++) {
+                    this.appraiserParameterCollection[i].score = 3;
+                }
                 this.appraiserComments = data.comments;
+                this.loaderModal = false;
             },
-            error => console.log(error)
-            );
+            error => {
+                this.loaderModal = false;
+            });
     }
 
     calculateAppraiserRating() {
         this.averageRating = 0;
         this.appraiserParameterCollection.forEach(element => {
-            this.averageRating = this.averageRating + +(element.score)
+            this.averageRating = this.averageRating + ((+(element.score) * element.weightage) / 100)
         });
         this.averageRating = Math.round(this.averageRating / this.appraiserParameterCollection.length);
     }
 
-    SaveAppraiseQuestions() {
-        if (this.appraiserComments != "") {
-            var appraisalReviewerModel = new AppraisalReviewerModel();
-            appraisalReviewerModel.Parameters = this.appraiserParameterCollection;
-            appraisalReviewerModel.AppraiseeId = this.appraiseeDetails.ID;
-            appraisalReviewerModel.Comments = this.appraiserComments;
-            var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/0";
-            this._httpService.post(url, appraisalReviewerModel)
-                .subscribe(
-                data => {
-                    if (data == 4) {
-                        Materialize.toast('Your appraisal form has been successfully submitted', 5000, 'green');
-                        this.router.navigate(['my/dashboard']);
-
-                    }
-                    else {
-                        Materialize.toast('Issue in submitting appraisal form.Please contact System Administrator', 5000, 'red');
-                    }
-                },
-                error => console.log(error),
-                () => console.log('Post request has Completed')
-                );
-        }
-        else{
-             Materialize.toast('Please fill all the required fields', 5000, 'red');
-        }
-    }
-
-
     submitAppraiseeForm() {
-        this.SaveAppraiseQuestions();
+        this.loaderModal = true;
+        var appraisalReviewerModel = new AppraisalReviewerModel();
+        appraisalReviewerModel.Parameters = this.appraiserParameterCollection;
+        appraisalReviewerModel.AppraiseeId = this.appraiseeDetails.ID;
+        appraisalReviewerModel.Comments = this.appraiserComments;
+        var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/0";
+        this._httpService.post(url, appraisalReviewerModel).subscribe(
+            data => {
+                if (data == 4) {
+                    Materialize.toast('Your appraisal form has been successfully submitted', 5000, 'green');
+                    this._location.back();
+                }
+                else {
+                    Materialize.toast('Issue in submitting appraisal form.Please contact System Administrator', 5000, 'red');
+                }
+            });
     }
 
-    applyAppraiseeForm() {
-        this.calculateAppraiserRating();
-        Materialize.toast('Kindly recheck.Once submitted can not be changed', 5000, 'green')
-        this.isApplied = true;
+    applyAppraiseeForm(comments) {
+        if (comments.valid == true) {
+            this.calculateAppraiserRating();
+            Materialize.toast('Kindly recheck.Once submitted can not be changed', 5000, 'green')
+            this.isApplied = true;
+        }
+        else {
+            this.formSubmit = true;
+        }
     }
 }
