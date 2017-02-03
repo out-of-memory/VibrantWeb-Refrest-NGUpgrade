@@ -11,10 +11,10 @@ import { AutoMapperService } from './../../../servicesFolder/AutoMapperService';
 
 @Component({
   selector: 'app-appraisal',
-  templateUrl: './appraisal.component.html',
+  templateUrl: './onetoone.approval.component.html',
   providers: [HttpService]
 })
-export class AppraisalApprovalComponent {
+export class OneToOneApprovalComponent {
 
   appraisalList: Array<AppraisalListModel>;
   loaderModal: boolean = false;
@@ -31,7 +31,7 @@ export class AppraisalApprovalComponent {
     this.rowData = new Array<any>();
     this.appraisalList = new Array<AppraisalListModel>();
     this.appraisalList.length = 0;
-    var url = HttpSettings.apiBaseUrl + "v1/approval/appraisal";
+    var url = HttpSettings.apiBaseUrl + "v1/approval/onetoone";
     this._httpService.get(url).subscribe(
       data => {
         data.forEach(element => {

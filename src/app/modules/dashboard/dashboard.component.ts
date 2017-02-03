@@ -196,7 +196,7 @@ export class DashboardComponent implements OnInit {
     fetchPendingApprovals() {
         this.dashboardService.fetchPendingApprovalsForMe((data) => {
             this.approvals = data;
-            let smallModules: Array<string> = ["leave", "profile", "expense", "compoff", "helpdesk", "travel", "appraisal"];
+            let smallModules: Array<string> = ["leave", "profile", "expense", "compoff", "helpdesk", "travel", "appraisal", "onetoone"];
             for (var i = 0; i < data.length; i++) {
                 if (data[i].module == '1') {
                     this.approvals[i].url = 'my/leaves/approvals';
@@ -212,6 +212,9 @@ export class DashboardComponent implements OnInit {
                 }
                 else if (data[i].module == '7') {
                     this.approvals[i].url = 'approvals/appraisal/approval';
+                }
+                else if (data[i].module == '8') {
+                    this.approvals[i].url = 'approvals/appraisal/onetoone';
                 }
                 else {
                     this.approvals[i].url = 'approvals/' + smallModules[(+(data[i].module) - 1)]

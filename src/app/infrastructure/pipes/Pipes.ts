@@ -65,9 +65,9 @@ export class AlphabetPipe implements PipeTransform {
 })
 export class ModulePipe implements PipeTransform {
     transform(value: number, args: any): any {
-        let capModules: Array<string> = ["Leave", "Profile", "Expense", "Compensatory Off", "HelpDesk", "Travel", "Appraisals"];
-        let smallModules: Array<string> = ["leave", "profile", "expense", "compoff", "helpdesk", "travel", "appraisals"];
-        let shortModules: Array<string> = ["L", "P", "E", "CO", "HD", "T", "A"];
+        let capModules: Array<string> = ["Leave", "Profile", "Expense", "Compensatory Off", "HelpDesk", "Travel", "Appraisals","One-To-One"];
+        let smallModules: Array<string> = ["leave", "profile", "expense", "compoff", "helpdesk", "travel", "appraisals", "onetoone"];
+        let shortModules: Array<string> = ["L", "P", "E", "CO", "HD", "T", "A","OO"];
         if (args == "cap") {
             return capModules[value - 1];
         }

@@ -30,6 +30,8 @@ export class ReviewerComponent {
   loaderModalText: any;
   isConformationModal: boolean = false;
   formSubmit: boolean = false;
+  isPromotion: boolean = false;
+  promotionFor: string = '';
 
   constructor(private _httpService: HttpService, private routeParams: ActivatedRoute, private router: Router, private _location: Location) {
     this.appraiseeDetails = new AppraiseeDetails();
@@ -69,6 +71,8 @@ export class ReviewerComponent {
           this.appraiserParameterCollection[i].appraiserScore = data.appraiserParameters[i].score;
         }
         this.appraiserComments = data.appraiserComments;
+        this.isPromotion = data.isPromotion;
+        this.promotionFor = data.promotionFor;
         this.calculateAppraiserRating();
         this.calculateReviewerRating();
         this.loaderModal = false;
@@ -82,7 +86,7 @@ export class ReviewerComponent {
     appraisalReviewerModel.Parameters = this.appraiserParameterCollection;
     appraisalReviewerModel.AppraiseeId = this.appraiseeDetails.ID;
     appraisalReviewerModel.Comments = this.reviewerComments;
-    var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/" + this.finalAverageRating;
+    var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/" + this.averageRating + "/" + this.finalAverageRating;
     this._httpService.post(url, appraisalReviewerModel).subscribe(
       data => {
         if (data == 4) {
@@ -109,12 +113,12 @@ export class ReviewerComponent {
   }
 
   calculateReviewerRating() {
-    this.averageRating = 0;
+    var average = 0;
     this.appraiserParameterCollection.forEach(element => {
-      this.averageRating = this.averageRating + ((+(element.score) * element.weightage) / 100)
+      average = average + ((+(element.score) * element.weightage) / 100)
     });
-    this.averageRating = Math.round(this.averageRating / this.appraiserParameterCollection.length);
-    this.finalAverageRating = this.averageRating;
+    this.averageRating = Math.round(average / this.appraiserParameterCollection.length);
+    this.finalAverageRating = Math.round(average / this.appraiserParameterCollection.length);
   }
 
   calculateAppraiserRating() {

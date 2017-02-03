@@ -4384,6 +4384,15 @@ form p.rating-content:last-child{
 .progress.appraisal-progress1 .determinate.appraisee-initiate {
     width: 0%;
 }
+.progress.appraisal-progress1 .determinate.appraiser-history {
+    width: 48%;
+}
+.progress.appraisal-progress1 .determinate.reviewer-history {
+    width: 73%;
+}
+.progress.appraisal-progress1 .determinate.onetoone-history {
+    width: 100%;
+}
 .dashboard-data-container .dashboard-view-content .dashboard-view-appraisal {
     border-radius: 2px;
     background-color: rgba(232, 231, 227, 0.25);
