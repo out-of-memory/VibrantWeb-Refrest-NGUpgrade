@@ -293,14 +293,14 @@
                                         <form novalidate="novalidate" #travelRequirementsForm="ngForm">
 
                                             <div class="row margin-zero">
-                                                <div class="custom-input-field col s12">
+                                                <div class="custom-input-field input-field col s12">
                                                     <h6>Travel title</h6>
                                                     <input type="text" required="required" maxlength="50" name="travelTitle" #travelTitle="ngModel" [(ngModel)]="travelRequirementsModel.travelTitle" [ngClass]="{borderbottom: !travelTitle.valid && formSubmitted}" >
                                                     <div *ngIf="formSubmitted && !travelTitle.valid" class="alert alert-danger">Travel title is required </div>
                                                 </div>
                                             </div>
                                             <div class="row margin-zero">
-                                                <div class="custom-input-field col s12">
+                                                <div class="custom-input-field input-field col s12">
                                                     <h6>Travel Type</h6>
                                                     <select [ngClass]="{borderbottom: !travelType.valid && formSubmitted}" required="required" name="travelType" #travelType="ngModel" materialize="material_select" [materializeSelectOptions]="ddlclientReimbursment" [(ngModel)]='travelRequirementsModel.travelType'>
                                                         <option value="0" disabled class="disabled">Select</option>

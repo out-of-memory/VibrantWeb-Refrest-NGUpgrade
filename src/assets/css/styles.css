@@ -4497,3 +4497,20 @@ input.borderbottom {
   font-size: 5.5px;
   }
 }
+
+.approvals-tabs.tabs {overflow: hidden;}
+
+.comments-scrollable {
+    max-height: 330px;
+    overflow-y: scroll;
+}
+
+.comments-flight-scrollable {
+   max-height: 330px;
+   /*overflow-y: scroll;*/
+}
+
+.approvals-tabs.travel-tabs.tabs .tab a.active {
+    background: #fff;
+    border-top: 2px solid #2d81af;
+}
