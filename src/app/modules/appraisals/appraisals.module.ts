@@ -4,9 +4,11 @@ import { RouterModule } from '@angular/router';
 import { ControlsModule } from './../../infrastructure/ControlsModule';
 import { AppraisalsComponent } from './appraisals.component';
 import { AppraiseComponent } from './appraise.component';
+import { AppraiseFinalComponent } from './appraise.final.component';
 import { FormsModule } from '@angular/forms';
 import { AppraiserComponent } from './appraiser.component';
 import { ReviewerComponent } from './reviewer.component';
+import { OneToOneComponent } from './onetoone.component';
 import { AppraisalAdminComponent } from './appraisalAdmin.component';
 import { AppraisalInitiationComponent } from './appraisalinitiation.component';
 
@@ -16,8 +18,10 @@ import { AppraisalInitiationComponent } from './appraisalinitiation.component';
     FormsModule,
     RouterModule.forChild([
       { path: 'my/appraisal', component: AppraiseComponent },
+      { path: 'my/appraisalreport/:id', component: AppraiseFinalComponent },
       { path: 'my/appraiser/:id', component: AppraiserComponent },
       { path: 'my/reviewer/:id', component: ReviewerComponent },
+      { path: 'my/onetoone/:id', component: OneToOneComponent },
       {
         path: 'appraisal/admin', component: AppraisalAdminComponent,
         children: [
@@ -27,7 +31,7 @@ import { AppraisalInitiationComponent } from './appraisalinitiation.component';
     ])
   ],
   exports: [RouterModule],
-  declarations: [AppraisalsComponent, AppraiseComponent, AppraiserComponent, ReviewerComponent, AppraisalAdminComponent, AppraisalInitiationComponent]
+  declarations: [AppraisalsComponent, AppraiseComponent, AppraiserComponent, ReviewerComponent, AppraisalAdminComponent, AppraisalInitiationComponent, OneToOneComponent, AppraiseFinalComponent]
 })
 export class AppraisalsModule {
 

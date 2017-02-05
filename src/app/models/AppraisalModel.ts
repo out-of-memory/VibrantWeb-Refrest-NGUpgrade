@@ -43,6 +43,8 @@ export class AppraisalReviewerModel {
     AppraiseeId: number = 0;
     Parameters: Array<any>;
     Comments: string = '';
+    IsPromotion: boolean = false;
+    PromotionFor: string = '';
 }
 
 export class AppraiseeDetails {

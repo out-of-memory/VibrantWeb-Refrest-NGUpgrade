@@ -5,6 +5,8 @@ import { AppraisalApprovalComponent } from './appraisal.component';
 import { ControlsModule } from './../../../infrastructure/ControlsModule';
 import { AppraisalApprovalHistoryComponent } from './appraisal.approval.history';
 import { AppraisalApproveComponent } from './appraisal.approval';
+import { OneToOneApprovalComponent } from './onetoone.approval.component';
+import { OneToOneHistoryComponent } from './onetoone.history.component';
 
 @NgModule({
     imports: [
@@ -15,12 +17,14 @@ import { AppraisalApproveComponent } from './appraisal.approval';
                 path: 'approvals/appraisal', component: AppraisalApproveComponent,
                 children: [
                     { path: 'approval', component: AppraisalApprovalComponent },
-                    { path: 'history', component: AppraisalApprovalHistoryComponent }
+                    { path: 'history', component: AppraisalApprovalHistoryComponent },
+                    { path: 'onetoone', component: OneToOneApprovalComponent },
+                    { path: 'onetoonehistory', component: OneToOneHistoryComponent }
                 ]
             }
         ])
     ],
-    declarations: [AppraisalApproveComponent, AppraisalApprovalComponent, AppraisalApprovalHistoryComponent],
+    declarations: [AppraisalApproveComponent, AppraisalApprovalComponent, AppraisalApprovalHistoryComponent, OneToOneApprovalComponent, OneToOneHistoryComponent],
     exports: [RouterModule]
 })
 export class AppraisalApprovalsModule { }

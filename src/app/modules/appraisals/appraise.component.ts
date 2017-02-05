@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { HttpService } from '../../servicesFolder/http/http.service';
 import { AutoMapperService } from '../../servicesFolder/AutoMapperService';
@@ -37,6 +36,7 @@ export class AppraiseComponent {
   isLoad: boolean = false;
   appraiserComments: any;
   reviewerComments: any;
+  onetooneComment: any;
 
   constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private routeParams: ActivatedRoute, private _cacheService: CacheService) {
     this.loaderModal = true;
@@ -88,6 +88,7 @@ export class AppraiseComponent {
         });
         this.appraiserComments = data.appraiserComments;
         this.reviewerComments = data.reviewerComments;
+        this.onetooneComment = data.oneToOneComment;
         this.loaderModal = false;
       }, error => { this.loaderModal = false; });
   }

@@ -20,9 +20,12 @@ export class AppraiserComponent {
     appraiserParameterCollection: Array<AppraisalParameterModel>;
     appraiseeDetails: AppraiseeDetails;
     averageRating: number = 3;
+    finalAverageRating: number = 3;
     isApplied = false;
     isSubmitted: boolean = false;
     appraiserComments: string = '';
+    isPromotion: boolean = false;
+    promotionFor: string = '';
     loaderModal: boolean = false;
     loaderModalMsg: boolean = false;
     loaderModalText: any;
@@ -73,11 +76,12 @@ export class AppraiserComponent {
     }
 
     calculateAppraiserRating() {
-        this.averageRating = 0;
+        var average = 0;
         this.appraiserParameterCollection.forEach(element => {
-            this.averageRating = this.averageRating + ((+(element.score) * element.weightage) / 100)
+            average = average + ((+(element.score) * element.weightage) / 100)
         });
-        this.averageRating = Math.round(this.averageRating / this.appraiserParameterCollection.length);
+        this.averageRating = Math.round(average / this.appraiserParameterCollection.length);
+        this.finalAverageRating = Math.round(average / this.appraiserParameterCollection.length);
     }
 
     submitAppraiseeForm() {
@@ -86,7 +90,9 @@ export class AppraiserComponent {
         appraisalReviewerModel.Parameters = this.appraiserParameterCollection;
         appraisalReviewerModel.AppraiseeId = this.appraiseeDetails.ID;
         appraisalReviewerModel.Comments = this.appraiserComments;
-        var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/0";
+        appraisalReviewerModel.IsPromotion = this.isPromotion;
+        appraisalReviewerModel.PromotionFor = this.promotionFor;
+        var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/" + this.averageRating + "/" + this.finalAverageRating;
         this._httpService.post(url, appraisalReviewerModel).subscribe(
             data => {
                 if (data == 4) {
@@ -108,5 +114,9 @@ export class AppraiserComponent {
         else {
             this.formSubmit = true;
         }
+    }
+
+    backClicked() {
+        this._location.back();
     }
 }

@@ -91,6 +91,7 @@ export class AppraisalInitiationComponent {
                     }
                     else {
                         Materialize.toast('Somthis Wrong', 3000, 'errorTost');
+                        this.loaderModal = false
                     }
                 },
                 error => { this.loaderModal = false });
@@ -120,6 +121,7 @@ export class AppraisalInitiationComponent {
                     }
                     else {
                         Materialize.toast('Somthis Wrong', 3000, 'errorTost');
+                        this.loaderModal = false
                     }
                 },
                 error => { this.loaderModal = false });
@@ -150,6 +152,7 @@ export class AppraisalInitiationComponent {
                     }
                     else {
                         Materialize.toast('Somthis Wrong', 3000, 'errorTost');
+                        this.loaderModal = false
                     }
                 },
                 error => { this.loaderModal = false });

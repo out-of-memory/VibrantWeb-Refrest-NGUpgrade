@@ -55,12 +55,10 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col s8 m8 l8 status-progresbar" *ngIf="isLoad==true">
+                                <div class="col s8 m8 l8 status-progresbar" *ngIf="isLoad">
                                     <div class="col l10">
                                         <div class="progress appraisal-progress1">
-                                            <div class="determinate" [class.appraisee-initiate]="appraiseDetails.status == 0" [class.appraiser-history]="appraiseDetails.status == 2"
-                                                [class.reviewer-history]="appraiseDetails.status == 3" [class.onetoone-history]="appraiseDetails.status > 3">
-                                            </div>
+                                            <div class="determinate onetoone-history"></div>
                                         </div>
                                         <div class="raters-details length1">
                                             <div class="app">Appraisee<br>{{appraiseDetails.empName}}</div>
@@ -69,31 +67,54 @@
                                             <div class="app">One-To-One<br> {{appraiseDetails.appraiserName}}</div>
                                         </div>
                                     </div>
+                                    <div class="hexagon1 progress-rating">
+                                        <span class="overall-rate-hexagon1">{{finalRating}}</span>
+                                    </div>
                                 </div>
-                                <div class="col s8 m8 l8">
-                                    <form #answerForm="ngForm">
-                                        <div class="col s12 m12 l12 rating-questions" *ngFor="let questions of appraisalQuestionCollection; let i=index">
-                                            <div class="row content-rater">
-                                                <div class="col s6 m6 l6 left-bar padding-zero">
-                                                    <div class="appraisee-quest quest-1">
-                                                        <p>{{questions.question}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col s6 m6 l6 right-bar">
-                                                    <div class="timeline-panel-appraisee ans-1">
-                                                        <div class="rating-comment" *ngIf="!isSubmitted">
-                                                            <textarea id="answer" name="answer-{{i}}" class="materialize-textarea m-btm validate" rows="2" [(ngModel)]="questions.answer"
-                                                                required minlength="25" maxlength="250" ngModel></textarea>
-                                                            <span *ngIf="formSubmit">
-                                                                    <div *ngIf="answer" class="alert alert-danger">answer is required.</div>
-                                                            </span>
-                                                        </div>
-                                                        <p *ngIf="isSubmitted" class="rating-content">{{questions.answer}}</p>
-                                                    </div>
-                                                </div>
+                                <div class="col s8 m8 l8 status-rating-content" *ngIf="isLoad==true">
+                                    <div class="col s6 m6 l6 left-bar padding-zero" *ngFor="let questions of appraisalQuestionCollection; let i=index">
+                                        <div class="left-bar-content">
+                                            <div class="appraisee-quest quest-1">
+                                                <p>{{questions.question}}</p>
+                                            </div>
+                                            <div class="timeline-panel-appraiser ans-1">
+                                                <p class="rating-content">{{questions.answer}}</p>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="col s6 m6 l6 right-bar right-bar-reviewer padding-zero">
+                                        <div class="rating-panel-stat">
+                                            <div class="overall-rating overall-reviewer">
+                                                <div class="overall-rate-circle rate-circle-reviewer">
+                                                    <span class="overall-rate-appraiser">{{finalRating}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="parameter-1-1" *ngFor="let item of appraiserParameters">
+                                                <div class="param-rating param-rating-appraisee">
+                                                    <span>{{item.parameter}}</span>
+                                                    <span class="appraiser-rating-val">{{item.score}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="parameter-1">
+                                                <span class="parameter-heading p-left20">Appraiser's Comment</span>
+                                            </div>
+                                            <div class="reviwer-comment-2">
+                                                <p class="rating-content">{{appraiserComments}}</p>
+                                            </div>
+                                            <div class="parameter-1-1">
+                                                <span class="parameter-heading p-left20">Reviewer's Comment</span>
+                                            </div>
+                                            <div class="reviwer-comment-1-2">
+                                                <p class="rating-content">{{reviewerComments}}</p>
+                                            </div>
+                                            <div class="parameter-1-1 one2one">
+                                                <span class="parameter-heading p-left20">One-To-One Comment</span>
+                                            </div>
+                                            <div class="reviwer-comment-1-2 one-to-one">
+                                                <p class="rating-content">{{onetooneComment}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -101,9 +122,7 @@
                     <div class="card-footer padding-15-0 top-divider">
                         <div class="row valign-wrapper margin-zero">
                             <div class="col s12 m12 l6 right-align">
-                                <a href="#" class="waves-effect waves-light btn custom-btn cancel" *ngIf="!isSubmitted" title="Cancel">Cancel</a>
-                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="!isApplied && !isSubmitted" title="Submit" (click)='ApplyAppraiseeForm(answerForm)'>Apply</a>
-                                <a class="waves-effect waves-light btn custom-btn submit" *ngIf="isApplied && !isSubmitted" title="Submit" (click)='submitAppraiseeForm()'>Submit</a>
+                                <a class="waves-effect waves-light btn custom-btn cancel" (click)="backClicked()" title="Cancel">Back</a>
                             </div>
                         </div>
                     </div>
