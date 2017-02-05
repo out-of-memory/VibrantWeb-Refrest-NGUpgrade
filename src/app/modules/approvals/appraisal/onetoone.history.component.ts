@@ -23,6 +23,31 @@ export class OneToOneHistoryComponent {
   rowData: Array<any> = [];
 
   constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService) {
-      
+    this.GetAppraisalTickets();
+  }
+
+  GetAppraisalTickets() {
+    this.loaderModal = true;
+    this.rowData = new Array<any>();
+    this.appraisalList = new Array<AppraisalListModel>();
+    this.appraisalList.length = 0;
+    var url = HttpSettings.apiBaseUrl + "v1/appraisal/get-approval-history/8";
+    this._httpService.get(url).subscribe(
+      data => {
+        data.forEach(element => {
+          var model = new AppraisalListModel();
+          this._autoMapperService.Map(element, model);
+          model.designation = element.employeeProfile.currentDesignation;
+          model.email = element.employeeProfile.email;
+          model.address = element.employeeProfile.ol;
+          model.imagePath = "assets/images/" + element.employeeProfile.imagePath;
+          model.mobile = element.employeeProfile.mobile;
+          model.employeeId = element.employeeProfile.id;
+          model.employeeName = element.employeeProfile.firstName + " " + element.employeeProfile.lastName
+          this.appraisalList.push(model);
+        });
+        this.rowData = this.appraisalList;
+        this.loaderModal = false;
+      });
   }
 }

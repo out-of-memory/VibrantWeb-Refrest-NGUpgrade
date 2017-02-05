@@ -8,12 +8,11 @@ import { List, Map } from 'immutable';
 import { MaterializeDirective } from "angular2-materialize";
 import { HttpSettings } from "../../servicesFolder/http/http.settings"
 import { LoaderComponent } from '../../infrastructure/components/loader.component';
-import { FileUpload } from '../../infrastructure/components/file-upload';
 import { ActivatedRoute } from '@angular/router';
-import { LocationPipe } from '../../infrastructure/pipes/pipes'
 import * as Materialize from "angular2-materialize";
 import { AppraisalQuestionModel, AppraiseeFormModel } from '../../models/AppraisalModel';
 import { NgModule } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-appraise-final',
@@ -32,10 +31,10 @@ export class AppraiseFinalComponent {
     appraiserComments: any;
     reviewerComments: any;
     onetooneComment: any;
-    appraiserParameters:any;
-    finalRating:any;
+    appraiserParameters: any;
+    finalRating: any;
 
-    constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private routeParams: ActivatedRoute, private _cacheService: CacheService) {
+    constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private routeParams: ActivatedRoute, private _cacheService: CacheService, private _location: Location) {
         this.loaderModal = true;
         this.GetAppraiseeDetail();
     }
@@ -67,15 +66,19 @@ export class AppraiseFinalComponent {
                     this._autoMapperService.Map(element, model);
                     this.appraisalQuestionCollection.push(model);
                 });
-                this.appraiserParameters=data.appraiserParameters;
+                this.appraiserParameters = data.appraiserParameters;
                 this.appraiserComments = data.appraiserComments;
                 this.reviewerComments = data.reviewerComments;
                 this.onetooneComment = data.oneToOneComments;
-                this.finalRating=data.finalReviewerRating
+                this.finalRating = data.finalReviewerRating
                 this.loaderModal = false;
             },
             error => {
                 this.loaderModal = false;
             });
+    }
+
+    backClicked() {
+        this._location.back();
     }
 }

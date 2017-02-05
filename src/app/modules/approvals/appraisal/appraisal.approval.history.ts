@@ -10,7 +10,7 @@ import { AutoMapperService } from './../../../servicesFolder/AutoMapperService';
 
 @Component({
   selector: 'app-appraisal',
-  templateUrl: './appraisal.component.html',
+  templateUrl: './appraisal.approval.history.html',
   providers: [HttpService]
 })
 export class AppraisalApprovalHistoryComponent {
@@ -26,6 +26,27 @@ export class AppraisalApprovalHistoryComponent {
   }
 
   GetAppraisalTickets() {
-    
+    this.loaderModal = true;
+    this.rowData = new Array<any>();
+    this.appraisalList = new Array<AppraisalListModel>();
+    this.appraisalList.length = 0;
+    var url = HttpSettings.apiBaseUrl + "v1/appraisal/get-approval-history/7";
+    this._httpService.get(url).subscribe(
+      data => {
+        data.forEach(element => {
+          var model = new AppraisalListModel();
+          this._autoMapperService.Map(element, model);
+          model.designation = element.employeeProfile.currentDesignation;
+          model.email = element.employeeProfile.email;
+          model.address = element.employeeProfile.ol;
+          model.imagePath = "assets/images/" + element.employeeProfile.imagePath;
+          model.mobile = element.employeeProfile.mobile;
+          model.employeeId = element.employeeProfile.id;
+          model.employeeName = element.employeeProfile.firstName + " " + element.employeeProfile.lastName
+          this.appraisalList.push(model);
+        });
+        this.rowData = this.appraisalList;
+        this.loaderModal = false;
+      });
   }
 }

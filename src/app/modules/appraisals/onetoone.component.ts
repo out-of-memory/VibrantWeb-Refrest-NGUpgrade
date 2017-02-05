@@ -19,7 +19,7 @@ export class OneToOneComponent {
     appraiserParameterCollection: Array<AppraisalParameterModel>;
     reviewerParameterCollection: Array<AppraisalParameterModel>;
     averageRating: number = 3;
-    appraiseAverageRating: number = 0;
+    appraiseAverageRating: number = 3;
     finalAverageRating: number = 3;
     appraiserComments: string = '';
     reviewerComments: string = '';
@@ -61,6 +61,7 @@ export class OneToOneComponent {
         var url = HttpSettings.apiBaseUrl + "v1/appraisal/get-onetoone-parameters/" + this.appraiseeDetails.ID;
         this._httpService.get(url).subscribe(
             data => {
+                var average = 0;
                 this.reviewerParameterCollection = data.appraiserParameters;
                 this.appraiseeAnswerCollection = data.appraiseForm;
                 this.appraiserParameterCollection = data.appraiserParameters;
@@ -69,6 +70,16 @@ export class OneToOneComponent {
                 }
                 this.appraiserComments = data.appraiserComments;
                 this.reviewerComments = data.reviewerComments;
+                this.finalAverageRating = data.finalReviewerRating;
+                data.reviewerParameters.forEach(element => {
+                    average = average + ((+(element.score) * element.weightage) / 100)
+                });
+                this.averageRating = Math.round(average / data.reviewerParameters.length);
+                average=0;
+                data.appraiserParameters.forEach(element => {
+                    average = average + ((+(element.score) * element.weightage) / 100)
+                });
+                this.appraiseAverageRating = Math.round(average / data.appraiserParameters.length);
                 this.loaderModal = false;
             },
             error => { this.loaderModal = true; });
@@ -98,5 +109,9 @@ export class OneToOneComponent {
         else {
             this.formSubmit = true;
         }
+    }
+
+    backClicked() {
+        this._location.back();
     }
 }

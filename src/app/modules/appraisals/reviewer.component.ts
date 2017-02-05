@@ -129,4 +129,8 @@ export class ReviewerComponent {
     this.appraiseAverageRating = Math.round(this.appraiseAverageRating / this.appraiserParameterCollection.length);
   }
 
+  backClicked() {
+    this._location.back();
+  }
+
 }
