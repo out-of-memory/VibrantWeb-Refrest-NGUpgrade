@@ -57,10 +57,10 @@
                             <div class="col s6">
                                 <status-step [(totalStep)]='travelModel.totalStages' [(approvedTill)]='travelModel.onStage' [(lastApprovedStatus)]='travelModel.onStageStatus'
                                     [(lastApprovedComment)]="travelModel.lastcomments">
-                                </status-step>
+                                    </status-step>
                             </div>
                             <div [ngClass]="{toDisplayNone : showClosingForm}" class="right">
-                                <a href="#/travel/extension/{{travelModel.id}}"class="expense-icon modal-trigger"><img [src]="travelModel.travelExtensionImageUrl" class="view-icon" title="Travel Extension"></a>
+                                <a href="#/travel/extension/{{travelModel.id}}" class="expense-icon modal-trigger"><img [src]="travelModel.travelExtensionImageUrl" class="view-icon" title="Travel Extension"></a>
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="travelModel.employeePassport.passportFileUrl!=''"  class="saved-data">
+                                                <div *ngIf="travelModel.employeePassport.passportFileUrl!=''" class="saved-data">
                                                     <div class="row valign-wrapper">
                                                         <div class="col s7">
                                                             <div class="view-form-info">
@@ -136,7 +136,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="col s5 valign right-align">
-                                                            <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="travelModel.employeePassport.passportFileUrl" [download]="travelModel.employeePassport.passportFileUrl"></a>
+                                                            <a class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download" [href]="travelModel.employeePassport.passportFileUrl"
+                                                                [download]="travelModel.employeePassport.passportFileUrl"></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -453,7 +454,7 @@
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
-                                                                <tfoot class="top-divider">
+                                                                <!--<tfoot class="top-divider">
                                                                     <tr>
                                                                         <td class="col-width-20"></td>
                                                                         <td class="col-width-20 right-align">Total:</td>
@@ -462,7 +463,7 @@
                                                                             Wire:
                                                                             <span aria-hidden="true" class="fa fa-{{currencyId|currency}} currency-symbol"> {{wireAmount}}</span></td>
                                                                     </tr>
-                                                                </tfoot>
+                                                                </tfoot>-->
                                                             </table>
                                                         </div>
                                                     </div>
@@ -488,7 +489,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col s5 valign right-align">
-                                                                        <a [href]="item.url" target="_blank" [download]="item.url"><i class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download"></i></a>
+                                                                        <a [href]="item.url" target="_blank" [download]="item.url">
+                                                                            <i class="fa fa-cloud-download icon-btn download" aria-hidden="true" title="Download"></i>
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -509,8 +512,9 @@
                                                         <div class="row margin-zero">
                                                             <div class="custom-input-field input-field col s12">
                                                                 <h6>Enter Closing Comments</h6>
-                                                                <input [ngClass]="{borderbottom: !comments.valid && commentSubmit}" required="required" name="comments" type="text" [(ngModel)]="commentModel.closingComments" #comments="ngModel">
-                                                                <div *ngIf="commentSubmit && !comments.valid" class="alert alert-danger">Closing comments is required</div>
+                                                                <input [ngClass]="{borderbottom: !comments.valid && commentSubmit}" required="required" name="comments" type="text" [(ngModel)]="commentModel.closingComments"
+                                                                    #comments="ngModel">
+                                                                    <div *ngIf="commentSubmit && !comments.valid" class="alert alert-danger">Closing comments is required</div>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -532,59 +536,3 @@
 </div>
 <loader-component [(loading)]='loaderModal' [(showMsg)]='loaderModalMsg' [callBackMsg]='loaderModalText' [cardLoading]="'isPage'"
     [isConformationModal]="isConformationModal"></loader-component>
-
-<!--<div *ngIf="isTravelExtension" id="travel-ext-modal" class="modal modal-custom open" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
-    <div class="modal-header">
-        <h4>Travel Extension</h4>
-        <a class="right modal-close"><i class="material-icons small" (click)="CloseTravelExtension()">close</i></a>
-    </div>
-    <div class="modal-content">
-        <form class="modal-form">
-            <div class="row margin-zero valign-wrapper">
-                <div class="col s5 padding-zero">
-                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{extensionItem.travelFrom}}</h5>
-                    <div class="input-field view-form-info">
-                        <h5>{{extensionItem.departure}}</h5>
-                        <h6>Departure</h6>
-                    </div>
-                </div>
-                <div class="col s2 padding-zero">
-                    <div>
-                        <div class="padding-0-30"><img src="assets/images/arrow-inout.svg" title="Travel-trip"></div>
-                    </div>
-                </div>
-                <div class="col s5 padding-zero">
-                    <h5 class="trip-heading"><img src="assets/images/trip-extension.svg" class="view-icon" title="Travel Extension">{{extensionItem.travelTo}}</h5>
-                    <div class="input-field">
-                        <label for="time" class="active">Arrival</label>
-                        <ui-input [(ngModel)]="extensionItem.arrival" [meta]='extensionItemHub[0]' [readonly]='false' [controlCss]='' [errors]='true'
-                            [attrs]='[{ "name": "", "value": "today:mm/dd/yyyy" }]' [showSpan]='false'>
-                        </ui-input>
-                    </div>
-                </div>
-            </div>
-            <div class="row margin-zero">
-                <div class="input-field col s12 padding-zero">
-                    <input [(ngModel)]="extensionItem.comments" id="comments" type="text" class="validate">
-                    <label for="comments" class="active">Comments</label>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a class="modal-action modal-close btn" (click)="SubmitTravelExtension($event)">Submit</a>
-    </div>
-</div>-->
-<!--<div *ngIf="isCloseTravel" (click)="CloseTravelExtension()" class="lean-overlay" id="materialize-lean-overlay-2"
-    style="z-index: 1002; display: block; opacity: 0.5;"></div>
-
-<div *ngIf='isCloseTravel' class="modal modal-custom modal-confirm-full" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
-    <div class="modal-content">
-        <h5 class="margin-zero">Please Confirm</h5>
-        <p>Are you sure, you want close your travel request ?</p>
-    </div>
-    <div class="modal-footer">
-        <a class=" modal-action modal-close waves-effect waves-green btn cancel" (click)="CloseTravelExtension()">Cancel</a>
-        <a class=" modal-action modal-close waves-effect waves-green btn submit" (click)="CloseTravelRequest()">OK</a>
-    </div>
-</div>-->
