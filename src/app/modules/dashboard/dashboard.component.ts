@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
     isUs: boolean = false;
     appraisalAssignedTo: boolean = false;
     isAdminUser: boolean = false;
+    isHRAdminUser: boolean = false;
     appraisalDetail: any;
 
     constructor(private _cacheService: CacheService, private _autoMapperService: AutoMapperService, private _activatedRoute: Router, private _httpService: HttpService, private dashboardService: DashboardService) {
@@ -70,6 +71,11 @@ export class DashboardComponent implements OnInit {
         var data = this._cacheService.getParams("profile");
         if (data["ol"] == 2) {
             this.isUs = true;
+        }
+        for (var i = 0; i < data.role.length; i++) {
+            if (data.role[i].roleId == 24) {
+                this.isHRAdminUser = true;
+            }
         }
         this.showAdministration(data.role);
         this.InitializeCards(data);

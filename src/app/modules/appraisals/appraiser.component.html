@@ -29,11 +29,11 @@
                                             <a href="employee-details.html"><img src="assets/images/{{appraiseeDetails.ID}}.jpg" alt="" class="circle responsive-img"></a>
                                         </div>
                                     </div>
-                                    <div class="col s8 m8 l5 status-progresbar1 padding-zero m-top20 ">
-                                        <div class="progress appraisal-progress">
+                                    <div class="col s8 m8 l4 status-progresbar1 padding-zero m-top20 ">
+                                        <div class="progress appraisal-progress1">
                                             <div class="determinate"></div>
                                         </div>
-                                        <div class="raters-details length">
+                                        <div class="raters-details length1">
                                             <div class="app">Appraisee <br> {{appraiseeDetails.appraiseeName}} </div>
                                             <div class="app">Appraiser<br> {{appraiseeDetails.appraiserName}} </div>
                                             <div class="app">Reviewer<br> {{appraiseeDetails.reviewerName}} </div>
@@ -100,9 +100,9 @@
                                                 </div>
                                                 <div class="col s12 m11 right-bar padding-zero">
                                                     <div class="timeline-panel-appraisee comment-box">
-                                                        <div class="rating-comment">
+                                                        <div class="rating-comment ui-input">
                                                              <textarea class="materialize-textarea m-btm" style="height: 44px;" [(ngModel)]="appraiserComments" name="comments" id="comments" #comments="ngModel" required></textarea>
-                                                            <div *ngIf="comments.errors && formSubmit==true" class="red">
+                                                            <div *ngIf="comments.errors && formSubmit==true" class="errorMessage">
                                                                 <div [hidden]="!comments.errors.required">
                                                                     Comment is required
                                                                 </div>
@@ -113,6 +113,7 @@
                                                 <div class="col s12 m-top20">
                                                     <div class="col s12">
                                                         <p class="margin-zero promotion-check">
+                                                            <span class="promo-circle"><i class="fa fa-briefcase promotion-icon"></i></span>
                                                             <input type="checkbox" class="filled-in" id="promotion" [(ngModel)]="isPromotion">
                                                             <label for="promotion">Promotion Recomended:</label>
                                                         </p>

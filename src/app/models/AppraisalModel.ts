@@ -37,6 +37,7 @@ export class AppraisalListModel {
     assignedTo: string = '';
     appraiserScore: number = 0;
     reviewerScore: number = 0;
+    finalReviewerRating: number = 0;
 }
 
 export class AppraisalReviewerModel {

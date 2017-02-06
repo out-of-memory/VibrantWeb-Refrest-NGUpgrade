@@ -33,6 +33,8 @@ export class AppraiseFinalComponent {
     onetooneComment: any;
     appraiserParameters: any;
     finalRating: any;
+    isPromotion: boolean = false;
+    promotionFor: string = '';
 
     constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private routeParams: ActivatedRoute, private _cacheService: CacheService, private _location: Location) {
         this.loaderModal = true;
@@ -70,7 +72,9 @@ export class AppraiseFinalComponent {
                 this.appraiserComments = data.appraiserComments;
                 this.reviewerComments = data.reviewerComments;
                 this.onetooneComment = data.oneToOneComments;
-                this.finalRating = data.finalReviewerRating
+                this.finalRating = data.finalReviewerRating;
+                this.isPromotion = data.isPromotion;
+                this.promotionFor = data.promotionFor;
                 this.loaderModal = false;
             },
             error => {

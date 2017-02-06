@@ -89,7 +89,7 @@ export class ReviewerComponent {
     var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/" + this.averageRating + "/" + this.finalAverageRating;
     this._httpService.post(url, appraisalReviewerModel).subscribe(
       data => {
-        if (data == 4) {
+        if (data != 0) {
           Materialize.toast('Your appraisal form has been successfully submitted', 5000, 'green');
           this._location.back();
         }
