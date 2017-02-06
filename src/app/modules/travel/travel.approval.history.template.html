@@ -77,7 +77,7 @@
                                                 <div class="col s6">
                                                     <div>
                                                         <a class="expense-icon" routerLink="/approvalhistory/travel/view/{{item.id}}"><img src="assets/images/view-icon.svg" class="view-icon" title="View Request"></a>
-                                                        <!--<a class="expense-icon modal-trigger right"><img [src]="item.travelExtensionImageUrl" class="view-icon" title="Travel Extension"></a>-->
+                                                        <a class="expense-icon modal-trigger right"><img [src]="item.travelExtensionImageUrl" class="view-icon" title="Travel Extension"></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,7 +86,7 @@
                                 </div>
                             </template>
                         </basic-cell>
-                    </basic-grid>
+                        </basic-grid>
                 </div>
             </div>
             <div *ngIf="travelsModel.length == 0">

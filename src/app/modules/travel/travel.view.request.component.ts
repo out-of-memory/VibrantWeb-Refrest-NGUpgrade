@@ -354,7 +354,7 @@ export class TravelViewRequestComponent implements OnInit {
 
                 Materialize.toast('Money Reloaded Successfully', 3000, 'successTost');
                 data.forEach(element => {
-                    this.travelModel.moneyTransactions.push(element);
+                    this.travelModel.moneyTransactions.push(this.ValidateMoneyTransactions(element));
                 });
 
                 this.moneyTransactionsModel = new TravelMoneyTransactions();
