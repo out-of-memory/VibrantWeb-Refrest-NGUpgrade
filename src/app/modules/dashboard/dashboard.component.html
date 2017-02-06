@@ -260,8 +260,7 @@
                         </div>
                     </div>
                     <div class="data-footer">
-                        <a class="btn-flat">Process</a>
-                        <a href="#/appraisal/admin/empList" class="btn-flat">Initiation</a>
+                        <a href="#/appraisal/admin/empList" *ngIf="isHRAdminUser" class="btn-flat">Initiation</a>
                     </div>
                 </div>
                 <div class="card white card-bg" *ngIf="appraisalAssignedTo">
@@ -271,7 +270,7 @@
                         </div>
                     </div>
                     <div class="row dashboard-view-content">
-                        <div class="col s6 dashboard-view-appraisal center-align">
+                        <div class="col s6 dashboard-view-appraisal center-align" *ngIf="appraisalDetail.reviewerName!=appraisalDetail.appraiserName">
                             <div class="emp-img">
                                 <a><img src="/images/{{appraisalDetail.appraiserId}}.jpg" alt="" class="circle responsive-img appraise">
                                     <h6 class="appraiser-name margin-zero">{{appraisalDetail.appraiserName}}</h6>
@@ -279,11 +278,18 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col s6 dashboard-view-appraisal center-align">
+                        <div class="col s6 dashboard-view-appraisal center-align" *ngIf="appraisalDetail.reviewerName!=appraisalDetail.appraiserName">
                             <div class="emp-img">
                                 <a><img src="/images/{{appraisalDetail.reviewerId}}.jpg" alt="" class="circle responsive-img appraise"></a>
                                 <h6 class="appraiser-name margin-zero">{{appraisalDetail.reviewerName}}</h6>
                                 <h6 class="margin-zero">Reviewer</h6>
+                            </div>
+                        </div>
+                        <div class="col s12 dashboard-view-appraisal center-align" *ngIf="appraisalDetail.reviewerName==appraisalDetail.appraiserName">
+                            <div class="emp-img">
+                                <a><img src="/images/{{appraisalDetail.reviewerId}}.jpg" alt="" class="circle responsive-img appraise"></a>
+                                <h6 class="appraiser-name margin-zero">{{appraisalDetail.reviewerName}}</h6>
+                                <h6 class="margin-zero">Appraiser and Reviewer</h6>
                             </div>
                         </div>
                         <div class="dashboard-view-appraisal">
@@ -293,7 +299,7 @@
                     <div class="data-footer">
                         <a href="#/my/appraisal" *ngIf="appraisalDetail.status!=4" class="btn-flat">Process</a>
                         <a href="#/my/appraisalreport/{{results.id}}" *ngIf="appraisalDetail.status==4" class="btn-flat">Process</a>
-                        <a href="#/appraisal/admin/empList" class="btn-flat">Initiation</a>
+                        <a href="#/appraisal/admin/empList" *ngIf="isHRAdminUser" class="btn-flat">Initiation</a>
                     </div>
                 </div>            
                 <div class="card white card-bg separation-bg">

@@ -83,7 +83,7 @@
                                             <div class="col s12 m-top20" *ngIf="isPromotion==true">
                                                 <div class="col s12 promotion-view">
                                                     <p>
-                                                        <i class="fa fa-briefcase promotion-icon"></i> Promotion Recomended: <span>{{promotionFor}}</span>
+                                                        <span class="promo-circle"><i class="fa fa-briefcase promotion-icon"></i></span> Promotion Recomended: <span>{{promotionFor}}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -122,9 +122,9 @@
                                                 </div>
                                                 <div class="col s12 m11 right-bar padding-zero">
                                                     <div class="reviwer-comment-1">
-                                                        <div class="rating-comment">
+                                                        <div class="rating-comment ui-input">
                                                             <textarea class="materialize-textarea m-btm" style="height: 44px;" [(ngModel)]="reviewerComments" name="comments" id="comments" #comments="ngModel" required></textarea>
-                                                            <div *ngIf="comments.errors && formSubmit==true" class="red">
+                                                            <div *ngIf="comments.errors && formSubmit==true" class="errorMessage">
                                                                 <div [hidden]="!comments.errors.required">
                                                                     Comment is required
                                                                 </div>

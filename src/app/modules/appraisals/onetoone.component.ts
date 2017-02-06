@@ -29,6 +29,8 @@ export class OneToOneComponent {
     loaderModalText: any;
     isConformationModal: boolean = false;
     formSubmit: boolean = false;
+    isPromotion: boolean = false;
+    promotionFor: string = '';
 
     constructor(private _httpService: HttpService, private routeParams: ActivatedRoute, private router: Router, private _location: Location) {
         this.appraiseeDetails = new AppraiseeDetails();
@@ -75,11 +77,13 @@ export class OneToOneComponent {
                     average = average + ((+(element.score) * element.weightage) / 100)
                 });
                 this.averageRating = Math.round(average / data.reviewerParameters.length);
-                average=0;
+                average = 0;
                 data.appraiserParameters.forEach(element => {
                     average = average + ((+(element.score) * element.weightage) / 100)
                 });
                 this.appraiseAverageRating = Math.round(average / data.appraiserParameters.length);
+                this.isPromotion = data.isPromotion;
+                this.promotionFor = data.promotionFor;
                 this.loaderModal = false;
             },
             error => { this.loaderModal = true; });
@@ -95,7 +99,7 @@ export class OneToOneComponent {
             var url = HttpSettings.apiBaseUrl + "v1/appraisal/save-appraiser-form/" + this.averageRating + "/" + this.finalAverageRating;
             this._httpService.post(url, appraisalReviewerModel).subscribe(
                 data => {
-                    if (data == 4) {
+                    if (data != 0) {
                         Materialize.toast('Your appraisal form has been successfully submitted', 5000, 'green');
                         this._location.back();
                     }

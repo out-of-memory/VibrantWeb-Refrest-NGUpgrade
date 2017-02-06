@@ -4077,6 +4077,7 @@ form p.rating-content:last-child{
 .rating-content{
   overflow-y: auto; 
   margin: 20px 15px;
+  word-wrap: break-word;
   }
 .rating-content::-webkit-scrollbar {
         width: 6px; }
@@ -4523,3 +4524,88 @@ input.borderbottom {
     background: #fff;
     border-top: 2px solid #2d81af;
 }
+.freez.modal-footer a{
+  margin: 0!important;
+}
+
+.promotion-check{
+  display: inline-block;
+}
+.promotion-check input{
+  margin-bottom: 0px;
+  width: 150%;
+  margin-left: 10px;
+}
+.promotion-check label{
+  color: #494342;
+}
+.promotion-view {
+  font-size: 16px;
+}
+.promotion-view span{
+  font-family: 'Lato-Bold';
+}
+.promote-icon.employee-search-img{
+  position: relative;
+}
+.promotion-icon {
+            background-color: #fff;
+            border-radius: 50%;
+            color: #8da408;
+            font-size: 20px;
+        }
+.promo-circle{
+  border: 2px solid #8da408;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 6px 5px 4px 5px;
+}
+/*Appraisal - Initiation - Report*/
+@media only screen and (min-width: 600px) {
+            .appraisal-charts-container {
+                margin-top: 20px;
+                margin-bottom: 0;
+
+            }
+            .appraisal-view-data {
+                max-height: 760px;
+                overflow-y: auto;
+            }
+            .appraisal-view-data::-webkit-scrollbar {
+                width: 6px; 
+            }
+            .appraisal-view-data::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); 
+            }
+            .appraisal-view-data::-webkit-scrollbar-thumb {
+                background: rgba(153, 153, 153, 0.6);
+                outline: 1px solid #ccc;
+                border-radius: 5px; 
+            }
+        }
+        .person-name {
+            margin-left: 10px;
+        }
+        .appraisal-view-data .employee-search-img {
+            position: relative;
+        }
+        .promo-icon {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 24px;
+            height: 24px;
+            background-color: #fff;
+            border-radius: 50%;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            color: #8da408;
+            font-size: 14px;
+            padding: 5px;
+            border:2px solid;
+        }
+        .promo-icon.fa-empire {
+            font-size: 16px;
+        }

@@ -63,10 +63,10 @@
                                                         </div>
                                                     </div>
                                                     <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Appraiser</span>
-                                                        <span>{{item.reviewer}}</span>
+                                                        <span>{{item.appraiser}}</span>
                                                     </div>
                                                     <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Reviewer</span>
-                                                        <span>{{item.appraiser}}</span>
+                                                        <span>{{item.reviewer}}</span>
                                                     </div>
                                                     <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Grade</span>
                                                         <span>{{item.grade}}</span>
@@ -80,19 +80,19 @@
                                                         <span *ngIf="item.status == 5">Closed</span>
                                                     </div>
                                                     <div class="col s12 m6 l1 center-align"><span class="expense-label hide-on-large-only">Appraiser Rating</span>
-                                                        <span>
+                                                        <span *ngIf="item.appraiserScore">
                                                             <span class="expense-label hide-on-large-only">Rating</span>
                                                             <img src="images/rate-star-{{item.appraiserScore}}.png" alt="" class="rating-star-circle responsive-img">                                                            
                                                         </span>
                                                     </div>
                                                     <div class="col s12 m6 l1 center-align"><span class="expense-label hide-on-large-only">Reviewer Rating</span>
-                                                        <span>
+                                                        <span *ngIf="item.reviewerScore">
                                                             <span class="expense-label hide-on-large-only">Rating</span>
                                                             <img src="images/rate-star-{{item.reviewerScore}}.png" alt="" class="rating-star-circle responsive-img">                                                               
                                                         </span>
                                                     </div>
                                                     <div class="col s12 m6 l1 center-align"><span class="expense-label hide-on-large-only">Normalised Rating</span>
-                                                        <span>
+                                                        <span *ngIf="item.finalReviewerRating">
                                                             <span class="expense-label hide-on-large-only">Rating</span>
                                                             <img src="images/rate-star-{{item.finalReviewerRating}}.png" alt="" class="rating-star-circle responsive-img">                                                               
                                                         </span>

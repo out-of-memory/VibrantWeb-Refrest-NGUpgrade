@@ -171,7 +171,7 @@
                                     <div class="col s12 m12 l6 right-align">
                                         <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
                                         <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Freeze List" *ngIf="selectedList!='freeze'" (click)="confirmFreezed=true">Freeze</a>
-                                        <a id="freezed" title="Unfreeze List" *ngIf="selectedList=='freeze'" (click)="confirmUnfreezed=true">Unfreeze</a>
+                                        <a class="waves-effect waves-light btn custom-btn save-as-draft" id="freezed" title="Unfreeze List" *ngIf="selectedList=='freeze'" (click)="confirmUnfreezed=true">Unfreeze</a>
                                         <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Initiate Appraisal" *ngIf="selectedList!='freeze' && selectedList!='initiated'"
                                             (click)="initiatEmp(filterEmpList)">Initiate Appraisal</a>
                                     </div>
@@ -188,24 +188,24 @@
 <div class="confirm-modal">
     <ui-custom-model [(edited)]='confirmFreezed' [modalHeader]="'Confirm Freezed'" (onClose)='ConfirmClose($event)'>
         <div class="row margin-zero">
-            <div class="col s6 m4">
+            <div class="col s12">
                 <div class="modal-view-data">
                     <input type="text" [(ngModel)]="freezedComment" />
                 </div>
-                <div class="modal-footer">
-                    <a (click)="FreezedEmp(filterEmpList)" [class.disabled]="freezedComment == ''" class="modal-action modal-close waves-effect waves-green btn submit">OK</a>
+                <div class="modal-footer padding-zero freez">
+                    <a (click)="FreezedEmp(filterEmpList)" [class.disabled]="freezedComment == ''" class="modal-action modal-close waves-effect right waves-green btn submit">OK</a>
                 </div>
             </div>
         </div>
     </ui-custom-model>
     <ui-custom-model [(edited)]='confirmUnfreezed' [modalHeader]="'Confirm Unfreezed'" (onClose)='ConfirmClose($event)'>
         <div class="row margin-zero">
-            <div class="col s6 m4">
+            <div class="col s12">
                 <div class="modal-view-data">
                     <input type="text" [(ngModel)]="unfreezedComment" />
                 </div>
-                <div class="modal-footer">
-                    <a (click)="UnFreezedEmp(filterEmpList)" [class.disabled]="unfreezedComment == ''" class="modal-action modal-close waves-effect waves-green btn submit">OK</a>
+                <div class="modal-footer padding-zero freez">
+                    <a (click)="UnFreezedEmp(filterEmpList)" [class.disabled]="unfreezedComment == ''" class="modal-action modal-close waves-effect right waves-green btn submit">OK</a>
                 </div>
             </div>
         </div>

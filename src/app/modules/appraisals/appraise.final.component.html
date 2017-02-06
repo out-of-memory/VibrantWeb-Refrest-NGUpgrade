@@ -72,8 +72,8 @@
                                     </div>
                                 </div>
                                 <div class="col s8 m8 l8 status-rating-content" *ngIf="isLoad==true">
-                                    <div class="col s6 m6 l6 left-bar padding-zero" *ngFor="let questions of appraisalQuestionCollection; let i=index">
-                                        <div class="left-bar-content">
+                                    <div class="col s6 m6 l6 left-bar padding-zero">
+                                        <div class="left-bar-content" *ngFor="let questions of appraisalQuestionCollection; let i=index">
                                             <div class="appraisee-quest quest-1">
                                                 <p>{{questions.question}}</p>
                                             </div>
@@ -90,8 +90,8 @@
                                                 </div>
                                             </div>
                                             <div class="parameter-1-1" *ngFor="let item of appraiserParameters">
+                                                <span class="parameter-heading">{{item.parameter}}</span>
                                                 <div class="param-rating param-rating-appraisee">
-                                                    <span>{{item.parameter}}</span>
                                                     <span class="appraiser-rating-val">{{item.score}}</span>
                                                 </div>
                                             </div>
@@ -112,6 +112,13 @@
                                             </div>
                                             <div class="reviwer-comment-1-2 one-to-one">
                                                 <p class="rating-content">{{onetooneComment}}</p>
+                                            </div>
+                                            <div class="col s12 m-top20" *ngIf="isPromotion==true">
+                                                <div class="col s12 promotion-view">
+                                                    <p>
+                                                        <span class="promo-circle"><i class="fa fa-briefcase promotion-icon"></i></span> Promotion Recomended: <span>{{promotionFor}}</span>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
