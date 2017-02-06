@@ -65,9 +65,9 @@ export class AlphabetPipe implements PipeTransform {
 })
 export class ModulePipe implements PipeTransform {
     transform(value: number, args: any): any {
-        let capModules: Array<string> = ["Leave", "Profile", "Expense", "Compensatory Off", "HelpDesk", "Travel", "Appraisals","One-To-One"];
+        let capModules: Array<string> = ["Leave", "Profile", "Expense", "Compensatory Off", "HelpDesk", "Travel", "Appraisals", "One-To-One"];
         let smallModules: Array<string> = ["leave", "profile", "expense", "compoff", "helpdesk", "travel", "appraisals", "onetoone"];
-        let shortModules: Array<string> = ["L", "P", "E", "CO", "HD", "T", "A","OO"];
+        let shortModules: Array<string> = ["L", "P", "E", "CO", "HD", "T", "A", "OO"];
         if (args == "cap") {
             return capModules[value - 1];
         }
@@ -179,8 +179,13 @@ export class CapitalizePipe implements PipeTransform {
 @Pipe({ name: 'filename' })
 export class FileNamePipe implements PipeTransform {
     transform(value: any, args: any): any {
-        let stringArray = value.split('/');
-        return stringArray[stringArray.length - 1];
+        if (value != null) {
+            let stringArray = value.split('/');
+            return stringArray[stringArray.length - 1];
+        }
+        else {
+            return value;
+        }
     }
 }
 
