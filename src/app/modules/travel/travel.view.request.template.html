@@ -978,7 +978,7 @@
                                                                     <div class="custom-input-field input-field col s12 m6 l4">
                                                                         <h6>Email ID</h6>
                                                                         <input type="text" required="required" name="emailId" [(ngModel)]="hotelBookingModel.emailId" #emailId="ngModel" [ngClass]="{borderbottom: !emailId.valid && formHotelBookingSubmitted}"
-                                                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                                                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
                                                                             <div *ngIf="formHotelBookingSubmitted && !emailId.valid" class="alert alert-danger">Email-Id is required </div>
                                                                     </div>
                                                                 </div>
