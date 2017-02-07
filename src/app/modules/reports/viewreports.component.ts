@@ -84,7 +84,6 @@ export class ViewReportsComponent {
         this.InitializeModels();
         this.FillEmpStatusData();
         this.InitializeDropdownsForModels();
-
     }
     InitializeModels() {
         this.attendanceModel = new AttendanceReportModel();
@@ -107,6 +106,7 @@ export class ViewReportsComponent {
         this.dropdowncard.push(this.leaveSummary);
         this.dropdowncard.push(this.leaveDetails);
         this.dropdowncard.push(this.leavetrans);
+        this.dropdowncard.push(this.helpdesk);
         if (!this.isHR) {
             this.attendanceModel.Employeecode = this.data.id;
              this.sisoModel.Employeecode = this.data.id;
@@ -122,9 +122,8 @@ export class ViewReportsComponent {
             this.leaveSummary.UserID = 'All';
             this.leaveDetails.UserID = 'All';
             this.leavetrans.UserID = 'All';
+            this.helpdesk.loggeduser=this.data.id;
         }
-        this.FillHelpDeskData(this.helpdesk);
-
     }
     InitializeDropdownsForModels() {
         let dropdowns = this._cacheService.getParams("dropdowns");
@@ -166,34 +165,16 @@ export class ViewReportsComponent {
                 if ((hub["options"]) === 'empStatus') {
                     hub["options"] = this.empStatusData;
                 }
+                if ((hub["options"]) === 'category') {
+                     hub["options"] = this._cacheService.getParams("helpdeskCategories");
+                 }
             })
         }
     }
-
-    FillHelpDeskData(model) {
-        this.getDropDownValue(data => {
-            this.hlpdskCategories = data;
-            (model.hub as Array<any>).forEach(hub => {
-                if ((hub["name"]) === 'category') {
-                    hub["options"] = this.hlpdskCategories;
-                }
-            })
-        });
-    }
-    getDropDownValue(callback) {
-        var url = HttpSettings.apiBaseUrl + "v1/HelpDesk/get-dropdown"
-        this._httpService.get(url)
-            .subscribe
-            (
-            data => {
-                callback(data.categories)
-            });
-    }
-
     DisableUserIDEdit(model: any) {
         for (var i = 0; i < model.length; i++) {
             (model[i].hub as Array<any>).forEach(hub => {
-                if (hub["name"] == "Employeecode" || hub["name"] == "UserID") {
+                if (hub["name"] == "Employeecode" || hub["name"] == "UserID" || hub["name"] == "loggeduser") {
                     hub["css"] = hub["css"] + " attendance-emp-code-hide";
                 }
             })

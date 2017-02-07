@@ -563,14 +563,14 @@
                             </div>
                             <div class="col s12 m2 l2 padding-zero">
                                 <div class="view-form-info">
-                                    <h5 *ngIf="helpdesk.reportstartdate">{{helpdesk.reportstartdate}}</h5>
-                                    <h6 *ngIf="helpdesk.reportstartdate">Report Start Date</h6>
+                                    <h5 *ngIf="helpdesk.loggeduser">{{helpdesk.loggeduser}}</h5>
+                                    <h6 *ngIf="helpdesk.loggeduser">LoggedIn User</h6>
                                 </div>
                             </div>
                             <div class="col s12 m2 l2 padding-zero">
                                 <div class="view-form-info">
-                                    <h5 *ngIf="helpdesk.reportenddate">{{helpdesk.reportenddate}}</h5>
-                                    <h6 *ngIf="helpdesk.reportenddate">Report End Date</h6>
+                                    <h5 *ngIf="helpdesk.assigneduser">{{helpdesk.assigneduser}}</h5>
+                                    <h6 *ngIf="helpdesk.assigneduser">AssignedTo</h6>
                                 </div>
                             </div>
                             <div class="col s12 l2 padding-zero">

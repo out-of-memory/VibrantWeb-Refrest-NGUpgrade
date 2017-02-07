@@ -147,7 +147,7 @@ export class HelpdeskReportModel implements IUIMetadata {
         this.hub = new Array<any>();
     }
     @UIProperty({
-        hub: "HelpdeskReportModel", type: "selectMaterialize", options: "department", label: "Category", placeholder: "", validation: "  ",
+        hub: "HelpdeskReportModel", type: "selectMaterialize", options: "category", label: "Category", placeholder: "", validation: "  ",
         multiple: false, css: "col s12 m6 l2"
     })
     category: string = '';
@@ -158,11 +158,11 @@ export class HelpdeskReportModel implements IUIMetadata {
     @UIProperty({ hub: "HelpdeskReportModel", type: "date", label: "Issue End Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
     issueenddate: any = '';
 
-    @UIProperty({ hub: "HelpdeskReportModel", type: "date", label: "Report Start Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
-    reportstartdate: any = '';
+    @UIProperty({ hub: "HelpdeskReportModel", type: "text", label: "LoggedIn User", placeholder: "", validation: "required", css: "col s12 m6 l2" })
+    loggeduser: any = '';
 
-    @UIProperty({ hub: "HelpdeskReportModel", type: "date", label: "Report End Date", placeholder: "", validation: "required", css: "col s12 m6 l2" })
-    reportenddate: any = '';
+    @UIProperty({ hub: "HelpdeskReportModel", type: "text", label: "Assigned To", placeholder: "", validation: "required", css: "col s12 m6 l2" })
+    assigneduser: any = '';
 }
 export class HelpDeskStatus {
     Open: number = 0;
