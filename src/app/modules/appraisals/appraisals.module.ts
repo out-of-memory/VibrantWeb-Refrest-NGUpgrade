@@ -11,6 +11,7 @@ import { ReviewerComponent } from './reviewer.component';
 import { OneToOneComponent } from './onetoone.component';
 import { AppraisalAdminComponent } from './appraisalAdmin.component';
 import { AppraisalInitiationComponent } from './appraisalinitiation.component';
+import { AppraisalReportComponent } from './appraisal.report.component';
 
 @NgModule({
   imports: [CommonModule,
@@ -22,6 +23,7 @@ import { AppraisalInitiationComponent } from './appraisalinitiation.component';
       { path: 'my/appraiser/:id', component: AppraiserComponent },
       { path: 'my/reviewer/:id', component: ReviewerComponent },
       { path: 'my/onetoone/:id', component: OneToOneComponent },
+      { path: 'my/appraisalReport', component: AppraisalReportComponent },
       {
         path: 'appraisal/admin', component: AppraisalAdminComponent,
         children: [
@@ -31,7 +33,7 @@ import { AppraisalInitiationComponent } from './appraisalinitiation.component';
     ])
   ],
   exports: [RouterModule],
-  declarations: [AppraisalsComponent, AppraiseComponent, AppraiserComponent, ReviewerComponent, AppraisalAdminComponent, AppraisalInitiationComponent, OneToOneComponent, AppraiseFinalComponent]
+  declarations: [AppraisalsComponent, AppraiseComponent, AppraiserComponent, ReviewerComponent, AppraisalAdminComponent, AppraisalInitiationComponent, OneToOneComponent, AppraiseFinalComponent,AppraisalReportComponent]
 })
 export class AppraisalsModule {
 
