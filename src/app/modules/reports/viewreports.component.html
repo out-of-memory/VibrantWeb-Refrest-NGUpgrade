@@ -16,11 +16,19 @@
             <h5>Leave Detail Report
                 <!--<a target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>--></h5>
         </div>
-         <div class="col s12" *ngIf="selectedReport=='siso'">
+        <div class="col s12" *ngIf="selectedReport=='siso'">
             <h5>Sign In Sign Out Summary Report
                 <!--<a target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>--></h5>
         </div>
-         <div class="col s12" *ngIf="selectedReport=='Helpdesk' || selectedReport=='Expense' || selectedReport=='Attendance'">
+        <div class="col s12" *ngIf="selectedReport=='managerleave'">
+            <h5>Manager Leave Schedule Report
+                <!--<a target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>--></h5>
+        </div>
+        <div class="col s12" *ngIf="selectedReport=='empleavebal'">
+            <h5>Employee Leave Balance Report
+                <!--<a target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>--></h5>
+        </div>
+        <div class="col s12" *ngIf="selectedReport=='Helpdesk' || selectedReport=='Expense' || selectedReport=='Attendance'">
             <h5>{{selectedReport}} Report
                 <!--<a target="_blank" title="Help" class="help-btn"><i class="right fa fa-question-circle" aria-hidden="true"></i></a>--></h5>
         </div>
@@ -29,12 +37,12 @@
 
 
 <div class="row  m-bottom0 report-container">
-    <div class="row back-btn-reports" *ngIf="selectedReport=='LeaveSummary' || selectedReport=='LeaveDetail' || selectedReport=='LeaveTransaction' ">
+    <div class="row back-btn-reports" *ngIf="selectedReport=='LeaveSummary' || selectedReport=='LeaveDetail' || selectedReport=='LeaveTransaction' || selectedReport=='managerleave' || selectedReport=='empleavebal' ">
         <div class="col s12 padding-zero">
             <a (click)="BackToLeaveReport($event)" class="waves-effect waves-light btn back-btn"><i class="fa fa-angle-left left" title="Back to Leave Report" aria-hidden="true"></i>Back</a>
         </div>
     </div>
-     <div class="row back-btn-reports" *ngIf="selectedReport=='Attendance' || selectedReport=='siso'">
+    <div class="row back-btn-reports" *ngIf="selectedReport=='Attendance' || selectedReport=='siso'">
         <div class="col s12 padding-zero">
             <a (click)="BackToAttendanceReport($event)" class="waves-effect waves-light btn back-btn"><i class="fa fa-angle-left left" title="Back to Leave Report" aria-hidden="true"></i>Back</a>
         </div>
@@ -70,7 +78,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--<div class="col s12 m6 l3">
+                                <div class="col s12 m6 l3">
                                     <div class="card padding-zero margin-zero">
                                         <div class="row heading-content">
                                             <div class="col s12 card-heading m-top20">
@@ -88,7 +96,7 @@
                                             <a (click)="SetLeaveReport($event,'LeaveSummary')" class="btn-flat">Leave Ledger Summary Report</a>
                                         </div>
                                     </div>
-                                </div>-->
+                                </div>
                                 <div class="col s12 m6 l3">
                                     <div class="card padding-zero margin-zero">
                                         <div class="row heading-content">
@@ -108,6 +116,44 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div *ngIf="isHR" class="col s12 m6 l3">
+                                    <div class="card padding-zero margin-zero">
+                                        <div class="row heading-content">
+                                            <div class="col s12 card-heading m-top20">
+                                                <span class="card-title">Manager Leave Schedule</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <div class="view-form-info">
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="data-footer">
+                                            <a (click)="SetLeaveReport($event,'managerleave')" class="btn-flat">Manager Leave Schedule Report</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="isHR" class="col s12 m6 l3">
+                                    <div class="card padding-zero margin-zero">
+                                        <div class="row heading-content">
+                                            <div class="col s12 card-heading m-top20">
+                                                <span class="card-title">Employee Leave Balance</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <div class="view-form-info">
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="data-footer">
+                                            <a (click)="SetLeaveReport($event,'empleavebal')" class="btn-flat">Employee Leave Balance Report</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -117,7 +163,7 @@
     </div>
 
 
-      <div *ngIf="selectedReport=='AttendanceDetail'" class="row">
+    <div *ngIf="selectedReport=='AttendanceDetail'" class="row">
         <!-- <a (click)="SetLeaveReport($event,'LeaveSummary')" class="btn waves-effect waves-light">Leave Summary</a>
         <a (click)="SetLeaveReport($event,'LeaveDetail')" class="btn waves-effect waves-light">Leave Detail</a>-->
         <div class="grey-bg-wrapper">
@@ -167,7 +213,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -187,12 +233,12 @@
 
                         <ui-control-item for='StartDate' behaviours='[ {"name":"max","value":"{{attendanceModel.EndDate}}:mm/dd/yyyy:1"}]' depends='["EndDate:changeattrs"]'
                             changeattrs='["max"]'>
-                        </ui-control-item>
+                            </ui-control-item>
 
-                        <ui-control-item for='EndDate' behaviours='[ {"name":"min","value":"{{attendanceModel.StartDate}}:mm/dd/yyyy"}]' depends='["StartDate:changeattrs"]'
-                            changeattrs='["min"]'>
-                        </ui-control-item>
-                    </ui-form>
+                            <ui-control-item for='EndDate' behaviours='[ {"name":"min","value":"{{attendanceModel.StartDate}}:mm/dd/yyyy"}]' depends='["StartDate:changeattrs"]'
+                                changeattrs='["min"]'>
+                                </ui-control-item>
+                                </ui-form>
 
                 </div>
                 <div class="col s12 l6">
@@ -231,7 +277,7 @@
     </div>
 
 
-  <div *ngIf="selectedReport=='siso'" class="row m-bottom0 header m-top20">
+    <div *ngIf="selectedReport=='siso'" class="row m-bottom0 header m-top20">
         <div class="col s12 padding-zero">
             <div class="row m-bottom0 valign-wrapper">
                 <div class="col s12 l6">
@@ -240,12 +286,12 @@
 
                         <ui-control-item for='StartDate' behaviours='[ {"name":"max","value":"{{sisoModel.EndDate}}:mm/dd/yyyy:1"}]' depends='["EndDate:changeattrs"]'
                             changeattrs='["max"]'>
-                        </ui-control-item>
+                            </ui-control-item>
 
-                        <ui-control-item for='EndDate' behaviours='[ {"name":"min","value":"{{sisoModel.StartDate}}:mm/dd/yyyy"}]' depends='["StartDate:changeattrs"]'
-                            changeattrs='["min"]'>
-                        </ui-control-item>
-                    </ui-form>
+                            <ui-control-item for='EndDate' behaviours='[ {"name":"min","value":"{{sisoModel.StartDate}}:mm/dd/yyyy"}]' depends='["StartDate:changeattrs"]'
+                                changeattrs='["min"]'>
+                                </ui-control-item>
+                                </ui-form>
 
                 </div>
                 <div class="col s12 l6">
@@ -283,7 +329,65 @@
 
     </div>
 
+    <div *ngIf="selectedReport=='managerleave'" class="row m-bottom0 header m-top20">
+        <div class="col s12 padding-zero">
+            <div class="row m-bottom0 valign-wrapper">
+                <div class="col s12 l6">
+                    <ui-form #managerleaveReportForm [controlMetas]="managerleaveHub" [model]="managerleaveModel" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
+                        formCss='' controlCss='' columnOrientation='3' inputLabelPosition='top'>
+                        </ui-form>
+                </div>
+                <div class="col s12 l6">
+                    <a (click)="ViewReport($event,managerleaveModel,managerleaveReportForm)" class="waves-effect waves-light btn custom-btn save-as-draft">Get Report</a>
+                </div>
+            </div>
+            <div class="row m-bottom10" *ngIf="showCriteria">
+                <div class="col s12">
+                    <div class="report-details">
+                        <h5>Report Criteria</h5>
+                        <div class="row">
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5>{{managerleaveModel.UserID}}</h5>
+                                    <h6 *ngIf="managerleaveModel.UserID">Employee Code</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div *ngIf="selectedReport=='empleavebal'" class="row m-bottom0 header m-top20">
+        <div class="col s12 padding-zero">
+            <div class="row m-bottom0 valign-wrapper">
+                <div class="col s12 l6">
+                    <ui-form #empleavebalReportForm [controlMetas]="empleavebalHub" [model]="empleavebalModel" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
+                        formCss='' controlCss='' columnOrientation='3' inputLabelPosition='top'>
+                        </ui-form>
+                </div>
+                <div class="col s12 l6">
+                    <a (click)="ViewReport($event,empleavebalModel,empleavebalReportForm)" class="waves-effect waves-light btn custom-btn save-as-draft">Get Report</a>
+                </div>
+            </div>
+            <div class="row m-bottom10" *ngIf="showCriteria">
+                <div class="col s12">
+                    <div class="report-details">
+                        <h5>Report Criteria</h5>
+                        <div class="row">
+                            <div class="col s12 m2 l2 padding-zero">
+                                <div class="view-form-info">
+                                    <h5>{{empleavebalModel.UserID}}</h5>
+                                    <h6 *ngIf="empleavebalModel.UserID">Employee Code</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div *ngIf="selectedReport=='EmployeeDetail'" class="row m-bottom0 header m-top20">
@@ -292,7 +396,7 @@
                 <div class="col s12 l10">
                     <ui-form #empDetailsForm [controlMetas]="empDetailHub" [(model)]="empDetailReportModel" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
                         formCss='view-card' columnOrientation='5' controlCss='view-form-info' inputLabelPosition='top'>
-                    </ui-form>
+                        </ui-form>
                 </div>
                 <div class="col s12 l2">
                     <a (click)="ViewReport($event,empDetailReportModel,empDetailsForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
@@ -362,7 +466,9 @@
                 <div class="col s12 l6">
                     <ui-form #LeaveSummaryForm [controlMetas]="leavesummaryHub" [(model)]="leaveSummary" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
                         formCss='view-card' columnOrientation='3' controlCss='view-form-info' inputLabelPosition='top'>
-                    </ui-form>
+                        <ui-control-item for='Location' depends='["isHR:readonlyValue"]' readonlyValue="[false]">
+                        </ui-control-item>
+                        </ui-form>
                 </div>
                 <div class="col s12 l6">
                     <a (click)="ViewReport($event,leaveSummary,LeaveSummaryForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
@@ -412,7 +518,7 @@
                 <div class="col s12 l10">
                     <ui-form #LeaveTransactionForm [controlMetas]="leavetransHub" [(model)]="leavetrans" [formReadonly]='false' [errorOnlyOnSubmit]='cardSubmitted'
                         formCss='view-card' columnOrientation='5' controlCss='view-form-info' inputLabelPosition='top'>
-                    </ui-form>
+                        </ui-form>
                 </div>
                 <div class="col s12 l2">
                     <a (click)="ViewReport($event,leavetrans,LeaveTransactionForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
@@ -476,12 +582,12 @@
                         formCss='view-card' columnOrientation='4' controlCss='view-form-info' inputLabelPosition='top'>
                         <ui-control-item for='StartDate' behaviours='[ {"name":"max","value":"{{leaveDetails.EndDate}}:mm/dd/yyyy:1"}]' depends='["EndDate:changeattrs"]'
                             changeattrs='["max"]'>
-                        </ui-control-item>
+                            </ui-control-item>
 
-                        <ui-control-item for='EndDate' behaviours='[ {"name":"min","value":"{{leaveDetails.StartDate}}:mm/dd/yyyy"}]' depends='["StartDate:changeattrs"]'
-                            changeattrs='["min"]'>
-                        </ui-control-item>
-                    </ui-form>
+                            <ui-control-item for='EndDate' behaviours='[ {"name":"min","value":"{{leaveDetails.StartDate}}:mm/dd/yyyy"}]' depends='["StartDate:changeattrs"]'
+                                changeattrs='["min"]'>
+                                </ui-control-item>
+                                </ui-form>
                 </div>
                 <div class="col s12 l2">
                     <a (click)="ViewReport($event,leaveDetails,LeaveDetailForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
@@ -525,20 +631,20 @@
                         formCss='view-card' columnOrientation='5' controlCss='view-form-info'>
                         <ui-control-item for='issuestartdate' behaviours='[ {"name":"max","value":"{{helpdesk.issueenddate}}:mm/dd/yyyy:1"}]' depends='["issueenddate:changeattrs"]'
                             changeattrs='["max"]'>
-                        </ui-control-item>
+                            </ui-control-item>
 
-                        <ui-control-item for='issueenddate' behaviours='[ {"name":"min","value":"{{helpdesk.issuestartdate}}:mm/dd/yyyy"}]' depends='["issuestartdate:changeattrs"]'
-                            changeattrs='["min"]'>
-                        </ui-control-item>
+                            <ui-control-item for='issueenddate' behaviours='[ {"name":"min","value":"{{helpdesk.issuestartdate}}:mm/dd/yyyy"}]' depends='["issuestartdate:changeattrs"]'
+                                changeattrs='["min"]'>
+                                </ui-control-item>
 
-                        <ui-control-item for='reportstartdate' behaviours='[ {"name":"max","value":"{{helpdesk.reportenddate}}:mm/dd/yyyy:1"}]' depends='["reportenddate:changeattrs"]'
-                            changeattrs='["max"]'>
-                        </ui-control-item>
+                                <ui-control-item for='reportstartdate' behaviours='[ {"name":"max","value":"{{helpdesk.reportenddate}}:mm/dd/yyyy:1"}]' depends='["reportenddate:changeattrs"]'
+                                    changeattrs='["max"]'>
+                                    </ui-control-item>
 
-                        <ui-control-item for='reportenddate' behaviours='[ {"name":"min","value":"{{helpdesk.reportstartdate}}:mm/dd/yyyy"}]' depends='["reportstartdate:changeattrs"]'
-                            changeattrs='["min"]'>
-                        </ui-control-item>
-                    </ui-form>
+                                    <ui-control-item for='reportenddate' behaviours='[ {"name":"min","value":"{{helpdesk.reportstartdate}}:mm/dd/yyyy"}]' depends='["reportstartdate:changeattrs"]'
+                                        changeattrs='["min"]'>
+                                        </ui-control-item>
+                                        </ui-form>
                 </div>
                 <div class="col s12 l2">
                     <a (click)="ViewReport($event,helpdesk,HelpdeskForm)" class="btn waves-effect waves-light custom-btn save-as-draft">Get Report</a>
@@ -591,14 +697,17 @@
     </div>
 
     <div class="row available-leaves m-bottom0" *ngIf="selectedReport=='Helpdesk'">
-        <div class="col s4 center-align leave-data" *ngIf="showCriteria"><h5>Tickets(Type wise)</h5>
+        <div class="col s4 center-align leave-data" *ngIf="showCriteria">
+            <h5>Tickets(Type wise)</h5>
             <doughnut-chart [data]="typeChartData" [labels]="typeChartlabels" [colors]="typeChartColors"></doughnut-chart>
         </div>
-        <div class="col s4 center-align leave-data" *ngIf="showCriteria"><h5>Issue Status</h5>
+        <div class="col s4 center-align leave-data" *ngIf="showCriteria">
+            <h5>Issue Status</h5>
             <doughnut-chart [data]="statusChartData" [labels]="statusChartlabels" [colors]="statusChartColors"></doughnut-chart>
         </div>
-        <div class="col s4 center-align leave-data" *ngIf="showCriteria"><h5>Ticket Reporting Trend</h5>
-          	<line-bar-chart [data]="lineChartData" [labels]="lineChartLabels" [colors]="lineChartChartColors" [chartType]="'line'"></line-bar-chart>
+        <div class="col s4 center-align leave-data" *ngIf="showCriteria">
+            <h5>Ticket Reporting Trend</h5>
+            <line-bar-chart [data]="lineChartData" [labels]="lineChartLabels" [colors]="lineChartChartColors" [chartType]="'line'"></line-bar-chart>
         </div>
     </div>
 

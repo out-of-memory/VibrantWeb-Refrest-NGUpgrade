@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MaterializeDirective } from "angular2-materialize";
 import { HttpSettings } from "../../servicesFolder/http/http.settings"
 import {
-    AttendanceReportModel, sisoReportModel, EmployeeDetailsReportModel, LeaveSummaryReportModel, LeaveDetailsReportModel,
+    AttendanceReportModel, sisoReportModel, empleavebalReportModel, managerleaveReportModel, EmployeeDetailsReportModel, LeaveSummaryReportModel, LeaveDetailsReportModel,
     LeaveTransactionReportModel, HelpdeskReportModel, HelpDeskStatus
 } from "../../models/ReportsModel"
 import { BasicCellC, BasicGrid } from '../../infrastructure/components/basic-grid';
@@ -30,7 +30,9 @@ export class ViewReportsComponent {
     selectedId: string;
     selectedReport: string;
     attendanceModel: AttendanceReportModel;
-    sisoModel:sisoReportModel;
+    sisoModel: sisoReportModel;
+    empleavebalModel: empleavebalReportModel;
+    managerleaveModel: managerleaveReportModel;
     empDetailReportModel: EmployeeDetailsReportModel;
     leaveSummary: LeaveSummaryReportModel;
     leaveDetails: LeaveDetailsReportModel;
@@ -38,6 +40,8 @@ export class ViewReportsComponent {
     helpdesk: HelpdeskReportModel;
     attendanceHub: any;
     sisoHub: any;
+    managerleaveHub: any;
+    empleavebalHub: any;
     empDetailHub: any;
     leavesummaryHub: any;
     leaveDetailHub: any;
@@ -78,8 +82,13 @@ export class ViewReportsComponent {
                 this.selectedReport = param['id'];
             });
         this.data = this._cacheService.getParams("profile");
-        if (this.data["role"].length != 0 && this.data["role"][0].roleId == 12) {
-            this.isHR = true;
+        if (this.data["role"].length != 0) {
+            for (var i = 0; i < this.data["role"].length; i++) {
+                var role = this.data["role"][i];
+                if (role.roleId == 12 || role.roleId == 24 || role.roleId == 38 || role.roleId == 35 || role.roleId == 27) {
+                    this.isHR = true;
+                }
+            }
         }
         this.InitializeModels();
         this.FillEmpStatusData();
@@ -91,6 +100,10 @@ export class ViewReportsComponent {
         this.attendanceHub = this.attendanceModel["hub"];
         this.sisoModel = new sisoReportModel();
         this.sisoHub = this.sisoModel["hub"];
+        this.empleavebalModel = new empleavebalReportModel();
+        this.empleavebalHub = this.empleavebalModel["hub"];
+         this.managerleaveModel = new managerleaveReportModel();
+        this.managerleaveHub = this.managerleaveModel["hub"];
         this.empDetailReportModel = new EmployeeDetailsReportModel();
         this.empDetailHub = this.empDetailReportModel["hub"];
         this.leaveSummary = new LeaveSummaryReportModel();
@@ -107,12 +120,16 @@ export class ViewReportsComponent {
         this.dropdowncard.push(this.leaveSummary);
         this.dropdowncard.push(this.leaveDetails);
         this.dropdowncard.push(this.leavetrans);
+        this.dropdowncard.push(this.empleavebalModel);
+        this.dropdowncard.push(this.managerleaveModel);
         if (!this.isHR) {
             this.attendanceModel.Employeecode = this.data.id;
-             this.sisoModel.Employeecode = this.data.id;
+            this.sisoModel.Employeecode = this.data.id;
             this.leaveSummary.UserID = this.data.id;
             this.leaveDetails.UserID = this.data.id;
             this.leavetrans.UserID = this.data.id;
+             this.managerleaveModel.UserID = this.data.id;
+              this.empleavebalModel.UserID = this.data.id;
             this.DisableUserIDEdit(this.dropdowncard);
         }
         if (this.isHR) {
@@ -122,6 +139,8 @@ export class ViewReportsComponent {
             this.leaveSummary.UserID = 'All';
             this.leaveDetails.UserID = 'All';
             this.leavetrans.UserID = 'All';
+             this.managerleaveModel.UserID = 'All';
+              this.empleavebalModel.UserID = 'All';
         }
         this.FillHelpDeskData(this.helpdesk);
 
@@ -209,15 +228,22 @@ export class ViewReportsComponent {
         this.leaveSummary = new LeaveSummaryReportModel();
         this.leaveDetails = new LeaveDetailsReportModel();
         this.leavetrans = new LeaveTransactionReportModel();
+        this.managerleaveModel = new managerleaveReportModel();
+        this.empleavebalModel = new empleavebalReportModel();
+
         if (this.isHR) {
             this.leaveSummary.UserID = 'All';
             this.leaveDetails.UserID = 'All';
             this.leavetrans.UserID = 'All';
+             this.managerleaveModel.UserID = 'All';
+              this.empleavebalModel.UserID = 'All';
         }
         else {
             this.leaveSummary.UserID = this.data.id;
             this.leaveDetails.UserID = this.data.id;
             this.leavetrans.UserID = this.data.id;
+              this.managerleaveModel.UserID = this.data.id;
+              this.empleavebalModel.UserID = this.data.id;
         }
     }
 
@@ -232,7 +258,7 @@ export class ViewReportsComponent {
             this.sisoModel.Employeecode = 'All';
         }
         else {
-            this.attendanceModel.Employeecode  = this.data.id;
+            this.attendanceModel.Employeecode = this.data.id;
             this.sisoModel.Employeecode = this.data.id;
         }
     }
@@ -327,7 +353,7 @@ export class ViewReportsComponent {
             var endDate = new Date(model.EndDate.toString()).getTime();
             var startDate = new Date(model.StartDate.toString()).getTime();
             if ((endDate - startDate) < 0) {
-                Materialize.toast("EndDate cannot be greater than StartDate", 3000, 'errorTost');
+                Materialize.toast("EndDate cannot be less than StartDate", 3000, 'errorTost');
                 this.reportData = [];
                 this.cardSubmitted = true;
             }

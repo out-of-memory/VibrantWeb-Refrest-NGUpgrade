@@ -1,5 +1,6 @@
 import { UIProperty, UIClass } from '../infrastructure/decorators/UIMeta'
 import { IUIMetadata } from "../infrastructure/models/IUIMetadata"
+
 @UIClass("AttendanceReportModel", { fetch: {} })
 export class AttendanceReportModel implements IUIMetadata {
     hub: Array<any> = [];
@@ -33,6 +34,29 @@ export class sisoReportModel implements IUIMetadata {
     @UIProperty({ hub: "sisoReportModel", type: "text", label: "Employee Code", placeholder: "", validation: " maxLength:4 c.empCodeForReport", css: "col s12 m6 l4 " })
     Employeecode: string = '';
 }
+
+@UIClass("empleavebalReportModel", { fetch: {} })
+export class empleavebalReportModel implements IUIMetadata {
+    hub: Array<any> = [];
+    constructuor() {
+        this.hub = new Array<any>();
+    }
+
+    @UIProperty({ hub: "empleavebalReportModel", type: "text", label: "Employee Code", placeholder: "", validation: " maxLength:4 c.empCodeForReport", css: "col s12 m6 l4 " })
+    UserID: string = '';
+}
+
+@UIClass("managerleaveReportModel", { fetch: {} })
+export class managerleaveReportModel implements IUIMetadata {
+    hub: Array<any> = [];
+    constructuor() {
+        this.hub = new Array<any>();
+    }
+     @UIProperty({ hub: "managerleaveReportModel", type: "text", label: "Employee Code", placeholder: "", validation: " maxLength:4 c.empCodeForReport", css: "col s12 m6 l4 " })
+    UserID: string = '';
+}
+
+
 
 
 @UIClass("EmployeeDetailsReportModel", { fetch: {} })
