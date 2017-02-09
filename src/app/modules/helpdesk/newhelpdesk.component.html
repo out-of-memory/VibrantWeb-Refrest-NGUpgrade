@@ -20,7 +20,7 @@
                                             <h6 class="active-select">Sub Category</h6>
                             </div>
                             <ui-form #addTicketForm [controlMetas]="helpDeskHub" [model]="helpDeskModel" [formReadonly]='false' [errorOnlyOnSubmit]='formSubmitted' formCss='' controlCss=''>
-                                <ui-control-item for='requiredTill' behaviours='[{"name":"min","value":"Today"}]'></ui-control-item>
+                                <ui-control-item for='requiredTill' behaviours='[{"name":"min","value":"Today"},{"name":"max","value":"{{helpDeskModel.maxRequiredTill}}:mm/dd/yyyy"}]'></ui-control-item>
                             </ui-form>
                             <div class="col s12 m6 row padding-25 padding-zero">
                                 <file-upload [PlaceHolder]='"Upload Image"' [ModuleType]='"helpdesk"' [fileurl]="helpDeskModel.attachedFiles" (validateImage)="showImageModal($event)"
