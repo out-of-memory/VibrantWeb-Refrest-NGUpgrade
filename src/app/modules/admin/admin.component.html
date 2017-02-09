@@ -1,7 +1,7 @@
 <div class="tab-container" id="leave-maintainence">
                     <div class="row">  
                         <div class="col s12 tab-content padding-zero">
-                            <form>
+                            <form #myForm="ngForm" novalidate="novalidate">
                                 <div class="row m-bottom0 padding-20">
                                     <div class="col s3 m3 l3 hide-on-med-and-down padding-zero">
                                         <div class="help-content">
@@ -42,11 +42,11 @@
                                             <div class=" col s8 m6 l5 show-hide padding-zero" trigger = "0" *ngIf='employee!=null'>
                                                 <div class="custom-input-field m-top0 col s10 m8 l6 padding-zero">
                                                 <h6 class="m-bottom0">Select Module Type</h6>
-                                                    <select materialize="material_select" id="module-select">
-                                                        <option value="select">Select</option>
-                                                        <option value="admin-leave-app" >Admin Leave Application</option>
-                                                        <option value="leave-transact" >Leave Transaction</option>
-                                                        <option value="bulk">Bulk Enteries</option>
+                                                    <select materialize="material_select" id="module-select" (change)="onSelect($event.target.value)">
+                                                        <option value="-1">Select</option>
+                                                        <option value="0" >Admin Leave Application</option>
+                                                        <option value="1" >Leave Transaction</option>
+                                                        <option value="2">Bulk Enteries</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -69,130 +69,139 @@
                                                         <div class="col s12 right-align padding15">
                                                             <h6>{{employee.currentDesignation}}</h6>
                                                             <h6><span class="location" *ngIf="employee.seatingLocation"><i class="fa fa-map-marker"></i>{{employee.seatingLocation}}, </span>
-                                       {{employee.olText}}</h6>
+                                                            {{employee.olText}}</h6>
+                                                            <h6>{{employee.email}}</h6>
+                                                            <h6 *ngIf='employee.residenceNumber != 0'>
+                                                                t: {{employee.residenceNumber}}
+                                                            </h6>
                                                             <h6>
-                                            {{employee.email}}
-                                        </h6>
-                                        <h6 *ngIf='employee.residenceNumber != 0'>
-                                            t: {{employee.residenceNumber}}
-                                        </h6>
-                                        <h6>
-                                            m: {{employee.mobile}}
-                                        </h6>
+                                                                m: {{employee.mobile}}
+                                                            </h6>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div> 
                                         <div class="col s12 m12 l6 offset-l2 padding-zero">
-                                            <div class="reimbursement-wrapper approvals-data-blue admin-leave-app box">
+
+                                            <div *ngIf="selectedModule == 'select'"></div>
+
+
+                                            <div class="reimbursement-wrapper approvals-data-blue admin-leave-app box" *ngIf="selectedModule == '0'">
                                                 <div class="row m-bottom20 admin-leave-apps">
                                                     <div class="admin-form col s12 m12 m-top10">
                                                         <div class="col s12 m6 l4">
                                                             <div class="custom-input-field m-top10 fr-to-date m-bottom0 choose-date">
-                                                                <h6>From Date</h6>
-                                                                <input type="date" class="datepicker" ><i class="fa fa-calendar" aria-hidden="true"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col s12 m6 l4">
-                                                            <div class="custom-input-field m-top10 fr-to-date m-bottom0 choose-date">
-                                                                <h6>To Date</h6>
-                                                                <input type="date" class="datepicker" ><i class="fa fa-calendar" aria-hidden="true"></i>
+                                                                <h6>For Date</h6>
+                                                                    <input [(ngModel)]="adminModel.fromDate" materialize="pickadate" type="date" name="fromdate" required="required" #fromdate="ngModel"
+                                                                            [ngClass]="{borderbottom: !fromdate.valid && formSubmit}">
+                                                                    <div *ngIf="formSubmit && !fromdate.valid" class="alert alert-danger">For Date is required </div>
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m12 l12 m-top3">
                                                             <div class="custom-input-field admin-leave m-top10">
                                                                 <h6>Comments</h6>
-                                                                <input type="text" class="validate left">
+                                                                <input [(ngModel)]="adminModel.comments" type="text" class="validate left" name="comments">
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m12 l12 m-top20 m-bottom15">
                                                             <div class="row">
                                                                 <div class="col s12 right-align padding-zero">
                                                                     <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
-                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit">Submit</a>
+                                                                    <!--<button class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" [disabled]="!myForm.form.valid">Submit</button>-->
+                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" (click)="Submit($event, myForm)">Submit</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="reimbursement-wrapper approvals-data-blue leave-transact box">
+
+                                            <div class="reimbursement-wrapper approvals-data-blue leave-transact box" *ngIf="selectedModule == '1'">
                                                 <div class="row m-bottom20 admin-leave-apps">
                                                     <div class="admin-form col s12 m12 m-top10">
                                                         <div class="col s12 m6 l4">
                                                             <div class="custom-input-field m-top10 fr-to-date m-bottom0 choose-date">
                                                                 <h6>Date</h6>
-                                                                <input type="date" class="datepicker" ><i class="fa fa-calendar" aria-hidden="true"></i>
+                                                                <input [(ngModel)]="adminModel.fromDate" materialize="pickadate" type="date" name="fromdate" required="required" #fromdate="ngModel"
+                                                                            [ngClass]="{borderbottom: !fromdate.valid && formSubmit}">
+                                                                    <div *ngIf="formSubmit && !fromdate.valid" class="alert alert-danger">For Date is required </div>
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m6 l3">
                                                             <div class="custom-input-field admin-leave m-top10">
                                                                 <h6>Quantity</h6>
-                                                                <input type="text" class="validate left">
+                                                                <input [(ngModel)]="adminModel.quantity" type="text" name="quantity" value="0" required="required" #quantity="ngModel"
+                                                                            [ngClass]="{borderbottom: !quantity.valid && formSubmit}">
+                                                                    <div *ngIf="formSubmit && !quantity.valid" class="alert alert-danger">Quantity is required </div>
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m6 l4">
                                                             <div class="custom-input-field m-top10">
                                                             <h6>Leave Type</h6>
-                                                                <select materialize="material_select" id="module-select">
+                                                                <select [(ngModel)]="adminModel.subType" materialize="material_select" id="module-select" name="subType">
                                                                     <option value="0" selected>Sign In Sign Out</option>
                                                                     <option value="1" >Leave</option>
+                                                                    <option value="2" >Comp Off</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m12 l12 m-top3">
                                                             <div class="custom-input-field admin-leave m-top10">
                                                                 <h6>Comments</h6>
-                                                                <input type="text" class="validate left">
+                                                                <input [(ngModel)]="adminModel.comments" type="text" class="validate left" name="comments">
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m12 l12 m-top20 m-bottom15">
                                                             <div class="row">
                                                                 <div class="col s12 right-align padding-zero">
                                                                     <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
-                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit">Submit</a>
+                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" (click)="Submit($event, myForm)">Submit</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="reimbursement-wrapper approvals-data-blue bulk box">
+
+                                            <div class="reimbursement-wrapper approvals-data-blue bulk box" *ngIf="selectedModule == '2'">
                                                 <div class="row m-bottom20 admin-leave-apps">
                                                     <div class="admin-form col s12 m12 m-top10">
                                                         <div class="col s12 m6 l4">
                                                             <div class="custom-input-field m-top10 fr-to-date m-bottom0  choose-date">
-                                                                <h6>From Date</h6>
-                                                                <input type="date" class="datepicker"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                                                <h6>For Date</h6>
+                                                                <input [(ngModel)]="adminModel.fromDate" materialize="pickadate" type="date" name="fromdate" required="required" #fromdate="ngModel"
+                                                                            [ngClass]="{borderbottom: !fromdate.valid && formSubmit}">
+                                                                    <div *ngIf="formSubmit && !fromdate.valid" class="alert alert-danger">For Date is required </div>
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m6 l4">
                                                             <div class="custom-input-field m-top10 fr-to-date m-bottom0 choose-date">
                                                                 <h6>To Date</h6>
-                                                                <input type="date" class="datepicker"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                                                <input [(ngModel)]="adminModel.toDate" materialize="pickadate" type="date" class="datepicker" name="todate">
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m6 l4 m-top3">
                                                             <div class="custom-input-field m-top10">
                                                             <h6>Leave Type</h6>
-                                                                <select materialize="material_select" id="module-select">
+                                                                 <select [(ngModel)]="adminModel.subType" materialize="material_select" id="module-select" name="subType">
                                                                     <option value="0" selected>Sign In Sign Out</option>
                                                                     <option value="1" >Leave</option>
+                                                                    <option value="2" >Comp Off</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m12 l12">
                                                             <div class="custom-input-field admin-leave m-top10">
                                                                 <h6>Comments</h6>
-                                                                <input type="text" class="validate left">
+                                                                <input [(ngModel)]="adminModel.comments" type="text" class="validate left" name="comments">
                                                             </div>
                                                         </div>
                                                         <div class="col s12 m12 l12 m-top20 m-bottom15">
                                                             <div class="row">
                                                                 <div class="col s12 right-align padding-zero">
                                                                     <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
-                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" >Submit</a>
+                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" (click)="Submit($event, myForm)">Submit</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -251,8 +260,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>  
-                             
+                             </form>                             
                         </div>
                     </div>
                 </div>

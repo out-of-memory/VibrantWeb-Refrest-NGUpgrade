@@ -11,7 +11,7 @@ export class AdminViewModel implements IUIMetadata {
     test(n: number) { }
 
     @UIProperty({ hub: "AdminViewModel", type: "view", label: "EmployeeID", placeholder: "", validation: "" })
-    employeeID: string;
+    employeeID: number;
 
     @UIProperty({ hub: "AdminViewModel", type: "date", label: "From", placeholder: "", validation: "required" })
     fromDate: number;
@@ -27,6 +27,10 @@ export class AdminViewModel implements IUIMetadata {
 
     @UIProperty({ hub: "AdminViewModel", type: "view", label: "Task Type", placeholder: "", validation: "" })
     taskType: number;
-
     
+    @UIProperty({hub : "AdminViewModel", type: "text", lable: "Quantity", placeholder:"",validation: "required"})
+    quantity : number;
+
+    @UIProperty({hub : "AdminViewModel", type: "view", lable: "Leave Type", placeholder:"",validation: ""})
+    subType : number;   
 }
