@@ -36,6 +36,7 @@ export class HelpDeskModel implements IUIMetadata {
     assignedTo = 0;
     IssueDate:any="";
     IsOtherDepartmant:boolean=false;
+    maxRequiredTill : any = new Date();
 }
 
 @UIClass("HelpDeskCommentModel", { fetch: {} })

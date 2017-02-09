@@ -47,6 +47,12 @@ export class NewHelpDeskComponent {
 
     constructor(private _httpService: HttpService, private _autoMapperService: AutoMapperService, private _cacheService: CacheService) {
         this.populateNewTicket();
+        var maxRequiredTill = new Date();
+        maxRequiredTill.setMonth(maxRequiredTill.getMonth() + 3);
+        var dd = maxRequiredTill.getDate();
+        var mm =  maxRequiredTill.getMonth() + 1;
+        var yyyy =  maxRequiredTill.getFullYear();
+        this.helpDeskModel.maxRequiredTill = mm + '/' + dd + '/' + yyyy;
     }
 
     getCurrentDateTime() {
