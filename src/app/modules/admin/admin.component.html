@@ -1,0 +1,266 @@
+<div class="tab-container" id="leave-maintainence">
+                    <div class="row">  
+                        <div class="col s12 tab-content padding-zero">
+                            <form #myForm="ngForm" novalidate="novalidate">
+                                <div class="row m-bottom0 padding-20">
+                                    <div class="col s3 m3 l3 hide-on-med-and-down padding-zero">
+                                        <div class="help-content">
+                                            <div class="note-help-icon">
+                                                <img src="img/note-help.png" alt="Note-help-icon" class="responsive-img">
+                                            </div>
+                                            <h5 class="help-content-head">Information</h5>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                            <ul>
+                                                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                    </li>
+                                                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                    </li>
+                                                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                    </li>
+                                                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                    </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m12 l9 p-left20 p-right0 padding-left0">
+                                        <div class="row margin-zero" >
+                                            <div class="input-field col s12 m6 l4 admin-search-employee padding-zero m-top0">
+                                                <input id="input-text" type="text" class="validate left" [(ngModel)]="employeeCode" (ngModelChange)='resetSearch($event)' name='code'>
+                                                <label for="input-text">Search by Emp code</label>
+                                                <a  id="filter1" class="btn waves-effect waves-light search-emp-btn" (click)='Search()'><i class="material-icons">search</i></a>
+                                            </div>
+                                            <div class="col s6 m6 l2 custom-input-field show-hide center-align" trigger = "0" *ngIf='employee!=null'>
+                                                <h5 class="leaves-avail m-top0">{{employee.leavesRemaining}}</h5>
+                                                <h6>Available Leaves</h6>
+                                            </div>
+                                            <div class=" col s8 m6 l5 show-hide padding-zero" trigger = "0" *ngIf='employee!=null'>
+                                                <div class="custom-input-field m-top0 col s10 m8 l6 padding-zero">
+                                                <h6 class="m-bottom0">Select Module Type</h6>
+                                                    <select materialize="material_select" id="module-select" (change)="onSelect($event.target.value)">
+                                                        <option value="-1">Select</option>
+                                                        <option value="0" >Admin Leave Application</option>
+                                                        <option value="1" >Leave Transaction</option>
+                                                        <option value="2">Bulk Enteries</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m12 l9 p-left20 p-right0 padding-left0" *ngIf='employee!=null'>
+                                        <div class="col s12 m8 l4 show-hide padding-zero">
+                                            <div class="dashboard-data-container employee-search">
+                                                <div class="card white emp-dashboard-data margin-zero">
+                                                    <div class="row m-bottom0">
+                                                        <div class="col s12 blue-bg-section padding15 emp-wrapper right-align">
+                                                            <div>
+                                                                <h5>{{employee.id}}</h5>
+                                                                <h5><a href="employee-details.html">{{employee.firstName}} {{employee.middleName}} {{employee.lastName}}</a></h5>
+                                                            </div>
+                                                            <div class="emp-img">
+                                                                <a href="employee-details.html"><img src="{{'/images/'+employee.imagePath+''}}" alt="" class="circle responsive-img"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 right-align padding15">
+                                                            <h6>{{employee.currentDesignation}}</h6>
+                                                            <h6><span class="location" *ngIf="employee.seatingLocation"><i class="fa fa-map-marker"></i>{{employee.seatingLocation}}, </span>
+                                                            {{employee.olText}}</h6>
+                                                            <h6>{{employee.email}}</h6>
+                                                            <h6 *ngIf='employee.residenceNumber != 0'>
+                                                                t: {{employee.residenceNumber}}
+                                                            </h6>
+                                                            <h6>
+                                                                m: {{employee.mobile}}
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="col s12 m12 l6 offset-l2 padding-zero">
+
+                                            <div *ngIf="selectedModule == 'select'"></div>
+
+
+                                            <div class="reimbursement-wrapper approvals-data-blue admin-leave-app box" *ngIf="selectedModule == '0'">
+                                                <div class="row m-bottom20 admin-leave-apps">
+                                                    <div class="admin-form col s12 m12 m-top10">
+                                                        <div class="col s12 m6 l4">
+                                                            <div class="custom-input-field m-top10 fr-to-date m-bottom0 choose-date">
+                                                                <h6>For Date</h6>
+                                                                    <input [(ngModel)]="adminModel.fromDate" materialize="pickadate" type="date" name="fromdate" required="required" #fromdate="ngModel"
+                                                                            [ngClass]="{borderbottom: !fromdate.valid && formSubmit}">
+                                                                    <div *ngIf="formSubmit && !fromdate.valid" class="alert alert-danger">For Date is required </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m12 l12 m-top3">
+                                                            <div class="custom-input-field admin-leave m-top10">
+                                                                <h6>Comments</h6>
+                                                                <input [(ngModel)]="adminModel.comments" type="text" class="validate left" name="comments">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m12 l12 m-top20 m-bottom15">
+                                                            <div class="row">
+                                                                <div class="col s12 right-align padding-zero">
+                                                                    <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
+                                                                    <!--<button class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" [disabled]="!myForm.form.valid">Submit</button>-->
+                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" (click)="Submit($event, myForm)">Submit</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="reimbursement-wrapper approvals-data-blue leave-transact box" *ngIf="selectedModule == '1'">
+                                                <div class="row m-bottom20 admin-leave-apps">
+                                                    <div class="admin-form col s12 m12 m-top10">
+                                                        <div class="col s12 m6 l4">
+                                                            <div class="custom-input-field m-top10 fr-to-date m-bottom0 choose-date">
+                                                                <h6>Date</h6>
+                                                                <input [(ngModel)]="adminModel.fromDate" materialize="pickadate" type="date" name="fromdate" required="required" #fromdate="ngModel"
+                                                                            [ngClass]="{borderbottom: !fromdate.valid && formSubmit}">
+                                                                    <div *ngIf="formSubmit && !fromdate.valid" class="alert alert-danger">For Date is required </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m6 l3">
+                                                            <div class="custom-input-field admin-leave m-top10">
+                                                                <h6>Quantity</h6>
+                                                                <input [(ngModel)]="adminModel.quantity" type="text" name="quantity" value="0" required="required" #quantity="ngModel"
+                                                                            [ngClass]="{borderbottom: !quantity.valid && formSubmit}">
+                                                                    <div *ngIf="formSubmit && !quantity.valid" class="alert alert-danger">Quantity is required </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m6 l4">
+                                                            <div class="custom-input-field m-top10">
+                                                            <h6>Leave Type</h6>
+                                                                <select [(ngModel)]="adminModel.subType" materialize="material_select" id="module-select" name="subType">
+                                                                    <option value="0" selected>Sign In Sign Out</option>
+                                                                    <option value="1" >Leave</option>
+                                                                    <option value="2" >Comp Off</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m12 l12 m-top3">
+                                                            <div class="custom-input-field admin-leave m-top10">
+                                                                <h6>Comments</h6>
+                                                                <input [(ngModel)]="adminModel.comments" type="text" class="validate left" name="comments">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m12 l12 m-top20 m-bottom15">
+                                                            <div class="row">
+                                                                <div class="col s12 right-align padding-zero">
+                                                                    <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
+                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" (click)="Submit($event, myForm)">Submit</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="reimbursement-wrapper approvals-data-blue bulk box" *ngIf="selectedModule == '2'">
+                                                <div class="row m-bottom20 admin-leave-apps">
+                                                    <div class="admin-form col s12 m12 m-top10">
+                                                        <div class="col s12 m6 l4">
+                                                            <div class="custom-input-field m-top10 fr-to-date m-bottom0  choose-date">
+                                                                <h6>For Date</h6>
+                                                                <input [(ngModel)]="adminModel.fromDate" materialize="pickadate" type="date" name="fromdate" required="required" #fromdate="ngModel"
+                                                                            [ngClass]="{borderbottom: !fromdate.valid && formSubmit}">
+                                                                    <div *ngIf="formSubmit && !fromdate.valid" class="alert alert-danger">For Date is required </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m6 l4">
+                                                            <div class="custom-input-field m-top10 fr-to-date m-bottom0 choose-date">
+                                                                <h6>To Date</h6>
+                                                                <input [(ngModel)]="adminModel.toDate" materialize="pickadate" type="date" class="datepicker" name="todate">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m6 l4 m-top3">
+                                                            <div class="custom-input-field m-top10">
+                                                            <h6>Leave Type</h6>
+                                                                 <select [(ngModel)]="adminModel.subType" materialize="material_select" id="module-select" name="subType">
+                                                                    <option value="0" selected>Sign In Sign Out</option>
+                                                                    <option value="1" >Leave</option>
+                                                                    <option value="2" >Comp Off</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m12 l12">
+                                                            <div class="custom-input-field admin-leave m-top10">
+                                                                <h6>Comments</h6>
+                                                                <input [(ngModel)]="adminModel.comments" type="text" class="validate left" name="comments">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m12 l12 m-top20 m-bottom15">
+                                                            <div class="row">
+                                                                <div class="col s12 right-align padding-zero">
+                                                                    <a class="waves-effect waves-light btn custom-btn cancel" title="Cancel">Cancel</a>
+                                                                    <a class="waves-effect waves-light btn custom-btn save-as-draft" title="Submit" (click)="Submit($event, myForm)">Submit</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m12 l9 m-top20 p-left20 p-right0 padding-left0" id="admin-leave-application">
+                                        <div class="reimbursement-wrapper approvals-data-blue">
+                                            <div class="row m-bottom0 header hide-on-med-and-down">
+                                                <div class="col s12 m2">
+                                                    <h5 class="title">From Date</h5>
+                                                </div>
+                                                <div class="col s12 m2">
+                                                    <h5 class="title">To Date</h5>
+                                                </div>
+                                                <div class="col s12 m2">
+                                                    <h5 class="title">Leave Type</h5>
+                                                </div>
+                                                <div class="col s12 m2">
+                                                    <h5 class="title">Quantity</h5>
+                                                </div>
+                                                <div class="col s12 m3">
+                                                    <h5 class="title">Narrations</h5>
+                                                </div>
+                                            </div>
+                                            <div class="approvals">
+                                                <div class="approvals-wrapper">
+                                                    <div class="row m-bottom0 valign-wrapper">
+                                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">From Date</span><div class="details-data">10/8/2016</div></div>
+                                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">To Date</span><div class="details-data">10/8/2016</div></div>
+                                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Leave Type</span><div class="details-data">Na</div></div>
+                                                        <div class="col s12 m6 l2"><span class="expense-label hide-on-large-only">Quantity</span><div class="details-data">Na</div></div>
+                                                        <div class="col s12 m6 l3"><span class="expense-label hide-on-large-only">Change Request</span><div class="details-data">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                                        Lorem Ipsum is simply dummy text of the printing and typesetting</div>
+                                                        </div>
+                                                        <div class="col s12 m6 l1"><span class="expense-label hide-on-large-only">Delete</span><div class="details-data right-align"><a href="#" class="expense-icon"><i class="fa fa-trash remove" aria-hidden="true" title="Remove"></i></a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-top20">
+                                            <div class="col s12 search-result-align">
+                                                <ul class="pagination margin-zero">
+                                                    <li class="disabled"><a href="#!"><i class="material-icons" title="Previous">chevron_left</i></a></li>
+                                                    <li class="active"><a href="#!">1</a></li>
+                                                    <li class="waves-effect"><a href="#!">2</a></li>
+                                                    <li class="waves-effect"><a href="#!">3</a></li>
+                                                    <li class="waves-effect"><a href="#!">4</a></li>
+                                                    <li class="waves-effect"><a href="#!">5</a></li>
+                                                    <li class="waves-effect"><a href="#!"><i class="material-icons" title="Next">chevron_right</i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             </form>                             
+                        </div>
+                    </div>
+                </div>

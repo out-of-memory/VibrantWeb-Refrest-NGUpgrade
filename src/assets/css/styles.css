@@ -4459,6 +4459,7 @@ input.borderbottom {
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 0 #2d81af;
 }
 
+
 /*Footer*/
 #browsers ul{
   display: inline-flex;
@@ -4609,3 +4610,64 @@ input.borderbottom {
         .promo-icon.fa-empire {
             font-size: 16px;
         }
+
+/*leave maintainebce*/
+.form-maintainence{
+  padding: 12px;
+}
+
+.admin-leave input {
+    display: inline-block;
+    width: 100%;
+    height: 2.0rem;
+    margin-bottom: 5px;
+}
+.admin-leave-apps{
+  background-color: #fff;
+  padding-top: 10px;
+}
+.admin-card{
+    border: 1px solid #ddd;
+    border-top: 2px solid #2d81af;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+    padding: 10px 10px 10px 0;
+    background-color: #fff;
+}
+.admin-search-employee input {
+    display: inline-block;
+    width: 80%;
+    height: 2.5rem;
+    margin-bottom: 5px;
+}
+.admin-search-employee .btn, .admin-search-employee .btn-large {
+    padding: 0 16px;
+    background-color: #2d81af;
+}
+.fr-to-date.choose-date input[type=date]{
+  width: 82%;
+}
+.show-hide .dashboard-data-container {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+    -webkit-column-gap: 25px;
+    -moz-column-gap: 25px;
+    column-gap: 0;
+    padding: 0;
+    font-family: 'Lato-Regular';
+}
+.p-right0{
+	padding-right:0px !important;
+}
+.m-top0{
+	margin-top:0px !important;
+}
+.m-top3{
+  margin-top: 3px;
+}
+@media only screen and (max-width: 768px){
+#leave-maintainence .padding-left0 {
+    padding-left: 0px!important;
+  }
+}
+
