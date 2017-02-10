@@ -37,7 +37,7 @@ import { LocationserviceService } from './servicesFolder/Enablelocation/location
 import { TravelModule } from './modules/travel/travel.module';
 import { AuthGuard } from './servicesFolder/AuthGuard.service';
 import { AppraisalsModule } from './modules/appraisals/appraisals.module';
-
+import { AdminModule } from './modules/admin/admin.module'
 
 @NgModule({
   declarations: [
@@ -65,7 +65,8 @@ import { AppraisalsModule } from './modules/appraisals/appraisals.module';
     MaintainenceModule,
     EmployeeSearchModule,
     EnablelocationModule,
-    TravelModule
+    TravelModule,
+    AdminModule
   ],
   providers: [CacheService, { provide: LocationStrategy, useClass: HashLocationStrategy },
     HttpService, MenuService, ExpenseService, EmployeeService, UserService, LocationserviceService, AuthGuard],
