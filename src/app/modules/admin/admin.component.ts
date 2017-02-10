@@ -85,19 +85,18 @@ export class AdminComponent {
     let url = HttpSettings.apiBaseUrl + "admin/task/"+ this.selectedModule;          
 
     this._httpService.post(url, data).subscribe(data => {       
-        if (data.isError == true) {
-          Materialize.toast(data.message, 4000, 'errorTost');
-        }
-        else 
-        {
+       
           Materialize.toast(data.message , 3000, 'successTost');
-        }
+        
         },error => {console.log(error)});
         
         
         this.adminModel = new AdminViewModel();        
         this.adminModel.subType = this.selectedModule;  
-        this.Search();  
+        this.Search();
+
+
+        
     }
     
     performAdminAction(form:any){}
